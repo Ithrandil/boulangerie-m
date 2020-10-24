@@ -3,6 +3,8 @@ export interface Product {
   description: string;
   unit: ProductUnit;
   price: number;
+  available: boolean;
+  shortDelivery: boolean;
 }
 
 export enum ProductUnit {
