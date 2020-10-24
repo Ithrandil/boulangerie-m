@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "boulangerie-m": {
+      "hosting": {
+        "boulangerie-m": [
+          "boulangerie-m"
+        ]
+      }
+    }
+  }
+}
