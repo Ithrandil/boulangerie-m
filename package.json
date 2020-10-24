@@ -48,10 +48,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": [
-        "ng lint",
-        "lint-staged"
-      ]
+      "pre-commit": "lint-staged && ng lint",
+      "pre-push": "ng build --aot true"
     }
   },
   "lint-staged": {
