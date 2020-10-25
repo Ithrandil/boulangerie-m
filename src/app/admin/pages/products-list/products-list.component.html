@@ -1,32 +1,37 @@
-<p>products-list works!</p>
-{{ productList$ | async | json }}
-<div *ngFor="let product of productList$ | async">
-  <mat-card>
-    <mat-card-title>{{ product.name }}</mat-card-title>
-    <mat-card-subtitle *ngIf="product.description">{{
-      product.description
-    }}</mat-card-subtitle>
-    <mat-card-content
-      >Prix: {{ product.price }} € / {{ product.unit }}</mat-card-content
+<div class="container-fluid">
+  <div class="row center-xs center-sm center-md center-lg">
+    <h2 class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">Produits</h2>
+  </div>
+  <div class="row">
+    <div
+      class="productCard col-12 col-xs-12 col-sm-6 col-md-6 col-lg-4"
+      *ngFor="let product of productList$ | async"
     >
-    <mat-card-actions>
-      <mat-slide-toggle
-        (change)="updateProductAvailability(product.productId, $event)"
-        [checked]="product.available"
-        labelPosition="before"
-        >Visible
-      </mat-slide-toggle>
-      <mat-slide-toggle
-        (change)="updateProductAvailability(product.productId, $event)"
-        [checked]="product.shortDelivery"
-        labelPosition="before"
-        >Livraison courte</mat-slide-toggle
-      >
-    </mat-card-actions>
-  </mat-card>
+      <mat-card>
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card-subtitle *ngIf="product.description">{{
+          product.description
+        }}</mat-card-subtitle>
+        <mat-card-content
+          >Prix: {{ product.price }} € / {{ product.unit }}</mat-card-content
+        >
+        <mat-card-content class="toggleContainer">
+          <mat-slide-toggle
+            (change)="updateProductAvailability(product.productId, $event)"
+            [checked]="product.available"
+            labelPosition="before"
+            color="primary"
+            >Visible
+          </mat-slide-toggle>
+          <mat-slide-toggle
+            (change)="updateProductShortDelivery(product.productId, $event)"
+            [checked]="product.shortDelivery"
+            labelPosition="before"
+            color="primary"
+            >Livraison courte</mat-slide-toggle
+          >
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>
-<!-- Page de gestion des produits :
-L’ensemble des produits de la boulangerie seront listés.
-toggle afficher ou non comme étant disponible à la commande.
-toggle pas disponibles pour les commandes courtes (livraison 0-24h)
- -->

@@ -1,0 +1,13 @@
+.productCard {
+  margin-top: 1rem;
+}
+
+mat-card {
+  min-height: 12rem;
+}
+.toggleContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+}
