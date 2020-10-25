@@ -1,7 +1,7 @@
 export interface Product {
-  productId?: string;
+  productId: string;
   name: string;
-  description?: string;
+  description: string;
   unit: ProductUnit;
   price: number;
   available: boolean;
