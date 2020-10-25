@@ -2,9 +2,14 @@
 
 html,
 body {
+  font-size: 10px;
   height: 100%;
 }
 body {
+  display: flex;
+  flex: 1;
+  width: 100vw;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #ecf0f1;
 }
