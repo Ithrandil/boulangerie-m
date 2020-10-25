@@ -10,10 +10,10 @@ import { OrderService } from './../../services/order.service';
   styleUrls: ['./order-form.component.scss'],
 })
 export class OrderFormComponent implements OnInit {
-  public productList: Observable<Product[]>;
+  public productList$: Observable<Product[]>;
 
   constructor(private orderService: OrderService) {
-    this.productList = this.orderService.getAllAvailableItems();
+    this.productList$ = this.orderService.getAllAvailableItems();
   }
 
   ngOnInit(): void {}

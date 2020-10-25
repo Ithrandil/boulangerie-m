@@ -1,6 +1,7 @@
 export interface Product {
+  productId?: string;
   name: string;
-  description: string;
+  description?: string;
   unit: ProductUnit;
   price: number;
   available: boolean;
@@ -8,6 +9,6 @@ export interface Product {
 }
 
 export enum ProductUnit {
-  KG = 'KG',
-  UNIT = 'UNIT',
+  KG = 'kilo',
+  UNIT = 'unité',
 }

@@ -1,1 +1,32 @@
 <p>products-list works!</p>
+{{ productList$ | async | json }}
+<div *ngFor="let product of productList$ | async">
+  <mat-card>
+    <mat-card-title>{{ product.name }}</mat-card-title>
+    <mat-card-subtitle *ngIf="product.description">{{
+      product.description
+    }}</mat-card-subtitle>
+    <mat-card-content
+      >Prix: {{ product.price }} € / {{ product.unit }}</mat-card-content
+    >
+    <mat-card-actions>
+      <mat-slide-toggle
+        (change)="updateProductAvailability(product.productId, $event)"
+        [checked]="product.available"
+        labelPosition="before"
+        >Visible
+      </mat-slide-toggle>
+      <mat-slide-toggle
+        (change)="updateProductAvailability(product.productId, $event)"
+        [checked]="product.shortDelivery"
+        labelPosition="before"
+        >Livraison courte</mat-slide-toggle
+      >
+    </mat-card-actions>
+  </mat-card>
+</div>
+<!-- Page de gestion des produits :
+L’ensemble des produits de la boulangerie seront listés.
+toggle afficher ou non comme étant disponible à la commande.
+toggle pas disponibles pour les commandes courtes (livraison 0-24h)
+ -->
