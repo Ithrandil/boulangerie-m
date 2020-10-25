@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { OrderFormComponent } from './order/order-form/order-form.component';
+import { OrderFormComponent } from './order/pages/order-form/order-form.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'order', pathMatch: 'full' },
-  { path: 'order', component: OrderFormComponent },
+  { path: '', redirectTo: 'commande', pathMatch: 'full' },
+  { path: 'commande', component: OrderFormComponent },
   // { path: '404', component: PageNotFoundPage },
   // { path: '**', redirectTo: '404' },
 ];
