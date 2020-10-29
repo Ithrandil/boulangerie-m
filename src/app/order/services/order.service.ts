@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { Order } from '@models/order';
 import { Product } from '@models/product';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,5 +16,9 @@ export class OrderService {
         ref.where('available', '==', true)
       )
       .valueChanges();
+  }
+
+  addOrder(order: Order): Observable<DocumentReference> {
+    return from(this.firestore.collection<Order>('orders').add(order));
   }
 }
