@@ -8,10 +8,12 @@
       *ngFor="let product of productList$ | async"
     >
       <mat-card>
-        <mat-card-title>{{ product.name }}</mat-card-title>
-        <mat-card-subtitle *ngIf="product.description">{{
-          product.description
-        }}</mat-card-subtitle>
+        <mat-expansion-panel [disabled]="!product.description">
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ product.name }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>{{ product.description }}</p>
+        </mat-expansion-panel>
         <mat-card-content
           >Prix: {{ product.price }} € / {{ product.unit }}</mat-card-content
         >
