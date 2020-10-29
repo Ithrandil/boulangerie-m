@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --color-app-brown: #af762f;
+  --color-app-light-brown: #f5cf8e;
+  --color-app-light-grey: #f9f7f8;
+  --color-app-grey: #dfd9dd;
+  --color-app-brown-grey: #bea28c;
+}
 
 html,
 body {
@@ -11,5 +18,12 @@ body {
   width: 100vw;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #ecf0f1;
+  background-color: var(--color-app-grey);
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: var(--color-app-light-brown);
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: var(--color-app-brown);
 }

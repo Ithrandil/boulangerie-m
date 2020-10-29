@@ -20,14 +20,12 @@
             (change)="updateProductAvailability(product.productId, $event)"
             [checked]="product.available"
             labelPosition="before"
-            color="primary"
             >Visible
           </mat-slide-toggle>
           <mat-slide-toggle
             (change)="updateProductShortDelivery(product.productId, $event)"
             [checked]="product.shortDelivery"
             labelPosition="before"
-            color="primary"
             >Livraison courte</mat-slide-toggle
           >
         </mat-card-content>
