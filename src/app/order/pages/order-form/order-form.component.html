@@ -77,7 +77,8 @@
   <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
     <mat-checkbox
       fxFlexOffset="7"
-      (change)="hasDifferentDeliveryAddress($event)"
+      (change)="hasDifferentDeliveryAddress($event.checked)"
+      formControlName="hasDifferentDeliveryAddress"
       >Adresse de livraison différente</mat-checkbox
     >
   </div>

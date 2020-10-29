@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Product } from '@models/product';
 import { Observable } from 'rxjs';
@@ -23,11 +22,18 @@ export class OrderFormComponent {
       zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
       city: ['', [Validators.required]],
     }),
-    deliveryAddress: this.fb.group({
-      street: ['', [Validators.required]],
-      zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
-      city: ['', [Validators.required]],
-    }),
+    deliveryAddress: this.fb.group(
+      {
+        street: ['', [Validators.required]],
+        zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
+        city: ['', [Validators.required]],
+      },
+      { disabled: !this.displayDeliveryForm }
+    ),
+    hasDifferentDeliveryAddress: [
+      this.displayDeliveryForm,
+      [Validators.required],
+    ],
   });
   private errorMessages: FormErrorMessages = {
     name: {
@@ -51,6 +57,7 @@ export class OrderFormComponent {
 
   constructor(private orderService: OrderService, private fb: FormBuilder) {
     this.productList$ = this.orderService.getAllAvailableItems();
+    this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
   }
 
   public getErrorMessage(controlName: string, controlGroup?: string): string {
@@ -83,13 +90,16 @@ export class OrderFormComponent {
     return errors.join(', ');
   }
 
-  public hasDifferentDeliveryAddress(event: MatCheckboxChange): void {
-    console.log(event);
-    this.displayDeliveryForm = event.checked;
+  public hasDifferentDeliveryAddress(checked: boolean): void {
+    this.displayDeliveryForm = checked;
+    if (this.displayDeliveryForm) {
+      this.orderForm.get('deliveryAddress')?.enable();
+    } else {
+      this.orderForm.get('deliveryAddress')?.disable();
+    }
   }
 
   public onSubmit(): void {
-    console.log(this.orderForm.value);
     if (this.orderForm.valid) {
       this.orderService.addOrder(this.orderForm.value);
     }
