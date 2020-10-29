@@ -1,86 +1,76 @@
 <!-- <p>order-form works!</p>
 {{ productList$ | async | json }} -->
-<div class="container-fluid" [formGroup]="orderForm">
-  <div class="row start-xs start-sm start-md start-lg">
-    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-8">
-      <mat-form-field appearance="outline">
-        <mat-label>Nom de votre entreprise</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: Restaurant du port"
-          formControlName="name"
-          required
-        />
-        <mat-error *ngIf="orderForm.get('name')?.invalid">{{
-          getErrorMessage("name")
-        }}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-4">
-      <mat-form-field appearance="outline">
-        <mat-label>Numéro de téléphone</mat-label>
-        <input
-          matInput
-          type="tel"
-          placeholder="Ex: 0546331122"
-          formControlName="phone"
-          required
-        />
-        <mat-error *ngIf="orderForm.get('phone')?.invalid">{{
-          getErrorMessage("phone")
-        }}</mat-error>
-      </mat-form-field>
-    </div>
+<div [formGroup]="orderForm">
+  <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
+    <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+      <mat-label>Nom de votre entreprise</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Ex: Restaurant du port"
+        formControlName="name"
+        required
+      />
+      <mat-error *ngIf="orderForm.get('name')?.invalid">{{
+        getErrorMessage("name")
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+      <mat-label>Numéro de téléphone</mat-label>
+      <input
+        matInput
+        type="tel"
+        placeholder="Ex: 0546331122"
+        formControlName="phone"
+        required
+      />
+      <mat-error *ngIf="orderForm.get('phone')?.invalid">{{
+        getErrorMessage("phone")
+      }}</mat-error>
+    </mat-form-field>
   </div>
-  <div class="row start-xs start-sm start-md start-lg">
-    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <mat-form-field appearance="outline">
-        <mat-label>Rue</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: 2 rue du port"
-          formControlName="street"
-          required
-        />
-        <mat-error *ngIf="orderForm.get('street')?.invalid">{{
-          getErrorMessage("street")
-        }}</mat-error>
-      </mat-form-field>
-    </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-form-field fxFlex="87" appearance="outline">
+      <mat-label>Rue</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Ex: 2 rue du port"
+        formControlName="street"
+        required
+      />
+      <mat-error *ngIf="orderForm.get('street')?.invalid">{{
+        getErrorMessage("street")
+      }}</mat-error>
+    </mat-form-field>
   </div>
-  <div class="row start-xs start-sm start-md start-lg">
-    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-4">
-      <mat-form-field appearance="outline">
-        <mat-label>Code postal</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: 17000"
-          formControlName="zipCode"
-          required
-        />
-        <mat-error *ngIf="orderForm.get('zipCode')?.invalid">{{
-          getErrorMessage("zipCode")
-        }}</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-8">
-      <mat-form-field appearance="outline">
-        <mat-label>Ville</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: La Rochelle"
-          formControlName="city"
-          required
-        />
-        <mat-error *ngIf="orderForm.get('city')?.invalid">{{
-          getErrorMessage("city")
-        }}</mat-error>
-      </mat-form-field>
-    </div>
+  <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
+    <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+      <mat-label>Code postal</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Ex: 17000"
+        formControlName="zipCode"
+        required
+      />
+      <mat-error *ngIf="orderForm.get('zipCode')?.invalid">{{
+        getErrorMessage("zipCode")
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+      <mat-label>Ville</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Ex: La Rochelle"
+        formControlName="city"
+        required
+      />
+      <mat-error *ngIf="orderForm.get('city')?.invalid">{{
+        getErrorMessage("city")
+      }}</mat-error>
+    </mat-form-field>
   </div>
 </div>
 
