@@ -6,11 +6,15 @@ export interface Order {
   address: Address;
   hasDifferentDeliveryAddress: boolean;
   deliveryAddress: Address;
-  order: [{ product: string; quantity: number; unit: ProductUnit }];
+  order: OrderList;
   deliveryTime: Date;
   orderTime: Date;
   totalPrice: number;
 }
+
+export type OrderList = [
+  { product: string; quantity: number; unit: ProductUnit }?
+];
 
 export interface Address {
   street: string;
