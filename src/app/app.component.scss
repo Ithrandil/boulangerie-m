@@ -1,3 +1,13 @@
 :host {
-  width: 100vw;
+  display: flex;
+  flex: 1;
+  background-color: var(--color-app-light-grey);
+  justify-content: center;
+}
+
+.container-page {
+  flex: 1;
+  flex-direction: column;
+  max-width: 100rem;
+  background-color: var(--color-app-brown-grey);
 }
