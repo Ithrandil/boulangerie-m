@@ -1,20 +1,40 @@
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  background-color: white;
-  border-radius: 5px;
+.checkboxRow {
+  margin-bottom: 1rem;
 }
 
 .buttonRow {
   margin-top: 3rem;
 }
+
+//*** FORM FIELD CUSTOM STYLE
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: white;
+  border-radius: 5px;
+}
+//mat-input focused color
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: var(--color-app-brown) !important;
+}
+// mat-label focused style
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--color-app-brown) !important;
+}
+/***********************************/
+
+//*** CUSTOM CARD PRODUCT STYLE
 mat-card {
   margin-bottom: 1rem;
   padding: 0.5rem;
 }
-
+mat-card-content {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem;
+}
 .mat-expansion-panel:not([class*="mat-elevation-z"]) {
   box-shadow: none;
 }
-
 .mat-expansion-panel-header {
   padding: 0 5px 0 0;
   font-size: 1.5rem;
@@ -24,7 +44,6 @@ mat-card {
 .mat-expansion-panel-header-title {
   color: var(--color-app-brown) !important;
 }
-
 ::ng-deep .mat-expansion-panel-body {
   font-size: 1.3rem;
   padding: 0 0 0 1rem !important;
@@ -34,20 +53,12 @@ mat-card {
     margin: 0 0 0.8rem 0 !important;
   }
 }
-
-mat-card-content {
-  font-size: 1.3rem;
-  margin-bottom: 0.8rem;
-}
-
 .quantityInput {
   max-width: 9rem;
 }
-
 :host ::ng-deep .quantityInput div.mat-form-field-wrapper {
   padding-bottom: 0 !important;
 }
-
 :host ::ng-deep .quantityInput div.mat-form-field-infix {
   padding: 0;
   border: 0;
@@ -55,7 +66,4 @@ mat-card-content {
     height: 3rem;
   }
 }
-
-.checkboxRow {
-  margin-bottom: 1rem;
-}
+/***********************************/

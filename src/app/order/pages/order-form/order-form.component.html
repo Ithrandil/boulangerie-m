@@ -154,11 +154,18 @@
       }}</mat-error>
     </mat-form-field>
   </div>
-  <div fxLayout="row wrap">
-    mettre un divider + titre produits + changer border form input hover et
-    focus + peut être mettre spinner sur liste produits
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-divider fxFlex="50"></mat-divider>
   </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <h2>Produits</h2>
+  </div>
+
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
+    <div *ngIf="!productList.length">
+      <mat-spinner></mat-spinner>
+    </div>
+
     <mat-card *ngFor="let product of productList" fxFlex="40" fxFlex.lt-sm="87">
       <mat-expansion-panel [disabled]="!product.description">
         <mat-expansion-panel-header>
@@ -185,9 +192,12 @@
     </mat-card>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <p>
+    <mat-divider fxFlex="50"></mat-divider>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <h2 *ngIf="orderForm.get('totalPrice')?.value > 0">
       Prix total de la commande: {{ orderForm.get("totalPrice")?.value }} € H.T.
-    </p>
+    </h2>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="buttonRow">
     <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
@@ -213,7 +223,4 @@ Si la date de retrait est entre 0 et 24h, certains produits de la liste ne seron
 (visible mais non sélectionnable). De plus, un message avertira l’utilisateur de cette contrainte.
 (A DÉFINIR, EN FAIRE UNE TACHE)
 Si la date choisie est supérieur à 48h, aucune contrainte
-
-
-Total de prix de commande (HT)
  -->

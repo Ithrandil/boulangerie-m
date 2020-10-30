@@ -19,10 +19,16 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: var(--color-app-grey);
 }
+
+h2 {
+  color: var(--color-app-brown);
+}
+
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
+
 // Toggle custom style
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
   background-color: var(--color-app-light-brown);
@@ -30,7 +36,12 @@ body {
 .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
   background-color: var(--color-app-brown);
 }
+
 // Checkbox custom style
+.mat-checkbox-label {
+  color: var(--color-app-brown);
+  font-size: medium;
+}
 .mat-checkbox-inner-container {
   border-radius: 2px;
   background-color: white;
@@ -76,4 +87,16 @@ body {
 .mat-calendar-body-selected {
   background-color: var(--color-app-light-brown);
   color: var(--color-app-brown);
+}
+
+// Divider custom style
+mat-divider {
+  margin: 1rem 0 1rem 0 !important;
+  border-top-width: 5px !important;
+}
+
+// Spinner custom style
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: var(--color-app-light-brown);
 }
