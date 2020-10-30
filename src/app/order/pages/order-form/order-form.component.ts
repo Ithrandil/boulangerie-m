@@ -45,7 +45,8 @@ export class OrderFormComponent implements OnDestroy {
       [Validators.required],
     ],
     deliveryDate: [null, [Validators.required]],
-    totalPrice: [0],
+    orderDate: [new Date(Date.now()), [Validators.required]],
+    totalPrice: [0, [Validators.required]],
   });
   private errorMessages: FormErrorMessages = {
     name: {
@@ -159,6 +160,7 @@ export class OrderFormComponent implements OnDestroy {
   }
 
   public onSubmit(): void {
+    this.orderForm.get('orderDate')?.setValue(new Date(Date.now()));
     const orderList: OrderList = [];
     for (const [itemName, quantity] of Object.entries(
       this.itemFormGroup.value
@@ -172,7 +174,6 @@ export class OrderFormComponent implements OnDestroy {
         });
       }
     }
-
     if (this.orderForm.valid && orderList.length > 0) {
       this.orderService.addOrder({
         ...this.orderForm.value,
