@@ -23,9 +23,26 @@ body {
   width: 0px;
   background: transparent; /* make scrollbar transparent */
 }
+// Toggle custom style
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
   background-color: var(--color-app-light-brown);
 }
 .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
   background-color: var(--color-app-brown);
+}
+// Checkbox custom style
+.mat-checkbox-inner-container {
+  border-radius: 2px;
+  background-color: white;
+}
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: var(--color-app-brown);
+}
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent
+  .mat-ripple-element {
+  background: var(--color-app-brown);
+}
+.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent
+  .mat-ripple-element {
+  background: var(--color-app-brown);
 }
