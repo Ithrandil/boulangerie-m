@@ -1,6 +1,26 @@
-<!-- <p>order-form works!</p>
-{{ productList$ | async | json }} -->
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
+    <mat-card *ngFor="let product of productList" fxFlex="40" fxFlex.lt-sm="87">
+      <mat-expansion-panel [disabled]="!product.description">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ product.name }}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{ product.description }}</p>
+      </mat-expansion-panel>
+      <mat-card-content
+        fxLayout="row wrap"
+        fxLayoutAlign="space-between baseline"
+      >
+        <div>Prix: {{ product.price }} € / {{ product.unit }}</div>
+        <div>
+          <mat-form-field class="quantityInput" appearance="outline">
+            <mat-label>Quantité</mat-label>
+            <input matInput type="number" formControlName="phone" />
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
     <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
       <mat-label>Nom de votre entreprise</mat-label>

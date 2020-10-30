@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Product } from '@models/product';
-import { Observable } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
 
@@ -12,7 +12,8 @@ import { OrderService } from './../../services/order.service';
   styleUrls: ['./order-form.component.scss'],
 })
 export class OrderFormComponent {
-  public productList$: Observable<Product[]>;
+  public productList: Product[] = [];
+
   public displayDeliveryForm = false;
   public orderForm = this.fb.group({
     name: ['', [Validators.required]],
@@ -56,7 +57,19 @@ export class OrderFormComponent {
   };
 
   constructor(private orderService: OrderService, private fb: FormBuilder) {
-    this.productList$ = this.orderService.getAllAvailableItems();
+    this.orderService
+      .getAllAvailableItems()
+      .pipe(
+        take(1),
+        tap((resProdList) => {
+          this.productList = resProdList;
+          // const group: any = {};
+          // resProdList.forEach(product => {
+          //   group[product.name]
+          // })
+        })
+      )
+      .subscribe();
     this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
   }
 
