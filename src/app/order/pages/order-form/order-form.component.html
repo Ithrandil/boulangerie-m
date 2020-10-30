@@ -132,6 +132,28 @@
       </mat-form-field>
     </div>
   </div>
+  <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
+    <mat-form-field
+      fxFlexOffset="7"
+      fxFlex="40"
+      fxFlex.lt-sm="87"
+      appearance="outline"
+    >
+      <mat-label>Date de livraison</mat-label>
+      <input
+        matInput
+        required
+        formControlName="deliveryDate"
+        [min]="today"
+        [matDatepicker]="picker"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="orderForm.get('deliveryDate')?.invalid">{{
+        getErrorMessage("deliveryDate")
+      }}</mat-error>
+    </mat-form-field>
+  </div>
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
     <mat-card *ngFor="let product of productList" fxFlex="40" fxFlex.lt-sm="87">
       <mat-expansion-panel [disabled]="!product.description">
@@ -144,7 +166,7 @@
         fxLayout="row wrap"
         fxLayoutAlign="space-between baseline"
       >
-        <div>Prix: {{ product.price }} € / {{ product.unit }}</div>
+        <div>Prix: {{ product.price }} € H.T. / {{ product.unit }}</div>
         <div>
           <mat-form-field
             [formGroup]="itemFormGroup"
@@ -165,11 +187,23 @@
   </div>
 </form>
 
-<!-- Un champ “Nom de l’entreprise” obligatoire
-Un champ numéro de téléphone obligatoire nécessitant 10 chiffres
-Un champ adresse obligatoire
-Un champ code postal obligatoire
-Un champ Ville obligatoire
-Un bouton “adresse de livraison différente”
-Si cliqué, affiche un autre formulaire d’adresse pour la livraison (adresse, CP, ville)
-Un calendrier afin de spécifier le créneau de retrait désiré avec le comportement suivant: -->
+<!--
+Un calendrier afin de spécifier le créneau de retrait désiré avec le comportement suivant:
+Date minimum :
+Si avant 11h00 (J1), livraison (J2) entre 10h00 et 12h00
+Si entre 11h et 18h (J-1) validation manuelle par une personne de la boulangerie
+(afin qu'elle puisse consulter les personnes en production et contacter le client
+si besoin de précisions avant validation ; le tout doit-être effectué dans l'heure de la prise de
+commande 1h, avant annulation automatique)
+
+ Pour une livraison le lendemain entre 10h et 12h aussi => NON CAR CEST COMMANDE PLUS TARD,
+ ON N’AFFICHE PAS LE MESSAGE DE BASE,  A VOIR PLUS TARD SI ON METS UN AUTRE MESSAGE :
+
+Si la date de retrait est entre 0 et 24h, certains produits de la liste ne seront pas disponibles
+(visible mais non sélectionnable). De plus, un message avertira l’utilisateur de cette contrainte.
+(A DÉFINIR, EN FAIRE UNE TACHE)
+Si la date choisie est supérieur à 48h, aucune contrainte
+
+
+Total de prix de commande (HT)
+ -->

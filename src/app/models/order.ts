@@ -7,8 +7,8 @@ export interface Order {
   hasDifferentDeliveryAddress: boolean;
   deliveryAddress: Address;
   order: OrderList;
-  deliveryTime: Date;
-  orderTime: Date;
+  deliveryDate: Date;
+  orderDate: Date;
   totalPrice: number;
 }
 

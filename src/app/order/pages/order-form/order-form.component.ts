@@ -18,6 +18,7 @@ import { OrderService } from './../../services/order.service';
   styleUrls: ['./order-form.component.scss'],
 })
 export class OrderFormComponent {
+  public today = new Date();
   public productList: Product[] = [];
   public itemFormGroup: FormGroup;
   public displayDeliveryForm = false;
@@ -41,6 +42,7 @@ export class OrderFormComponent {
       this.displayDeliveryForm,
       [Validators.required],
     ],
+    deliveryDate: [null, [Validators.required]],
   });
   private errorMessages: FormErrorMessages = {
     name: {
@@ -59,6 +61,10 @@ export class OrderFormComponent {
     },
     city: {
       required: 'Ville obligatoire',
+    },
+    deliveryDate: {
+      required: 'Date de livraison obligatoire',
+      matDatepickerMin: 'Date incorrecte',
     },
   };
 
