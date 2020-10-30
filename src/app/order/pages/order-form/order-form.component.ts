@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,7 +8,8 @@ import {
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { OrderList } from '@models/order';
 import { Product } from '@models/product';
-import { take, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { switchMapTo, take, takeUntil, tap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
 
@@ -17,8 +18,9 @@ import { OrderService } from './../../services/order.service';
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.scss'],
 })
-export class OrderFormComponent {
-  public today = new Date();
+export class OrderFormComponent implements OnDestroy {
+  public tomorrow = new Date();
+  private unsubscribe$ = new Subject<void>();
   public productList: Product[] = [];
   public itemFormGroup: FormGroup;
   public displayDeliveryForm = false;
@@ -43,6 +45,7 @@ export class OrderFormComponent {
       [Validators.required],
     ],
     deliveryDate: [null, [Validators.required]],
+    totalPrice: [0],
   });
   private errorMessages: FormErrorMessages = {
     name: {
@@ -69,6 +72,8 @@ export class OrderFormComponent {
   };
 
   constructor(private orderService: OrderService, private fb: FormBuilder) {
+    this.tomorrow.setDate(new Date().getDate() + 1);
+
     this.itemFormGroup = this.fb.group({
       default: [''],
     });
@@ -82,10 +87,36 @@ export class OrderFormComponent {
           resProdList.forEach((product) => {
             this.itemFormGroup?.addControl(product.name, new FormControl(null));
           });
+        }),
+        switchMapTo(this.itemFormGroup.valueChanges),
+        takeUntil(this.unsubscribe$),
+        tap((itemFormData) => {
+          this.calcTotalPrice(itemFormData);
         })
       )
       .subscribe();
     this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.unsubscribe();
+  }
+
+  private calcTotalPrice(itemFormData: { [key: string]: number }): void {
+    let totalPrice = 0;
+    for (const [itemName, quantity] of Object.entries(itemFormData) as [
+      string,
+      number
+    ][]) {
+      if (quantity) {
+        totalPrice +=
+          quantity *
+          (this.productList.find((el) => el.name === itemName) as Product)
+            .price;
+      }
+      this.orderForm.get('totalPrice')?.setValue(totalPrice);
+    }
   }
 
   public getErrorMessage(controlName: string, controlGroup?: string): string {

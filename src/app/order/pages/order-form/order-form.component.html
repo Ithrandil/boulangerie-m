@@ -144,7 +144,7 @@
         matInput
         required
         formControlName="deliveryDate"
-        [min]="today"
+        [min]="tomorrow"
         [matDatepicker]="picker"
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -153,6 +153,10 @@
         getErrorMessage("deliveryDate")
       }}</mat-error>
     </mat-form-field>
+  </div>
+  <div fxLayout="row wrap">
+    mettre un divider + titre produits + changer border form input hover et
+    focus + peut être mettre spinner sur liste produits
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
     <mat-card *ngFor="let product of productList" fxFlex="40" fxFlex.lt-sm="87">
@@ -180,13 +184,19 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <p>
+      Prix total de la commande: {{ orderForm.get("totalPrice")?.value }} € H.T.
+    </p>
+  </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="buttonRow">
     <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
       Commander
     </button>
   </div>
 </form>
-
+<!-- DESACTIVER FIELD CALENDRIER CAR CASSE LES COUILLES => mettre readonly mais fait moche, plutot corriger pb comportement-->
+<!-- VOIR POUR CHANGER TYPE EN TEL CAR AFFICHE SUR MOBILE DES CHAMPS DE MERDE -->
 <!--
 Un calendrier afin de spécifier le créneau de retrait désiré avec le comportement suivant:
 Date minimum :
