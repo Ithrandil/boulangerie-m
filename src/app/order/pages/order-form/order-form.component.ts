@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { FormErrorMessages } from '@models/formErrorMessages';
+import { OrderList } from '@models/order';
 import { Product } from '@models/product';
 import { take, tap } from 'rxjs/operators';
 
@@ -13,7 +19,7 @@ import { OrderService } from './../../services/order.service';
 })
 export class OrderFormComponent {
   public productList: Product[] = [];
-
+  public itemFormGroup: FormGroup;
   public displayDeliveryForm = false;
   public orderForm = this.fb.group({
     name: ['', [Validators.required]],
@@ -57,16 +63,19 @@ export class OrderFormComponent {
   };
 
   constructor(private orderService: OrderService, private fb: FormBuilder) {
+    this.itemFormGroup = this.fb.group({
+      default: [''],
+    });
     this.orderService
       .getAllAvailableItems()
       .pipe(
         take(1),
         tap((resProdList) => {
           this.productList = resProdList;
-          // const group: any = {};
-          // resProdList.forEach(product => {
-          //   group[product.name]
-          // })
+          this.itemFormGroup.removeControl('default');
+          resProdList.forEach((product) => {
+            this.itemFormGroup?.addControl(product.name, new FormControl(null));
+          });
         })
       )
       .subscribe();
@@ -113,8 +122,25 @@ export class OrderFormComponent {
   }
 
   public onSubmit(): void {
-    if (this.orderForm.valid) {
-      this.orderService.addOrder(this.orderForm.value);
+    const orderList: OrderList = [];
+    for (const [itemName, quantity] of Object.entries(
+      this.itemFormGroup.value
+    ) as [string, number][]) {
+      if (quantity) {
+        orderList.push({
+          product: itemName,
+          quantity,
+          unit: (this.productList.find((el) => el.name === itemName) as Product)
+            .unit,
+        });
+      }
+    }
+
+    if (this.orderForm.valid && orderList.length > 0) {
+      this.orderService.addOrder({
+        ...this.orderForm.value,
+        order: orderList,
+      });
     }
   }
 }
