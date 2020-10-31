@@ -150,7 +150,7 @@
         readonly
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker disabled="false"></mat-datepicker>
+      <mat-datepicker #picker touchUi></mat-datepicker>
       <mat-error *ngIf="orderForm.get('deliveryDate')?.invalid">{{
         getErrorMessage("deliveryDate")
       }}</mat-error>
