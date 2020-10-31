@@ -35,7 +35,7 @@ import { OrderService } from './services/order.service';
     MatDividerModule,
     MatProgressSpinnerModule,
   ],
-  providers: [OrderService, { provide: MAT_DATE_LOCALE, useValue: 'fr' }],
+  providers: [OrderService, { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }],
   exports: [OrderRoutingModule],
 })
 export class OrderModule {}
