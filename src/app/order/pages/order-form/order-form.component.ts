@@ -144,15 +144,10 @@ export class OrderFormComponent implements OnDestroy {
           const differenceIndays =
             (deliveryDate.getTime() - orderDate.getTime()) / (1000 * 3600 * 24);
 
-          if (orderTime < 11 && differenceIndays >= 1) {
+          if (differenceIndays >= 1) {
             this.showDeliveryMessage = true;
             this.showShortDeliveryMessage = false;
             this.showOrderNeedValidationMessage = false;
-            console.log(
-              `commande avant 11h et jour de livraison a plus dun jour
-              => aucune contrainte
-              ET on informe de la livraison le jour J entre 10h & 12h`
-            );
           } else if (
             orderTime >= 11 &&
             orderTime < 18 &&
@@ -166,12 +161,6 @@ export class OrderFormComponent implements OnDestroy {
                 this.itemFormGroup.get(product.name)?.disable();
               }
             });
-            console.log(
-              `commande entre 11 & 18h et demande de livraison le lendemain
-              => commande à valider manuellement
-               ET shortDelivery products disabled
-              ET on naffiche PAAAS la livraison jour J entre 10 & 12`
-            );
           } else if (orderTime < 11 && differenceIndays < 1) {
             this.showDeliveryMessage = true;
             this.showOrderNeedValidationMessage = false;
@@ -181,11 +170,6 @@ export class OrderFormComponent implements OnDestroy {
                 this.itemFormGroup.get(product.name)?.disable();
               }
             });
-            console.log(
-              `commande avant 11h pour livraison le lendemain
-              => shortDelivery products disabled
-              ET on informe de la livraison le jour J entre 10h & 12h`
-            );
           }
           // TODO: DEMANDER A AYMERIC LA GESTION DU CAS: Demande d'une commande après 18h pour le lendemain?
           // - On empêche le fait de pouvoir le faire (on change le trigger du min date a 18h)
