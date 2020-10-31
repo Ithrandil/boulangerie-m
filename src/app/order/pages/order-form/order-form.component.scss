@@ -6,6 +6,14 @@
   margin-top: 3rem;
 }
 
+.deliveryMessage {
+  color: var(--color-app-brown);
+  font-weight: bold;
+}
+.warningMessage {
+  color: crimson;
+  font-weight: bold;
+}
 //*** FORM FIELD CUSTOM STYLE
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   background-color: white;
@@ -64,6 +72,15 @@ mat-card-content {
   border: 0;
   input {
     height: 3rem;
+  }
+}
+.unavailableItem {
+  background-color: rgba(128, 128, 128, 0.2);
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: rgba(128, 128, 128, 0);
+  }
+  .mat-expansion-panel {
+    background-color: rgba(128, 128, 128, 0);
   }
 }
 /***********************************/

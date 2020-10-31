@@ -150,11 +150,32 @@
         readonly
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
       <mat-error *ngIf="orderForm.get('deliveryDate')?.invalid">{{
         getErrorMessage("deliveryDate")
       }}</mat-error>
     </mat-form-field>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <p class="deliveryMessage" *ngIf="showDeliveryMessage">
+      Votre livraison vous sera livrée à l'adresse renseignée le
+      {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }} entre 10
+      heures et midi.
+    </p>
+    <p
+      class="warningMessage"
+      *ngIf="showShortDeliveryMessage || showOrderNeedValidationMessage"
+    >
+      <span> Attention, dû au délai court de votre commande: </span>
+      <span *ngIf="showOrderNeedValidationMessage">
+        <br />&nbsp;&nbsp;- Elle devra être validée par la boulangerie M. Sans
+        retour de leur part dans l'heure, considérez la comme annulée.
+      </span>
+      <span *ngIf="showShortDeliveryMessage">
+        <br />&nbsp;&nbsp;- Certains produits ne sont pas disponibles. Ils ont
+        été désactivés dans le formulaire.
+      </span>
+    </p>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center">
     <mat-divider fxFlex="50"></mat-divider>
@@ -168,7 +189,14 @@
       <mat-spinner></mat-spinner>
     </div>
 
-    <mat-card *ngFor="let product of productList" fxFlex="40" fxFlex.lt-sm="87">
+    <mat-card
+      *ngFor="let product of productList"
+      fxFlex="40"
+      fxFlex.lt-sm="87"
+      [ngClass]="{
+        unavailableItem: showShortDeliveryMessage && !product.shortDelivery
+      }"
+    >
       <mat-expansion-panel [disabled]="!product.description">
         <mat-expansion-panel-header>
           <mat-panel-title>{{ product.name }}</mat-panel-title>
