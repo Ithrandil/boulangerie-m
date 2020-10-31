@@ -9,10 +9,16 @@
 .deliveryMessage {
   color: var(--color-app-brown);
   font-weight: bold;
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 }
 .warningMessage {
   color: crimson;
   font-weight: bold;
+  @media (max-width: 768px) {
+    text-align-last: center;
+  }
 }
 //*** FORM FIELD CUSTOM STYLE
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
