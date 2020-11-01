@@ -1,3 +1,6 @@
+form {
+  padding: 3rem 0 3rem 0;
+}
 .checkboxRow {
   margin-bottom: 1rem;
 }
@@ -20,22 +23,6 @@
     text-align-last: center;
   }
 }
-//*** FORM FIELD CUSTOM STYLE
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  background-color: white;
-  border-radius: 5px;
-}
-//mat-input focused color
-::ng-deep
-  .mat-form-field-appearance-outline.mat-focused
-  .mat-form-field-outline-thick {
-  color: var(--color-app-brown) !important;
-}
-// mat-label focused style
-::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: var(--color-app-brown) !important;
-}
-/***********************************/
 
 //*** CUSTOM CARD PRODUCT STYLE
 mat-card {

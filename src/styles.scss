@@ -17,7 +17,6 @@ body {
   overflow: hidden;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: var(--color-app-grey);
 }
 
 h2 {
@@ -99,4 +98,25 @@ mat-divider {
 .mat-progress-spinner circle,
 .mat-spinner circle {
   stroke: var(--color-app-light-brown);
+}
+
+//*** FORM FIELD CUSTOM STYLE
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: white;
+  border-radius: 5px;
+}
+//mat-input focused color
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: var(--color-app-brown) !important;
+}
+// mat-label focused style
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: var(--color-app-brown) !important;
+}
+/***********************************/
+
+// modal custom style
+.mat-dialog-container {
+  background-color: var(--color-app-light-grey);
 }

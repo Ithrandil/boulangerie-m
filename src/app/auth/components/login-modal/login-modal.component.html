@@ -1,0 +1,65 @@
+<div matDialogTitle fxLayout="row wrap" fxLayoutAlign="center center">
+  <h2 fxFlex="87" fxLayoutAlign="center center">Connexion</h2>
+</div>
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-form-field fxFlex="87" appearance="outline">
+      <mat-label>E-mail</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Ex: john.doe@gmail.com"
+        formControlName="email"
+        required
+      />
+      <mat-error *ngIf="loginForm?.get('email')?.invalid"
+        >E-mail obligatoire</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-form-field fxFlex="87" appearance="outline">
+      <mat-label>Mot de passe</mat-label>
+      <input
+        matInput
+        type="password"
+        placeholder="Ex: MySecretPassword"
+        formControlName="password"
+        required
+      />
+      <mat-error *ngIf="loginForm?.get('password')?.invalid"
+        >Mot de passe obligatoire</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <p
+      fxFlex="87"
+      fxLayoutAlign="center center"
+      *ngIf="loginErrorMessage"
+      class="errorMessage"
+    >
+      {{ loginErrorMessage }}
+    </p>
+  </div>
+  <div
+    class="rowButton"
+    matDialogActions
+    fxLayout="row wrap"
+    fxLayoutAlign="space-evenly center"
+  >
+    <button
+      fxFlex="40"
+      fxFlex.lt-sm="87"
+      mat-raised-button
+      type="button"
+      mat-dialog-close
+      (click)="router.navigate([''])"
+    >
+      Annuler
+    </button>
+    <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
+      Se connecter
+    </button>
+  </div>
+</form>
