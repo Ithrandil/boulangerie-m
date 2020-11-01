@@ -1,10 +1,19 @@
-<mat-toolbar-row fxLayout="row" fxLayoutAlign="space-around center">
-  <img
-    alt="logo boulangerie-m"
-    src="../assets/images/logo-header.png"
-    class="logo-header"
-  />
-  <div>Commande</div>
+<mat-toolbar-row
+  class="header"
+  fxLayout="row wrap"
+  fxLayoutAlign="space-evenly center"
+>
+  <div fxFlex="40" fxFlex.lt-sm="100">Boulangerie M</div>
+  <div>
+    <img
+      alt="logo boulangerie-m"
+      src="../assets/images/logo-header.png"
+      class="logo-header"
+    />
+  </div>
+  <div fxFlex="40" fxFlex.lt-sm="100">
+    {{ router.url.slice(1) | titlecase }}
+  </div>
 </mat-toolbar-row>
 <div class="container-page">
   <router-outlet></router-outlet>
@@ -12,3 +21,23 @@
     >Background vector created by freepik - www.freepik.com</a
   >
 </div>
+<footer class="footer" fxLayout="row" fxLayoutAlign="space-evenly center">
+  <div>
+    <p>
+      Boulangerie M <br />
+      127 Avenue du Lieutenant-Colonel Bernier <br />
+      17000 La Rochelle
+    </p>
+  </div>
+  <div>
+    <p class="adminLink" (click)="router.navigate(['admin'])">
+      Espace administrateur
+    </p>
+    <p>
+      Réalisé gracieusement par
+      <a href="https://www.linkedin.com/in/alexandre-guerin/" target="blank"
+        >Ithrandil</a
+      >
+    </p>
+  </div>
+</footer>
