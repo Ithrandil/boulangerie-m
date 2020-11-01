@@ -1,17 +1,17 @@
 :host {
   display: flex;
   flex: 1;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
 
   background-image: url("./../assets/images/background/bakery-background.jpg");
   background-position: center;
   background-size: cover;
   background-color: var(--color-app-light-grey);
 }
-
 .container-page {
-  flex: 1;
-  flex-direction: column;
+  // flex: 1;
+  // flex-direction: column;
   max-width: 90rem;
   max-height: 100%;
   background-color: var(--color-app-light-grey);
@@ -22,4 +22,19 @@
 .bkgrdLink {
   position: fixed;
   left: -100rem;
+}
+// STYLE HEADER
+mat-toolbar-row {
+  background-color: var(--color-app-light-grey);
+  height: 9rem;
+  border-bottom: solid 1px black;
+  color: var(--color-app-brown);
+  font-size: 3rem;
+}
+.logo-header {
+  margin-top: 4rem;
+  z-index: 99;
+  position: relative;
+  max-width: 12rem;
+  max-height: 12rem;
 }
