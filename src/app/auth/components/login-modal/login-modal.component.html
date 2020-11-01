@@ -42,15 +42,12 @@
       {{ loginErrorMessage }}
     </p>
   </div>
-  <div
-    class="rowButton"
-    matDialogActions
-    fxLayout="row wrap"
-    fxLayoutAlign="space-evenly center"
-  >
+  <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
     <button
       fxFlex="40"
       fxFlex.lt-sm="87"
+      fxFlexOrder.lt-sm="2"
+      fxFlexOrder.gt-xs="1"
       mat-raised-button
       type="button"
       mat-dialog-close
@@ -58,7 +55,14 @@
     >
       Annuler
     </button>
-    <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
+    <button
+      fxFlex="40"
+      fxFlex.lt-sm="87"
+      fxFlexOrder.lt-sm="1"
+      fxFlexOrder.gt-xs="2"
+      mat-raised-button
+      type="submit"
+    >
       Se connecter
     </button>
   </div>

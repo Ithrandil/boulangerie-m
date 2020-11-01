@@ -13,8 +13,8 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     this.dialog.open(LoginModalComponent, {
       disableClose: true,
-      minHeight: '330px',
-      minWidth: '400px',
+      width: '400px',
+      maxWidth: '90%',
     });
   }
 }

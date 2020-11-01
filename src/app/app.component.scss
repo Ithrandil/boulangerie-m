@@ -13,9 +13,10 @@
   flex: 1;
   flex-direction: column;
   max-width: 90rem;
+  max-height: 100vh;
   background-color: var(--color-app-light-grey);
-  overflow: auto;
   align-self: center;
+  overflow: auto;
 }
 
 .bkgrdLink {
