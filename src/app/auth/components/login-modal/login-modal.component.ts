@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/services/auth.service';
 import { take } from 'rxjs/operators';
@@ -18,7 +19,8 @@ export class LoginModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    public router: Router
+    public router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {}
@@ -29,7 +31,10 @@ export class LoginModalComponent implements OnInit {
         .login(this.loginForm.value)
         .pipe(take(1))
         .subscribe(
-          () => this.router.navigate(['admin']),
+          () => {
+            this.router.navigate(['admin']);
+            this.dialog.closeAll();
+          },
           (err) => {
             this.loginErrorMessage = err.message;
           }
