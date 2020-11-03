@@ -1,3 +1,5 @@
+import { firestore } from 'firebase';
+
 import { ProductUnit } from './product';
 
 export interface Order {
@@ -8,7 +10,7 @@ export interface Order {
   deliveryAddress: Address;
   order: OrderList;
   deliveryDate: Date;
-  orderDate: Date;
+  orderDate: firestore.Timestamp;
   totalPrice: number;
 }
 

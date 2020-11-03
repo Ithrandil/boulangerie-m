@@ -5,11 +5,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { AdminRoutingModule } from './admin-routing.module';
+import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
+import { OrderListService } from './services/order-list.service';
 import { ProductService } from './services/product.service';
 
 @NgModule({
-  declarations: [ProductsListComponent],
+  declarations: [ProductsListComponent, OrderListComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -18,6 +20,6 @@ import { ProductService } from './services/product.service';
     MatExpansionModule,
   ],
   exports: [AdminRoutingModule],
-  providers: [ProductService],
+  providers: [ProductService, OrderListService],
 })
 export class AdminModule {}

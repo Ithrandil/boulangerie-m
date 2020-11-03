@@ -1,0 +1,4 @@
+<div *ngFor="let order of currentOrdersList">
+  {{ order.orderDate.toDate() | date: "EEEE d MMMM y h:mm a" }}
+  <!-- {{ order | json }} -->
+</div>
