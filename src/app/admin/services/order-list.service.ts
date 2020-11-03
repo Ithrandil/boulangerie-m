@@ -14,7 +14,7 @@ export class OrderListService {
     limitDate.setDate(limitDate.getDate() - 4);
     return this.firestore
       .collection<Order>('orders', (ref) =>
-        ref.where('orderDate', '>=', limitDate)
+        ref.where('orderDate', '>=', limitDate).orderBy('orderDate')
       )
       .valueChanges();
   }

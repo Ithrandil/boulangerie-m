@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { AdminRoutingModule } from './admin-routing.module';
@@ -18,6 +20,8 @@ import { ProductService } from './services/product.service';
     MatCardModule,
     MatSlideToggleModule,
     MatExpansionModule,
+    FlexLayoutModule,
+    MatProgressSpinnerModule,
   ],
   exports: [AdminRoutingModule],
   providers: [ProductService, OrderListService],

@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+mat-card {
+  margin: 1rem 2rem 1rem 2rem;
+}
+
+.mat-card-title {
+  font-size: 1.5rem;
+  color: var(--color-app-brown) !important;
+}
+
+.address {
+  font-size: 1.3rem;
+}
