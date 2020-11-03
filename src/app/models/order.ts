@@ -3,6 +3,7 @@ import { firestore } from 'firebase';
 import { ProductUnit } from './product';
 
 export interface Order {
+  orderId: string;
   name: string;
   phone: number;
   address: Address;

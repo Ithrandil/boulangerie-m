@@ -8,7 +8,11 @@ semaine? La commande va disparaitre avant d'avoir été livrée
 >
   <mat-spinner></mat-spinner>
 </div>
-<mat-card *ngFor="let order of currentOrdersList" fxFlex="87">
+<mat-card
+  *ngFor="let order of currentOrdersList"
+  fxFlex="87"
+  (click)="goToDetailsOrder(order)"
+>
   <mat-card-title fxLayout="row wrap" fxLayoutAlign="space-between center">
     <div>
       {{ order.name }}

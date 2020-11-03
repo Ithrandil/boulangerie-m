@@ -16,6 +16,6 @@ export class OrderListService {
       .collection<Order>('orders', (ref) =>
         ref.where('orderDate', '>=', limitDate).orderBy('orderDate')
       )
-      .valueChanges();
+      .valueChanges({ idField: 'orderId' });
   }
 }
