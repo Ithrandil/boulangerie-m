@@ -11,12 +11,30 @@
       class="logo-header"
     />
   </div>
-  <div fxFlex="60" fxHide.lt-sm>
+  <div
+    *ngIf="activatedRoute && !activatedRoute.includes('admin')"
+    fxFlex="60"
+    fxHide.lt-sm
+  >
     Plateforme de commande réservée aux professionnels
+  </div>
+  <div
+    *ngIf="activatedRoute && activatedRoute.includes('admin')"
+    fxLayout="row wrap"
+    fxLayoutAlign="space-evenly center"
+    fxFlex="60"
+    fxHide.lt-sm
+  >
+    <div class="link" (click)="router.navigate(['admin/liste-commandes'])">
+      Commandes
+    </div>
+    <div class="link" (click)="router.navigate(['admin/produits'])">
+      Produits
+    </div>
   </div>
 </mat-toolbar-row>
 <div class="container-page">
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="onActivate()"></router-outlet>
   <a class="bkgrdLink" href="https://www.freepik.com/vectors/background"
     >Background vector created by freepik - www.freepik.com</a
   >
@@ -37,10 +55,12 @@
     </p>
   </div>
   <div>
-    <p class="adminLink" (click)="router.navigate(['admin'])">
-      Espace administrateur (FAIRE ICI CO DECO? ou mettre menu dans espace
-      admin)
-    </p>
+    <div class="link">
+      <p *ngIf="!isConnected" (click)="router.navigate(['admin'])">
+        Espace administrateur
+      </p>
+      <p *ngIf="isConnected" (click)="logoutAdminSpace()">Déconnexion</p>
+    </div>
     <p>
       Réalisé gracieusement par
       <a href="https://www.linkedin.com/in/alexandre-guerin/" target="blank"
