@@ -1,18 +1,18 @@
 <mat-toolbar-row
   class="header"
   fxLayout="row wrap"
-  fxLayoutAlign="space-evenly center"
+  fxLayoutAlign="flex-start center"
+  fxLayoutAlign.lt-sm="center center"
 >
-  <div fxFlex="40" fxFlex.lt-sm="100">Boulangerie M</div>
-  <div>
+  <div fxFlex="20" fxFlex.lt-sm="100">
     <img
       alt="logo boulangerie-m"
       src="../assets/images/logo-header.png"
       class="logo-header"
     />
   </div>
-  <div fxFlex="40" fxFlex.lt-sm="100">
-    {{ router.url.slice(1) | titlecase }}
+  <div fxFlex="60" fxHide.lt-sm>
+    Plateforme de commande réservée aux professionnels
   </div>
 </mat-toolbar-row>
 <div class="container-page">
@@ -28,10 +28,18 @@
       127 Avenue du Lieutenant-Colonel Bernier <br />
       17000 La Rochelle
     </p>
+    <p>
+      <a
+        href="https://www.facebook.com/pages/category/Bakery/Boulangerie-M-437577199741453/"
+        target="blank"
+        >Facebook</a
+      >
+    </p>
   </div>
   <div>
     <p class="adminLink" (click)="router.navigate(['admin'])">
-      Espace administrateur
+      Espace administrateur (FAIRE ICI CO DECO? ou mettre menu dans espace
+      admin)
     </p>
     <p>
       Réalisé gracieusement par

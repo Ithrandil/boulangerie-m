@@ -1,5 +1,8 @@
 form {
   padding: 3rem 0 3rem 0;
+  @media (max-width: 768px) {
+    padding: 5rem 0 3rem 0;
+  }
 }
 .checkboxRow {
   margin-bottom: 1rem;
