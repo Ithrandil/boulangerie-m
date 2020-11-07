@@ -17,7 +17,8 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
+  // TODO: TOUTES LES REQUETES FAITES DANS L'ESPACE ADMIN DOIVENT DEMANDER UN TOKEN AUTH
+  // POUR ETRE SECURISE, LE GUARD NEST PAS UNE SECURITE EN ELLE MEME
   public updateProductAvailability(
     productId: string,
     event: MatSlideToggleChange

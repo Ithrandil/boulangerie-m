@@ -1,3 +1,13 @@
+.containerProducts {
+  margin: 0 1rem 2rem 1rem;
+}
+
+.listProducts {
+  margin-left: 1rem;
+}
+div:last-of-type {
+  padding-right: 1rem;
+}
 .productCard {
   margin-top: 1rem;
 }
@@ -36,4 +46,8 @@ mat-card-content {
   flex: 1;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.toggleContainer :last-child {
+  margin-left: 1rem;
 }

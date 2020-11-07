@@ -1,12 +1,17 @@
-<div class="container-fluid">
-  TOUTES LES REQUETES FAITES DANS L'ESPACE ADMIN DOIVENT DEMANDER UN TOKEN AUTH
-  POUR ETRE SECURISE, LE GUARD NEST PAS UNE SECURITE EN ELLE MEME
-  <div class="row center-xs center-sm center-md center-lg">
-    <h2 class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">Produits</h2>
+<div class="containerProducts">
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <h2>Produits</h2>
   </div>
-  <div class="row">
+  <div
+    class="listProducts"
+    fxLayout="row wrap"
+    fxLayoutAlign="space-evenly center"
+    fxLayoutGap="1rem"
+  >
     <div
-      class="productCard col-12 col-xs-12 col-sm-6 col-md-6 col-lg-4"
+      fxFlex.lt-md="calc(50 - 1rem)"
+      fxFlex.lt-sm="calc(100 - 1rem)"
+      class="productCard"
       *ngFor="let product of productList$ | async"
     >
       <mat-card>
@@ -17,7 +22,8 @@
           <p>{{ product.description }}</p>
         </mat-expansion-panel>
         <mat-card-content
-          >Prix: {{ product.price }} € / {{ product.unit }}</mat-card-content
+          >Prix: {{ product.price.toFixed(2) }} € /
+          {{ product.unit }}</mat-card-content
         >
         <mat-card-content class="toggleContainer">
           <mat-slide-toggle
