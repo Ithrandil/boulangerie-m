@@ -5,11 +5,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { OrderList } from '@models/order';
 import { Product } from '@models/product';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { switchMapTo, take, takeUntil, tap } from 'rxjs/operators';
+import { first, switchMapTo, take, takeUntil, tap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
 
@@ -20,6 +22,7 @@ import { OrderService } from './../../services/order.service';
 })
 export class OrderFormComponent implements OnDestroy {
   public tomorrow = new Date();
+  public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
   public showDeliveryMessage = false;
   public showShortDeliveryMessage = false;
   public showOrderNeedValidationMessage = false;
@@ -75,7 +78,11 @@ export class OrderFormComponent implements OnDestroy {
     },
   };
 
-  constructor(private orderService: OrderService, private fb: FormBuilder) {
+  constructor(
+    private orderService: OrderService,
+    private fb: FormBuilder,
+    private dialog: MatDialog
+  ) {
     this.tomorrow.setDate(new Date().getDate() + 1);
 
     this.itemFormGroup = this.fb.group({
@@ -196,10 +203,28 @@ export class OrderFormComponent implements OnDestroy {
       }
     }
     if (this.orderForm.valid && orderList.length > 0) {
-      this.orderService.addOrder({
-        ...this.orderForm.value,
-        order: orderList,
-      });
+      this.orderService
+        .addOrder({
+          ...this.orderForm.value,
+          order: orderList,
+        })
+        .pipe(take(1))
+        .subscribe(() => {
+          this.validatedModal = this.dialog.open(FormValidatedModalComponent, {
+            disableClose: true,
+            width: '400px',
+            maxWidth: '90%',
+          });
+          this.validatedModal
+            .afterClosed()
+            .pipe(
+              tap(() => {
+                window.location.reload();
+              }),
+              first()
+            )
+            .subscribe();
+        });
     }
   }
 
