@@ -11,7 +11,7 @@ import { OrderAdminService } from './../../services/order-admin.service';
   styleUrls: ['./order-details.component.scss'],
 })
 export class OrderDetailsComponent implements OnInit {
-  public orderData: Order | undefined;
+  public orderData!: Order;
   constructor(
     private router: Router,
     private route: ActivatedRoute,

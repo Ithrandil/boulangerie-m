@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+mat-card {
+  margin: 1rem;
+}
+
+.mat-card-title {
+  font-size: 2rem;
+  color: var(--color-app-brown) !important;
+}
+
+.address {
+  font-size: 1.3rem;
+}
+
+.productElem {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+.productTitle {
+  margin-top: 3rem !important;
+}
