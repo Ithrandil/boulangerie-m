@@ -10,7 +10,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
-import { OrderListService } from './services/order-list.service';
+import { OrderAdminService } from './services/order-admin.service';
 import { ProductService } from './services/product.service';
 
 @NgModule({
@@ -29,6 +29,6 @@ import { ProductService } from './services/product.service';
     MatProgressSpinnerModule,
   ],
   exports: [AdminRoutingModule],
-  providers: [ProductService, OrderListService],
+  providers: [ProductService, OrderAdminService],
 })
 export class AdminModule {}

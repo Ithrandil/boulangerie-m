@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class OrderListService {
+export class OrderAdminService {
   constructor(private firestore: AngularFirestore) {}
 
   getAllCurentOrders(): Observable<Order[]> {
@@ -17,5 +17,11 @@ export class OrderListService {
         ref.where('orderDate', '>=', limitDate).orderBy('orderDate')
       )
       .valueChanges({ idField: 'orderId' });
+  }
+
+  getOrderById(orderId: string): Observable<Order> {
+    return this.firestore
+      .doc<Order>(`orders/${orderId}`)
+      .valueChanges() as Observable<Order>;
   }
 }

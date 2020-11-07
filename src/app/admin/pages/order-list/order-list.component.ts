@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderListService } from '@app/admin/services/order-list.service';
 import { Order } from '@models/order';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+
+import { OrderAdminService } from './../../services/order-admin.service';
 
 @Component({
   selector: 'app-order-list',
@@ -14,12 +15,12 @@ export class OrderListComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   public currentOrdersList: Order[] = [];
   constructor(
-    private orderListService: OrderListService,
+    private orderAdminService: OrderAdminService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.orderListService
+    this.orderAdminService
       .getAllCurentOrders()
       .pipe(
         tap((currentOrders) => {
@@ -36,9 +37,8 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   public goToDetailsOrder(orderData: Order): void {
-    this.router.navigate([
-      `admin/liste-commandes/${orderData.orderId}`,
-      { state: { orderData } },
-    ]);
+    this.router.navigate([`admin/liste-commandes/${orderData.orderId}`], {
+      state: orderData,
+    });
   }
 }
