@@ -1,4 +1,14 @@
-<h2 fxLayoutAlign="center center">Détail de commande</h2>
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+  <div
+    fxFlex="5"
+    class="goBack"
+    (click)="router.navigate(['admin/liste-commandes'])"
+  >
+    <mat-icon>keyboard_backspace</mat-icon>
+  </div>
+  <h2 fxFlex="80">Détail de commande</h2>
+  <div fxFlex="5"></div>
+</div>
 <div fxLayout="row" fxLayoutAlign="center center" *ngIf="!orderData">
   <mat-spinner></mat-spinner>
 </div>

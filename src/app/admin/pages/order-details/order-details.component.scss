@@ -5,6 +5,21 @@
   margin-top: 3rem;
 }
 
+.goBack {
+  margin-right: 4rem;
+  color: var(--color-app-brown);
+  cursor: pointer;
+}
+
+.mat-icon {
+  font-size: 3rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
 mat-card {
   margin: 1rem;
 }

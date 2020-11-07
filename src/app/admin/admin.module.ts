@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
@@ -27,6 +28,7 @@ import { ProductService } from './services/product.service';
     MatExpansionModule,
     FlexLayoutModule,
     MatProgressSpinnerModule,
+    MatIconModule,
   ],
   exports: [AdminRoutingModule],
   providers: [ProductService, OrderAdminService],

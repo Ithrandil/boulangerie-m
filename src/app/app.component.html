@@ -4,11 +4,11 @@
   fxLayoutAlign="flex-start center"
   fxLayoutAlign.lt-sm="center center"
 >
-  <div fxFlex="20" fxHide.lt-sm>
+  <div fxFlex="20" fxHide.lt-sm (click)="router.navigate([''])">
     <img
       alt="logo boulangerie-m"
       src="../assets/images/logo-header.png"
-      class="logo-header"
+      class="logo-header link"
     />
   </div>
   <div *ngIf="!isConnected" fxFlex="60" fxHide.lt-sm>
@@ -39,11 +39,11 @@
   </div>
   <!-- Mobile menu -------------------------------------------->
   <div *ngIf="isConnected" fxHide.gt-xs fxFlex.lt-sm="10"></div>
-  <div fxHide.gt-xs fxFlex.lt-sm="80">
+  <div fxHide.gt-xs fxFlex.lt-sm="80" (click)="router.navigate([''])">
     <img
       alt="logo boulangerie-m"
       src="../assets/images/logo-header.png"
-      class="logo-header"
+      class="logo-header link"
     />
   </div>
   <button

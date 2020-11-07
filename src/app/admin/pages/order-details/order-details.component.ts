@@ -13,7 +13,7 @@ import { OrderAdminService } from './../../services/order-admin.service';
 export class OrderDetailsComponent implements OnInit {
   public orderData!: Order;
   constructor(
-    private router: Router,
+    public router: Router,
     private route: ActivatedRoute,
     private orderAdminService: OrderAdminService
   ) {
