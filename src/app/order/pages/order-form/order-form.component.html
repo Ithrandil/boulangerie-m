@@ -207,7 +207,9 @@
         fxLayout="row wrap"
         fxLayoutAlign="space-between baseline"
       >
-        <div>Prix: {{ product.price }} € H.T. / {{ product.unit }}</div>
+        <div>
+          Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
+        </div>
         <div>
           <mat-form-field
             [formGroup]="itemFormGroup"
@@ -230,7 +232,9 @@
     *ngIf="orderForm.get('totalPrice')?.value > 0"
   >
     <h2 fxFlex="50">Prix total de la commande:</h2>
-    <h2 fxFlex="50">{{ orderForm.get("totalPrice")?.value }} € H.T.</h2>
+    <h2 fxFlex="50">
+      {{ orderForm.get("totalPrice")?.value.toFixed(2) }} € H.T.
+    </h2>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="buttonRow">
     <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
