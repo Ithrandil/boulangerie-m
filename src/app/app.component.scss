@@ -63,3 +63,12 @@ a:active,
 a:hover {
   color: var(--color-app-brown);
 }
+
+.mobileMenuButton {
+  border: none;
+  background-color: var(--color-app-light-grey);
+}
+
+.logoutHeader {
+  font-size: 1.6rem;
+}

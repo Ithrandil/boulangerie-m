@@ -4,35 +4,90 @@
   fxLayoutAlign="flex-start center"
   fxLayoutAlign.lt-sm="center center"
 >
-  <div fxFlex="20" fxFlex.lt-sm="100">
+  <div fxFlex="20" fxHide.lt-sm>
     <img
       alt="logo boulangerie-m"
       src="../assets/images/logo-header.png"
       class="logo-header"
     />
   </div>
-  <div
-    *ngIf="activatedRoute && !activatedRoute.includes('admin')"
-    fxFlex="60"
-    fxHide.lt-sm
-  >
+  <div *ngIf="!isConnected" fxFlex="60" fxHide.lt-sm>
     Plateforme de commande réservée aux professionnels
   </div>
   <div
-    *ngIf="activatedRoute && activatedRoute.includes('admin')"
+    *ngIf="isConnected"
     fxLayout="row wrap"
     fxLayoutAlign="space-evenly center"
-    fxFlex="60"
+    fxFlex="80"
     fxHide.lt-sm
   >
+    <div class="link" (click)="router.navigate([''])">Formulaire</div>
     <div class="link" (click)="router.navigate(['admin/liste-commandes'])">
       Commandes
     </div>
     <div class="link" (click)="router.navigate(['admin/produits'])">
       Produits
     </div>
+    <div
+      class="link logoutHeader"
+      fxLayoutAlign="center center"
+      (click)="logoutAdminSpace()"
+    >
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Se déconnecter</span>
+    </div>
   </div>
+  <!-- Mobile menu -------------------------------------------->
+  <div *ngIf="isConnected" fxHide.gt-xs fxFlex.lt-sm="10"></div>
+  <div fxHide.gt-xs fxFlex.lt-sm="80">
+    <img
+      alt="logo boulangerie-m"
+      src="../assets/images/logo-header.png"
+      class="logo-header"
+    />
+  </div>
+  <button
+    *ngIf="isConnected"
+    class="mobileMenuButton"
+    fxHide.gt-xs
+    fxFlex.lt-sm="10"
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" xPosition="after">
+    <button
+      *ngIf="!activatedRoute.includes('liste')"
+      mat-menu-item
+      (click)="router.navigate(['admin/liste-commandes'])"
+    >
+      <mat-icon>shopping_basket</mat-icon>
+      <span>Commandes</span>
+    </button>
+    <button
+      *ngIf="!activatedRoute.includes('produits')"
+      mat-menu-item
+      (click)="router.navigate(['admin/produits'])"
+    >
+      <mat-icon>fastfood</mat-icon>
+      <span>Produits</span>
+    </button>
+    <button
+      *ngIf="activatedRoute.includes('admin')"
+      mat-menu-item
+      (click)="router.navigate(['/'])"
+    >
+      <mat-icon>list</mat-icon>
+      <span>Formulaire</span>
+    </button>
+    <button mat-menu-item (click)="logoutAdminSpace()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Se déconnecter</span>
+    </button>
+  </mat-menu>
 </mat-toolbar-row>
+<!-- ----------------------------------------------- -->
 <div class="container-page">
   <router-outlet (activate)="onActivate()"></router-outlet>
   <a class="bkgrdLink" href="https://www.freepik.com/vectors/background"
