@@ -1,4 +1,5 @@
 import { registerLocaleData } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import localeFrExtra from '@angular/common/locales/extra/fr';
 import localeFr from '@angular/common/locales/fr';
 import { LOCALE_ID, NgModule } from '@angular/core';
@@ -17,11 +18,12 @@ import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MentionsLegalesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +37,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
+    HttpClientModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }, AngularFireAuthGuard],
   bootstrap: [AppComponent],

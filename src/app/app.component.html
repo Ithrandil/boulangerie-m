@@ -90,26 +90,39 @@
 <!-- ----------------------------------------------- -->
 <div class="container-page">
   <router-outlet (activate)="onActivate()"></router-outlet>
-  <a class="bkgrdLink" href="https://www.freepik.com/vectors/background"
-    >Background vector created by freepik - www.freepik.com</a
-  >
 </div>
-<footer class="footer" fxLayout="row" fxLayoutAlign="space-evenly center">
+<footer
+  class="footer"
+  fxLayout="row wrap"
+  fxLayout.lt-sm="column wrap"
+  fxLayoutAlign="space-evenly center"
+>
   <div>
     <p>
       Boulangerie M <br />
       127 Avenue du Lieutenant-Colonel Bernier <br />
       17000 La Rochelle
     </p>
+  </div>
+  <div>
     <p>
+      <mat-icon>phone</mat-icon>
+      <span class="textWithIcon"> 05 46 01 09 72 </span>
+    </p>
+    <p>
+      <mat-icon svgIcon="facebook" class="iconFb"></mat-icon>&nbsp;
       <a
+        class="textWithIcon"
         href="https://www.facebook.com/pages/category/Bakery/Boulangerie-M-437577199741453/"
         target="blank"
-        >Facebook</a
+        >Notre page facebook</a
       >
     </p>
   </div>
   <div>
+    <div class="link" (click)="router.navigate(['mentions-legales'])">
+      <p>Mentions Légales todo</p>
+    </div>
     <div class="link">
       <p *ngIf="!isConnected" (click)="router.navigate(['admin'])">
         Espace administrateur
