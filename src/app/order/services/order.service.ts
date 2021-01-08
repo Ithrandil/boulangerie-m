@@ -10,7 +10,7 @@ import { from, Observable } from 'rxjs';
 export class OrderService {
   constructor(private firestore: AngularFirestore) {}
 
-  getAllAvailableItems(): Observable<Product[]> {
+  public getAllAvailableItems(): Observable<Product[]> {
     return this.firestore
       .collection<Product>('products', (ref) =>
         ref.where('available', '==', true)
@@ -18,7 +18,7 @@ export class OrderService {
       .valueChanges();
   }
 
-  addOrder(order: Order): Observable<DocumentReference> {
+  public addOrder(order: Order): Observable<DocumentReference> {
     return from(this.firestore.collection<Order>('orders').add(order));
   }
 }

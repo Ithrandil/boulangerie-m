@@ -1,9 +1,17 @@
 <div
   fxLayout="row"
   fxLayoutAlign="center center"
-  *ngIf="!currentOrdersList.length"
+  *ngIf="!currentOrdersList.length && currentOrdersList.length > 0"
 >
   <mat-spinner></mat-spinner>
+</div>
+<div
+  id="noOrder"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  *ngIf="!currentOrdersList.length && currentOrdersList.length === 0"
+>
+  <h2>Il n'y a actuellement aucune commande.</h2>
 </div>
 <mat-card
   *ngFor="let order of currentOrdersList"

@@ -13,8 +13,8 @@ export class OrderAdminService {
     // TODO: PB: demande est de trier par date de commande passée et d'afficher les 4
     // derniers jours mais que se passe t'il si quelqu'un commande pour dans une
     // semaine? La commande va disparaitre avant d'avoir été livrée
-    // const limitDate = new Date();
-    // limitDate.setDate(limitDate.getDate() - 4);
+    const limitDate = new Date();
+    limitDate.setDate(limitDate.getDate() - 4);
     const today = new Date();
     return this.firestore
       .collection<Order>('orders', (ref) =>

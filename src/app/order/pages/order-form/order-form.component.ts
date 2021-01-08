@@ -155,6 +155,11 @@ export class OrderFormComponent implements OnDestroy {
             this.showDeliveryMessage = true;
             this.showShortDeliveryMessage = false;
             this.showOrderNeedValidationMessage = false;
+            this.productList.forEach((product) => {
+              if (!product.shortDelivery) {
+                this.itemFormGroup.get(product.name)?.enable();
+              }
+            });
           } else if (
             orderTime >= 11 &&
             orderTime < 18 &&
