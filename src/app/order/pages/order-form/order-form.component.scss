@@ -21,10 +21,14 @@ form {
 }
 .warningMessage {
   color: crimson;
-  font-weight: bold;
   @media (max-width: 768px) {
     text-align-last: center;
   }
+}
+
+#importantSentence {
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 //*** CUSTOM CARD PRODUCT STYLE

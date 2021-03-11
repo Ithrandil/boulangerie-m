@@ -12,6 +12,7 @@ export interface Order {
   order: OrderList;
   deliveryDate: firestore.Timestamp;
   orderDate: firestore.Timestamp;
+  orderComment: string;
   totalPrice: number;
 }
 

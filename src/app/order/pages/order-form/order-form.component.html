@@ -147,6 +147,7 @@
         formControlName="deliveryDate"
         [min]="tomorrow"
         [matDatepicker]="picker"
+        [matDatepickerFilter]="onlySummerSunday"
         readonly
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -168,8 +169,11 @@
     >
       <span> Attention, dû au délai court de votre commande: </span>
       <span *ngIf="showOrderNeedValidationMessage">
-        <br />&nbsp;&nbsp;- Elle devra être validée par la boulangerie M. Sans
-        retour de leur part dans l'heure, considérez la comme annulée.
+        <br />&nbsp;&nbsp;- Elle devra être validée par la boulangerie M.
+        <span id="importantSentence"
+          >Sans retour de leur part dans l'heure, considérez la comme
+          annulée.</span
+        >
       </span>
       <span *ngIf="showShortDeliveryMessage">
         <br />&nbsp;&nbsp;- Certains produits ne sont pas disponibles. Ils ont
@@ -225,6 +229,21 @@
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center">
     <mat-divider fxFlex="50"></mat-divider>
+  </div>
+  <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
+    <mat-form-field
+      fxFlexOffset="7"
+      fxFlex="87"
+      fxFlex.lt-sm="87"
+      appearance="outline"
+    >
+      <mat-label>Commentaires</mat-label>
+      <textarea
+        matInput
+        formControlName="orderComment"
+        placeholder="Ex: boules tranchées, forme des pains, ..."
+      ></textarea>
+    </mat-form-field>
   </div>
   <div
     fxLayout="column wrap"

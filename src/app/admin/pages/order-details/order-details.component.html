@@ -70,6 +70,12 @@
       </div>
     </ng-template>
   </mat-card-content>
+  <mat-card-title *ngIf="orderData.orderComment" class="productTitle"
+    >Commentaires</mat-card-title
+  >
+  <div *ngIf="orderData.orderComment">
+    <pre>{{ orderData.orderComment }}</pre>
+  </div>
   <mat-card-title class="productTitle">Produits</mat-card-title>
   <mat-card-content
     fxLayout="column wrap"

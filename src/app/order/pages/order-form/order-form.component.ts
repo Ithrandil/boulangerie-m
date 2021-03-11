@@ -52,6 +52,7 @@ export class OrderFormComponent implements OnDestroy {
     ],
     deliveryDate: [null, [Validators.required]],
     orderDate: [new Date(Date.now()), [Validators.required]],
+    orderComment: [''],
     totalPrice: [0, [Validators.required]],
   });
   private errorMessages: FormErrorMessages = {
@@ -76,6 +77,15 @@ export class OrderFormComponent implements OnDestroy {
       required: 'Date de livraison obligatoire',
       matDatepickerMin: 'Date incorrecte',
     },
+  };
+  public onlySummerSunday = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    const month = (d || new Date()).getMonth();
+    let res = true;
+    if (day === 0 && (month > 8 || month < 5)) {
+      res = false;
+    }
+    return res;
   };
 
   constructor(
@@ -182,10 +192,17 @@ export class OrderFormComponent implements OnDestroy {
                 this.itemFormGroup.get(product.name)?.disable();
               }
             });
+          } else if (orderTime >= 18) {
+            this.tomorrow.setDate(new Date().getDate() + 1);
+            this.showDeliveryMessage = true;
+            this.showShortDeliveryMessage = false;
+            this.showOrderNeedValidationMessage = false;
+            this.productList.forEach((product) => {
+              if (!product.shortDelivery) {
+                this.itemFormGroup.get(product.name)?.enable();
+              }
+            });
           }
-          // TODO: DEMANDER A AYMERIC LA GESTION DU CAS: Demande d'une commande après 18h pour le lendemain?
-          // - On empêche le fait de pouvoir le faire (on change le trigger du min date a 18h)
-          // - On considère ca comme une livraison pour le lendemain a confirmer?
         })
       )
       .subscribe();
