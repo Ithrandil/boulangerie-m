@@ -151,6 +151,18 @@ export class OrderFormComponent implements OnDestroy {
   }
 
   private filterShortDeliveryProducts(): void {
+    if (new Date(Date.now()).getHours() >= 18) {
+      this.tomorrow.setDate(new Date().getDate() + 2);
+      this.showDeliveryMessage = true;
+      this.showShortDeliveryMessage = false;
+      this.showOrderNeedValidationMessage = false;
+      this.productList.forEach((product) => {
+        if (!product.shortDelivery) {
+          this.itemFormGroup.get(product.name)?.enable();
+        }
+      });
+    }
+
     combineLatest([
       this.orderForm.get('deliveryDate')?.valueChanges as Observable<Date>,
       this.orderForm.get('orderDate')?.valueChanges as Observable<Date>,
@@ -160,7 +172,6 @@ export class OrderFormComponent implements OnDestroy {
           const orderTime = orderDate.getHours();
           const differenceIndays =
             (deliveryDate.getTime() - orderDate.getTime()) / (1000 * 3600 * 24);
-
           if (differenceIndays >= 1) {
             this.showDeliveryMessage = true;
             this.showShortDeliveryMessage = false;
@@ -193,7 +204,7 @@ export class OrderFormComponent implements OnDestroy {
               }
             });
           } else if (orderTime >= 18) {
-            this.tomorrow.setDate(new Date().getDate() + 1);
+            this.tomorrow.setDate(new Date().getDate() + 2);
             this.showDeliveryMessage = true;
             this.showShortDeliveryMessage = false;
             this.showOrderNeedValidationMessage = false;
