@@ -11,7 +11,7 @@ export class ProductService {
 
   public getAllItems(): Observable<Product[]> {
     return this.firestore
-      .collection<Product>('products')
+      .collection<Product>('products', (ref) => ref.orderBy('name'))
       .valueChanges({ idField: 'productId' });
   }
 

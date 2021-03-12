@@ -14,12 +14,13 @@ div:last-of-type {
 
 .mat-expansion-panel:not([class*="mat-elevation-z"]) {
   box-shadow: none;
+  max-width: 23.5rem !important;
 }
 
 .mat-expansion-panel-header {
   padding: 0 5px 0 0;
   font-size: 1.5rem;
-  margin: 0 0 0.8rem 0;
+  margin: 0.4rem 0 0.8rem 0;
   height: 2.5rem;
 }
 .mat-expansion-panel-header-title {

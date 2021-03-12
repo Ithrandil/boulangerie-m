@@ -103,7 +103,9 @@ export class OrderFormComponent implements OnDestroy {
       .pipe(
         take(1),
         tap((resProdList) => {
-          this.productList = resProdList;
+          this.productList = resProdList.sort((a, b) =>
+            a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+          );
           this.itemFormGroup.removeControl('default');
           resProdList.forEach((product) => {
             this.itemFormGroup?.addControl(product.name, new FormControl(null));
