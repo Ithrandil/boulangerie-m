@@ -17,6 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { FormValidatedModalComponent } from './components/form-validated-modal/form-validated-modal.component';
 import { OrderRoutingModule } from './order-routing.module';
@@ -42,6 +43,7 @@ import { OrderService } from './services/order.service';
     MatDividerModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    NgxMaterialTimepickerModule,
   ],
   providers: [
     OrderService,

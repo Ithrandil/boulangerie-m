@@ -24,6 +24,7 @@
     </div>
     <div>
       Livraison le {{ order.deliveryDate.toDate() | date: "EEEE d MMMM y" }}
+      {{ order?.deliveryTime ? " à " + order.deliveryTime : "" }}
     </div>
   </mat-card-title>
   <mat-card-subtitle fxLayout="row wrap" fxLayoutAlign="space-between center">

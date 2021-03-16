@@ -157,11 +157,50 @@
       }}</mat-error>
     </mat-form-field>
   </div>
+  <div
+    fxLayout="row wrap"
+    class="checkboxRow"
+    fxLayoutAlign="flex-start center"
+  >
+    <mat-checkbox
+      fxFlexOffset="7"
+      (change)="specificDeliveryTime($event.checked)"
+      >Besoin d'une heure de livraison précise?</mat-checkbox
+    >
+  </div>
+  <div
+    *ngIf="selectDeliveryTime"
+    fxLayout="row wrap"
+    fxLayoutAlign="flex-start center"
+  >
+    <mat-form-field
+      fxFlexOffset="7"
+      fxFlex="20"
+      fxFlex.lt-sm="87"
+      appearance="outline"
+    >
+      <mat-label>Heure de livraison</mat-label>
+      <input
+        [ngxTimepicker]="$any(datePicker)"
+        min="06:00"
+        max="12:00"
+        [format]="24"
+        readonly
+        matInput
+        formControlName="deliveryTime"
+      />
+      <ngx-material-timepicker #datePicker></ngx-material-timepicker>
+    </mat-form-field>
+  </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center">
     <p class="deliveryMessage" *ngIf="showDeliveryMessage">
       Votre livraison vous sera livrée à l'adresse renseignée le
-      {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }} entre 10
-      heures et midi.
+      {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }}
+      {{
+        this.orderForm.get("deliveryTime")?.value
+          ? "à " + this.orderForm.get("deliveryTime")?.value
+          : "entre 6 heures et midi."
+      }}
     </p>
     <p
       class="warningMessage"

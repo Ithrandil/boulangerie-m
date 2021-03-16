@@ -18,7 +18,8 @@
       {{ orderData.name }}
     </div>
     <div>
-      Livraison le {{ orderData.deliveryDate.toDate() | date: "EEEE d MMMM y" }}
+      Livraison le {{ orderData.deliveryDate.toDate() | date: "EEEE d MMMM y"
+      }}{{ orderData?.deliveryTime ? " à " + orderData.deliveryTime : "" }}
     </div>
   </mat-card-title>
   <mat-card-subtitle fxLayout="row wrap" fxLayoutAlign="space-between center">

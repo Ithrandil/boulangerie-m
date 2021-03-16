@@ -31,6 +31,11 @@ form {
   font-weight: bold;
 }
 
+::ng-deep ngx-material-timepicker-container {
+  --button-color: var(--color-app-brown) !important;
+  --dial-background-color: var(--color-app-brown) !important;
+  --clock-hand-color: var(--color-app-brown) !important;
+}
 //*** CUSTOM CARD PRODUCT STYLE
 mat-card {
   margin-bottom: 1rem;

@@ -9,6 +9,7 @@ export interface Order {
   address: Address;
   hasDifferentDeliveryAddress: boolean;
   deliveryAddress: Address;
+  deliveryTime: string;
   order: OrderList;
   deliveryDate: firestore.Timestamp;
   orderDate: firestore.Timestamp;

@@ -26,6 +26,7 @@ export class OrderFormComponent implements OnDestroy {
   public showDeliveryMessage = false;
   public showShortDeliveryMessage = false;
   public showOrderNeedValidationMessage = false;
+  public selectDeliveryTime = false;
   private unsubscribe$ = new Subject<void>();
   public productList: Product[] = [];
   public itemFormGroup: FormGroup;
@@ -51,6 +52,7 @@ export class OrderFormComponent implements OnDestroy {
       [Validators.required],
     ],
     deliveryDate: [null, [Validators.required]],
+    deliveryTime: [null],
     orderDate: [new Date(Date.now()), [Validators.required]],
     orderComment: [''],
     totalPrice: [0, [Validators.required]],
@@ -141,6 +143,16 @@ export class OrderFormComponent implements OnDestroy {
             .price;
       }
       this.orderForm.get('totalPrice')?.setValue(totalPrice);
+    }
+  }
+
+  public specificDeliveryTime(checked: boolean): void {
+    this.selectDeliveryTime = checked;
+    if (this.selectDeliveryTime) {
+      this.orderForm.get('deliveryTime')?.enable();
+    } else {
+      this.orderForm.get('deliveryTime')?.reset();
+      this.orderForm.get('deliveryTime')?.disable();
     }
   }
 
