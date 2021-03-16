@@ -86,6 +86,7 @@ export class OrderFormComponent implements OnDestroy {
       res = false;
     }
     return res;
+    // tslint:disable-next-line
   };
 
   constructor(
@@ -155,14 +156,6 @@ export class OrderFormComponent implements OnDestroy {
   private filterShortDeliveryProducts(): void {
     if (new Date(Date.now()).getHours() >= 18) {
       this.tomorrow.setDate(new Date().getDate() + 2);
-      this.showDeliveryMessage = true;
-      this.showShortDeliveryMessage = false;
-      this.showOrderNeedValidationMessage = false;
-      this.productList.forEach((product) => {
-        if (!product.shortDelivery) {
-          this.itemFormGroup.get(product.name)?.enable();
-        }
-      });
     }
 
     combineLatest([
@@ -203,16 +196,6 @@ export class OrderFormComponent implements OnDestroy {
               if (!product.shortDelivery) {
                 this.showShortDeliveryMessage = true;
                 this.itemFormGroup.get(product.name)?.disable();
-              }
-            });
-          } else if (orderTime >= 18) {
-            this.tomorrow.setDate(new Date().getDate() + 2);
-            this.showDeliveryMessage = true;
-            this.showShortDeliveryMessage = false;
-            this.showOrderNeedValidationMessage = false;
-            this.productList.forEach((product) => {
-              if (!product.shortDelivery) {
-                this.itemFormGroup.get(product.name)?.enable();
               }
             });
           }
