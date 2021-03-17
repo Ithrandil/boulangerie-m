@@ -13,11 +13,12 @@ export class OrderAdminService {
     const limitDate = new Date();
     limitDate.setDate(limitDate.getDate() + 7);
     const today = new Date();
+    today.setDate(today.getDate() - 1);
     return this.firestore
       .collection<Order>('orders', (ref) =>
         ref
           .where('deliveryDate', '<=', limitDate)
-          .where('deliveryDate', '>=', today)
+          .where('deliveryDate', '>', today)
           .orderBy('deliveryDate')
       )
       .valueChanges({ idField: 'orderId' });
