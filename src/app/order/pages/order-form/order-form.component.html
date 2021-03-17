@@ -132,6 +132,9 @@
       </mat-form-field>
     </div>
   </div>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-divider fxFlex="50"></mat-divider>
+  </div>
   <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
     <mat-form-field
       fxFlexOffset="7"
@@ -167,30 +170,27 @@
       (change)="specificDeliveryTime($event.checked)"
       >Besoin d'une heure de livraison précise?</mat-checkbox
     >
-  </div>
-  <div
-    *ngIf="selectDeliveryTime"
-    fxLayout="row wrap"
-    fxLayoutAlign="flex-start center"
-  >
-    <mat-form-field
+    <div
+      *ngIf="selectDeliveryTime"
       fxFlexOffset="7"
-      fxFlex="20"
+      fxFlexOffset.gt-md="12"
+      fxFlex="40"
       fxFlex.lt-sm="87"
-      appearance="outline"
     >
-      <mat-label>Heure de livraison</mat-label>
-      <input
-        [ngxTimepicker]="$any(datePicker)"
-        min="06:00"
-        max="12:00"
-        [format]="24"
-        readonly
-        matInput
-        formControlName="deliveryTime"
-      />
-      <ngx-material-timepicker #datePicker></ngx-material-timepicker>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Heure de livraison</mat-label>
+        <input
+          [ngxTimepicker]="$any(datePicker)"
+          min="06:00"
+          max="12:00"
+          [format]="24"
+          readonly
+          matInput
+          formControlName="deliveryTime"
+        />
+        <ngx-material-timepicker #datePicker></ngx-material-timepicker>
+      </mat-form-field>
+    </div>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center">
     <p class="deliveryMessage" *ngIf="showDeliveryMessage">
