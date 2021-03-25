@@ -232,39 +232,54 @@
       <mat-spinner></mat-spinner>
     </div>
 
-    <mat-card
-      *ngFor="let product of productList"
-      fxFlex="40"
-      fxFlex.lt-sm="87"
-      [ngClass]="{
-        unavailableItem: showShortDeliveryMessage && !product.shortDelivery
-      }"
+    <mat-expansion-panel
+      fxLayout="row wrap"
+      fxLayoutAlign="center center"
+      fxFlex="87"
+      class="productCategory"
+      *ngFor="let category of PRODUCTCATEGORY | keyvalue"
     >
-      <mat-expansion-panel [disabled]="!product.description">
-        <mat-expansion-panel-header>
-          <mat-panel-title>{{ product.name }}</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p>{{ product.description }}</p>
-      </mat-expansion-panel>
-      <mat-card-content
-        fxLayout="row wrap"
-        fxLayoutAlign="space-between baseline"
+      <mat-expansion-panel-header fxFlex="100" class="productCategoryHeader">
+        <mat-panel-title>{{ category.value }}</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-card
+        *ngFor="let product of filterProductByCategory(category.value)"
+        fxFlex="49"
+        fxFlex.lt-sm="100"
+        [ngClass]="{
+          unavailableItem: showShortDeliveryMessage && !product.shortDelivery
+        }"
       >
-        <div>
-          Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
-        </div>
-        <div>
-          <mat-form-field
-            [formGroup]="itemFormGroup"
-            class="quantityInput"
-            appearance="outline"
-          >
-            <mat-label>Quantité</mat-label>
-            <input matInput type="number" [formControlName]="product.name" />
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
+        <mat-expansion-panel
+          [disabled]="!product.description"
+          class="productExpansion"
+        >
+          <mat-expansion-panel-header class="productExpansionHeader">
+            <mat-panel-title>{{ product.name }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>{{ product.description }}</p>
+        </mat-expansion-panel>
+        <mat-card-content
+          fxLayout="row wrap"
+          fxLayoutAlign="space-between baseline"
+        >
+          <div>
+            Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
+          </div>
+          <div>
+            <mat-form-field
+              [formGroup]="itemFormGroup"
+              class="quantityInput"
+              appearance="outline"
+            >
+              <mat-label>Quantité</mat-label>
+              <input matInput type="number" [formControlName]="product.name" />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center">
     <mat-divider fxFlex="50"></mat-divider>

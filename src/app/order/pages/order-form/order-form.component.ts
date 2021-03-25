@@ -9,7 +9,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { OrderList } from '@models/order';
-import { Product } from '@models/product';
+import { Product, ProductCategory } from '@models/product';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { first, switchMapTo, take, takeUntil, tap } from 'rxjs/operators';
 
@@ -21,6 +21,7 @@ import { OrderService } from './../../services/order.service';
   styleUrls: ['./order-form.component.scss'],
 })
 export class OrderFormComponent implements OnDestroy {
+  public PRODUCTCATEGORY = ProductCategory;
   public tomorrow = new Date();
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
   public showDeliveryMessage = false;
@@ -286,5 +287,9 @@ export class OrderFormComponent implements OnDestroy {
       }
     }
     return errors.join(', ');
+  }
+
+  public filterProductByCategory(category: ProductCategory): Product[] {
+    return this.productList.filter((prod) => prod.category === category);
   }
 }

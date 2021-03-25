@@ -36,6 +36,25 @@ form {
   --dial-background-color: var(--color-app-brown) !important;
   --clock-hand-color: var(--color-app-brown) !important;
 }
+//*** CUSTOM ACCORDION PRODUCT CATEGORY
+.productCategory {
+  background-color: var(--color-app-light-grey);
+  .mat-card:first-child {
+    margin-top: 3rem;
+  }
+  @media (min-width: 600px) {
+    .mat-card:nth-child(2) {
+      margin-top: 3rem;
+    }
+  }
+}
+
+.productCategoryHeader {
+  background-color: white;
+  max-height: 4rem;
+}
+//***
+
 //*** CUSTOM CARD PRODUCT STYLE
 mat-card {
   margin-bottom: 1rem;
@@ -45,10 +64,10 @@ mat-card-content {
   font-size: 1.3rem;
   margin-bottom: 0.8rem;
 }
-.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+.productExpansion:not([class*="mat-elevation-z"]) {
   box-shadow: none;
 }
-.mat-expansion-panel-header {
+.productExpansionHeader {
   padding: 0 5px 0 0;
   font-size: 1.5rem;
   margin: 0;
@@ -58,14 +77,18 @@ mat-card-content {
   color: var(--color-app-brown) !important;
 }
 ::ng-deep .mat-expansion-panel-body {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
   font-size: 1.3rem;
-  padding: 0 0 0 1rem !important;
+  padding: 0 !important;
   > p {
     font-size: 1.3rem;
     font-weight: lighter;
-    margin: 0 0 0.8rem 0 !important;
+    margin: 0 0 0.8rem 1rem !important;
   }
 }
+
 .quantityInput {
   max-width: 9rem;
 }

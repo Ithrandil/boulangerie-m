@@ -6,9 +6,22 @@ export interface Product {
   price: number;
   available: boolean;
   shortDelivery: boolean;
+  category: ProductCategory;
 }
 
 export enum ProductUnit {
   KG = 'kilo',
   UNIT = 'unité',
+}
+
+export enum ProductCategory {
+  BAGUETTE = 'Baguettes',
+  SANDWICH = 'Pains sandwichs',
+  INDIVIDUEL = 'Pains individuels',
+  COUPE = 'Pains à la coupe',
+  PIECE = 'Pains à la pièce',
+  VIENNOISERIE = 'Viennoiseries',
+  MIE = 'Pains de mie',
+  GATEAU = 'Gateaux de voyage',
+  PATES = 'Pâtes',
 }
