@@ -39,19 +39,23 @@ form {
 //*** CUSTOM ACCORDION PRODUCT CATEGORY
 .productCategory {
   background-color: var(--color-app-light-grey);
+  margin-bottom: 0.5rem;
   .mat-card:first-child {
-    margin-top: 3rem;
+    margin-top: 2rem;
   }
   @media (min-width: 600px) {
     .mat-card:nth-child(2) {
-      margin-top: 3rem;
+      margin-top: 2rem;
     }
   }
 }
 
 .productCategoryHeader {
   background-color: white;
+  font-size: 1.7rem;
   max-height: 4rem;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 //***
 

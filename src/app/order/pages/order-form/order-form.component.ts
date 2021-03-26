@@ -21,6 +21,7 @@ import { OrderService } from './../../services/order.service';
   styleUrls: ['./order-form.component.scss'],
 })
 export class OrderFormComponent implements OnDestroy {
+  public orderSummary: [string, number][] = [];
   public PRODUCTCATEGORY = ProductCategory;
   public tomorrow = new Date();
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
@@ -118,6 +119,7 @@ export class OrderFormComponent implements OnDestroy {
         switchMapTo(this.itemFormGroup.valueChanges),
         takeUntil(this.unsubscribe$),
         tap((itemFormData) => {
+          this.orderSummary = Object.entries(itemFormData);
           this.calcTotalPrice(itemFormData);
         })
       )

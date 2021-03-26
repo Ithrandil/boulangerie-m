@@ -22,6 +22,6 @@ export enum ProductCategory {
   PIECE = 'Pains à la pièce',
   VIENNOISERIE = 'Viennoiseries',
   MIE = 'Pains de mie',
-  GATEAU = 'Gateaux de voyage',
+  GATEAU = 'Gâteaux de voyage',
   PATES = 'Pâtes',
 }

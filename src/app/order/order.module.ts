@@ -23,10 +23,15 @@ import { FormValidatedModalComponent } from './components/form-validated-modal/f
 import { OrderRoutingModule } from './order-routing.module';
 import { OrderFormComponent } from './pages/order-form/order-form.component';
 import { MondayStartWeekDateAdapter } from './services/mondayStartWeekDateAdapter.service';
+import { OrderSummaryPipe } from './services/order-summary.pipe';
 import { OrderService } from './services/order.service';
 
 @NgModule({
-  declarations: [OrderFormComponent, FormValidatedModalComponent],
+  declarations: [
+    OrderFormComponent,
+    FormValidatedModalComponent,
+    OrderSummaryPipe,
+  ],
   imports: [
     CommonModule,
     OrderRoutingModule,
