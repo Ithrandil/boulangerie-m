@@ -170,7 +170,7 @@ export class OrderFormComponent implements OnDestroy {
 
   private filterShortDeliveryProducts(): void {
     if (new Date(Date.now()).getHours() >= 18) {
-      this.tomorrow.setDate(new Date().getDate() + 2);
+      this.tomorrow.setDate(this.tomorrow.getDate() + 1);
     }
 
     combineLatest([
