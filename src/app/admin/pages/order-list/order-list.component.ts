@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Order } from '@models/order';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -14,10 +13,7 @@ import { OrderAdminService } from './../../services/order-admin.service';
 export class OrderListComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   public currentOrdersList: Order[] = [];
-  constructor(
-    private orderAdminService: OrderAdminService,
-    private router: Router
-  ) {}
+  constructor(private orderAdminService: OrderAdminService) {}
 
   ngOnInit(): void {
     this.orderAdminService
@@ -34,11 +30,5 @@ export class OrderListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.unsubscribe();
-  }
-
-  public goToDetailsOrder(orderData: Order): void {
-    this.router.navigate([`admin/liste-commandes/${orderData.orderId}`], {
-      state: orderData,
-    });
   }
 }
