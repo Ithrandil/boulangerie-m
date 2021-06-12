@@ -6,6 +6,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { OrderListComponent } from './pages/order-list/order-list.component';
@@ -24,6 +25,7 @@ import { ProductService } from './services/product.service';
     FlexLayoutModule,
     MatProgressSpinnerModule,
     MatIconModule,
+    MatTabsModule,
   ],
   exports: [AdminRoutingModule],
   providers: [ProductService, OrderAdminService],

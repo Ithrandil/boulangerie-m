@@ -5,6 +5,16 @@
   margin-top: 3rem;
 }
 
+mat-tab-group {
+  max-width: 100vw;
+}
+
+::ng-deep .mat-tab-body-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
 mat-card {
   margin: 1rem 2rem 1rem 2rem;
 }
