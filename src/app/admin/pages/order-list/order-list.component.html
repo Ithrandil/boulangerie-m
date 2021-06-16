@@ -8,11 +8,11 @@
 
 <mat-tab-group
   mat-align-tabs="center"
-  (selectedIndexChange)="getOrdersOfTheDay(tabsLabels[$event])"
+  (selectedIndexChange)="getOrdersOfTheDay(daysList[$event])"
 >
   <mat-tab
     *ngFor="let days of tabsLabels; let i = index"
-    [label]="tabsLabels[i] | date: 'EEEE d MMMM'"
+    [label]="tabsLabels[i] | titlecase"
   >
     <ng-template matTabContent>
       <div

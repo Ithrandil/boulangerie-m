@@ -9,6 +9,16 @@ mat-tab-group {
   max-width: 100vw;
 }
 
+// ::ng-deep .mat-tab-label-active {
+//   // background-color: var(--color-app-light-brown);
+//   // color: var(--color-app-brown);
+//   background-color: var(--color-app-brown);
+//   color: var(--color-app-light-brown);
+// }
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+  background: var(--color-app-brown);
+}
+
 ::ng-deep .mat-tab-body-content {
   display: flex;
   flex: 1;
