@@ -25,6 +25,9 @@
     <div class="link" (click)="router.navigate(['admin/liste-commandes'])">
       Commandes
     </div>
+    <div class="link" (click)="router.navigate(['admin/recap-production'])">
+      Production
+    </div>
     <div class="link" (click)="router.navigate(['admin/produits'])">
       Produits
     </div>
@@ -64,6 +67,14 @@
     >
       <mat-icon>shopping_basket</mat-icon>
       <span>Commandes</span>
+    </button>
+    <button
+      *ngIf="!activatedRoute.includes('production')"
+      mat-menu-item
+      (click)="router.navigate(['admin/recap-production'])"
+    >
+      <mat-icon>supervisor_account</mat-icon>
+      <span>Production</span>
     </button>
     <button
       *ngIf="!activatedRoute.includes('produits')"

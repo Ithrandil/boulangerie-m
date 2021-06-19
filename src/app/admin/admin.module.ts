@@ -10,12 +10,17 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { OrderListComponent } from './pages/order-list/order-list.component';
+import { ProductionTeamRecapComponent } from './pages/production-team-recap/production-team-recap.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { OrderAdminService } from './services/order-admin.service';
 import { ProductService } from './services/product.service';
 
 @NgModule({
-  declarations: [ProductsListComponent, OrderListComponent],
+  declarations: [
+    ProductsListComponent,
+    OrderListComponent,
+    ProductionTeamRecapComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
