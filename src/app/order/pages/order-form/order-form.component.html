@@ -269,7 +269,7 @@
                   placeholder="Ex: boules tranchées, forme des pains, ..."
                 ></textarea>
               </mat-form-field>
-              <div [formGroup]="sliceFormGroup">
+              <div [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
                 <mat-checkbox
                   class="slicedCheckbox"
                   [formControlName]="product.name"
@@ -348,8 +348,12 @@
       fxFlex="50"
       fxFlexOffset="2"
       *ngIf="orderForm.get('orderComment')?.value"
+      class="summaryComment"
     >
+      <pre>
       {{ orderForm.get("orderComment")?.value }}
+    </pre
+      >
     </h3>
     <h2 fxFlex="50" fxFlexOffset="2">Prix total :</h2>
     <h2 fxFlex="50">
