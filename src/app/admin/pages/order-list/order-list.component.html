@@ -115,7 +115,7 @@
             -&nbsp;{{ elem?.product }}&nbsp;:&nbsp;
             {{ elem?.quantity }}
             &nbsp;{{ elem?.unit
-            }}<span *ngIf="elem && elem.quantity && elem.quantity > 0">s</span>
+            }}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
             <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
             <span *ngIf="elem && elem.comment"
               >&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment }}</span
@@ -231,7 +231,7 @@
             -&nbsp;{{ elem?.product }}&nbsp;:&nbsp;
             {{ elem?.quantity }}
             &nbsp;{{ elem?.unit
-            }}<span *ngIf="elem && elem.quantity && elem.quantity > 0">s</span>
+            }}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
             <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
             <span *ngIf="elem && elem.comment"
               >&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment }}</span
