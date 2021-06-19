@@ -251,53 +251,33 @@
             unavailableItem: showShortDeliveryMessage && !product.shortDelivery
           }"
         >
-          <mat-expansion-panel
-            [disabled]="!product.description"
-            class="productExpansion"
-          >
+          <mat-expansion-panel class="productExpansion">
             <mat-expansion-panel-header class="productExpansionHeader">
               <mat-panel-title>{{ product.name }}</mat-panel-title>
             </mat-expansion-panel-header>
-            <p>{{ product.description }}</p>
-          </mat-expansion-panel>
-
-          <mat-expansion-panel class="productExpansion">
-            <mat-expansion-panel-header
-              #panelH
-              (click)="panelH._toggle()"
-              class="productExpansionHeader commentExpansion"
-            >
-              <mat-panel-title
-                fxLayout="row wrap"
-                fxLayoutAlign="space-between baseline"
-                class="panelTitleCom"
+            <div class="productExpansionBody">
+              <p>{{ product.description }}</p>
+              <mat-form-field
+                fxFlex="100"
+                appearance="outline"
+                [formGroup]="commentFormGroup"
               >
-                <div (click)="panelH._toggle()" class="commentButton">
-                  Commentaire
-                </div>
-                <div [formGroup]="sliceFormGroup">
-                  <mat-checkbox
-                    class="slicedCheckbox"
-                    [formControlName]="product.name"
-                  >
-                    Tranché
-                  </mat-checkbox>
-                </div>
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-form-field
-              fxFlex="100"
-              appearance="outline"
-              [formGroup]="commentFormGroup"
-            >
-              <textarea
-                matInput
-                [formControlName]="product.name"
-                placeholder="Ex: boules tranchées, forme des pains, ..."
-              ></textarea>
-            </mat-form-field>
+                <mat-label>Commentaire</mat-label>
+                <textarea
+                  matInput
+                  [formControlName]="product.name"
+                  placeholder="Ex: boules tranchées, forme des pains, ..."
+                ></textarea>
+              </mat-form-field>
+              <div [formGroup]="sliceFormGroup">
+                <mat-checkbox
+                  class="slicedCheckbox"
+                  [formControlName]="product.name"
+                  >Tranché
+                </mat-checkbox>
+              </div>
+            </div>
           </mat-expansion-panel>
-
           <mat-card-content
             class="cardPriceQuantity"
             fxLayout="row wrap"

@@ -77,20 +77,11 @@ mat-card-content {
   margin: 0;
   height: 2.5rem;
 }
-.commentExpansion {
-  ::ng-deep .mat-expansion-indicator {
-    display: none;
-  }
-}
-.panelTitleCom {
-  margin: 0;
-  font-size: 1.3rem;
-}
-.commentButton {
-  padding: 0.3rem;
-  border-radius: 0.5rem;
-  background-color: var(--color-app-light-brown);
-  color: var(--color-app-brown);
+.productExpansionBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 1rem 1rem 0 1rem;
 }
 ::ng-deep .slicedCheckbox > label > span {
   font-size: 1.3rem;

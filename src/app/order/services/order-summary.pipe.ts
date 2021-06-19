@@ -16,7 +16,7 @@ export class OrderSummaryPipe implements PipeTransform {
       res.push(`- ${prodEl[0]} : ${prodEl[1]}`);
       const sliced = tmpSliced.find((sliceEl) => sliceEl[0] === prodEl[0]);
       if (sliced && sliced[1]) {
-        res[res.length - 1] = res[res.length - 1].concat(` / Tranché`);
+        res[res.length - 1] = res[res.length - 1].concat(` - Tranché`);
       }
       const comment = tmpComments.find(
         (commentEl) => commentEl[0] === prodEl[0]
