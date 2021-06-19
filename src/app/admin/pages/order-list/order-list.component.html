@@ -116,6 +116,10 @@
             {{ elem?.quantity }}
             &nbsp;{{ elem?.unit
             }}<span *ngIf="elem && elem.quantity && elem.quantity > 0">s</span>
+            <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
+            <span *ngIf="elem && elem.comment"
+              >&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment }}</span
+            >
           </div>
         </mat-card-content>
         <mat-card-title fxLayoutAlign="flex-end"
@@ -228,6 +232,10 @@
             {{ elem?.quantity }}
             &nbsp;{{ elem?.unit
             }}<span *ngIf="elem && elem.quantity && elem.quantity > 0">s</span>
+            <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
+            <span *ngIf="elem && elem.comment"
+              >&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment }}</span
+            >
           </div>
         </mat-card-content>
         <mat-card-title fxLayoutAlign="flex-end"
