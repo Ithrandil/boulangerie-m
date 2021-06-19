@@ -251,16 +251,35 @@
             unavailableItem: showShortDeliveryMessage && !product.shortDelivery
           }"
         >
-          <mat-expansion-panel
-            [disabled]="!product.description"
-            class="productExpansion"
-          >
+          <mat-expansion-panel class="productExpansion">
             <mat-expansion-panel-header class="productExpansionHeader">
               <mat-panel-title>{{ product.name }}</mat-panel-title>
             </mat-expansion-panel-header>
-            <p>{{ product.description }}</p>
+            <div class="productExpansionBody">
+              <p>{{ product.description }}</p>
+              <mat-form-field
+                fxFlex="100"
+                appearance="outline"
+                [formGroup]="commentFormGroup"
+              >
+                <mat-label>Commentaire</mat-label>
+                <textarea
+                  matInput
+                  [formControlName]="product.name"
+                  placeholder="Ex: boules tranchées, forme des pains, ..."
+                ></textarea>
+              </mat-form-field>
+              <div [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
+                <mat-checkbox
+                  class="slicedCheckbox"
+                  [formControlName]="product.name"
+                  >Tranché
+                </mat-checkbox>
+              </div>
+            </div>
           </mat-expansion-panel>
           <mat-card-content
+            class="cardPriceQuantity"
             fxLayout="row wrap"
             fxLayoutAlign="space-between baseline"
           >
@@ -301,7 +320,7 @@
       <textarea
         matInput
         formControlName="orderComment"
-        placeholder="Ex: boules tranchées, forme des pains, ..."
+        placeholder="Ex: Déposer la livraison en arrière cuisine, ..."
       ></textarea>
     </mat-form-field>
   </div>
@@ -312,10 +331,30 @@
   >
     <h2 fxFlex="50">Résumé de la commande :</h2>
     <div fxFlex="50">
-      <h3 *ngFor="let item of orderSummary | summaryPipe">
-        {{ item }}
-      </h3>
+      <h3
+        *ngFor="let item of orderSummary | summaryPipe"
+        [innerHtml]="item"
+      ></h3>
     </div>
+    <h3
+      fxFlex="50"
+      fxFlexOffset="2"
+      *ngIf="orderForm.get('orderComment')?.value"
+      class="orderCommentSummaryTitle"
+    >
+      Commentaire de la commande :
+    </h3>
+    <h3
+      fxFlex="50"
+      fxFlexOffset="2"
+      *ngIf="orderForm.get('orderComment')?.value"
+      class="summaryComment"
+    >
+      <pre>
+      {{ orderForm.get("orderComment")?.value }}
+    </pre
+      >
+    </h3>
     <h2 fxFlex="50" fxFlexOffset="2">Prix total :</h2>
     <h2 fxFlex="50">
       {{ orderForm.get("totalPrice")?.value.toFixed(2) }} € H.T.

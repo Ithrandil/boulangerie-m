@@ -10,19 +10,29 @@ export interface Order {
   hasDifferentDeliveryAddress: boolean;
   deliveryAddress: Address;
   deliveryTime: string;
-  order: OrderList;
+  order: OrderProduct[];
   deliveryDate: firestore.Timestamp;
   orderDate: firestore.Timestamp;
   orderComment: string;
   totalPrice: number;
 }
 
-export type OrderList = [
-  { product: string; quantity: number; unit: ProductUnit }?
-];
+export interface OrderProduct {
+  product: string;
+  quantity: number;
+  unit: ProductUnit;
+  isSliced?: boolean;
+  comment?: string;
+}
 
 export interface Address {
   street: string;
   zipCode: number;
   city: string;
+}
+
+export interface OrderSummary {
+  products: [string, number][];
+  sliced: [string, boolean][];
+  comments: [string, string][];
 }

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Order } from '@models/order';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-
+import { add, format } from 'date-fns';
 import { OrderAdminService } from './../../services/order-admin.service';
+import { fr } from 'date-fns/locale';
 
 @Component({
   selector: 'app-order-list',
@@ -13,22 +13,25 @@ import { OrderAdminService } from './../../services/order-admin.service';
 })
 export class OrderListComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
-  public currentOrdersList: Order[] = [];
-  constructor(
-    private orderAdminService: OrderAdminService,
-    private router: Router
-  ) {}
+  public ordersOfThDayList: Order[] = [];
+
+  public daysList: Date[] = [
+    new Date(Date.now()),
+    add(new Date(Date.now()), { days: 1 }),
+    add(new Date(Date.now()), { days: 2 }),
+    add(new Date(Date.now()), { days: 3 }),
+  ];
+  public tabsLabels: string[] = [
+    format(this.daysList[0], 'eeee d MMMM', { locale: fr }),
+    format(this.daysList[1], 'eeee d MMMM', { locale: fr }),
+    format(this.daysList[2], 'eeee d MMMM', { locale: fr }),
+    format(this.daysList[3], 'eeee d MMMM', { locale: fr }),
+  ];
+
+  constructor(private orderAdminService: OrderAdminService) {}
 
   ngOnInit(): void {
-    this.orderAdminService
-      .getAllCurentOrders()
-      .pipe(
-        tap((currentOrders) => {
-          this.currentOrdersList = currentOrders;
-        }),
-        takeUntil(this.unsubscribe$)
-      )
-      .subscribe();
+    this.getOrdersOfTheDay(new Date(Date.now()));
   }
 
   ngOnDestroy(): void {
@@ -36,9 +39,27 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.unsubscribe$.unsubscribe();
   }
 
-  public goToDetailsOrder(orderData: Order): void {
-    this.router.navigate([`admin/liste-commandes/${orderData.orderId}`], {
-      state: orderData,
-    });
+  getOrdersOfTheDay(day: Date): void {
+    if (!day) {
+      this.orderAdminService
+        .getAllOtherOrders(add(new Date(Date.now()), { days: 4 }))
+        .pipe(
+          tap((ordersOfTheDay) => {
+            this.ordersOfThDayList = ordersOfTheDay;
+          }),
+          takeUntil(this.unsubscribe$)
+        )
+        .subscribe();
+    } else {
+      this.orderAdminService
+        .getOrdersByDay(day)
+        .pipe(
+          tap((ordersOfTheDay) => {
+            this.ordersOfThDayList = ordersOfTheDay;
+          }),
+          takeUntil(this.unsubscribe$)
+        )
+        .subscribe();
+    }
   }
 }

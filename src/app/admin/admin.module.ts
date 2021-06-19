@@ -6,20 +6,16 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { OrderDetailsComponent } from './pages/order-details/order-details.component';
 import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { OrderAdminService } from './services/order-admin.service';
 import { ProductService } from './services/product.service';
 
 @NgModule({
-  declarations: [
-    ProductsListComponent,
-    OrderListComponent,
-    OrderDetailsComponent,
-  ],
+  declarations: [ProductsListComponent, OrderListComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -29,6 +25,7 @@ import { ProductService } from './services/product.service';
     FlexLayoutModule,
     MatProgressSpinnerModule,
     MatIconModule,
+    MatTabsModule,
   ],
   exports: [AdminRoutingModule],
   providers: [ProductService, OrderAdminService],

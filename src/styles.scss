@@ -14,7 +14,6 @@ body {
 body {
   display: flex;
   height: 100vh;
-  // overflow: hidden;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
@@ -120,4 +119,9 @@ mat-divider {
 // modal custom style
 .mat-dialog-container {
   background-color: var(--color-app-light-grey);
+}
+
+// avoid comments to overflow and fuck my css and loose two hours for no shit
+pre {
+  white-space: pre-line;
 }
