@@ -260,7 +260,46 @@
             </mat-expansion-panel-header>
             <p>{{ product.description }}</p>
           </mat-expansion-panel>
+
+          <mat-expansion-panel class="productExpansion">
+            <mat-expansion-panel-header
+              #panelH
+              (click)="panelH._toggle()"
+              class="productExpansionHeader commentExpansion"
+            >
+              <mat-panel-title
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between baseline"
+                class="panelTitleCom"
+              >
+                <div (click)="panelH._toggle()" class="commentButton">
+                  Commentaire
+                </div>
+                <div [formGroup]="sliceFormGroup">
+                  <mat-checkbox
+                    class="slicedCheckbox"
+                    [formControlName]="product.name"
+                  >
+                    Tranché
+                  </mat-checkbox>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-form-field
+              fxFlex="100"
+              appearance="outline"
+              [formGroup]="commentFormGroup"
+            >
+              <textarea
+                matInput
+                [formControlName]="product.name"
+                placeholder="Ex: boules tranchées, forme des pains, ..."
+              ></textarea>
+            </mat-form-field>
+          </mat-expansion-panel>
+
           <mat-card-content
+            class="cardPriceQuantity"
             fxLayout="row wrap"
             fxLayoutAlign="space-between baseline"
           >
@@ -301,7 +340,7 @@
       <textarea
         matInput
         formControlName="orderComment"
-        placeholder="Ex: boules tranchées, forme des pains, ..."
+        placeholder="Ex: Déposer la livraison en arrière cuisine, ..."
       ></textarea>
     </mat-form-field>
   </div>
@@ -312,10 +351,26 @@
   >
     <h2 fxFlex="50">Résumé de la commande :</h2>
     <div fxFlex="50">
-      <h3 *ngFor="let item of orderSummary | summaryPipe">
-        {{ item }}
-      </h3>
+      <h3
+        *ngFor="let item of orderSummary | summaryPipe"
+        [innerHtml]="item"
+      ></h3>
     </div>
+    <h3
+      fxFlex="50"
+      fxFlexOffset="2"
+      *ngIf="orderForm.get('orderComment')?.value"
+      class="orderCommentSummaryTitle"
+    >
+      Commentaire de la commande :
+    </h3>
+    <h3
+      fxFlex="50"
+      fxFlexOffset="2"
+      *ngIf="orderForm.get('orderComment')?.value"
+    >
+      {{ orderForm.get("orderComment")?.value }}
+    </h3>
     <h2 fxFlex="50" fxFlexOffset="2">Prix total :</h2>
     <h2 fxFlex="50">
       {{ orderForm.get("totalPrice")?.value.toFixed(2) }} € H.T.

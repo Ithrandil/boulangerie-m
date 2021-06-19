@@ -7,6 +7,7 @@ export interface Product {
   available: boolean;
   shortDelivery: boolean;
   category: ProductCategory;
+  isSliceable: string;
 }
 
 export enum ProductUnit {

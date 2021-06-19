@@ -77,6 +77,27 @@ mat-card-content {
   margin: 0;
   height: 2.5rem;
 }
+.commentExpansion {
+  ::ng-deep .mat-expansion-indicator {
+    display: none;
+  }
+}
+.panelTitleCom {
+  margin: 0;
+  font-size: 1.3rem;
+}
+.commentButton {
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-app-light-brown);
+  color: var(--color-app-brown);
+}
+::ng-deep .slicedCheckbox > label > span {
+  font-size: 1.3rem;
+}
+.cardPriceQuantity {
+  margin-top: 1rem;
+}
 .mat-expansion-panel-header-title {
   color: var(--color-app-brown) !important;
 }
@@ -115,4 +136,9 @@ mat-card-content {
     background-color: rgba(128, 128, 128, 0);
   }
 }
+
+.orderCommentSummaryTitle {
+  text-decoration: underline;
+}
+
 /***********************************/

@@ -8,10 +8,10 @@ import {
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
 import { FormErrorMessages } from '@models/formErrorMessages';
-import { OrderList } from '@models/order';
+import { OrderProduct, OrderSummary } from '@models/order';
 import { Product, ProductCategory } from '@models/product';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { first, switchMapTo, take, takeUntil, tap } from 'rxjs/operators';
+import { first, take, takeUntil, tap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
 
@@ -21,7 +21,11 @@ import { OrderService } from './../../services/order.service';
   styleUrls: ['./order-form.component.scss'],
 })
 export class OrderFormComponent implements OnDestroy {
-  public orderSummary: [string, number][] = [];
+  public orderSummary: OrderSummary = {
+    products: [],
+    sliced: [],
+    comments: [],
+  };
   public PRODUCTCATEGORY = ProductCategory;
   public tomorrow = new Date();
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
@@ -32,6 +36,8 @@ export class OrderFormComponent implements OnDestroy {
   private unsubscribe$ = new Subject<void>();
   public productList: Product[] = [];
   public itemFormGroup: FormGroup;
+  public sliceFormGroup: FormGroup;
+  public commentFormGroup: FormGroup;
   public displayDeliveryForm = false;
   public orderForm = this.fb.group({
     name: ['', [Validators.required]],
@@ -103,6 +109,12 @@ export class OrderFormComponent implements OnDestroy {
     this.itemFormGroup = this.fb.group({
       default: [''],
     });
+    this.sliceFormGroup = this.fb.group({
+      default: [''],
+    });
+    this.commentFormGroup = this.fb.group({
+      default: [''],
+    });
     this.orderService
       .getAllAvailableItems()
       .pipe(
@@ -112,18 +124,41 @@ export class OrderFormComponent implements OnDestroy {
             a.name < b.name ? -1 : a.name > b.name ? 1 : 0
           );
           this.itemFormGroup.removeControl('default');
+          this.sliceFormGroup.removeControl('default');
+          this.commentFormGroup.removeControl('default');
           resProdList.forEach((product) => {
             this.itemFormGroup?.addControl(product.name, new FormControl(null));
+            this.sliceFormGroup?.addControl(
+              product.name,
+              new FormControl(null)
+            );
+            this.commentFormGroup?.addControl(
+              product.name,
+              new FormControl(null)
+            );
           });
-        }),
-        switchMapTo(this.itemFormGroup.valueChanges),
+        })
+      )
+      .subscribe();
+
+    combineLatest([
+      this.itemFormGroup.valueChanges,
+      this.sliceFormGroup.valueChanges,
+      this.commentFormGroup.valueChanges,
+    ])
+      .pipe(
         takeUntil(this.unsubscribe$),
-        tap((itemFormData) => {
-          this.orderSummary = Object.entries(itemFormData);
+        tap(([itemFormData, sliceFormData, commentFormData]) => {
+          this.orderSummary = {
+            products: Object.entries(itemFormData),
+            sliced: Object.entries(sliceFormData),
+            comments: Object.entries(commentFormData),
+          };
           this.calcTotalPrice(itemFormData);
         })
       )
       .subscribe();
+
     this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
     this.filterShortDeliveryProducts();
   }
@@ -222,7 +257,7 @@ export class OrderFormComponent implements OnDestroy {
 
   public onSubmit(): void {
     this.orderForm.get('orderDate')?.setValue(new Date(Date.now()));
-    const orderList: OrderList = [];
+    const orderList: OrderProduct[] = [];
     for (const [itemName, quantity] of Object.entries(
       this.itemFormGroup.value
     ) as [string, number][]) {
@@ -233,6 +268,26 @@ export class OrderFormComponent implements OnDestroy {
           unit: (this.productList.find((el) => el.name === itemName) as Product)
             .unit,
         });
+      }
+    }
+    for (const [itemName, isSliced] of Object.entries(
+      this.sliceFormGroup.value
+    ) as [string, boolean][]) {
+      if (isSliced) {
+        const indexItem = orderList.findIndex((el) => el?.product === itemName);
+        if (indexItem >= 0) {
+          orderList[indexItem].isSliced = true;
+        }
+      }
+    }
+    for (const [itemName, comment] of Object.entries(
+      this.commentFormGroup.value
+    ) as [string, string][]) {
+      if (comment && comment.length > 0) {
+        const indexItem = orderList.findIndex((el) => el?.product === itemName);
+        if (indexItem >= 0) {
+          orderList[indexItem].comment = comment;
+        }
       }
     }
     if (this.orderForm.valid && orderList.length > 0) {
