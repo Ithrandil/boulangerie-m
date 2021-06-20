@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ProductService } from '@app/admin/services/product.service';
 import { Product } from '@models/product';
@@ -11,7 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class ProductsListComponent implements OnInit {
   public productList$: Observable<Product[]>;
-
+  private easterEgg = '';
+  public showEasterEgg = false;
   constructor(private productService: ProductService) {
     this.productList$ = this.productService.getAllItems();
   }
@@ -35,5 +36,18 @@ export class ProductsListComponent implements OnInit {
       productId,
       event.checked
     );
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent): void {
+    this.easterEgg += event.key;
+    if (
+      this.easterEgg.includes('vivelasaucisse') ||
+      this.easterEgg.includes('vive la saucisse') ||
+      this.easterEgg.includes('Vive la saucisse')
+    ) {
+      this.showEasterEgg = true;
+      this.easterEgg = '';
+    }
   }
 }
