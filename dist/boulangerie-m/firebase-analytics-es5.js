@@ -48,7 +48,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! tslib */
-      "os0x");
+      "IRP5");
       /* harmony import */
 
 
@@ -1806,7 +1806,7 @@
 
       var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! tslib */
-      "os0x");
+      "IRP5");
       /* harmony import */
 
 
