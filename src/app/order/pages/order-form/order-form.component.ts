@@ -8,7 +8,7 @@ import {
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
 import { FormErrorMessages } from '@models/formErrorMessages';
-import { OrderProduct, OrderSummary } from '@models/order';
+import { Order, OrderProduct, OrderSummary } from '@models/order';
 import { Product, ProductCategory } from '@models/product';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { first, take, takeUntil, tap } from 'rxjs/operators';
@@ -95,8 +95,6 @@ export class OrderFormComponent implements OnDestroy {
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {
-    this.getUserDataFromLocalStorage();
-
     this.tomorrow.setDate(new Date().getDate() + 1);
 
     this.itemFormGroup = this.fb.group({
@@ -130,6 +128,7 @@ export class OrderFormComponent implements OnDestroy {
               new FormControl(null)
             );
           });
+          this.getUserDataFromLocalStorage();
         })
       )
       .subscribe();
@@ -284,12 +283,13 @@ export class OrderFormComponent implements OnDestroy {
       }
     }
     if (this.orderForm.valid && orderList.length > 0) {
-      this.userDataManagement();
+      const finalOrder = {
+        ...this.orderForm.value,
+        order: orderList,
+      };
+      this.userDataManagement(finalOrder);
       this.orderService
-        .addOrder({
-          ...this.orderForm.value,
-          order: orderList,
-        })
+        .addOrder(finalOrder)
         .pipe(take(1))
         .subscribe(() => {
           this.validatedModal = this.dialog.open(FormValidatedModalComponent, {
@@ -358,7 +358,7 @@ export class OrderFormComponent implements OnDestroy {
   private getUserDataFromLocalStorage(): void {
     const userData = localStorage.getItem('userBoulM');
     if (userData && userData.length > 0) {
-      const userDataParsed = JSON.parse(userData);
+      const userDataParsed: Order = JSON.parse(userData);
       this.userChoiceDataManagement = true;
       this.orderForm.get('name')?.setValue(userDataParsed.name);
       this.orderForm.get('phone')?.setValue(userDataParsed.phone);
@@ -374,7 +374,11 @@ export class OrderFormComponent implements OnDestroy {
         .get('address')
         ?.get('city')
         ?.setValue(userDataParsed.address.city);
-
+      userDataParsed.order.forEach((el) => {
+        this.itemFormGroup.get(el.product)?.setValue(el.quantity);
+        this.sliceFormGroup.get(el.product)?.setValue(el.isSliced);
+        this.commentFormGroup.get(el.product)?.setValue(el.comment);
+      });
       if (userDataParsed.deliveryAddress) {
         this.orderForm.get('hasDifferentDeliveryAddress')?.setValue(true);
         this.hasDifferentDeliveryAddress(true);
@@ -398,10 +402,15 @@ export class OrderFormComponent implements OnDestroy {
           .get('deliveryTime')
           ?.setValue(userDataParsed.deliveryTime);
       }
+      if (userDataParsed.orderComment) {
+        this.orderForm
+          .get('orderComment')
+          ?.setValue(userDataParsed.orderComment);
+      }
     }
   }
 
-  private userDataManagement(): void {
+  private userDataManagement(finalOrder: Order): void {
     if (this.userChoiceDataManagement) {
       let userFormData = {
         name: this.orderForm.get('name')?.value,
@@ -432,7 +441,7 @@ export class OrderFormComponent implements OnDestroy {
           ...{ deliveryTime: this.orderForm.get('deliveryTime')?.value },
         };
       }
-      localStorage.setItem('userBoulM', JSON.stringify(userFormData));
+      localStorage.setItem('userBoulM', JSON.stringify(finalOrder));
     } else {
       localStorage.removeItem('userBoulM');
     }
