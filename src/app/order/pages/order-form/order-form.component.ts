@@ -39,6 +39,7 @@ export class OrderFormComponent implements OnDestroy {
   public sliceFormGroup: FormGroup;
   public commentFormGroup: FormGroup;
   public displayDeliveryForm = false;
+  public userChoiceDataManagement = false;
   public orderForm = this.fb.group({
     name: ['', [Validators.required]],
     phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
@@ -88,22 +89,14 @@ export class OrderFormComponent implements OnDestroy {
       matDatepickerMin: 'Date incorrecte',
     },
   };
-  public onlySummerSunday = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    const month = (d || new Date()).getMonth();
-    let res = true;
-    if (day === 0 && (month > 8 || month < 5)) {
-      res = false;
-    }
-    return res;
-    // tslint:disable-next-line
-  };
 
   constructor(
     private orderService: OrderService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {
+    this.getUserDataFromLocalStorage();
+
     this.tomorrow.setDate(new Date().getDate() + 1);
 
     this.itemFormGroup = this.fb.group({
@@ -291,6 +284,7 @@ export class OrderFormComponent implements OnDestroy {
       }
     }
     if (this.orderForm.valid && orderList.length > 0) {
+      this.userDataManagement();
       this.orderService
         .addOrder({
           ...this.orderForm.value,
@@ -348,5 +342,99 @@ export class OrderFormComponent implements OnDestroy {
 
   public filterProductByCategory(category: ProductCategory): Product[] {
     return this.productList.filter((prod) => prod.category === category);
+  }
+
+  public onlySummerSunday = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    const month = (d || new Date()).getMonth();
+    let res = true;
+    if (day === 0 && (month > 8 || month < 5)) {
+      res = false;
+    }
+    return res;
+    // tslint:disable-next-line
+  };
+
+  private getUserDataFromLocalStorage(): void {
+    const userData = localStorage.getItem('userBoulM');
+    if (userData && userData.length > 0) {
+      const userDataParsed = JSON.parse(userData);
+      this.userChoiceDataManagement = true;
+      this.orderForm.get('name')?.setValue(userDataParsed.name);
+      this.orderForm.get('phone')?.setValue(userDataParsed.phone);
+      this.orderForm
+        .get('address')
+        ?.get('street')
+        ?.setValue(userDataParsed.address.street);
+      this.orderForm
+        .get('address')
+        ?.get('zipCode')
+        ?.setValue(userDataParsed.address.zipCode);
+      this.orderForm
+        .get('address')
+        ?.get('city')
+        ?.setValue(userDataParsed.address.city);
+
+      if (userDataParsed.deliveryAddress) {
+        this.orderForm.get('hasDifferentDeliveryAddress')?.setValue(true);
+        this.hasDifferentDeliveryAddress(true);
+        this.orderForm
+          .get('deliveryAddress')
+          ?.get('street')
+          ?.setValue(userDataParsed.deliveryAddress.street);
+        this.orderForm
+          .get('deliveryAddress')
+          ?.get('zipCode')
+          ?.setValue(userDataParsed.deliveryAddress.zipCode);
+        this.orderForm
+          .get('deliveryAddress')
+          ?.get('city')
+          ?.setValue(userDataParsed.deliveryAddress.city);
+      }
+      if (userDataParsed.deliveryTime) {
+        this.orderForm.get('selectDeliveryTime')?.setValue(true);
+        this.specificDeliveryTime(true);
+        this.orderForm
+          .get('deliveryTime')
+          ?.setValue(userDataParsed.deliveryTime);
+      }
+    }
+  }
+
+  private userDataManagement(): void {
+    if (this.userChoiceDataManagement) {
+      let userFormData = {
+        name: this.orderForm.get('name')?.value,
+        phone: this.orderForm.get('phone')?.value,
+        address: {
+          street: this.orderForm.get('address')?.get('street')?.value,
+          zipCode: this.orderForm.get('address')?.get('zipCode')?.value,
+          city: this.orderForm.get('address')?.get('city')?.value,
+        },
+      };
+      if (this.displayDeliveryForm) {
+        userFormData = {
+          ...userFormData,
+          ...{
+            deliveryAddress: {
+              street: this.orderForm.get('deliveryAddress')?.get('street')
+                ?.value,
+              zipCode: this.orderForm.get('deliveryAddress')?.get('zipCode')
+                ?.value,
+              city: this.orderForm.get('deliveryAddress')?.get('city')?.value,
+            },
+          },
+        };
+      }
+      if (this.selectDeliveryTime) {
+        userFormData = {
+          ...userFormData,
+          ...{ deliveryTime: this.orderForm.get('deliveryTime')?.value },
+        };
+      }
+      localStorage.setItem('userBoulM', JSON.stringify(userFormData));
+    } else {
+      localStorage.removeItem('userBoulM');
+    }
   }
 }
