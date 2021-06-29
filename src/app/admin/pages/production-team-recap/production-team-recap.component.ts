@@ -55,7 +55,10 @@ export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
           finalArray.push(uniqueProductOrder);
         } else if (uniqueProductOrder.isSliced) {
           const indexFinalArraySlicedProduct = finalArray.findIndex(
-            (el) => el.product === uniqueProductOrder.product && el.isSliced
+            (el) =>
+              el.product === uniqueProductOrder.product &&
+              !el.comment &&
+              el.isSliced
           );
           if (indexFinalArraySlicedProduct >= 0) {
             finalArray[indexFinalArraySlicedProduct].quantity +=
@@ -65,7 +68,10 @@ export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
           }
         } else {
           const indexFinalArrayProduct = finalArray.findIndex(
-            (el) => el.product === uniqueProductOrder.product && !el.isSliced
+            (el) =>
+              el.product === uniqueProductOrder.product &&
+              !el.comment &&
+              !el.isSliced
           );
           if (indexFinalArrayProduct >= 0) {
             finalArray[indexFinalArrayProduct].quantity +=
