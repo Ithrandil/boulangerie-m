@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { InfoModalComponent } from '@app/core/components/info-modal/info-modal.component';
 import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
@@ -29,6 +30,7 @@ export class OrderFormComponent implements OnDestroy {
   public PRODUCTCATEGORY = ProductCategory;
   public tomorrow = new Date();
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
+  public infoModal!: MatDialogRef<InfoModalComponent>;
   public showDeliveryMessage = false;
   public showShortDeliveryMessage = false;
   public showOrderNeedValidationMessage = false;
@@ -407,6 +409,25 @@ export class OrderFormComponent implements OnDestroy {
           .get('orderComment')
           ?.setValue(userDataParsed.orderComment);
       }
+    } else if (!localStorage.getItem('haveSeenInfoBoulM')) {
+      this.infoModal = this.dialog.open(InfoModalComponent, {
+        disableClose: true,
+        maxWidth: '90%',
+      });
+      this.infoModal
+        .afterClosed()
+        .pipe(
+          tap(() => {
+            if (this.infoModal.componentInstance.dontShowAgain) {
+              localStorage.setItem(
+                'haveSeenInfoBoulM',
+                this.infoModal.componentInstance.dontShowAgain.toString()
+              );
+            }
+          }),
+          first()
+        )
+        .subscribe();
     }
   }
 

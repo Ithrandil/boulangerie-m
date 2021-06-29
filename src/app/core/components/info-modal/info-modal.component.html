@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Votre formulaire évolue!</h2>
+<mat-dialog-content fxLayout="column">
+  <p>Nous faisons évoluer notre formulaire afin de faciliter vos commandes.</p>
+  <h3>Enregistrer votre commande habituelle :</h3>
+  <p>
+    Vous pouvez maintenant cocher la case "Enregistrer mes infos personnelles".
+    Cela enregistrera sur votre navigateur l'ensemble de votre formulaire.
+    <br />Lorsque vous retournerez sur le formulaire, votre commande sera déjà
+    renseignée!
+  </p>
+  <div class="imageContainer">
+    <img
+      id="saveOrderDesktop"
+      alt="Image enregistrer votre commande habituelle"
+    />
+  </div>
+  <p>
+    Si vous avez enregistré précédemment votre commande et ne souhaitez le
+    faire, décochez simplement la case et validez votre commande.
+    <br />Vos informations ne seront alors plus enregistrées sur votre
+    navigateur.
+  </p>
+
+  <h3>Les commentaires pour les produits et la case "Tranché" :</h3>
+  <p>
+    Si vous souhaitez que votre produit soit tranché, plus besoin de mettre un
+    commentaire.
+    <br />Il vous suffit juste de cocher la case "Tranché" lorsque vous
+    choisissez votre produit!
+  </p>
+  <p>
+    Vous pouvez maintenant aussi mettre un commentaire spécifique à un produit.
+  </p>
+  <div class="imageContainer">
+    <img
+      id="newCardProduct"
+      src="../../../../assets/images/new_product_card.png"
+      alt="Nouvelle carte des produits"
+    />
+  </div>
+
+  <p>En espérant que ces changements vous plaisent!</p>
+  <p>A très vite!</p>
+  <div>
+    <mat-checkbox (change)="dontShowAgain = $event.checked"
+      >Ne plus me montrer ce message
+    </mat-checkbox>
+  </div>
+  <p fxFlexLayout="row wrap" fxLayoutAlign="flex-end center">L'équipe M</p>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="center center">
+  <button mat-button [mat-dialog-close]="true">Fermer</button>
+</mat-dialog-actions>
