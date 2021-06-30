@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --aot true --prod",
+    "build": "ng build --aot true",
     "test": "ng test",
     "lint": "ng lint --format=stylish --fix=true",
     "e2e": "ng e2e"
