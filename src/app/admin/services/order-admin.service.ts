@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Order } from '@models/order';
 import { Observable } from 'rxjs';
+import { add, set } from 'date-fns';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class OrderAdminService {
   constructor(private firestore: AngularFirestore) {}
 
   getAllOtherOrders(day: Date): Observable<Order[]> {
-    day.setHours(0, 0, 0, 0);
+    day = set(day, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
 
     return this.firestore
       .collection<Order>('orders', (ref) =>
@@ -20,10 +21,14 @@ export class OrderAdminService {
   }
 
   getOrdersByDay(day: Date): Observable<Order[]> {
-    day.setHours(0, 0, 0, 0);
-    const dayAfter = new Date();
-    dayAfter.setDate(day.getDate() + 1);
-    dayAfter.setHours(0, 0, 0, 0);
+    day = set(day, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+    let dayAfter = add(day, { days: 1 });
+    dayAfter = set(dayAfter, {
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+      milliseconds: 0,
+    });
 
     return this.firestore
       .collection<Order>('orders', (ref) =>
