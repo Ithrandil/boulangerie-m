@@ -289,7 +289,7 @@ export class OrderFormComponent implements OnDestroy {
         ...this.orderForm.value,
         order: orderList,
       };
-      this.userDataManagement(finalOrder);
+      this.userDataManagement();
       this.orderService
         .addOrder(finalOrder)
         .pipe(take(1))
@@ -359,6 +359,7 @@ export class OrderFormComponent implements OnDestroy {
 
   private getUserDataFromLocalStorage(): void {
     const userData = localStorage.getItem('userBoulM');
+    const haveSeenInfoBoulM = localStorage.getItem('haveSeenInfoBoulM');
     if (userData && userData.length > 0) {
       const userDataParsed: Order = JSON.parse(userData);
       this.userChoiceDataManagement = true;
@@ -376,11 +377,12 @@ export class OrderFormComponent implements OnDestroy {
         .get('address')
         ?.get('city')
         ?.setValue(userDataParsed.address.city);
-      userDataParsed.order.forEach((el) => {
-        this.itemFormGroup.get(el.product)?.setValue(el.quantity);
-        this.sliceFormGroup.get(el.product)?.setValue(el.isSliced);
-        this.commentFormGroup.get(el.product)?.setValue(el.comment);
-      });
+      // Deactivated for the first implementation
+      // userDataParsed.order.forEach((el) => {
+      //   this.itemFormGroup.get(el.product)?.setValue(el.quantity);
+      //   this.sliceFormGroup.get(el.product)?.setValue(el.isSliced);
+      //   this.commentFormGroup.get(el.product)?.setValue(el.comment);
+      // });
       if (userDataParsed.deliveryAddress) {
         this.orderForm.get('hasDifferentDeliveryAddress')?.setValue(true);
         this.hasDifferentDeliveryAddress(true);
@@ -409,7 +411,8 @@ export class OrderFormComponent implements OnDestroy {
           .get('orderComment')
           ?.setValue(userDataParsed.orderComment);
       }
-    } else if (!localStorage.getItem('haveSeenInfoBoulM')) {
+    } else if (!haveSeenInfoBoulM) {
+      // TODO: After first week of information, remove this and put a delete localstorage value to clean unser browser
       this.infoModal = this.dialog.open(InfoModalComponent, {
         disableClose: true,
         maxWidth: '90%',
@@ -431,7 +434,7 @@ export class OrderFormComponent implements OnDestroy {
     }
   }
 
-  private userDataManagement(finalOrder: Order): void {
+  private userDataManagement(): void {
     if (this.userChoiceDataManagement) {
       let userFormData = {
         name: this.orderForm.get('name')?.value,
@@ -462,7 +465,8 @@ export class OrderFormComponent implements OnDestroy {
           ...{ deliveryTime: this.orderForm.get('deliveryTime')?.value },
         };
       }
-      localStorage.setItem('userBoulM', JSON.stringify(finalOrder));
+      // Deactivated on first implementation
+      // localStorage.setItem('userBoulM', JSON.stringify(finalOrder));
     } else {
       localStorage.removeItem('userBoulM');
     }
