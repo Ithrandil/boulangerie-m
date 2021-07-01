@@ -168,6 +168,7 @@
     <mat-checkbox
       fxFlexOffset="7"
       (change)="specificDeliveryTime($event.checked)"
+      [checked]="selectDeliveryTime"
       >Besoin d'une heure de livraison précise?</mat-checkbox
     >
     <div
@@ -359,6 +360,18 @@
     <h2 fxFlex="50">
       {{ orderForm.get("totalPrice")?.value.toFixed(2) }} € H.T.
     </h2>
+  </div>
+  <div
+    fxLayout="row wrap"
+    class="checkboxRow"
+    fxLayoutAlign="flex-start center"
+  >
+    <mat-checkbox
+      fxFlexOffset="7"
+      (change)="userChoiceDataManagement = $event.checked"
+      [checked]="userChoiceDataManagement"
+      >Enregistrer mes infos personnelles
+    </mat-checkbox>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="buttonRow">
     <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">

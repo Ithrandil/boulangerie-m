@@ -5,11 +5,11 @@ import { OrderSummary } from '@models/order';
 export class OrderSummaryPipe implements PipeTransform {
   transform(obj: OrderSummary): string[] {
     const tmpProducts = obj.products.filter(
-      (el) => el[1] !== null && el[1] > 0
+      (el) => el[1] && el[1] !== null && el[1] > 0
     );
     const tmpSliced = obj.sliced.filter((el) => el[1] !== null);
     const tmpComments = obj.comments.filter(
-      (el) => el[1] !== null && el[1].length > 0
+      (el) => el[1] && el[1] !== null && el[1].length > 0
     );
     const res: string[] = [];
     tmpProducts.forEach((prodEl) => {

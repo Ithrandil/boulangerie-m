@@ -8,6 +8,9 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,12 +21,13 @@ import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { InfoModalComponent } from './core/components/info-modal/info-modal.component';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
-  declarations: [AppComponent, MentionsLegalesComponent],
+  declarations: [AppComponent, MentionsLegalesComponent, InfoModalComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -38,6 +42,9 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatMenuModule,
     MatIconModule,
     HttpClientModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatCheckboxModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }, AngularFireAuthGuard],
   bootstrap: [AppComponent],
