@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { InfoModalComponent } from '@app/core/components/info-modal/info-modal.component';
 import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
@@ -30,7 +29,6 @@ export class OrderFormComponent implements OnDestroy {
   public PRODUCTCATEGORY = ProductCategory;
   public tomorrow = new Date();
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
-  public infoModal!: MatDialogRef<InfoModalComponent>;
   public showDeliveryMessage = false;
   public showShortDeliveryMessage = false;
   public showOrderNeedValidationMessage = false;
@@ -359,7 +357,6 @@ export class OrderFormComponent implements OnDestroy {
 
   private getUserDataFromLocalStorage(): void {
     const userData = localStorage.getItem('userBoulM');
-    const haveSeenInfoBoulM = localStorage.getItem('haveSeenInfoBoulM');
     if (userData && userData.length > 0) {
       const userDataParsed: Order = JSON.parse(userData);
       this.userChoiceDataManagement = true;
@@ -411,27 +408,8 @@ export class OrderFormComponent implements OnDestroy {
           .get('orderComment')
           ?.setValue(userDataParsed.orderComment);
       }
-    } else if (!haveSeenInfoBoulM) {
-      // TODO: After first week of information, remove this and put a delete localstorage value to clean unser browser
-      this.infoModal = this.dialog.open(InfoModalComponent, {
-        disableClose: true,
-        maxWidth: '90%',
-      });
-      this.infoModal
-        .afterClosed()
-        .pipe(
-          tap(() => {
-            if (this.infoModal.componentInstance.dontShowAgain) {
-              localStorage.setItem(
-                'haveSeenInfoBoulM',
-                this.infoModal.componentInstance.dontShowAgain.toString()
-              );
-            }
-          }),
-          first()
-        )
-        .subscribe();
     }
+    localStorage.removeItem('haveSeenInfoBoulM');
   }
 
   private userDataManagement(): void {
@@ -465,8 +443,9 @@ export class OrderFormComponent implements OnDestroy {
           ...{ deliveryTime: this.orderForm.get('deliveryTime')?.value },
         };
       }
+      localStorage.setItem('userBoulM', JSON.stringify(userFormData));
       // Deactivated on first implementation
-      // localStorage.setItem('userBoulM', JSON.stringify(finalOrder));
+      // localStorage.setItem('userBoulM', JSON.stringify({...userFormData, ...finalOrder}));
     } else {
       localStorage.removeItem('userBoulM');
     }
