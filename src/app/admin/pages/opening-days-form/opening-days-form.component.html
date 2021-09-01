@@ -1,0 +1,70 @@
+<!-- <div
+  fxLayout="row wrap"
+  fxLayoutAlign="center center"
+  *ngIf="!productsOfThDayList.length && productsOfThDayList.length > 0"
+>
+  <mat-spinner></mat-spinner>
+</div> TODO: METTRE UN SPINNER PENDANT LE DL -->
+
+<!-- TODO: A voir si je mets tout dans une mat card pour être cohérent avec le reste du site ou pas -->
+
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-form-field appearance="outline">
+    <mat-label>Sélectionner une période</mat-label>
+    <mat-date-range-input [formGroup]="closedDaysForm" [rangePicker]="picker">
+      <input
+        required
+        formControlName="startingDate"
+        matStartDate
+        placeholder="Date de début"
+      />
+      <input
+        required
+        formControlName="endingDate"
+        matEndDate
+        placeholder="Date de fin"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-error
+      *ngIf="
+        closedDaysForm.controls.startingDate.hasError('matStartDateInvalid')
+      "
+      >Invalid start date
+    </mat-error>
+    <mat-error
+      *ngIf="closedDaysForm.controls.startingDate.hasError('matEndDateInvalid')"
+      >Invalid end date</mat-error
+    >
+  </mat-form-field>
+  <button
+    mat-fab
+    aria-label="Bouton de validation de choix de jours fermés"
+    (click)="onSubmit()"
+  >
+    <mat-icon>add_circle</mat-icon>
+  </button>
+</div>
+
+<mat-list *ngIf="allClosingDays.length > 0; else noClosingDates" role="list">
+  <h2>Liste des jours de fermeture</h2>
+  <mat-list-item role="listitem" *ngFor="let dates of allClosingDays">
+    <p>
+      Fermé du {{ dates.startingDate | date: "fullDate" }} au
+      {{ dates.endingDate | date: "fullDate" }}
+    </p>
+    <button
+      mat-mini-fab
+      color="warn"
+      aria-label="Supprimer les jours de fermeture"
+      (click)="deleteClosingDays(dates.rangeId)"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>
+
+<ng-template #noClosingDates>
+  <h2>Aucun jours de fermeture prévus</h2>
+</ng-template>

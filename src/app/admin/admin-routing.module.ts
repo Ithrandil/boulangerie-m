@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { OpeningDaysFormComponent } from './pages/opening-days-form/opening-days-formcomponent';
 
 import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProductionTeamRecapComponent } from './pages/production-team-recap/production-team-recap.component';
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'produits', component: ProductsListComponent },
   { path: 'liste-commandes', component: OrderListComponent },
   { path: 'recap-production', component: ProductionTeamRecapComponent },
+  { path: 'gestion-fermeture', component: OpeningDaysFormComponent },
 ];
 
 @NgModule({

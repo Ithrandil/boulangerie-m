@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
@@ -26,6 +27,12 @@ export class OrderFormComponent implements OnDestroy {
     sliced: [],
     comments: [],
   };
+  // FIXME: TYPE MOI BORDEL
+  public closingDays: {
+    rangeId: string;
+    startingDate: any;
+    endingDate: any;
+  }[] = [];
   public PRODUCTCATEGORY = ProductCategory;
   public tomorrow = new Date();
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
@@ -92,6 +99,7 @@ export class OrderFormComponent implements OnDestroy {
 
   constructor(
     private orderService: OrderService,
+    private openingDaysService: OpeningDaysService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {
@@ -153,6 +161,10 @@ export class OrderFormComponent implements OnDestroy {
 
     this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
     this.filterShortDeliveryProducts();
+    this.openingDaysService
+      .getAllClosingDays()
+      .pipe(take(1))
+      .subscribe((res) => (this.closingDays = res));
   }
 
   ngOnDestroy(): void {
@@ -344,11 +356,23 @@ export class OrderFormComponent implements OnDestroy {
     return this.productList.filter((prod) => prod.category === category);
   }
 
-  public onlySummerSunday = (d: Date | null): boolean => {
+  public isItOpenToday = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     const month = (d || new Date()).getMonth();
     let res = true;
+    // Sunday open only between june and september included
     if (day === 0 && (month > 8 || month < 5)) {
+      res = false;
+    }
+    // get and inject specific closed day from closing days form
+    if (
+      d &&
+      this.closingDays.find(
+        (el) =>
+          el.startingDate.seconds * 1000 <= d?.getTime() &&
+          el.endingDate.seconds * 1000 >= d?.getTime()
+      )
+    ) {
       res = false;
     }
     return res;
