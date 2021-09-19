@@ -31,6 +31,9 @@
     <div class="link" (click)="router.navigate(['admin/produits'])">
       Produits
     </div>
+    <div class="link" (click)="router.navigate(['admin/gestion-fermeture'])">
+      Jours fermés
+    </div>
     <div
       class="link logoutHeader"
       fxLayoutAlign="center center"
@@ -83,6 +86,14 @@
     >
       <mat-icon>fastfood</mat-icon>
       <span>Produits</span>
+    </button>
+    <button
+      *ngIf="!activatedRoute.includes('fermeture')"
+      mat-menu-item
+      (click)="router.navigate(['admin/gestion-fermeture'])"
+    >
+      <mat-icon>event_busy</mat-icon>
+      <span>Fermeture</span>
     </button>
     <button
       *ngIf="activatedRoute.includes('admin')"

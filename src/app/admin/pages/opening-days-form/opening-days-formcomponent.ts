@@ -29,7 +29,6 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
       .getAllClosingDays()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        console.log(response);
         this.allClosingDays = this.formatAndFilterClosingDatesForList(response);
       });
   }
@@ -42,7 +41,13 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    if (this.closedDaysForm.valid) {
+    this.closedDaysForm.markAllAsTouched();
+    const alreadyAClosedDay = this.allClosingDays.find(
+      (el) =>
+        el?.startingDate?.getTime() ===
+        this.closedDaysForm?.value?.startingDate?.getTime()
+    );
+    if (this.closedDaysForm.valid && !alreadyAClosedDay) {
       this.openingDaysService
         .addClosingDays(this.closedDaysForm.value)
         .pipe(take(1))
@@ -59,7 +64,7 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
 
   private formatAndFilterClosingDatesForList(
     array: { rangeId: string; startingDate: any; endingDate: any }[]
-  ) {
+  ): { rangeId: string; startingDate: any; endingDate: any }[] {
     return array
       .sort((el1, el2) => {
         if (el1.startingDate.seconds < el2.startingDate.seconds) {
@@ -75,7 +80,10 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
         return {
           rangeId: el.rangeId,
           startingDate: el.startingDate.toDate(),
-          endingDate: el.endingDate.toDate(),
+          endingDate:
+            el.startingDate.seconds === el.endingDate.seconds
+              ? null
+              : el.endingDate.toDate(),
         };
       });
   }
