@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 3rem;
+}
+
+mat-card {
+  margin: 1rem 2rem 1rem 2rem;
+}
+
+.mat-card-title {
+  font-size: 1.6rem;
+  color: var(--color-app-brown) !important;
+}
+
+.mat-fab {
+  background-color: var(--color-app-light-brown);
+  color: var(--color-app-brown);
+}
+
+// Button custom style
+
+.mat-fab:hover {
+  background-color: var(--color-app-brown);
+  color: var(--color-app-light-brown);
+  transition: background 0.8s;
+}
+
+mat-list-item {
+  margin-top: 1rem;
+  @media (max-width: 768px) {
+    margin-bottom: 4rem;
+  }
+}
+
+.closedDayListElem {
+  margin: 2rem;
+}

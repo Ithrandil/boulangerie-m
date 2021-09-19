@@ -150,7 +150,7 @@
         formControlName="deliveryDate"
         [min]="tomorrow"
         [matDatepicker]="picker"
-        [matDatepickerFilter]="onlySummerSunday"
+        [matDatepickerFilter]="isItOpenToday"
         readonly
       />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
