@@ -7,11 +7,13 @@
 
   function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
   function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
   function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+  function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+  function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
   function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -2208,19 +2210,25 @@
       /* harmony import */
 
 
-      var _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _pages_opening_days_form_opening_days_formcomponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./pages/opening-days-form/opening-days-formcomponent */
+      "3O4y");
+      /* harmony import */
+
+
+      var _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! ./pages/order-list/order-list.component */
       "JOSm");
       /* harmony import */
 
 
-      var _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ./pages/production-team-recap/production-team-recap.component */
       "l4tm");
       /* harmony import */
 
 
-      var _pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
       /*! ./pages/products-list/products-list.component */
       "mW0r");
 
@@ -2230,13 +2238,16 @@
         pathMatch: 'full'
       }, {
         path: 'produits',
-        component: _pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_4__["ProductsListComponent"]
+        component: _pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_5__["ProductsListComponent"]
       }, {
         path: 'liste-commandes',
-        component: _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_2__["OrderListComponent"]
+        component: _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_3__["OrderListComponent"]
       }, {
         path: 'recap-production',
-        component: _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_3__["ProductionTeamRecapComponent"]
+        component: _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_4__["ProductionTeamRecapComponent"]
+      }, {
+        path: 'gestion-fermeture',
+        component: _pages_opening_days_form_opening_days_formcomponent__WEBPACK_IMPORTED_MODULE_2__["OpeningDaysFormComponent"]
       }];
 
       var AdminRoutingModule = function AdminRoutingModule() {
@@ -7363,6 +7374,460 @@
 
       __webpack_exports__["default"] = localize;
       /***/
+    },
+
+    /***/
+    "3O4y":
+    /*!*****************************************************************************!*\
+      !*** ./src/app/admin/pages/opening-days-form/opening-days-formcomponent.ts ***!
+      \*****************************************************************************/
+
+    /*! exports provided: OpeningDaysFormComponent */
+
+    /***/
+    function O4y(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "OpeningDaysFormComponent", function () {
+        return OpeningDaysFormComponent;
+      });
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/forms */
+      "3Pt+");
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! rxjs */
+      "qCKp");
+      /* harmony import */
+
+
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! rxjs/operators */
+      "kU1M");
+      /* harmony import */
+
+
+      var _app_admin_services_opening_days_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @app/admin/services/opening-days.service */
+      "5wd/");
+      /* harmony import */
+
+
+      var _angular_material_card__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @angular/material/card */
+      "Wp6s");
+      /* harmony import */
+
+
+      var _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @angular/flex-layout/flex */
+      "XiUz");
+      /* harmony import */
+
+
+      var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @angular/material/form-field */
+      "kmnG");
+      /* harmony import */
+
+
+      var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @angular/material/datepicker */
+      "iadO");
+      /* harmony import */
+
+
+      var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @angular/common */
+      "ofXK");
+      /* harmony import */
+
+
+      var _angular_material_button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @angular/material/button */
+      "bTqV");
+      /* harmony import */
+
+
+      var _angular_material_icon__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! @angular/material/icon */
+      "NFeN");
+      /* harmony import */
+
+
+      var _angular_material_list__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! @angular/material/list */
+      "MutI");
+
+      function OpeningDaysFormComponent_mat_error_14_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-error");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Invalid start date ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+      }
+
+      function OpeningDaysFormComponent_mat_error_15_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-error");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Invalid end date ");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+      }
+
+      function OpeningDaysFormComponent_mat_list_24_mat_list_item_1_p_1_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 20);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "date");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](3, "date");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+
+        if (rf & 2) {
+          var dates_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"](" - Du ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 2, dates_r7.startingDate, "fullDate"), " au ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](3, 5, dates_r7.endingDate, "fullDate"), " ");
+        }
+      }
+
+      function OpeningDaysFormComponent_mat_list_24_mat_list_item_1_ng_template_2_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p", 20);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipe"](2, "date");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+
+        if (rf & 2) {
+          var dates_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" - Le ", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind2"](2, 1, dates_r7.startingDate, "fullDate"), " ");
+        }
+      }
+
+      function OpeningDaysFormComponent_mat_list_24_mat_list_item_1_Template(rf, ctx) {
+        if (rf & 1) {
+          var _r14 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-list-item", 16);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, OpeningDaysFormComponent_mat_list_24_mat_list_item_1_p_1_Template, 4, 8, "p", 17);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, OpeningDaysFormComponent_mat_list_24_mat_list_item_1_ng_template_2_Template, 3, 4, "ng-template", null, 18, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplateRefExtractor"]);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "button", 19);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function OpeningDaysFormComponent_mat_list_24_mat_list_item_1_Template_button_click_4_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r14);
+
+            var dates_r7 = ctx.$implicit;
+
+            var ctx_r13 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
+
+            return ctx_r13.deleteClosingDays(dates_r7.rangeId);
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "mat-icon");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6, "delete");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+
+        if (rf & 2) {
+          var dates_r7 = ctx.$implicit;
+
+          var _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](3);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", dates_r7.endingDate)("ngIfElse", _r9);
+        }
+      }
+
+      function OpeningDaysFormComponent_mat_list_24_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-list", 14);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, OpeningDaysFormComponent_mat_list_24_mat_list_item_1_Template, 7, 2, "mat-list-item", 15);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+
+        if (rf & 2) {
+          var ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r3.allClosingDays);
+        }
+      }
+
+      function OpeningDaysFormComponent_ng_template_25_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "h3");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Aucun jours de fermeture pr\xE9vus");
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        }
+      }
+
+      var OpeningDaysFormComponent = /*#__PURE__*/function () {
+        function OpeningDaysFormComponent(fb, openingDaysService) {
+          var _this3 = this;
+
+          _classCallCheck(this, OpeningDaysFormComponent);
+
+          this.fb = fb;
+          this.openingDaysService = openingDaysService;
+          this.unsubscribe$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+          this.allClosingDays = [];
+          this.closedDaysForm = this.fb.group({
+            startingDate: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]],
+            endingDate: [null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]]
+          });
+          this.openingDaysService.getAllClosingDays().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["takeUntil"])(this.unsubscribe$)).subscribe(function (response) {
+            _this3.allClosingDays = _this3.formatAndFilterClosingDatesForList(response);
+          });
+        }
+
+        _createClass(OpeningDaysFormComponent, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {}
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this.unsubscribe$.next();
+            this.unsubscribe$.unsubscribe();
+          }
+        }, {
+          key: "onSubmit",
+          value: function onSubmit() {
+            var _this4 = this;
+
+            this.closedDaysForm.markAllAsTouched();
+            var alreadyAClosedDay = this.allClosingDays.find(function (el) {
+              var _a, _b, _c, _d;
+
+              return ((_a = el === null || el === void 0 ? void 0 : el.startingDate) === null || _a === void 0 ? void 0 : _a.getTime()) === ((_d = (_c = (_b = _this4.closedDaysForm) === null || _b === void 0 ? void 0 : _b.value) === null || _c === void 0 ? void 0 : _c.startingDate) === null || _d === void 0 ? void 0 : _d.getTime());
+            });
+
+            if (this.closedDaysForm.valid && !alreadyAClosedDay) {
+              this.openingDaysService.addClosingDays(this.closedDaysForm.value).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe();
+            }
+          }
+        }, {
+          key: "deleteClosingDays",
+          value: function deleteClosingDays(rangeId) {
+            this.openingDaysService.deleteClosingDays(rangeId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1)).subscribe();
+          }
+        }, {
+          key: "formatAndFilterClosingDatesForList",
+          value: function formatAndFilterClosingDatesForList(array) {
+            return array.sort(function (el1, el2) {
+              if (el1.startingDate.seconds < el2.startingDate.seconds) {
+                return -1;
+              }
+
+              if (el1.startingDate.seconds > el2.startingDate.seconds) {
+                return 1;
+              }
+
+              return 0;
+            }).filter(function (el) {
+              return el.startingDate.seconds > Math.floor(Date.now() / 1000);
+            }).map(function (el) {
+              return {
+                rangeId: el.rangeId,
+                startingDate: el.startingDate.toDate(),
+                endingDate: el.startingDate.seconds === el.endingDate.seconds ? null : el.endingDate.toDate()
+              };
+            });
+          }
+        }]);
+
+        return OpeningDaysFormComponent;
+      }();
+
+      OpeningDaysFormComponent.ɵfac = function OpeningDaysFormComponent_Factory(t) {
+        return new (t || OpeningDaysFormComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_app_admin_services_opening_days_service__WEBPACK_IMPORTED_MODULE_4__["OpeningDaysService"]));
+      };
+
+      OpeningDaysFormComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
+        type: OpeningDaysFormComponent,
+        selectors: [["app-opening-days-form"]],
+        decls: 27,
+        vars: 7,
+        consts: [["fxFlex", "87"], ["fxLayout", "row wrap", "fxLayoutAlign", "center center"], ["fxLayout", "row wrap", "fxLayoutAlign", "space-around center"], ["appearance", "outline"], [3, "formGroup", "rangePicker"], ["required", "", "formControlName", "startingDate", "matStartDate", "", "placeholder", "Date de d\xE9but"], ["required", "", "formControlName", "endingDate", "matEndDate", "", "placeholder", "Date de fin"], ["matSuffix", "", 3, "for"], ["picker", ""], [4, "ngIf"], ["mat-fab", "", "aria-label", "Bouton de validation de choix de jours ferm\xE9s", 3, "click"], ["fxLayout", "column wrap", "fxLayoutAlign", "space-around center"], ["role", "list", 4, "ngIf", "ngIfElse"], ["noClosingDates", ""], ["role", "list"], ["role", "listitem", "fxLayout", "row wrap", "fxLayoutAlign", "space-around center", 4, "ngFor", "ngForOf"], ["role", "listitem", "fxLayout", "row wrap", "fxLayoutAlign", "space-around center"], ["class", "closedDayListElem", 4, "ngIf", "ngIfElse"], ["oneDayClosing", ""], ["mat-mini-fab", "", "color", "warn", "aria-label", "Supprimer les jours de fermeture", 3, "click"], [1, "closedDayListElem"]],
+        template: function OpeningDaysFormComponent_Template(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-card", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-card-title", 1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3, "Quels jours fermer?");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "mat-card-content", 2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "mat-form-field", 3);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "mat-label");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7, "S\xE9lectionner une p\xE9riode");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "mat-date-range-input", 4);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](9, "input", 5);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](10, "input", 6);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](11, "mat-datepicker-toggle", 7);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](12, "mat-date-range-picker", null, 8);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, OpeningDaysFormComponent_mat_error_14_Template, 2, 0, "mat-error", 9);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, OpeningDaysFormComponent_mat_error_15_Template, 2, 0, "mat-error", 9);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "button", 10);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function OpeningDaysFormComponent_Template_button_click_16_listener() {
+              return ctx.onSubmit();
+            });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "mat-icon");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18, "add_circle");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "mat-card", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](20, "mat-card-title", 1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](21, "div");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](22, "Jours de fermeture \xE0 venir");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "mat-card-content", 11);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](24, OpeningDaysFormComponent_mat_list_24_Template, 2, 1, "mat-list", 12);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](25, OpeningDaysFormComponent_ng_template_25_Template, 2, 0, "ng-template", null, 13, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplateRefExtractor"]);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+          }
+
+          if (rf & 2) {
+            var _r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](13);
+
+            var _r4 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](26);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](8);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("formGroup", ctx.closedDaysForm)("rangePicker", _r0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("for", _r0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.closedDaysForm.controls.startingDate.hasError("matStartDateInvalid"));
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.closedDaysForm.controls.startingDate.hasError("matEndDateInvalid"));
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.allClosingDays.length > 0)("ngIfElse", _r4);
+          }
+        },
+        directives: [_angular_material_card__WEBPACK_IMPORTED_MODULE_5__["MatCard"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_6__["DefaultFlexDirective"], _angular_material_card__WEBPACK_IMPORTED_MODULE_5__["MatCardTitle"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_6__["DefaultLayoutDirective"], _angular_flex_layout_flex__WEBPACK_IMPORTED_MODULE_6__["DefaultLayoutAlignDirective"], _angular_material_card__WEBPACK_IMPORTED_MODULE_5__["MatCardContent"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__["MatFormField"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__["MatLabel"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_8__["MatDateRangeInput"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["DefaultValueAccessor"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_8__["MatStartDate"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControlName"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_8__["MatEndDate"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_8__["MatDatepickerToggle"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__["MatSuffix"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_8__["MatDateRangePicker"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatButton"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_11__["MatIcon"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_7__["MatError"], _angular_material_list__WEBPACK_IMPORTED_MODULE_12__["MatList"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgForOf"], _angular_material_list__WEBPACK_IMPORTED_MODULE_12__["MatListItem"]],
+        pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["DatePipe"]],
+        styles: ["[_nghost-%COMP%] {\n  display: flex;\n  flex: 1;\n  flex-direction: column;\n  margin-top: 3rem;\n}\n\nmat-card[_ngcontent-%COMP%] {\n  margin: 1rem 2rem 1rem 2rem;\n}\n\n.mat-card-title[_ngcontent-%COMP%] {\n  font-size: 1.6rem;\n  color: var(--color-app-brown) !important;\n}\n\n.mat-fab[_ngcontent-%COMP%] {\n  background-color: var(--color-app-light-brown);\n  color: var(--color-app-brown);\n}\n\n.mat-fab[_ngcontent-%COMP%]:hover {\n  background-color: var(--color-app-brown);\n  color: var(--color-app-light-brown);\n  transition: background 0.8s;\n}\n\nmat-list-item[_ngcontent-%COMP%] {\n  margin-top: 1rem;\n}\n\n@media (max-width: 768px) {\n  mat-list-item[_ngcontent-%COMP%] {\n    margin-bottom: 4rem;\n  }\n}\n\n.closedDayListElem[_ngcontent-%COMP%] {\n  margin: 2rem;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYWRtaW4vcGFnZXMvb3BlbmluZy1kYXlzLWZvcm0vb3BlbmluZy1kYXlzLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxhQUFBO0VBQ0EsT0FBQTtFQUNBLHNCQUFBO0VBQ0EsZ0JBQUE7QUFDRjs7QUFFQTtFQUNFLDJCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxpQkFBQTtFQUNBLHdDQUFBO0FBQ0Y7O0FBRUE7RUFDRSw4Q0FBQTtFQUNBLDZCQUFBO0FBQ0Y7O0FBSUE7RUFDRSx3Q0FBQTtFQUNBLG1DQUFBO0VBQ0EsMkJBQUE7QUFERjs7QUFJQTtFQUNFLGdCQUFBO0FBREY7O0FBRUU7RUFGRjtJQUdJLG1CQUFBO0VBQ0Y7QUFDRjs7QUFFQTtFQUNFLFlBQUE7QUFDRiIsImZpbGUiOiJzcmMvYXBwL2FkbWluL3BhZ2VzL29wZW5pbmctZGF5cy1mb3JtL29wZW5pbmctZGF5cy1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4OiAxO1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBtYXJnaW4tdG9wOiAzcmVtO1xufVxuXG5tYXQtY2FyZCB7XG4gIG1hcmdpbjogMXJlbSAycmVtIDFyZW0gMnJlbTtcbn1cblxuLm1hdC1jYXJkLXRpdGxlIHtcbiAgZm9udC1zaXplOiAxLjZyZW07XG4gIGNvbG9yOiB2YXIoLS1jb2xvci1hcHAtYnJvd24pICFpbXBvcnRhbnQ7XG59XG5cbi5tYXQtZmFiIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tY29sb3ItYXBwLWxpZ2h0LWJyb3duKTtcbiAgY29sb3I6IHZhcigtLWNvbG9yLWFwcC1icm93bik7XG59XG5cbi8vIEJ1dHRvbiBjdXN0b20gc3R5bGVcblxuLm1hdC1mYWI6aG92ZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1jb2xvci1hcHAtYnJvd24pO1xuICBjb2xvcjogdmFyKC0tY29sb3ItYXBwLWxpZ2h0LWJyb3duKTtcbiAgdHJhbnNpdGlvbjogYmFja2dyb3VuZCAwLjhzO1xufVxuXG5tYXQtbGlzdC1pdGVtIHtcbiAgbWFyZ2luLXRvcDogMXJlbTtcbiAgQG1lZGlhIChtYXgtd2lkdGg6IDc2OHB4KSB7XG4gICAgbWFyZ2luLWJvdHRvbTogNHJlbTtcbiAgfVxufVxuXG4uY2xvc2VkRGF5TGlzdEVsZW0ge1xuICBtYXJnaW46IDJyZW07XG59XG4iXX0= */"]
+      });
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](OpeningDaysFormComponent, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"],
+          args: [{
+            selector: 'app-opening-days-form',
+            templateUrl: './opening-days-form.component.html',
+            styleUrls: ['./opening-days-form.component.scss']
+          }]
+        }], function () {
+          return [{
+            type: _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]
+          }, {
+            type: _app_admin_services_opening_days_service__WEBPACK_IMPORTED_MODULE_4__["OpeningDaysService"]
+          }];
+        }, null);
+      })();
+      /***/
+
     },
 
     /***/
@@ -27047,17 +27512,17 @@
         }, {
           key: "getOrdersOfTheDay",
           value: function getOrdersOfTheDay(day) {
-            var _this3 = this;
+            var _this5 = this;
 
             if (!day) {
               this.orderAdminService.getAllOtherOrders(Object(date_fns__WEBPACK_IMPORTED_MODULE_3__["add"])(new Date(Date.now()), {
                 days: 4
               })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (ordersOfTheDay) {
-                _this3.ordersOfThDayList = ordersOfTheDay;
+                _this5.ordersOfThDayList = ordersOfTheDay;
               }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this.unsubscribe$)).subscribe();
             } else {
               this.orderAdminService.getOrdersByDay(day).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (ordersOfTheDay) {
-                _this3.ordersOfThDayList = ordersOfTheDay;
+                _this5.ordersOfThDayList = ordersOfTheDay;
               }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this.unsubscribe$)).subscribe();
             }
           }
@@ -30528,6 +30993,2040 @@
         var dateRightStartOfWeek = Object(_startOfUTCWeek_index_js__WEBPACK_IMPORTED_MODULE_0__["default"])(dirtyDateRight, options);
         return dateLeftStartOfWeek.getTime() === dateRightStartOfWeek.getTime();
       }
+      /***/
+
+    },
+
+    /***/
+    "MutI":
+    /*!**********************************************************************!*\
+      !*** ./node_modules/@angular/material/__ivy_ngcc__/fesm2015/list.js ***!
+      \**********************************************************************/
+
+    /*! exports provided: MAT_LIST, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListItem, MatListModule, MatListOption, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange */
+
+    /***/
+    function MutI(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MAT_LIST", function () {
+        return MAT_LIST;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MAT_NAV_LIST", function () {
+        return MAT_NAV_LIST;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MAT_SELECTION_LIST_VALUE_ACCESSOR", function () {
+        return MAT_SELECTION_LIST_VALUE_ACCESSOR;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatList", function () {
+        return MatList;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatListAvatarCssMatStyler", function () {
+        return MatListAvatarCssMatStyler;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatListIconCssMatStyler", function () {
+        return MatListIconCssMatStyler;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatListItem", function () {
+        return MatListItem;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatListModule", function () {
+        return MatListModule;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatListOption", function () {
+        return MatListOption;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatListSubheaderCssMatStyler", function () {
+        return MatListSubheaderCssMatStyler;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatNavList", function () {
+        return MatNavList;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatSelectionList", function () {
+        return MatSelectionList;
+      });
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "MatSelectionListChange", function () {
+        return MatSelectionListChange;
+      });
+      /* harmony import */
+
+
+      var _angular_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! @angular/common */
+      "ofXK");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _angular_material_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @angular/material/core */
+      "FKr1");
+      /* harmony import */
+
+
+      var _angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/cdk/coercion */
+      "8LU1");
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! rxjs */
+      "qCKp");
+      /* harmony import */
+
+
+      var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! rxjs/operators */
+      "kU1M");
+      /* harmony import */
+
+
+      var _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! @angular/cdk/a11y */
+      "u47x");
+      /* harmony import */
+
+
+      var _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! @angular/cdk/collections */
+      "0EQZ");
+      /* harmony import */
+
+
+      var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @angular/cdk/keycodes */
+      "FtGj");
+      /* harmony import */
+
+
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @angular/forms */
+      "3Pt+");
+      /* harmony import */
+
+
+      var _angular_material_divider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @angular/material/divider */
+      "f0Cb");
+      /**
+       * @license
+       * Copyright Google LLC All Rights Reserved.
+       *
+       * Use of this source code is governed by an MIT-style license that can be
+       * found in the LICENSE file at https://angular.io/license
+       */
+      // Boilerplate for applying mixins to MatList.
+
+      /** @docs-private */
+
+
+      var _c0 = ["*"];
+      var _c1 = ".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list-base .mat-subheader{margin:0}.mat-list-base{padding-top:8px;display:block;-webkit-tap-highlight-color:transparent}.mat-list-base .mat-subheader{height:48px;line-height:16px}.mat-list-base .mat-subheader:first-child{margin-top:-8px}.mat-list-base .mat-list-item,.mat-list-base .mat-list-option{display:block;height:48px;-webkit-tap-highlight-color:transparent;width:100%;padding:0}.mat-list-base .mat-list-item .mat-list-item-content,.mat-list-base .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list-base .mat-list-item .mat-list-item-content-reverse,.mat-list-base .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list-base .mat-list-item .mat-list-item-ripple,.mat-list-base .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list-base .mat-list-item.mat-list-item-with-avatar,.mat-list-base .mat-list-option.mat-list-item-with-avatar{height:56px}.mat-list-base .mat-list-item.mat-2-line,.mat-list-base .mat-list-option.mat-2-line{height:72px}.mat-list-base .mat-list-item.mat-3-line,.mat-list-base .mat-list-option.mat-3-line{height:88px}.mat-list-base .mat-list-item.mat-multi-line,.mat-list-base .mat-list-option.mat-multi-line{height:auto}.mat-list-base .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list-base .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list-base .mat-list-item .mat-list-text,.mat-list-base .mat-list-option .mat-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden;padding:0}.mat-list-base .mat-list-item .mat-list-text>*,.mat-list-base .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-list-base .mat-list-item .mat-list-text:empty,.mat-list-base .mat-list-option .mat-list-text:empty{display:none}.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:0;padding-left:16px}[dir=rtl] .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:0}.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-left:0;padding-right:16px}[dir=rtl] .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-right:0;padding-left:16px}.mat-list-base .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:16px}.mat-list-base .mat-list-item .mat-list-avatar,.mat-list-base .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%;object-fit:cover}.mat-list-base .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list-base .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:72px;width:calc(100% - 72px)}[dir=rtl] .mat-list-base .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list-base .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:72px}.mat-list-base .mat-list-item .mat-list-icon,.mat-list-base .mat-list-option .mat-list-icon{flex-shrink:0;width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list-base .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list-base .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:64px;width:calc(100% - 64px)}[dir=rtl] .mat-list-base .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list-base .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:64px}.mat-list-base .mat-list-item .mat-divider,.mat-list-base .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list-base .mat-list-item .mat-divider,[dir=rtl] .mat-list-base .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list-base .mat-list-item .mat-divider.mat-divider-inset,.mat-list-base .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-list-base[dense]{padding-top:4px;display:block}.mat-list-base[dense] .mat-subheader{height:40px;line-height:8px}.mat-list-base[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list-base[dense] .mat-list-item,.mat-list-base[dense] .mat-list-option{display:block;height:40px;-webkit-tap-highlight-color:transparent;width:100%;padding:0}.mat-list-base[dense] .mat-list-item .mat-list-item-content,.mat-list-base[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list-base[dense] .mat-list-item .mat-list-item-content-reverse,.mat-list-base[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list-base[dense] .mat-list-item .mat-list-item-ripple,.mat-list-base[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar{height:48px}.mat-list-base[dense] .mat-list-item.mat-2-line,.mat-list-base[dense] .mat-list-option.mat-2-line{height:60px}.mat-list-base[dense] .mat-list-item.mat-3-line,.mat-list-base[dense] .mat-list-option.mat-3-line{height:76px}.mat-list-base[dense] .mat-list-item.mat-multi-line,.mat-list-base[dense] .mat-list-option.mat-multi-line{height:auto}.mat-list-base[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list-base[dense] .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list-base[dense] .mat-list-item .mat-list-text,.mat-list-base[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden;padding:0}.mat-list-base[dense] .mat-list-item .mat-list-text>*,.mat-list-base[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-list-base[dense] .mat-list-item .mat-list-text:empty,.mat-list-base[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:0;padding-left:16px}[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:0}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-left:0;padding-right:16px}[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-right:0;padding-left:16px}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:16px}.mat-list-base[dense] .mat-list-item .mat-list-avatar,.mat-list-base[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:36px;height:36px;border-radius:50%;object-fit:cover}.mat-list-base[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:68px;width:calc(100% - 68px)}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:68px}.mat-list-base[dense] .mat-list-item .mat-list-icon,.mat-list-base[dense] .mat-list-option .mat-list-icon{flex-shrink:0;width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list-base[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:60px;width:calc(100% - 60px)}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:60px}.mat-list-base[dense] .mat-list-item .mat-divider,.mat-list-base[dense] .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list-base[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item{cursor:pointer;outline:none}mat-action-list button{background:none;color:inherit;border:none;font:inherit;outline:inherit;-webkit-tap-highlight-color:transparent;text-align:left}[dir=rtl] mat-action-list button{text-align:right}mat-action-list button::-moz-focus-inner{border:0}mat-action-list .mat-list-item{cursor:pointer;outline:inherit}.mat-list-option:not(.mat-list-item-disabled){cursor:pointer;outline:none}.mat-list-item-disabled{pointer-events:none}.cdk-high-contrast-active .mat-list-item-disabled{opacity:.5}.cdk-high-contrast-active :host .mat-list-item-disabled{opacity:.5}.cdk-high-contrast-active .mat-selection-list:focus{outline-style:dotted}.cdk-high-contrast-active .mat-list-option:hover,.cdk-high-contrast-active .mat-list-option:focus,.cdk-high-contrast-active .mat-nav-list .mat-list-item:hover,.cdk-high-contrast-active .mat-nav-list .mat-list-item:focus,.cdk-high-contrast-active mat-action-list .mat-list-item:hover,.cdk-high-contrast-active mat-action-list .mat-list-item:focus{outline:dotted 1px}.cdk-high-contrast-active .mat-list-single-selected-option::after{content:\"\";position:absolute;top:50%;right:16px;transform:translateY(-50%);width:10px;height:0;border-bottom:solid 10px;border-radius:10px}.cdk-high-contrast-active [dir=rtl] .mat-list-single-selected-option::after{right:auto;left:16px}@media(hover: none){.mat-list-option:not(.mat-list-single-selected-option):not(.mat-list-item-disabled):hover,.mat-nav-list .mat-list-item:not(.mat-list-item-disabled):hover,.mat-action-list .mat-list-item:not(.mat-list-item-disabled):hover{background:none}}\n";
+      var _c2 = [[["", "mat-list-avatar", ""], ["", "mat-list-icon", ""], ["", "matListAvatar", ""], ["", "matListIcon", ""]], [["", "mat-line", ""], ["", "matLine", ""]], "*"];
+      var _c3 = ["[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]", "[mat-line], [matLine]", "*"];
+      var _c4 = ["text"];
+
+      function MatListOption_mat_pseudo_checkbox_2_Template(rf, ctx) {
+        if (rf & 1) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "mat-pseudo-checkbox", 5);
+        }
+
+        if (rf & 2) {
+          var ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("state", ctx_r0.selected ? "checked" : "unchecked")("disabled", ctx_r0.disabled);
+        }
+      }
+
+      var _c5 = ["*", [["", "mat-list-avatar", ""], ["", "mat-list-icon", ""], ["", "matListAvatar", ""], ["", "matListIcon", ""]]];
+      var _c6 = ["*", "[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]"];
+
+      var MatListBase = function MatListBase() {
+        _classCallCheck(this, MatListBase);
+      };
+
+      var _MatListMixinBase = Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["mixinDisabled"])(Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["mixinDisableRipple"])(MatListBase)); // Boilerplate for applying mixins to MatListItem.
+
+      /** @docs-private */
+
+
+      var MatListItemBase = function MatListItemBase() {
+        _classCallCheck(this, MatListItemBase);
+      };
+
+      var _MatListItemMixinBase = Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["mixinDisableRipple"])(MatListItemBase);
+      /**
+       * Injection token that can be used to inject instances of `MatList`. It serves as
+       * alternative token to the actual `MatList` class which could cause unnecessary
+       * retention of the class and its component metadata.
+       */
+
+
+      var MAT_LIST = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('MatList');
+      /**
+       * Injection token that can be used to inject instances of `MatNavList`. It serves as
+       * alternative token to the actual `MatNavList` class which could cause unnecessary
+       * retention of the class and its component metadata.
+       */
+
+      var MAT_NAV_LIST = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('MatNavList');
+
+      var MatNavList = /*#__PURE__*/function (_MatListMixinBase2) {
+        _inherits(MatNavList, _MatListMixinBase2);
+
+        var _super3 = _createSuper(MatNavList);
+
+        function MatNavList() {
+          var _this6;
+
+          _classCallCheck(this, MatNavList);
+
+          _this6 = _super3.apply(this, arguments);
+          /** Emits when the state of the list changes. */
+
+          _this6._stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+          return _this6;
+        }
+
+        _createClass(MatNavList, [{
+          key: "ngOnChanges",
+          value: function ngOnChanges() {
+            this._stateChanges.next();
+          }
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this._stateChanges.complete();
+          }
+        }]);
+
+        return MatNavList;
+      }(_MatListMixinBase);
+
+      MatNavList.ɵfac = function MatNavList_Factory(t) {
+        return ɵMatNavList_BaseFactory(t || MatNavList);
+      };
+
+      MatNavList.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+        type: MatNavList,
+        selectors: [["mat-nav-list"]],
+        hostAttrs: ["role", "navigation", 1, "mat-nav-list", "mat-list-base"],
+        inputs: {
+          disableRipple: "disableRipple",
+          disabled: "disabled"
+        },
+        exportAs: ["matNavList"],
+        features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵProvidersFeature"]([{
+          provide: MAT_NAV_LIST,
+          useExisting: MatNavList
+        }]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵInheritDefinitionFeature"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵNgOnChangesFeature"]],
+        ngContentSelectors: _c0,
+        decls: 1,
+        vars: 0,
+        template: function MatNavList_Template(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojectionDef"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojection"](0);
+          }
+        },
+        styles: [_c1],
+        encapsulation: 2,
+        changeDetection: 0
+      });
+
+      var ɵMatNavList_BaseFactory = /*@__PURE__*/_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetInheritedFactory"](MatNavList);
+      /*@__PURE__*/
+
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatNavList, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
+          args: [{
+            selector: 'mat-nav-list',
+            exportAs: 'matNavList',
+            host: {
+              'role': 'navigation',
+              'class': 'mat-nav-list mat-list-base'
+            },
+            template: "<ng-content></ng-content>\n\n",
+            inputs: ['disableRipple', 'disabled'],
+            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            providers: [{
+              provide: MAT_NAV_LIST,
+              useExisting: MatNavList
+            }],
+            styles: [".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list-base .mat-subheader{margin:0}.mat-list-base{padding-top:8px;display:block;-webkit-tap-highlight-color:transparent}.mat-list-base .mat-subheader{height:48px;line-height:16px}.mat-list-base .mat-subheader:first-child{margin-top:-8px}.mat-list-base .mat-list-item,.mat-list-base .mat-list-option{display:block;height:48px;-webkit-tap-highlight-color:transparent;width:100%;padding:0}.mat-list-base .mat-list-item .mat-list-item-content,.mat-list-base .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list-base .mat-list-item .mat-list-item-content-reverse,.mat-list-base .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list-base .mat-list-item .mat-list-item-ripple,.mat-list-base .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list-base .mat-list-item.mat-list-item-with-avatar,.mat-list-base .mat-list-option.mat-list-item-with-avatar{height:56px}.mat-list-base .mat-list-item.mat-2-line,.mat-list-base .mat-list-option.mat-2-line{height:72px}.mat-list-base .mat-list-item.mat-3-line,.mat-list-base .mat-list-option.mat-3-line{height:88px}.mat-list-base .mat-list-item.mat-multi-line,.mat-list-base .mat-list-option.mat-multi-line{height:auto}.mat-list-base .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list-base .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list-base .mat-list-item .mat-list-text,.mat-list-base .mat-list-option .mat-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden;padding:0}.mat-list-base .mat-list-item .mat-list-text>*,.mat-list-base .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-list-base .mat-list-item .mat-list-text:empty,.mat-list-base .mat-list-option .mat-list-text:empty{display:none}.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:0;padding-left:16px}[dir=rtl] .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:0}.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-left:0;padding-right:16px}[dir=rtl] .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-right:0;padding-left:16px}.mat-list-base .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:16px}.mat-list-base .mat-list-item .mat-list-avatar,.mat-list-base .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%;object-fit:cover}.mat-list-base .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list-base .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:72px;width:calc(100% - 72px)}[dir=rtl] .mat-list-base .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list-base .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:72px}.mat-list-base .mat-list-item .mat-list-icon,.mat-list-base .mat-list-option .mat-list-icon{flex-shrink:0;width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list-base .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list-base .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:64px;width:calc(100% - 64px)}[dir=rtl] .mat-list-base .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list-base .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:64px}.mat-list-base .mat-list-item .mat-divider,.mat-list-base .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list-base .mat-list-item .mat-divider,[dir=rtl] .mat-list-base .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list-base .mat-list-item .mat-divider.mat-divider-inset,.mat-list-base .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-list-base[dense]{padding-top:4px;display:block}.mat-list-base[dense] .mat-subheader{height:40px;line-height:8px}.mat-list-base[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list-base[dense] .mat-list-item,.mat-list-base[dense] .mat-list-option{display:block;height:40px;-webkit-tap-highlight-color:transparent;width:100%;padding:0}.mat-list-base[dense] .mat-list-item .mat-list-item-content,.mat-list-base[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list-base[dense] .mat-list-item .mat-list-item-content-reverse,.mat-list-base[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list-base[dense] .mat-list-item .mat-list-item-ripple,.mat-list-base[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar{height:48px}.mat-list-base[dense] .mat-list-item.mat-2-line,.mat-list-base[dense] .mat-list-option.mat-2-line{height:60px}.mat-list-base[dense] .mat-list-item.mat-3-line,.mat-list-base[dense] .mat-list-option.mat-3-line{height:76px}.mat-list-base[dense] .mat-list-item.mat-multi-line,.mat-list-base[dense] .mat-list-option.mat-multi-line{height:auto}.mat-list-base[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list-base[dense] .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list-base[dense] .mat-list-item .mat-list-text,.mat-list-base[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden;padding:0}.mat-list-base[dense] .mat-list-item .mat-list-text>*,.mat-list-base[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-list-base[dense] .mat-list-item .mat-list-text:empty,.mat-list-base[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:0;padding-left:16px}[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:0}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-left:0;padding-right:16px}[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-right:0;padding-left:16px}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:16px}.mat-list-base[dense] .mat-list-item .mat-list-avatar,.mat-list-base[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:36px;height:36px;border-radius:50%;object-fit:cover}.mat-list-base[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:68px;width:calc(100% - 68px)}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:68px}.mat-list-base[dense] .mat-list-item .mat-list-icon,.mat-list-base[dense] .mat-list-option .mat-list-icon{flex-shrink:0;width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list-base[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:60px;width:calc(100% - 60px)}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:60px}.mat-list-base[dense] .mat-list-item .mat-divider,.mat-list-base[dense] .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list-base[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item{cursor:pointer;outline:none}mat-action-list button{background:none;color:inherit;border:none;font:inherit;outline:inherit;-webkit-tap-highlight-color:transparent;text-align:left}[dir=rtl] mat-action-list button{text-align:right}mat-action-list button::-moz-focus-inner{border:0}mat-action-list .mat-list-item{cursor:pointer;outline:inherit}.mat-list-option:not(.mat-list-item-disabled){cursor:pointer;outline:none}.mat-list-item-disabled{pointer-events:none}.cdk-high-contrast-active .mat-list-item-disabled{opacity:.5}.cdk-high-contrast-active :host .mat-list-item-disabled{opacity:.5}.cdk-high-contrast-active .mat-selection-list:focus{outline-style:dotted}.cdk-high-contrast-active .mat-list-option:hover,.cdk-high-contrast-active .mat-list-option:focus,.cdk-high-contrast-active .mat-nav-list .mat-list-item:hover,.cdk-high-contrast-active .mat-nav-list .mat-list-item:focus,.cdk-high-contrast-active mat-action-list .mat-list-item:hover,.cdk-high-contrast-active mat-action-list .mat-list-item:focus{outline:dotted 1px}.cdk-high-contrast-active .mat-list-single-selected-option::after{content:\"\";position:absolute;top:50%;right:16px;transform:translateY(-50%);width:10px;height:0;border-bottom:solid 10px;border-radius:10px}.cdk-high-contrast-active [dir=rtl] .mat-list-single-selected-option::after{right:auto;left:16px}@media(hover: none){.mat-list-option:not(.mat-list-single-selected-option):not(.mat-list-item-disabled):hover,.mat-nav-list .mat-list-item:not(.mat-list-item-disabled):hover,.mat-action-list .mat-list-item:not(.mat-list-item-disabled):hover{background:none}}\n"]
+          }]
+        }], null, null);
+      })();
+
+      var MatList = /*#__PURE__*/function (_MatListMixinBase3) {
+        _inherits(MatList, _MatListMixinBase3);
+
+        var _super4 = _createSuper(MatList);
+
+        function MatList(_elementRef) {
+          var _this7;
+
+          _classCallCheck(this, MatList);
+
+          _this7 = _super4.call(this);
+          _this7._elementRef = _elementRef;
+          /** Emits when the state of the list changes. */
+
+          _this7._stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+
+          if (_this7._getListType() === 'action-list') {
+            _elementRef.nativeElement.classList.add('mat-action-list');
+          }
+
+          return _this7;
+        }
+
+        _createClass(MatList, [{
+          key: "_getListType",
+          value: function _getListType() {
+            var nodeName = this._elementRef.nativeElement.nodeName.toLowerCase();
+
+            if (nodeName === 'mat-list') {
+              return 'list';
+            }
+
+            if (nodeName === 'mat-action-list') {
+              return 'action-list';
+            }
+
+            return null;
+          }
+        }, {
+          key: "ngOnChanges",
+          value: function ngOnChanges() {
+            this._stateChanges.next();
+          }
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this._stateChanges.complete();
+          }
+        }]);
+
+        return MatList;
+      }(_MatListMixinBase);
+
+      MatList.ɵfac = function MatList_Factory(t) {
+        return new (t || MatList)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]));
+      };
+
+      MatList.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+        type: MatList,
+        selectors: [["mat-list"], ["mat-action-list"]],
+        hostAttrs: [1, "mat-list", "mat-list-base"],
+        inputs: {
+          disableRipple: "disableRipple",
+          disabled: "disabled"
+        },
+        exportAs: ["matList"],
+        features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵProvidersFeature"]([{
+          provide: MAT_LIST,
+          useExisting: MatList
+        }]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵInheritDefinitionFeature"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵNgOnChangesFeature"]],
+        ngContentSelectors: _c0,
+        decls: 1,
+        vars: 0,
+        template: function MatList_Template(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojectionDef"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojection"](0);
+          }
+        },
+        styles: [_c1],
+        encapsulation: 2,
+        changeDetection: 0
+      });
+
+      MatList.ctorParameters = function () {
+        return [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+        }];
+      };
+      /*@__PURE__*/
+
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatList, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
+          args: [{
+            selector: 'mat-list, mat-action-list',
+            exportAs: 'matList',
+            template: "<ng-content></ng-content>\n\n",
+            host: {
+              'class': 'mat-list mat-list-base'
+            },
+            inputs: ['disableRipple', 'disabled'],
+            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            providers: [{
+              provide: MAT_LIST,
+              useExisting: MatList
+            }],
+            styles: [".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list-base .mat-subheader{margin:0}.mat-list-base{padding-top:8px;display:block;-webkit-tap-highlight-color:transparent}.mat-list-base .mat-subheader{height:48px;line-height:16px}.mat-list-base .mat-subheader:first-child{margin-top:-8px}.mat-list-base .mat-list-item,.mat-list-base .mat-list-option{display:block;height:48px;-webkit-tap-highlight-color:transparent;width:100%;padding:0}.mat-list-base .mat-list-item .mat-list-item-content,.mat-list-base .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list-base .mat-list-item .mat-list-item-content-reverse,.mat-list-base .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list-base .mat-list-item .mat-list-item-ripple,.mat-list-base .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list-base .mat-list-item.mat-list-item-with-avatar,.mat-list-base .mat-list-option.mat-list-item-with-avatar{height:56px}.mat-list-base .mat-list-item.mat-2-line,.mat-list-base .mat-list-option.mat-2-line{height:72px}.mat-list-base .mat-list-item.mat-3-line,.mat-list-base .mat-list-option.mat-3-line{height:88px}.mat-list-base .mat-list-item.mat-multi-line,.mat-list-base .mat-list-option.mat-multi-line{height:auto}.mat-list-base .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list-base .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list-base .mat-list-item .mat-list-text,.mat-list-base .mat-list-option .mat-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden;padding:0}.mat-list-base .mat-list-item .mat-list-text>*,.mat-list-base .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-list-base .mat-list-item .mat-list-text:empty,.mat-list-base .mat-list-option .mat-list-text:empty{display:none}.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:0;padding-left:16px}[dir=rtl] .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:0}.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-left:0;padding-right:16px}[dir=rtl] .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-right:0;padding-left:16px}.mat-list-base .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:16px}.mat-list-base .mat-list-item .mat-list-avatar,.mat-list-base .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%;object-fit:cover}.mat-list-base .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list-base .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:72px;width:calc(100% - 72px)}[dir=rtl] .mat-list-base .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list-base .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:72px}.mat-list-base .mat-list-item .mat-list-icon,.mat-list-base .mat-list-option .mat-list-icon{flex-shrink:0;width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list-base .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list-base .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:64px;width:calc(100% - 64px)}[dir=rtl] .mat-list-base .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list-base .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:64px}.mat-list-base .mat-list-item .mat-divider,.mat-list-base .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list-base .mat-list-item .mat-divider,[dir=rtl] .mat-list-base .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list-base .mat-list-item .mat-divider.mat-divider-inset,.mat-list-base .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-list-base[dense]{padding-top:4px;display:block}.mat-list-base[dense] .mat-subheader{height:40px;line-height:8px}.mat-list-base[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list-base[dense] .mat-list-item,.mat-list-base[dense] .mat-list-option{display:block;height:40px;-webkit-tap-highlight-color:transparent;width:100%;padding:0}.mat-list-base[dense] .mat-list-item .mat-list-item-content,.mat-list-base[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list-base[dense] .mat-list-item .mat-list-item-content-reverse,.mat-list-base[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list-base[dense] .mat-list-item .mat-list-item-ripple,.mat-list-base[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar{height:48px}.mat-list-base[dense] .mat-list-item.mat-2-line,.mat-list-base[dense] .mat-list-option.mat-2-line{height:60px}.mat-list-base[dense] .mat-list-item.mat-3-line,.mat-list-base[dense] .mat-list-option.mat-3-line{height:76px}.mat-list-base[dense] .mat-list-item.mat-multi-line,.mat-list-base[dense] .mat-list-option.mat-multi-line{height:auto}.mat-list-base[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list-base[dense] .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list-base[dense] .mat-list-item .mat-list-text,.mat-list-base[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden;padding:0}.mat-list-base[dense] .mat-list-item .mat-list-text>*,.mat-list-base[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-list-base[dense] .mat-list-item .mat-list-text:empty,.mat-list-base[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:0;padding-left:16px}[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:0}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-left:0;padding-right:16px}[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-right:0;padding-left:16px}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:16px}.mat-list-base[dense] .mat-list-item .mat-list-avatar,.mat-list-base[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:36px;height:36px;border-radius:50%;object-fit:cover}.mat-list-base[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:68px;width:calc(100% - 68px)}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:68px}.mat-list-base[dense] .mat-list-item .mat-list-icon,.mat-list-base[dense] .mat-list-option .mat-list-icon{flex-shrink:0;width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list-base[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:60px;width:calc(100% - 60px)}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:60px}.mat-list-base[dense] .mat-list-item .mat-divider,.mat-list-base[dense] .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list-base[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item{cursor:pointer;outline:none}mat-action-list button{background:none;color:inherit;border:none;font:inherit;outline:inherit;-webkit-tap-highlight-color:transparent;text-align:left}[dir=rtl] mat-action-list button{text-align:right}mat-action-list button::-moz-focus-inner{border:0}mat-action-list .mat-list-item{cursor:pointer;outline:inherit}.mat-list-option:not(.mat-list-item-disabled){cursor:pointer;outline:none}.mat-list-item-disabled{pointer-events:none}.cdk-high-contrast-active .mat-list-item-disabled{opacity:.5}.cdk-high-contrast-active :host .mat-list-item-disabled{opacity:.5}.cdk-high-contrast-active .mat-selection-list:focus{outline-style:dotted}.cdk-high-contrast-active .mat-list-option:hover,.cdk-high-contrast-active .mat-list-option:focus,.cdk-high-contrast-active .mat-nav-list .mat-list-item:hover,.cdk-high-contrast-active .mat-nav-list .mat-list-item:focus,.cdk-high-contrast-active mat-action-list .mat-list-item:hover,.cdk-high-contrast-active mat-action-list .mat-list-item:focus{outline:dotted 1px}.cdk-high-contrast-active .mat-list-single-selected-option::after{content:\"\";position:absolute;top:50%;right:16px;transform:translateY(-50%);width:10px;height:0;border-bottom:solid 10px;border-radius:10px}.cdk-high-contrast-active [dir=rtl] .mat-list-single-selected-option::after{right:auto;left:16px}@media(hover: none){.mat-list-option:not(.mat-list-single-selected-option):not(.mat-list-item-disabled):hover,.mat-nav-list .mat-list-item:not(.mat-list-item-disabled):hover,.mat-action-list .mat-list-item:not(.mat-list-item-disabled):hover{background:none}}\n"]
+          }]
+        }], function () {
+          return [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+          }];
+        }, null);
+      })();
+      /**
+       * Directive whose purpose is to add the mat- CSS styling to this selector.
+       * @docs-private
+       */
+
+
+      var MatListAvatarCssMatStyler = function MatListAvatarCssMatStyler() {
+        _classCallCheck(this, MatListAvatarCssMatStyler);
+      };
+
+      MatListAvatarCssMatStyler.ɵfac = function MatListAvatarCssMatStyler_Factory(t) {
+        return new (t || MatListAvatarCssMatStyler)();
+      };
+
+      MatListAvatarCssMatStyler.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineDirective"]({
+        type: MatListAvatarCssMatStyler,
+        selectors: [["", "mat-list-avatar", ""], ["", "matListAvatar", ""]],
+        hostAttrs: [1, "mat-list-avatar"]
+      });
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatListAvatarCssMatStyler, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"],
+          args: [{
+            selector: '[mat-list-avatar], [matListAvatar]',
+            host: {
+              'class': 'mat-list-avatar'
+            }
+          }]
+        }], null, null);
+      })();
+      /**
+       * Directive whose purpose is to add the mat- CSS styling to this selector.
+       * @docs-private
+       */
+
+
+      var MatListIconCssMatStyler = function MatListIconCssMatStyler() {
+        _classCallCheck(this, MatListIconCssMatStyler);
+      };
+
+      MatListIconCssMatStyler.ɵfac = function MatListIconCssMatStyler_Factory(t) {
+        return new (t || MatListIconCssMatStyler)();
+      };
+
+      MatListIconCssMatStyler.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineDirective"]({
+        type: MatListIconCssMatStyler,
+        selectors: [["", "mat-list-icon", ""], ["", "matListIcon", ""]],
+        hostAttrs: [1, "mat-list-icon"]
+      });
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatListIconCssMatStyler, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"],
+          args: [{
+            selector: '[mat-list-icon], [matListIcon]',
+            host: {
+              'class': 'mat-list-icon'
+            }
+          }]
+        }], null, null);
+      })();
+      /**
+       * Directive whose purpose is to add the mat- CSS styling to this selector.
+       * @docs-private
+       */
+
+
+      var MatListSubheaderCssMatStyler = function MatListSubheaderCssMatStyler() {
+        _classCallCheck(this, MatListSubheaderCssMatStyler);
+      };
+
+      MatListSubheaderCssMatStyler.ɵfac = function MatListSubheaderCssMatStyler_Factory(t) {
+        return new (t || MatListSubheaderCssMatStyler)();
+      };
+
+      MatListSubheaderCssMatStyler.ɵdir = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineDirective"]({
+        type: MatListSubheaderCssMatStyler,
+        selectors: [["", "mat-subheader", ""], ["", "matSubheader", ""]],
+        hostAttrs: [1, "mat-subheader"]
+      });
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatListSubheaderCssMatStyler, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"],
+          args: [{
+            selector: '[mat-subheader], [matSubheader]',
+            host: {
+              'class': 'mat-subheader'
+            }
+          }]
+        }], null, null);
+      })();
+      /** An item within a Material Design list. */
+
+
+      var MatListItem = /*#__PURE__*/function (_MatListItemMixinBase2) {
+        _inherits(MatListItem, _MatListItemMixinBase2);
+
+        var _super5 = _createSuper(MatListItem);
+
+        function MatListItem(_element, _changeDetectorRef, navList, list) {
+          var _this8;
+
+          _classCallCheck(this, MatListItem);
+
+          _this8 = _super5.call(this);
+          _this8._element = _element;
+          _this8._isInteractiveList = false;
+          _this8._destroyed = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+          _this8._disabled = false;
+          _this8._isInteractiveList = !!(navList || list && list._getListType() === 'action-list');
+          _this8._list = navList || list; // If no type attribute is specified for <button>, set it to "button".
+          // If a type attribute is already specified, do nothing.
+
+          var element = _this8._getHostElement();
+
+          if (element.nodeName.toLowerCase() === 'button' && !element.hasAttribute('type')) {
+            element.setAttribute('type', 'button');
+          }
+
+          if (_this8._list) {
+            // React to changes in the state of the parent list since
+            // some of the item's properties depend on it (e.g. `disableRipple`).
+            _this8._list._stateChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(_this8._destroyed)).subscribe(function () {
+              _changeDetectorRef.markForCheck();
+            });
+          }
+
+          return _this8;
+        }
+        /** Whether the option is disabled. */
+
+
+        _createClass(MatListItem, [{
+          key: "disabled",
+          get: function get() {
+            return this._disabled || !!(this._list && this._list.disabled);
+          },
+          set: function set(value) {
+            this._disabled = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__["coerceBooleanProperty"])(value);
+          }
+        }, {
+          key: "ngAfterContentInit",
+          value: function ngAfterContentInit() {
+            Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["setLines"])(this._lines, this._element);
+          }
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            this._destroyed.next();
+
+            this._destroyed.complete();
+          }
+          /** Whether this list item should show a ripple effect when clicked. */
+
+        }, {
+          key: "_isRippleDisabled",
+          value: function _isRippleDisabled() {
+            return !this._isInteractiveList || this.disableRipple || !!(this._list && this._list.disableRipple);
+          }
+          /** Retrieves the DOM element of the component host. */
+
+        }, {
+          key: "_getHostElement",
+          value: function _getHostElement() {
+            return this._element.nativeElement;
+          }
+        }]);
+
+        return MatListItem;
+      }(_MatListItemMixinBase);
+
+      MatListItem.ɵfac = function MatListItem_Factory(t) {
+        return new (t || MatListItem)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](MAT_NAV_LIST, 8), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](MAT_LIST, 8));
+      };
+
+      MatListItem.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+        type: MatListItem,
+        selectors: [["mat-list-item"], ["a", "mat-list-item", ""], ["button", "mat-list-item", ""]],
+        contentQueries: function MatListItem_ContentQueries(rf, ctx, dirIndex) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵcontentQuery"](dirIndex, MatListAvatarCssMatStyler, true);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵcontentQuery"](dirIndex, MatListIconCssMatStyler, true);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵcontentQuery"](dirIndex, _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLine"], true);
+          }
+
+          if (rf & 2) {
+            var _t;
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx._avatar = _t.first);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx._icon = _t.first);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx._lines = _t);
+          }
+        },
+        hostAttrs: [1, "mat-list-item", "mat-focus-indicator"],
+        hostVars: 6,
+        hostBindings: function MatListItem_HostBindings(rf, ctx) {
+          if (rf & 2) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("mat-list-item-disabled", ctx.disabled)("mat-list-item-avatar", ctx._avatar || ctx._icon)("mat-list-item-with-avatar", ctx._avatar || ctx._icon);
+          }
+        },
+        inputs: {
+          disableRipple: "disableRipple",
+          disabled: "disabled"
+        },
+        exportAs: ["matListItem"],
+        features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵInheritDefinitionFeature"]],
+        ngContentSelectors: _c3,
+        decls: 6,
+        vars: 2,
+        consts: [[1, "mat-list-item-content"], ["mat-ripple", "", 1, "mat-list-item-ripple", 3, "matRippleTrigger", "matRippleDisabled"], [1, "mat-list-text"]],
+        template: function MatListItem_Template(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojectionDef"](_c2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "div", 1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojection"](2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojection"](4, 1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojection"](5, 2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+          }
+
+          if (rf & 2) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("matRippleTrigger", ctx._getHostElement())("matRippleDisabled", ctx._isRippleDisabled());
+          }
+        },
+        directives: [_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatRipple"]],
+        encapsulation: 2,
+        changeDetection: 0
+      });
+
+      MatListItem.ctorParameters = function () {
+        return [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]
+        }, {
+          type: MatNavList,
+          decorators: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
+          }, {
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+            args: [MAT_NAV_LIST]
+          }]
+        }, {
+          type: MatList,
+          decorators: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
+          }, {
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+            args: [MAT_LIST]
+          }]
+        }];
+      };
+
+      MatListItem.propDecorators = {
+        _lines: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"],
+          args: [_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLine"], {
+            descendants: true
+          }]
+        }],
+        _avatar: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"],
+          args: [MatListAvatarCssMatStyler]
+        }],
+        _icon: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"],
+          args: [MatListIconCssMatStyler]
+        }],
+        disabled: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }]
+      };
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatListItem, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
+          args: [{
+            selector: 'mat-list-item, a[mat-list-item], button[mat-list-item]',
+            exportAs: 'matListItem',
+            host: {
+              'class': 'mat-list-item mat-focus-indicator',
+              '[class.mat-list-item-disabled]': 'disabled',
+              // @breaking-change 8.0.0 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
+              '[class.mat-list-item-avatar]': '_avatar || _icon',
+              '[class.mat-list-item-with-avatar]': '_avatar || _icon'
+            },
+            inputs: ['disableRipple'],
+            template: "<div class=\"mat-list-item-content\">\n  <div class=\"mat-list-item-ripple\" mat-ripple\n       [matRippleTrigger]=\"_getHostElement()\"\n       [matRippleDisabled]=\"_isRippleDisabled()\">\n  </div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n  <div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div>\n\n  <ng-content></ng-content>\n</div>\n",
+            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
+          }]
+        }], function () {
+          return [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+          }, {
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]
+          }, {
+            type: MatNavList,
+            decorators: [{
+              type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
+            }, {
+              type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+              args: [MAT_NAV_LIST]
+            }]
+          }, {
+            type: MatList,
+            decorators: [{
+              type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"]
+            }, {
+              type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+              args: [MAT_LIST]
+            }]
+          }];
+        }, {
+          disabled: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          _lines: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"],
+            args: [_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLine"], {
+              descendants: true
+            }]
+          }],
+          _avatar: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"],
+            args: [MatListAvatarCssMatStyler]
+          }],
+          _icon: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"],
+            args: [MatListIconCssMatStyler]
+          }]
+        });
+      })();
+      /**
+       * @license
+       * Copyright Google LLC All Rights Reserved.
+       *
+       * Use of this source code is governed by an MIT-style license that can be
+       * found in the LICENSE file at https://angular.io/license
+       */
+
+
+      var MatSelectionListBase = function MatSelectionListBase() {
+        _classCallCheck(this, MatSelectionListBase);
+      };
+
+      var _MatSelectionListMixinBase = Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["mixinDisableRipple"])(MatSelectionListBase);
+
+      var MatListOptionBase = function MatListOptionBase() {
+        _classCallCheck(this, MatListOptionBase);
+      };
+
+      var _MatListOptionMixinBase = Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["mixinDisableRipple"])(MatListOptionBase);
+      /** @docs-private */
+
+
+      var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
+        provide: _angular_forms__WEBPACK_IMPORTED_MODULE_9__["NG_VALUE_ACCESSOR"],
+        useExisting: Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () {
+          return MatSelectionList;
+        }),
+        multi: true
+      };
+      /** Change event that is being fired whenever the selected state of an option changes. */
+
+      var MatSelectionListChange = function MatSelectionListChange(
+      /** Reference to the selection list that emitted the event. */
+      source,
+      /**
+       * Reference to the option that has been changed.
+       * @deprecated Use `options` instead, because some events may change more than one option.
+       * @breaking-change 12.0.0
+       */
+      option,
+      /** Reference to the options that have been changed. */
+      options) {
+        _classCallCheck(this, MatSelectionListChange);
+
+        this.source = source;
+        this.option = option;
+        this.options = options;
+      };
+      /**
+       * Component for list-options of selection-list. Each list-option can automatically
+       * generate a checkbox and can put current item into the selectionModel of selection-list
+       * if the current item is selected.
+       */
+
+
+      var MatListOption = /*#__PURE__*/function (_MatListOptionMixinBa) {
+        _inherits(MatListOption, _MatListOptionMixinBa);
+
+        var _super6 = _createSuper(MatListOption);
+
+        function MatListOption(_element, _changeDetector,
+        /** @docs-private */
+        selectionList) {
+          var _this9;
+
+          _classCallCheck(this, MatListOption);
+
+          _this9 = _super6.call(this);
+          _this9._element = _element;
+          _this9._changeDetector = _changeDetector;
+          _this9.selectionList = selectionList;
+          _this9._selected = false;
+          _this9._disabled = false;
+          _this9._hasFocus = false;
+          /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
+
+          _this9.checkboxPosition = 'after';
+          /**
+           * This is set to true after the first OnChanges cycle so we don't clear the value of `selected`
+           * in the first cycle.
+           */
+
+          _this9._inputsInitialized = false;
+          return _this9;
+        }
+        /** Theme color of the list option. This sets the color of the checkbox. */
+
+
+        _createClass(MatListOption, [{
+          key: "color",
+          get: function get() {
+            return this._color || this.selectionList.color;
+          },
+          set: function set(newValue) {
+            this._color = newValue;
+          }
+          /** Value of the option */
+
+        }, {
+          key: "value",
+          get: function get() {
+            return this._value;
+          },
+          set: function set(newValue) {
+            if (this.selected && !this.selectionList.compareWith(newValue, this.value) && this._inputsInitialized) {
+              this.selected = false;
+            }
+
+            this._value = newValue;
+          }
+          /** Whether the option is disabled. */
+
+        }, {
+          key: "disabled",
+          get: function get() {
+            return this._disabled || this.selectionList && this.selectionList.disabled;
+          },
+          set: function set(value) {
+            var newValue = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__["coerceBooleanProperty"])(value);
+
+            if (newValue !== this._disabled) {
+              this._disabled = newValue;
+
+              this._changeDetector.markForCheck();
+            }
+          }
+          /** Whether the option is selected. */
+
+        }, {
+          key: "selected",
+          get: function get() {
+            return this.selectionList.selectedOptions.isSelected(this);
+          },
+          set: function set(value) {
+            var isSelected = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__["coerceBooleanProperty"])(value);
+
+            if (isSelected !== this._selected) {
+              this._setSelected(isSelected);
+
+              this.selectionList._reportValueChange();
+            }
+          }
+        }, {
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            var _this10 = this;
+
+            var list = this.selectionList;
+
+            if (list._value && list._value.some(function (value) {
+              return list.compareWith(value, _this10._value);
+            })) {
+              this._setSelected(true);
+            }
+
+            var wasSelected = this._selected; // List options that are selected at initialization can't be reported properly to the form
+            // control. This is because it takes some time until the selection-list knows about all
+            // available options. Also it can happen that the ControlValueAccessor has an initial value
+            // that should be used instead. Deferring the value change report to the next tick ensures
+            // that the form control value is not being overwritten.
+
+            Promise.resolve().then(function () {
+              if (_this10._selected || wasSelected) {
+                _this10.selected = true;
+
+                _this10._changeDetector.markForCheck();
+              }
+            });
+            this._inputsInitialized = true;
+          }
+        }, {
+          key: "ngAfterContentInit",
+          value: function ngAfterContentInit() {
+            Object(_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["setLines"])(this._lines, this._element);
+          }
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            var _this11 = this;
+
+            if (this.selected) {
+              // We have to delay this until the next tick in order
+              // to avoid changed after checked errors.
+              Promise.resolve().then(function () {
+                _this11.selected = false;
+              });
+            }
+
+            var hadFocus = this._hasFocus;
+
+            var newActiveItem = this.selectionList._removeOptionFromList(this); // Only move focus if this option was focused at the time it was destroyed.
+
+
+            if (hadFocus && newActiveItem) {
+              newActiveItem.focus();
+            }
+          }
+          /** Toggles the selection state of the option. */
+
+        }, {
+          key: "toggle",
+          value: function toggle() {
+            this.selected = !this.selected;
+          }
+          /** Allows for programmatic focusing of the option. */
+
+        }, {
+          key: "focus",
+          value: function focus() {
+            this._element.nativeElement.focus();
+          }
+          /**
+           * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+           * @docs-private
+           */
+
+        }, {
+          key: "getLabel",
+          value: function getLabel() {
+            return this._text ? this._text.nativeElement.textContent || '' : '';
+          }
+          /** Whether this list item should show a ripple effect when clicked. */
+
+        }, {
+          key: "_isRippleDisabled",
+          value: function _isRippleDisabled() {
+            return this.disabled || this.disableRipple || this.selectionList.disableRipple;
+          }
+        }, {
+          key: "_handleClick",
+          value: function _handleClick() {
+            if (!this.disabled && (this.selectionList.multiple || !this.selected)) {
+              this.toggle(); // Emit a change event if the selected state of the option changed through user interaction.
+
+              this.selectionList._emitChangeEvent([this]);
+            }
+          }
+        }, {
+          key: "_handleFocus",
+          value: function _handleFocus() {
+            this.selectionList._setFocusedOption(this);
+
+            this._hasFocus = true;
+          }
+        }, {
+          key: "_handleBlur",
+          value: function _handleBlur() {
+            this.selectionList._onTouched();
+
+            this._hasFocus = false;
+          }
+          /** Retrieves the DOM element of the component host. */
+
+        }, {
+          key: "_getHostElement",
+          value: function _getHostElement() {
+            return this._element.nativeElement;
+          }
+          /** Sets the selected state of the option. Returns whether the value has changed. */
+
+        }, {
+          key: "_setSelected",
+          value: function _setSelected(selected) {
+            if (selected === this._selected) {
+              return false;
+            }
+
+            this._selected = selected;
+
+            if (selected) {
+              this.selectionList.selectedOptions.select(this);
+            } else {
+              this.selectionList.selectedOptions.deselect(this);
+            }
+
+            this._changeDetector.markForCheck();
+
+            return true;
+          }
+          /**
+           * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+           * used to trigger an update of the list option if the disabled state of the selection list
+           * changed.
+           */
+
+        }, {
+          key: "_markForCheck",
+          value: function _markForCheck() {
+            this._changeDetector.markForCheck();
+          }
+        }]);
+
+        return MatListOption;
+      }(_MatListOptionMixinBase);
+
+      MatListOption.ɵfac = function MatListOption_Factory(t) {
+        return new (t || MatListOption)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () {
+          return MatSelectionList;
+        })));
+      };
+
+      MatListOption.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+        type: MatListOption,
+        selectors: [["mat-list-option"]],
+        contentQueries: function MatListOption_ContentQueries(rf, ctx, dirIndex) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵcontentQuery"](dirIndex, MatListAvatarCssMatStyler, true);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵcontentQuery"](dirIndex, MatListIconCssMatStyler, true);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵcontentQuery"](dirIndex, _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLine"], true);
+          }
+
+          if (rf & 2) {
+            var _t;
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx._avatar = _t.first);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx._icon = _t.first);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx._lines = _t);
+          }
+        },
+        viewQuery: function MatListOption_Query(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵviewQuery"](_c4, true);
+          }
+
+          if (rf & 2) {
+            var _t;
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx._text = _t.first);
+          }
+        },
+        hostAttrs: ["role", "option", 1, "mat-list-item", "mat-list-option", "mat-focus-indicator"],
+        hostVars: 15,
+        hostBindings: function MatListOption_HostBindings(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("focus", function MatListOption_focus_HostBindingHandler() {
+              return ctx._handleFocus();
+            })("blur", function MatListOption_blur_HostBindingHandler() {
+              return ctx._handleBlur();
+            })("click", function MatListOption_click_HostBindingHandler() {
+              return ctx._handleClick();
+            });
+          }
+
+          if (rf & 2) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("aria-selected", ctx.selected)("aria-disabled", ctx.disabled)("tabindex", -1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("mat-list-item-disabled", ctx.disabled)("mat-list-item-with-avatar", ctx._avatar || ctx._icon)("mat-primary", ctx.color === "primary")("mat-accent", ctx.color !== "primary" && ctx.color !== "warn")("mat-warn", ctx.color === "warn")("mat-list-single-selected-option", ctx.selected && !ctx.selectionList.multiple);
+          }
+        },
+        inputs: {
+          disableRipple: "disableRipple",
+          checkboxPosition: "checkboxPosition",
+          color: "color",
+          value: "value",
+          selected: "selected",
+          disabled: "disabled"
+        },
+        exportAs: ["matListOption"],
+        features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵInheritDefinitionFeature"]],
+        ngContentSelectors: _c6,
+        decls: 7,
+        vars: 5,
+        consts: [[1, "mat-list-item-content"], ["mat-ripple", "", 1, "mat-list-item-ripple", 3, "matRippleTrigger", "matRippleDisabled"], [3, "state", "disabled", 4, "ngIf"], [1, "mat-list-text"], ["text", ""], [3, "state", "disabled"]],
+        template: function MatListOption_Template(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojectionDef"](_c5);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "div", 1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, MatListOption_mat_pseudo_checkbox_2_Template, 1, 2, "mat-pseudo-checkbox", 2);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 3, 4);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojection"](5);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojection"](6, 1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+          }
+
+          if (rf & 2) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵclassProp"]("mat-list-item-content-reverse", ctx.checkboxPosition == "after");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("matRippleTrigger", ctx._getHostElement())("matRippleDisabled", ctx._isRippleDisabled());
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.selectionList.multiple);
+          }
+        },
+        directives: [_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatRipple"], _angular_common__WEBPACK_IMPORTED_MODULE_0__["NgIf"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatPseudoCheckbox"]],
+        encapsulation: 2,
+        changeDetection: 0
+      });
+
+      MatListOption.ctorParameters = function () {
+        return [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]
+        }, {
+          type: MatSelectionList,
+          decorators: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+            args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () {
+              return MatSelectionList;
+            })]
+          }]
+        }];
+      };
+
+      MatListOption.propDecorators = {
+        _avatar: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"],
+          args: [MatListAvatarCssMatStyler]
+        }],
+        _icon: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"],
+          args: [MatListIconCssMatStyler]
+        }],
+        _lines: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"],
+          args: [_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLine"], {
+            descendants: true
+          }]
+        }],
+        _text: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
+          args: ['text']
+        }],
+        checkboxPosition: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }],
+        color: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }],
+        value: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }],
+        disabled: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }],
+        selected: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }]
+      };
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatListOption, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
+          args: [{
+            selector: 'mat-list-option',
+            exportAs: 'matListOption',
+            inputs: ['disableRipple'],
+            host: {
+              'role': 'option',
+              'class': 'mat-list-item mat-list-option mat-focus-indicator',
+              '(focus)': '_handleFocus()',
+              '(blur)': '_handleBlur()',
+              '(click)': '_handleClick()',
+              '[class.mat-list-item-disabled]': 'disabled',
+              '[class.mat-list-item-with-avatar]': '_avatar || _icon',
+              // Manually set the "primary" or "warn" class if the color has been explicitly
+              // set to "primary" or "warn". The pseudo checkbox picks up these classes for
+              // its theme.
+              '[class.mat-primary]': 'color === "primary"',
+              // Even though accent is the default, we need to set this class anyway, because the  list might
+              // be placed inside a parent that has one of the other colors with a higher specificity.
+              '[class.mat-accent]': 'color !== "primary" && color !== "warn"',
+              '[class.mat-warn]': 'color === "warn"',
+              '[class.mat-list-single-selected-option]': 'selected && !selectionList.multiple',
+              '[attr.aria-selected]': 'selected',
+              '[attr.aria-disabled]': 'disabled',
+              '[attr.tabindex]': '-1'
+            },
+            template: "<div class=\"mat-list-item-content\"\n  [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\">\n\n  <div mat-ripple\n    class=\"mat-list-item-ripple\"\n    [matRippleTrigger]=\"_getHostElement()\"\n    [matRippleDisabled]=\"_isRippleDisabled()\"></div>\n\n  <mat-pseudo-checkbox\n    *ngIf=\"selectionList.multiple\"\n    [state]=\"selected ? 'checked' : 'unchecked'\"\n    [disabled]=\"disabled\"></mat-pseudo-checkbox>\n\n  <div class=\"mat-list-text\" #text><ng-content></ng-content></div>\n\n  <ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\">\n  </ng-content>\n\n</div>\n",
+            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush
+          }]
+        }], function () {
+          return [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+          }, {
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]
+          }, {
+            type: MatSelectionList,
+            decorators: [{
+              type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"],
+              args: [Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["forwardRef"])(function () {
+                return MatSelectionList;
+              })]
+            }]
+          }];
+        }, {
+          checkboxPosition: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          color: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          value: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          selected: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          disabled: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          _avatar: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"],
+            args: [MatListAvatarCssMatStyler]
+          }],
+          _icon: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChild"],
+            args: [MatListIconCssMatStyler]
+          }],
+          _lines: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"],
+            args: [_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLine"], {
+              descendants: true
+            }]
+          }],
+          _text: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"],
+            args: ['text']
+          }]
+        });
+      })();
+      /**
+       * Material Design list component where each item is a selectable option. Behaves as a listbox.
+       */
+
+
+      var MatSelectionList = /*#__PURE__*/function (_MatSelectionListMixi) {
+        _inherits(MatSelectionList, _MatSelectionListMixi);
+
+        var _super7 = _createSuper(MatSelectionList);
+
+        function MatSelectionList(_element, // @breaking-change 11.0.0 Remove `tabIndex` parameter.
+        tabIndex, _changeDetector, // @breaking-change 11.0.0 `_focusMonitor` parameter to become required.
+        _focusMonitor) {
+          var _this12;
+
+          _classCallCheck(this, MatSelectionList);
+
+          _this12 = _super7.call(this);
+          _this12._element = _element;
+          _this12._changeDetector = _changeDetector;
+          _this12._focusMonitor = _focusMonitor;
+          _this12._multiple = true;
+          _this12._contentInitialized = false;
+          /** Emits a change event whenever the selected state of an option changes. */
+
+          _this12.selectionChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+          /**
+           * Tabindex of the selection list.
+           * @breaking-change 11.0.0 Remove `tabIndex` input.
+           */
+
+          _this12.tabIndex = 0;
+          /** Theme color of the selection list. This sets the checkbox color for all list options. */
+
+          _this12.color = 'accent';
+          /**
+           * Function used for comparing an option against the selected value when determining which
+           * options should appear as selected. The first argument is the value of an options. The second
+           * one is a value from the selected value. A boolean must be returned.
+           */
+
+          _this12.compareWith = function (a1, a2) {
+            return a1 === a2;
+          };
+
+          _this12._disabled = false;
+          /** The currently selected options. */
+
+          _this12.selectedOptions = new _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_7__["SelectionModel"](_this12._multiple);
+          /** The tabindex of the selection list. */
+
+          _this12._tabIndex = -1;
+          /** View to model callback that should be called whenever the selected options change. */
+
+          _this12._onChange = function (_) {};
+          /** Emits when the list has been destroyed. */
+
+
+          _this12._destroyed = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+          /** View to model callback that should be called if the list or its options lost focus. */
+
+          _this12._onTouched = function () {};
+
+          return _this12;
+        }
+        /** Whether the selection list is disabled. */
+
+
+        _createClass(MatSelectionList, [{
+          key: "disabled",
+          get: function get() {
+            return this._disabled;
+          },
+          set: function set(value) {
+            this._disabled = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__["coerceBooleanProperty"])(value); // The `MatSelectionList` and `MatListOption` are using the `OnPush` change detection
+            // strategy. Therefore the options will not check for any changes if the `MatSelectionList`
+            // changed its state. Since we know that a change to `disabled` property of the list affects
+            // the state of the options, we manually mark each option for check.
+
+            this._markOptionsForCheck();
+          }
+          /** Whether selection is limited to one or multiple items (default multiple). */
+
+        }, {
+          key: "multiple",
+          get: function get() {
+            return this._multiple;
+          },
+          set: function set(value) {
+            var newValue = Object(_angular_cdk_coercion__WEBPACK_IMPORTED_MODULE_3__["coerceBooleanProperty"])(value);
+
+            if (newValue !== this._multiple) {
+              if (this._contentInitialized && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+                throw new Error('Cannot change `multiple` mode of mat-selection-list after initialization.');
+              }
+
+              this._multiple = newValue;
+              this.selectedOptions = new _angular_cdk_collections__WEBPACK_IMPORTED_MODULE_7__["SelectionModel"](this._multiple, this.selectedOptions.selected);
+            }
+          }
+        }, {
+          key: "ngAfterContentInit",
+          value: function ngAfterContentInit() {
+            var _this13 = this;
+
+            var _a;
+
+            this._contentInitialized = true;
+            this._keyManager = new _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_6__["FocusKeyManager"](this.options).withWrap().withTypeAhead().withHomeAndEnd() // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
+            // screenreader users, that allows reading the different options of the list.
+            .skipPredicate(function () {
+              return false;
+            }).withAllowedModifierKeys(['shiftKey']);
+
+            if (this._value) {
+              this._setOptionsFromValues(this._value);
+            } // If the user attempts to tab out of the selection list, allow focus to escape.
+
+
+            this._keyManager.tabOut.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this._destroyed)).subscribe(function () {
+              _this13._allowFocusEscape();
+            }); // When the number of options change, update the tabindex of the selection list.
+
+
+            this.options.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this._destroyed)).subscribe(function () {
+              _this13._updateTabIndex();
+            }); // Sync external changes to the model back to the options.
+
+            this.selectedOptions.changed.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this._destroyed)).subscribe(function (event) {
+              if (event.added) {
+                var _iterator = _createForOfIteratorHelper(event.added),
+                    _step;
+
+                try {
+                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                    var item = _step.value;
+                    item.selected = true;
+                  }
+                } catch (err) {
+                  _iterator.e(err);
+                } finally {
+                  _iterator.f();
+                }
+              }
+
+              if (event.removed) {
+                var _iterator2 = _createForOfIteratorHelper(event.removed),
+                    _step2;
+
+                try {
+                  for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                    var _item = _step2.value;
+                    _item.selected = false;
+                  }
+                } catch (err) {
+                  _iterator2.e(err);
+                } finally {
+                  _iterator2.f();
+                }
+              }
+            }); // @breaking-change 11.0.0 Remove null assertion once _focusMonitor is required.
+
+            (_a = this._focusMonitor) === null || _a === void 0 ? void 0 : _a.monitor(this._element).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["takeUntil"])(this._destroyed)).subscribe(function (origin) {
+              if (origin === 'keyboard' || origin === 'program') {
+                var activeIndex = _this13._keyManager.activeItemIndex;
+
+                if (!activeIndex || activeIndex === -1) {
+                  // If there is no active index, set focus to the first option.
+                  _this13._keyManager.setFirstItemActive();
+                } else {
+                  // Otherwise, set focus to the active option.
+                  _this13._keyManager.setActiveItem(activeIndex);
+                }
+              }
+            });
+          }
+        }, {
+          key: "ngOnChanges",
+          value: function ngOnChanges(changes) {
+            var disableRippleChanges = changes['disableRipple'];
+            var colorChanges = changes['color'];
+
+            if (disableRippleChanges && !disableRippleChanges.firstChange || colorChanges && !colorChanges.firstChange) {
+              this._markOptionsForCheck();
+            }
+          }
+        }, {
+          key: "ngOnDestroy",
+          value: function ngOnDestroy() {
+            var _a; // @breaking-change 11.0.0 Remove null assertion once _focusMonitor is required.
+
+
+            (_a = this._focusMonitor) === null || _a === void 0 ? void 0 : _a.stopMonitoring(this._element);
+
+            this._destroyed.next();
+
+            this._destroyed.complete();
+
+            this._isDestroyed = true;
+          }
+          /** Focuses the selection list. */
+
+        }, {
+          key: "focus",
+          value: function focus(options) {
+            this._element.nativeElement.focus(options);
+          }
+          /** Selects all of the options. */
+
+        }, {
+          key: "selectAll",
+          value: function selectAll() {
+            this._setAllOptionsSelected(true);
+          }
+          /** Deselects all of the options. */
+
+        }, {
+          key: "deselectAll",
+          value: function deselectAll() {
+            this._setAllOptionsSelected(false);
+          }
+          /** Sets the focused option of the selection-list. */
+
+        }, {
+          key: "_setFocusedOption",
+          value: function _setFocusedOption(option) {
+            this._keyManager.updateActiveItem(option);
+          }
+          /**
+           * Removes an option from the selection list and updates the active item.
+           * @returns Currently-active item.
+           */
+
+        }, {
+          key: "_removeOptionFromList",
+          value: function _removeOptionFromList(option) {
+            var optionIndex = this._getOptionIndex(option);
+
+            if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
+              // Check whether the option is the last item
+              if (optionIndex > 0) {
+                this._keyManager.updateActiveItem(optionIndex - 1);
+              } else if (optionIndex === 0 && this.options.length > 1) {
+                this._keyManager.updateActiveItem(Math.min(optionIndex + 1, this.options.length - 1));
+              }
+            }
+
+            return this._keyManager.activeItem;
+          }
+          /** Passes relevant key presses to our key manager. */
+
+        }, {
+          key: "_keydown",
+          value: function _keydown(event) {
+            var keyCode = event.keyCode;
+            var manager = this._keyManager;
+            var previousFocusIndex = manager.activeItemIndex;
+            var hasModifier = Object(_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["hasModifierKey"])(event);
+
+            switch (keyCode) {
+              case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["SPACE"]:
+              case _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["ENTER"]:
+                if (!hasModifier && !manager.isTyping()) {
+                  this._toggleFocusedOption(); // Always prevent space from scrolling the page since the list has focus
+
+
+                  event.preventDefault();
+                }
+
+                break;
+
+              default:
+                // The "A" key gets special treatment, because it's used for the "select all" functionality.
+                if (keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["A"] && this.multiple && Object(_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["hasModifierKey"])(event, 'ctrlKey') && !manager.isTyping()) {
+                  var shouldSelect = this.options.some(function (option) {
+                    return !option.disabled && !option.selected;
+                  });
+
+                  this._setAllOptionsSelected(shouldSelect, true, true);
+
+                  event.preventDefault();
+                } else {
+                  manager.onKeydown(event);
+                }
+
+            }
+
+            if (this.multiple && (keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["UP_ARROW"] || keyCode === _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["DOWN_ARROW"]) && event.shiftKey && manager.activeItemIndex !== previousFocusIndex) {
+              this._toggleFocusedOption();
+            }
+          }
+          /** Reports a value change to the ControlValueAccessor */
+
+        }, {
+          key: "_reportValueChange",
+          value: function _reportValueChange() {
+            // Stop reporting value changes after the list has been destroyed. This avoids
+            // cases where the list might wrongly reset its value once it is removed, but
+            // the form control is still live.
+            if (this.options && !this._isDestroyed) {
+              var value = this._getSelectedOptionValues();
+
+              this._onChange(value);
+
+              this._value = value;
+            }
+          }
+          /** Emits a change event if the selected state of an option changed. */
+
+        }, {
+          key: "_emitChangeEvent",
+          value: function _emitChangeEvent(options) {
+            this.selectionChange.emit(new MatSelectionListChange(this, options[0], options));
+          }
+          /** Implemented as part of ControlValueAccessor. */
+
+        }, {
+          key: "writeValue",
+          value: function writeValue(values) {
+            this._value = values;
+
+            if (this.options) {
+              this._setOptionsFromValues(values || []);
+            }
+          }
+          /** Implemented as a part of ControlValueAccessor. */
+
+        }, {
+          key: "setDisabledState",
+          value: function setDisabledState(isDisabled) {
+            this.disabled = isDisabled;
+          }
+          /** Implemented as part of ControlValueAccessor. */
+
+        }, {
+          key: "registerOnChange",
+          value: function registerOnChange(fn) {
+            this._onChange = fn;
+          }
+          /** Implemented as part of ControlValueAccessor. */
+
+        }, {
+          key: "registerOnTouched",
+          value: function registerOnTouched(fn) {
+            this._onTouched = fn;
+          }
+          /** Sets the selected options based on the specified values. */
+
+        }, {
+          key: "_setOptionsFromValues",
+          value: function _setOptionsFromValues(values) {
+            var _this14 = this;
+
+            this.options.forEach(function (option) {
+              return option._setSelected(false);
+            });
+            values.forEach(function (value) {
+              var correspondingOption = _this14.options.find(function (option) {
+                // Skip options that are already in the model. This allows us to handle cases
+                // where the same primitive value is selected multiple times.
+                return option.selected ? false : _this14.compareWith(option.value, value);
+              });
+
+              if (correspondingOption) {
+                correspondingOption._setSelected(true);
+              }
+            });
+          }
+          /** Returns the values of the selected options. */
+
+        }, {
+          key: "_getSelectedOptionValues",
+          value: function _getSelectedOptionValues() {
+            return this.options.filter(function (option) {
+              return option.selected;
+            }).map(function (option) {
+              return option.value;
+            });
+          }
+          /** Toggles the state of the currently focused option if enabled. */
+
+        }, {
+          key: "_toggleFocusedOption",
+          value: function _toggleFocusedOption() {
+            var focusedIndex = this._keyManager.activeItemIndex;
+
+            if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
+              var focusedOption = this.options.toArray()[focusedIndex];
+
+              if (focusedOption && !focusedOption.disabled && (this._multiple || !focusedOption.selected)) {
+                focusedOption.toggle(); // Emit a change event because the focused option changed its state through user
+                // interaction.
+
+                this._emitChangeEvent([focusedOption]);
+              }
+            }
+          }
+          /**
+           * Sets the selected state on all of the options
+           * and emits an event if anything changed.
+           */
+
+        }, {
+          key: "_setAllOptionsSelected",
+          value: function _setAllOptionsSelected(isSelected, skipDisabled, isUserInput) {
+            // Keep track of whether anything changed, because we only want to
+            // emit the changed event when something actually changed.
+            var changedOptions = [];
+            this.options.forEach(function (option) {
+              if ((!skipDisabled || !option.disabled) && option._setSelected(isSelected)) {
+                changedOptions.push(option);
+              }
+            });
+
+            if (changedOptions.length) {
+              this._reportValueChange();
+
+              if (isUserInput) {
+                this._emitChangeEvent(changedOptions);
+              }
+            }
+          }
+          /**
+           * Utility to ensure all indexes are valid.
+           * @param index The index to be checked.
+           * @returns True if the index is valid for our list of options.
+           */
+
+        }, {
+          key: "_isValidIndex",
+          value: function _isValidIndex(index) {
+            return index >= 0 && index < this.options.length;
+          }
+          /** Returns the index of the specified list option. */
+
+        }, {
+          key: "_getOptionIndex",
+          value: function _getOptionIndex(option) {
+            return this.options.toArray().indexOf(option);
+          }
+          /** Marks all the options to be checked in the next change detection run. */
+
+        }, {
+          key: "_markOptionsForCheck",
+          value: function _markOptionsForCheck() {
+            if (this.options) {
+              this.options.forEach(function (option) {
+                return option._markForCheck();
+              });
+            }
+          }
+          /**
+           * Removes the tabindex from the selection list and resets it back afterwards, allowing the user
+           * to tab out of it. This prevents the list from capturing focus and redirecting it back within
+           * the list, creating a focus trap if it user tries to tab away.
+           */
+
+        }, {
+          key: "_allowFocusEscape",
+          value: function _allowFocusEscape() {
+            var _this15 = this;
+
+            this._tabIndex = -1;
+            setTimeout(function () {
+              _this15._tabIndex = 0;
+
+              _this15._changeDetector.markForCheck();
+            });
+          }
+          /** Updates the tabindex based upon if the selection list is empty. */
+
+        }, {
+          key: "_updateTabIndex",
+          value: function _updateTabIndex() {
+            this._tabIndex = this.options.length === 0 ? -1 : 0;
+          }
+        }]);
+
+        return MatSelectionList;
+      }(_MatSelectionListMixinBase);
+
+      MatSelectionList.ɵfac = function MatSelectionList_Factory(t) {
+        return new (t || MatSelectionList)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵinjectAttribute"]('tabindex'), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_6__["FocusMonitor"]));
+      };
+
+      MatSelectionList.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+        type: MatSelectionList,
+        selectors: [["mat-selection-list"]],
+        contentQueries: function MatSelectionList_ContentQueries(rf, ctx, dirIndex) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵcontentQuery"](dirIndex, MatListOption, true);
+          }
+
+          if (rf & 2) {
+            var _t;
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.options = _t);
+          }
+        },
+        hostAttrs: ["role", "listbox", 1, "mat-selection-list", "mat-list-base"],
+        hostVars: 3,
+        hostBindings: function MatSelectionList_HostBindings(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("keydown", function MatSelectionList_keydown_HostBindingHandler($event) {
+              return ctx._keydown($event);
+            });
+          }
+
+          if (rf & 2) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("aria-multiselectable", ctx.multiple)("aria-disabled", ctx.disabled.toString())("tabindex", ctx._tabIndex);
+          }
+        },
+        inputs: {
+          disableRipple: "disableRipple",
+          tabIndex: "tabIndex",
+          color: "color",
+          compareWith: "compareWith",
+          disabled: "disabled",
+          multiple: "multiple"
+        },
+        outputs: {
+          selectionChange: "selectionChange"
+        },
+        exportAs: ["matSelectionList"],
+        features: [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵProvidersFeature"]([MAT_SELECTION_LIST_VALUE_ACCESSOR]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵInheritDefinitionFeature"], _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵNgOnChangesFeature"]],
+        ngContentSelectors: _c0,
+        decls: 1,
+        vars: 0,
+        template: function MatSelectionList_Template(rf, ctx) {
+          if (rf & 1) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojectionDef"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵprojection"](0);
+          }
+        },
+        styles: [_c1],
+        encapsulation: 2,
+        changeDetection: 0
+      });
+
+      MatSelectionList.ctorParameters = function () {
+        return [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+        }, {
+          type: String,
+          decorators: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Attribute"],
+            args: ['tabindex']
+          }]
+        }, {
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]
+        }, {
+          type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_6__["FocusMonitor"]
+        }];
+      };
+
+      MatSelectionList.propDecorators = {
+        options: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"],
+          args: [MatListOption, {
+            descendants: true
+          }]
+        }],
+        selectionChange: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"]
+        }],
+        tabIndex: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }],
+        color: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }],
+        compareWith: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }],
+        disabled: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }],
+        multiple: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+        }]
+      };
+      /*@__PURE__*/
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatSelectionList, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"],
+          args: [{
+            selector: 'mat-selection-list',
+            exportAs: 'matSelectionList',
+            inputs: ['disableRipple'],
+            host: {
+              'role': 'listbox',
+              'class': 'mat-selection-list mat-list-base',
+              '(keydown)': '_keydown($event)',
+              '[attr.aria-multiselectable]': 'multiple',
+              '[attr.aria-disabled]': 'disabled.toString()',
+              '[attr.tabindex]': '_tabIndex'
+            },
+            template: '<ng-content></ng-content>',
+            encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
+            providers: [MAT_SELECTION_LIST_VALUE_ACCESSOR],
+            changeDetection: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectionStrategy"].OnPush,
+            styles: [".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list-base .mat-subheader{margin:0}.mat-list-base{padding-top:8px;display:block;-webkit-tap-highlight-color:transparent}.mat-list-base .mat-subheader{height:48px;line-height:16px}.mat-list-base .mat-subheader:first-child{margin-top:-8px}.mat-list-base .mat-list-item,.mat-list-base .mat-list-option{display:block;height:48px;-webkit-tap-highlight-color:transparent;width:100%;padding:0}.mat-list-base .mat-list-item .mat-list-item-content,.mat-list-base .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list-base .mat-list-item .mat-list-item-content-reverse,.mat-list-base .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list-base .mat-list-item .mat-list-item-ripple,.mat-list-base .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list-base .mat-list-item.mat-list-item-with-avatar,.mat-list-base .mat-list-option.mat-list-item-with-avatar{height:56px}.mat-list-base .mat-list-item.mat-2-line,.mat-list-base .mat-list-option.mat-2-line{height:72px}.mat-list-base .mat-list-item.mat-3-line,.mat-list-base .mat-list-option.mat-3-line{height:88px}.mat-list-base .mat-list-item.mat-multi-line,.mat-list-base .mat-list-option.mat-multi-line{height:auto}.mat-list-base .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list-base .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list-base .mat-list-item .mat-list-text,.mat-list-base .mat-list-option .mat-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden;padding:0}.mat-list-base .mat-list-item .mat-list-text>*,.mat-list-base .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-list-base .mat-list-item .mat-list-text:empty,.mat-list-base .mat-list-option .mat-list-text:empty{display:none}.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:0;padding-left:16px}[dir=rtl] .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:0}.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-left:0;padding-right:16px}[dir=rtl] .mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-right:0;padding-left:16px}.mat-list-base .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:16px}.mat-list-base .mat-list-item .mat-list-avatar,.mat-list-base .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%;object-fit:cover}.mat-list-base .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list-base .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:72px;width:calc(100% - 72px)}[dir=rtl] .mat-list-base .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list-base .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:72px}.mat-list-base .mat-list-item .mat-list-icon,.mat-list-base .mat-list-option .mat-list-icon{flex-shrink:0;width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list-base .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list-base .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:64px;width:calc(100% - 64px)}[dir=rtl] .mat-list-base .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list-base .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:64px}.mat-list-base .mat-list-item .mat-divider,.mat-list-base .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list-base .mat-list-item .mat-divider,[dir=rtl] .mat-list-base .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list-base .mat-list-item .mat-divider.mat-divider-inset,.mat-list-base .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-list-base[dense]{padding-top:4px;display:block}.mat-list-base[dense] .mat-subheader{height:40px;line-height:8px}.mat-list-base[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list-base[dense] .mat-list-item,.mat-list-base[dense] .mat-list-option{display:block;height:40px;-webkit-tap-highlight-color:transparent;width:100%;padding:0}.mat-list-base[dense] .mat-list-item .mat-list-item-content,.mat-list-base[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list-base[dense] .mat-list-item .mat-list-item-content-reverse,.mat-list-base[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list-base[dense] .mat-list-item .mat-list-item-ripple,.mat-list-base[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar{height:48px}.mat-list-base[dense] .mat-list-item.mat-2-line,.mat-list-base[dense] .mat-list-option.mat-2-line{height:60px}.mat-list-base[dense] .mat-list-item.mat-3-line,.mat-list-base[dense] .mat-list-option.mat-3-line{height:76px}.mat-list-base[dense] .mat-list-item.mat-multi-line,.mat-list-base[dense] .mat-list-option.mat-multi-line{height:auto}.mat-list-base[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list-base[dense] .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list-base[dense] .mat-list-item .mat-list-text,.mat-list-base[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;flex:auto;box-sizing:border-box;overflow:hidden;padding:0}.mat-list-base[dense] .mat-list-item .mat-list-text>*,.mat-list-base[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:normal;font-size:inherit}.mat-list-base[dense] .mat-list-item .mat-list-text:empty,.mat-list-base[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:0;padding-left:16px}[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:0}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-left:0;padding-right:16px}[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,[dir=rtl] .mat-list-base[dense] .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text{padding-right:0;padding-left:16px}.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-item.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content-reverse .mat-list-text,.mat-list-base[dense] .mat-list-option.mat-list-item-with-avatar.mat-list-option .mat-list-item-content .mat-list-text{padding-right:16px;padding-left:16px}.mat-list-base[dense] .mat-list-item .mat-list-avatar,.mat-list-base[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:36px;height:36px;border-radius:50%;object-fit:cover}.mat-list-base[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:68px;width:calc(100% - 68px)}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:68px}.mat-list-base[dense] .mat-list-item .mat-list-icon,.mat-list-base[dense] .mat-list-option .mat-list-icon{flex-shrink:0;width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list-base[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:60px;width:calc(100% - 60px)}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:60px}.mat-list-base[dense] .mat-list-item .mat-divider,.mat-list-base[dense] .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list-base[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-list-base[dense] .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list-base[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-list-base[dense] .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item{cursor:pointer;outline:none}mat-action-list button{background:none;color:inherit;border:none;font:inherit;outline:inherit;-webkit-tap-highlight-color:transparent;text-align:left}[dir=rtl] mat-action-list button{text-align:right}mat-action-list button::-moz-focus-inner{border:0}mat-action-list .mat-list-item{cursor:pointer;outline:inherit}.mat-list-option:not(.mat-list-item-disabled){cursor:pointer;outline:none}.mat-list-item-disabled{pointer-events:none}.cdk-high-contrast-active .mat-list-item-disabled{opacity:.5}.cdk-high-contrast-active :host .mat-list-item-disabled{opacity:.5}.cdk-high-contrast-active .mat-selection-list:focus{outline-style:dotted}.cdk-high-contrast-active .mat-list-option:hover,.cdk-high-contrast-active .mat-list-option:focus,.cdk-high-contrast-active .mat-nav-list .mat-list-item:hover,.cdk-high-contrast-active .mat-nav-list .mat-list-item:focus,.cdk-high-contrast-active mat-action-list .mat-list-item:hover,.cdk-high-contrast-active mat-action-list .mat-list-item:focus{outline:dotted 1px}.cdk-high-contrast-active .mat-list-single-selected-option::after{content:\"\";position:absolute;top:50%;right:16px;transform:translateY(-50%);width:10px;height:0;border-bottom:solid 10px;border-radius:10px}.cdk-high-contrast-active [dir=rtl] .mat-list-single-selected-option::after{right:auto;left:16px}@media(hover: none){.mat-list-option:not(.mat-list-single-selected-option):not(.mat-list-item-disabled):hover,.mat-nav-list .mat-list-item:not(.mat-list-item-disabled):hover,.mat-action-list .mat-list-item:not(.mat-list-item-disabled):hover{background:none}}\n"]
+          }]
+        }], function () {
+          return [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]
+          }, {
+            type: String,
+            decorators: [{
+              type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Attribute"],
+              args: ['tabindex']
+            }]
+          }, {
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"]
+          }, {
+            type: _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_6__["FocusMonitor"]
+          }];
+        }, {
+          selectionChange: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"]
+          }],
+          tabIndex: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          color: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          compareWith: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          disabled: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          multiple: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"]
+          }],
+          options: [{
+            type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ContentChildren"],
+            args: [MatListOption, {
+              descendants: true
+            }]
+          }]
+        });
+      })();
+      /**
+       * @license
+       * Copyright Google LLC All Rights Reserved.
+       *
+       * Use of this source code is governed by an MIT-style license that can be
+       * found in the LICENSE file at https://angular.io/license
+       */
+
+
+      var MatListModule = function MatListModule() {
+        _classCallCheck(this, MatListModule);
+      };
+
+      MatListModule.ɵmod = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineNgModule"]({
+        type: MatListModule
+      });
+      MatListModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineInjector"]({
+        factory: function MatListModule_Factory(t) {
+          return new (t || MatListModule)();
+        },
+        imports: [[_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLineModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatRippleModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatPseudoCheckboxModule"], _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"]], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLineModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatPseudoCheckboxModule"], _angular_material_divider__WEBPACK_IMPORTED_MODULE_10__["MatDividerModule"]]
+      });
+
+      (function () {
+        (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](MatListModule, {
+          declarations: function declarations() {
+            return [MatList, MatNavList, MatListItem, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatSelectionList, MatListOption];
+          },
+          imports: function imports() {
+            return [_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLineModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatRippleModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatPseudoCheckboxModule"], _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"]];
+          },
+          exports: function exports() {
+            return [MatList, MatNavList, MatListItem, MatListAvatarCssMatStyler, _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLineModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"], MatListIconCssMatStyler, MatListSubheaderCssMatStyler, _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatPseudoCheckboxModule"], MatSelectionList, MatListOption, _angular_material_divider__WEBPACK_IMPORTED_MODULE_10__["MatDividerModule"]];
+          }
+        });
+      })();
+      /*@__PURE__*/
+
+
+      (function () {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](MatListModule, [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
+          args: [{
+            imports: [_angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLineModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatRippleModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatPseudoCheckboxModule"], _angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"]],
+            exports: [MatList, MatNavList, MatListItem, MatListAvatarCssMatStyler, _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatLineModule"], _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatCommonModule"], MatListIconCssMatStyler, MatListSubheaderCssMatStyler, _angular_material_core__WEBPACK_IMPORTED_MODULE_2__["MatPseudoCheckboxModule"], MatSelectionList, MatListOption, _angular_material_divider__WEBPACK_IMPORTED_MODULE_10__["MatDividerModule"]],
+            declarations: [MatList, MatNavList, MatListItem, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatSelectionList, MatListOption]
+          }]
+        }], null, null);
+      })();
+      /**
+       * @license
+       * Copyright Google LLC All Rights Reserved.
+       *
+       * Use of this source code is governed by an MIT-style license that can be
+       * found in the LICENSE file at https://angular.io/license
+       */
+
+      /**
+       * Generated bundle index. Do not edit.
+       */
+      //# sourceMappingURL=list.js.map
+
       /***/
 
     },
@@ -59215,39 +61714,81 @@
       /* harmony import */
 
 
-      var _admin_routing_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+      /*! @angular/material/datepicker */
+      "iadO");
+      /* harmony import */
+
+
+      var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      /*! @angular/material/form-field */
+      "kmnG");
+      /* harmony import */
+
+
+      var _angular_material_list__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      /*! @angular/material/list */
+      "MutI");
+      /* harmony import */
+
+
+      var _angular_material_button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! @angular/material/button */
+      "bTqV");
+      /* harmony import */
+
+
+      var _angular_forms__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      /*! @angular/forms */
+      "3Pt+");
+      /* harmony import */
+
+
+      var _admin_routing_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
       /*! ./admin-routing.module */
       "0Em7");
       /* harmony import */
 
 
-      var _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+      var _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(
       /*! ./pages/order-list/order-list.component */
       "JOSm");
       /* harmony import */
 
 
-      var _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+      var _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(
       /*! ./pages/production-team-recap/production-team-recap.component */
       "l4tm");
       /* harmony import */
 
 
-      var _pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      var _pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(
       /*! ./pages/products-list/products-list.component */
       "mW0r");
       /* harmony import */
 
 
-      var _services_order_admin_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(
+      var _services_order_admin_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(
       /*! ./services/order-admin.service */
       "elx0");
       /* harmony import */
 
 
-      var _services_product_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(
+      var _services_product_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(
       /*! ./services/product.service */
       "lXKC");
+      /* harmony import */
+
+
+      var _pages_opening_days_form_opening_days_formcomponent__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(
+      /*! ./pages/opening-days-form/opening-days-formcomponent */
+      "3O4y");
+      /* harmony import */
+
+
+      var _services_opening_days_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(
+      /*! ./services/opening-days.service */
+      "5wd/");
 
       var AdminModule = function AdminModule() {
         _classCallCheck(this, AdminModule);
@@ -59260,15 +61801,15 @@
         factory: function AdminModule_Factory(t) {
           return new (t || AdminModule)();
         },
-        providers: [_services_product_service__WEBPACK_IMPORTED_MODULE_14__["ProductService"], _services_order_admin_service__WEBPACK_IMPORTED_MODULE_13__["OrderAdminService"]],
-        imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _admin_routing_module__WEBPACK_IMPORTED_MODULE_9__["AdminRoutingModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_7__["MatSlideToggleModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_4__["MatExpansionModule"], _angular_flex_layout__WEBPACK_IMPORTED_MODULE_2__["FlexLayoutModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_6__["MatProgressSpinnerModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_8__["MatTabsModule"]], _admin_routing_module__WEBPACK_IMPORTED_MODULE_9__["AdminRoutingModule"]]
+        providers: [_services_product_service__WEBPACK_IMPORTED_MODULE_19__["ProductService"], _services_order_admin_service__WEBPACK_IMPORTED_MODULE_18__["OrderAdminService"], _services_opening_days_service__WEBPACK_IMPORTED_MODULE_21__["OpeningDaysService"]],
+        imports: [[_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["ReactiveFormsModule"], _admin_routing_module__WEBPACK_IMPORTED_MODULE_14__["AdminRoutingModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_7__["MatSlideToggleModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_4__["MatExpansionModule"], _angular_flex_layout__WEBPACK_IMPORTED_MODULE_2__["FlexLayoutModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_6__["MatProgressSpinnerModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_8__["MatTabsModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__["MatFormFieldModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_9__["MatDatepickerModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_11__["MatListModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_12__["MatButtonModule"]], _admin_routing_module__WEBPACK_IMPORTED_MODULE_14__["AdminRoutingModule"]]
       });
 
       (function () {
         (typeof ngJitMode === "undefined" || ngJitMode) && _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵsetNgModuleScope"](AdminModule, {
-          declarations: [_pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_12__["ProductsListComponent"], _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_10__["OrderListComponent"], _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_11__["ProductionTeamRecapComponent"]],
-          imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _admin_routing_module__WEBPACK_IMPORTED_MODULE_9__["AdminRoutingModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_7__["MatSlideToggleModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_4__["MatExpansionModule"], _angular_flex_layout__WEBPACK_IMPORTED_MODULE_2__["FlexLayoutModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_6__["MatProgressSpinnerModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_8__["MatTabsModule"]],
-          exports: [_admin_routing_module__WEBPACK_IMPORTED_MODULE_9__["AdminRoutingModule"]]
+          declarations: [_pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_17__["ProductsListComponent"], _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_15__["OrderListComponent"], _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_16__["ProductionTeamRecapComponent"], _pages_opening_days_form_opening_days_formcomponent__WEBPACK_IMPORTED_MODULE_20__["OpeningDaysFormComponent"]],
+          imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["ReactiveFormsModule"], _admin_routing_module__WEBPACK_IMPORTED_MODULE_14__["AdminRoutingModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_7__["MatSlideToggleModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_4__["MatExpansionModule"], _angular_flex_layout__WEBPACK_IMPORTED_MODULE_2__["FlexLayoutModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_6__["MatProgressSpinnerModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_8__["MatTabsModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__["MatFormFieldModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_9__["MatDatepickerModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_11__["MatListModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_12__["MatButtonModule"]],
+          exports: [_admin_routing_module__WEBPACK_IMPORTED_MODULE_14__["AdminRoutingModule"]]
         });
       })();
       /*@__PURE__*/
@@ -59278,10 +61819,10 @@
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵsetClassMetadata"](AdminModule, [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"],
           args: [{
-            declarations: [_pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_12__["ProductsListComponent"], _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_10__["OrderListComponent"], _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_11__["ProductionTeamRecapComponent"]],
-            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _admin_routing_module__WEBPACK_IMPORTED_MODULE_9__["AdminRoutingModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_7__["MatSlideToggleModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_4__["MatExpansionModule"], _angular_flex_layout__WEBPACK_IMPORTED_MODULE_2__["FlexLayoutModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_6__["MatProgressSpinnerModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_8__["MatTabsModule"]],
-            exports: [_admin_routing_module__WEBPACK_IMPORTED_MODULE_9__["AdminRoutingModule"]],
-            providers: [_services_product_service__WEBPACK_IMPORTED_MODULE_14__["ProductService"], _services_order_admin_service__WEBPACK_IMPORTED_MODULE_13__["OrderAdminService"]]
+            declarations: [_pages_products_list_products_list_component__WEBPACK_IMPORTED_MODULE_17__["ProductsListComponent"], _pages_order_list_order_list_component__WEBPACK_IMPORTED_MODULE_15__["OrderListComponent"], _pages_production_team_recap_production_team_recap_component__WEBPACK_IMPORTED_MODULE_16__["ProductionTeamRecapComponent"], _pages_opening_days_form_opening_days_formcomponent__WEBPACK_IMPORTED_MODULE_20__["OpeningDaysFormComponent"]],
+            imports: [_angular_common__WEBPACK_IMPORTED_MODULE_0__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_13__["ReactiveFormsModule"], _admin_routing_module__WEBPACK_IMPORTED_MODULE_14__["AdminRoutingModule"], _angular_material_card__WEBPACK_IMPORTED_MODULE_3__["MatCardModule"], _angular_material_slide_toggle__WEBPACK_IMPORTED_MODULE_7__["MatSlideToggleModule"], _angular_material_expansion__WEBPACK_IMPORTED_MODULE_4__["MatExpansionModule"], _angular_flex_layout__WEBPACK_IMPORTED_MODULE_2__["FlexLayoutModule"], _angular_material_progress_spinner__WEBPACK_IMPORTED_MODULE_6__["MatProgressSpinnerModule"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_8__["MatTabsModule"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_10__["MatFormFieldModule"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_9__["MatDatepickerModule"], _angular_material_list__WEBPACK_IMPORTED_MODULE_11__["MatListModule"], _angular_material_button__WEBPACK_IMPORTED_MODULE_12__["MatButtonModule"]],
+            exports: [_admin_routing_module__WEBPACK_IMPORTED_MODULE_14__["AdminRoutingModule"]],
+            providers: [_services_product_service__WEBPACK_IMPORTED_MODULE_19__["ProductService"], _services_order_admin_service__WEBPACK_IMPORTED_MODULE_18__["OrderAdminService"], _services_opening_days_service__WEBPACK_IMPORTED_MODULE_21__["OpeningDaysService"]]
           }]
         }], null, null);
       })();
@@ -60617,10 +63158,10 @@
         }, {
           key: "getOrdersOfTheDay",
           value: function getOrdersOfTheDay(day) {
-            var _this4 = this;
+            var _this16 = this;
 
             this.orderAdminService.getOrdersByDay(day).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (ordersOfTheDay) {
-              return _this4.productsOfThDayList = _this4.mapRecapProductionTeamData(ordersOfTheDay);
+              return _this16.productsOfThDayList = _this16.mapRecapProductionTeamData(ordersOfTheDay);
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["takeUntil"])(this.unsubscribe$)).subscribe();
           }
         }, {
@@ -73859,14 +76400,14 @@
         _createClass(MatInkBar, [{
           key: "alignToElement",
           value: function alignToElement(element) {
-            var _this5 = this;
+            var _this17 = this;
 
             this.show();
 
             if (typeof requestAnimationFrame !== 'undefined') {
               this._ngZone.runOutsideAngular(function () {
                 requestAnimationFrame(function () {
-                  return _this5._setStyles(element);
+                  return _this17._setStyles(element);
                 });
               });
             } else {
@@ -74062,12 +76603,12 @@
       var MatTabLabel = /*#__PURE__*/function (_angular_cdk_portal__) {
         _inherits(MatTabLabel, _angular_cdk_portal__);
 
-        var _super3 = _createSuper(MatTabLabel);
+        var _super8 = _createSuper(MatTabLabel);
 
         function MatTabLabel() {
           _classCallCheck(this, MatTabLabel);
 
-          return _super3.apply(this, arguments);
+          return _super8.apply(this, arguments);
         }
 
         return MatTabLabel;
@@ -74130,7 +76671,7 @@
       var MatTab = /*#__PURE__*/function (_MatTabMixinBase2) {
         _inherits(MatTab, _MatTabMixinBase2);
 
-        var _super4 = _createSuper(MatTab);
+        var _super9 = _createSuper(MatTab);
 
         function MatTab(_viewContainerRef,
         /**
@@ -74138,40 +76679,40 @@
          * @breaking-change 10.0.0
          */
         _closestTabGroup) {
-          var _this6;
+          var _this18;
 
           _classCallCheck(this, MatTab);
 
-          _this6 = _super4.call(this);
-          _this6._viewContainerRef = _viewContainerRef;
-          _this6._closestTabGroup = _closestTabGroup;
+          _this18 = _super9.call(this);
+          _this18._viewContainerRef = _viewContainerRef;
+          _this18._closestTabGroup = _closestTabGroup;
           /** Plain text label for the tab, used when there is no template label. */
 
-          _this6.textLabel = '';
+          _this18.textLabel = '';
           /** Portal that will be the hosted content of the tab */
 
-          _this6._contentPortal = null;
+          _this18._contentPortal = null;
           /** Emits whenever the internal state of the tab changes. */
 
-          _this6._stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_7__["Subject"]();
+          _this18._stateChanges = new rxjs__WEBPACK_IMPORTED_MODULE_7__["Subject"]();
           /**
            * The relatively indexed position where 0 represents the center, negative is left, and positive
            * represents the right.
            */
 
-          _this6.position = null;
+          _this18.position = null;
           /**
            * The initial relatively index origin of the tab if it was created and selected after there
            * was already a selected tab. Provides context of what position the tab should originate from.
            */
 
-          _this6.origin = null;
+          _this18.origin = null;
           /**
            * Whether the tab is currently active.
            */
 
-          _this6.isActive = false;
-          return _this6;
+          _this18.isActive = false;
+          return _this18;
         }
         /** Content for the tab label given by `<ng-template mat-tab-label>`. */
 
@@ -74438,7 +76979,7 @@
       var MatTabBodyPortal = /*#__PURE__*/function (_angular_cdk_portal__2) {
         _inherits(MatTabBodyPortal, _angular_cdk_portal__2);
 
-        var _super5 = _createSuper(MatTabBodyPortal);
+        var _super10 = _createSuper(MatTabBodyPortal);
 
         function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host,
         /**
@@ -74446,19 +76987,19 @@
          * @breaking-change 9.0.0
          */
         _document) {
-          var _this7;
+          var _this19;
 
           _classCallCheck(this, MatTabBodyPortal);
 
-          _this7 = _super5.call(this, componentFactoryResolver, viewContainerRef, _document);
-          _this7._host = _host;
+          _this19 = _super10.call(this, componentFactoryResolver, viewContainerRef, _document);
+          _this19._host = _host;
           /** Subscription to events for when the tab body begins centering. */
 
-          _this7._centeringSub = rxjs__WEBPACK_IMPORTED_MODULE_7__["Subscription"].EMPTY;
+          _this19._centeringSub = rxjs__WEBPACK_IMPORTED_MODULE_7__["Subscription"].EMPTY;
           /** Subscription to events for when the tab body finishes leaving from center position. */
 
-          _this7._leavingSub = rxjs__WEBPACK_IMPORTED_MODULE_7__["Subscription"].EMPTY;
-          return _this7;
+          _this19._leavingSub = rxjs__WEBPACK_IMPORTED_MODULE_7__["Subscription"].EMPTY;
+          return _this19;
         }
         /** Set initial visibility or set up subscription for changing visibility. */
 
@@ -74466,17 +77007,17 @@
         _createClass(MatTabBodyPortal, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            var _this8 = this;
+            var _this20 = this;
 
             _get(_getPrototypeOf(MatTabBodyPortal.prototype), "ngOnInit", this).call(this);
 
             this._centeringSub = this._host._beforeCentering.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["startWith"])(this._host._isCenterPosition(this._host._position))).subscribe(function (isCentering) {
-              if (isCentering && !_this8.hasAttached()) {
-                _this8.attach(_this8._host._content);
+              if (isCentering && !_this20.hasAttached()) {
+                _this20.attach(_this20._host._content);
               }
             });
             this._leavingSub = this._host._afterLeavingCenter.subscribe(function () {
-              _this8.detach();
+              _this20.detach();
             });
           }
           /** Clean up centering subscription. */
@@ -74567,7 +77108,7 @@
 
       var _MatTabBodyBase = /*#__PURE__*/function () {
         function _MatTabBodyBase(_elementRef, _dir, changeDetectorRef) {
-          var _this9 = this;
+          var _this21 = this;
 
           _classCallCheck(this, _MatTabBodyBase);
 
@@ -74599,7 +77140,7 @@
 
           if (_dir) {
             this._dirChangeSubscription = _dir.change.subscribe(function (dir) {
-              _this9._computePositionAnimationState(dir);
+              _this21._computePositionAnimationState(dir);
 
               changeDetectorRef.markForCheck();
             });
@@ -74611,12 +77152,12 @@
             return x.fromState === y.fromState && x.toState === y.toState;
           })).subscribe(function (event) {
             // If the transition to the center is complete, emit an event.
-            if (_this9._isCenterPosition(event.toState) && _this9._isCenterPosition(_this9._position)) {
-              _this9._onCentered.emit();
+            if (_this21._isCenterPosition(event.toState) && _this21._isCenterPosition(_this21._position)) {
+              _this21._onCentered.emit();
             }
 
-            if (_this9._isCenterPosition(event.fromState) && !_this9._isCenterPosition(_this9._position)) {
-              _this9._afterLeavingCenter.emit();
+            if (_this21._isCenterPosition(event.fromState) && !_this21._isCenterPosition(_this21._position)) {
+              _this21._afterLeavingCenter.emit();
             }
           });
         }
@@ -74823,12 +77364,12 @@
       var MatTabBody = /*#__PURE__*/function (_MatTabBodyBase2) {
         _inherits(MatTabBody, _MatTabBodyBase2);
 
-        var _super6 = _createSuper(MatTabBody);
+        var _super11 = _createSuper(MatTabBody);
 
         function MatTabBody(elementRef, dir, changeDetectorRef) {
           _classCallCheck(this, MatTabBody);
 
-          return _super6.call(this, elementRef, dir, changeDetectorRef);
+          return _super11.call(this, elementRef, dir, changeDetectorRef);
         }
 
         return MatTabBody;
@@ -74986,52 +77527,52 @@
       var _MatTabGroupBase = /*#__PURE__*/function (_MatTabGroupMixinBase2) {
         _inherits(_MatTabGroupBase, _MatTabGroupMixinBase2);
 
-        var _super7 = _createSuper(_MatTabGroupBase);
+        var _super12 = _createSuper(_MatTabGroupBase);
 
         function _MatTabGroupBase(elementRef, _changeDetectorRef, defaultConfig, _animationMode) {
-          var _this10;
+          var _this22;
 
           _classCallCheck(this, _MatTabGroupBase);
 
-          _this10 = _super7.call(this, elementRef);
-          _this10._changeDetectorRef = _changeDetectorRef;
-          _this10._animationMode = _animationMode;
+          _this22 = _super12.call(this, elementRef);
+          _this22._changeDetectorRef = _changeDetectorRef;
+          _this22._animationMode = _animationMode;
           /** All of the tabs that belong to the group. */
 
-          _this10._tabs = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["QueryList"]();
+          _this22._tabs = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["QueryList"]();
           /** The tab index that should be selected after the content has been checked. */
 
-          _this10._indexToSelect = 0;
+          _this22._indexToSelect = 0;
           /** Snapshot of the height of the tab body wrapper before another tab is activated. */
 
-          _this10._tabBodyWrapperHeight = 0;
+          _this22._tabBodyWrapperHeight = 0;
           /** Subscription to tabs being added/removed. */
 
-          _this10._tabsSubscription = rxjs__WEBPACK_IMPORTED_MODULE_7__["Subscription"].EMPTY;
+          _this22._tabsSubscription = rxjs__WEBPACK_IMPORTED_MODULE_7__["Subscription"].EMPTY;
           /** Subscription to changes in the tab labels. */
 
-          _this10._tabLabelSubscription = rxjs__WEBPACK_IMPORTED_MODULE_7__["Subscription"].EMPTY;
-          _this10._dynamicHeight = false;
-          _this10._selectedIndex = null;
+          _this22._tabLabelSubscription = rxjs__WEBPACK_IMPORTED_MODULE_7__["Subscription"].EMPTY;
+          _this22._dynamicHeight = false;
+          _this22._selectedIndex = null;
           /** Position of the tab header. */
 
-          _this10.headerPosition = 'above';
+          _this22.headerPosition = 'above';
           /** Output to enable support for two-way binding on `[(selectedIndex)]` */
 
-          _this10.selectedIndexChange = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
+          _this22.selectedIndexChange = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
           /** Event emitted when focus has changed within a tab group. */
 
-          _this10.focusChange = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
+          _this22.focusChange = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
           /** Event emitted when the body animation has completed */
 
-          _this10.animationDone = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
+          _this22.animationDone = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
           /** Event emitted when the tab selection has changed. */
 
-          _this10.selectedTabChange = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"](true);
-          _this10._groupId = nextId++;
-          _this10.animationDuration = defaultConfig && defaultConfig.animationDuration ? defaultConfig.animationDuration : '500ms';
-          _this10.disablePagination = defaultConfig && defaultConfig.disablePagination != null ? defaultConfig.disablePagination : false;
-          return _this10;
+          _this22.selectedTabChange = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"](true);
+          _this22._groupId = nextId++;
+          _this22.animationDuration = defaultConfig && defaultConfig.animationDuration ? defaultConfig.animationDuration : '500ms';
+          _this22.disablePagination = defaultConfig && defaultConfig.disablePagination != null ? defaultConfig.disablePagination : false;
+          return _this22;
         }
         /** Whether the tab group should grow to the size of the active tab. */
 
@@ -75091,7 +77632,7 @@
         }, {
           key: "ngAfterContentChecked",
           value: function ngAfterContentChecked() {
-            var _this11 = this;
+            var _this23 = this;
 
             // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
             // the amount of tabs changes before the actual change detection runs.
@@ -75109,12 +77650,12 @@
 
 
               Promise.resolve().then(function () {
-                _this11._tabs.forEach(function (tab, index) {
+                _this23._tabs.forEach(function (tab, index) {
                   return tab.isActive = index === indexToSelect;
                 });
 
                 if (!isFirstRun) {
-                  _this11.selectedIndexChange.emit(indexToSelect);
+                  _this23.selectedIndexChange.emit(indexToSelect);
                 }
               });
             } // Setup the position for each tab and optionally setup an origin on the next selected tab.
@@ -75124,8 +77665,8 @@
               tab.position = index - indexToSelect; // If there is already a selected tab, then set up an origin for the next selected tab
               // if it doesn't have one already.
 
-              if (_this11._selectedIndex != null && tab.position == 0 && !tab.origin) {
-                tab.origin = indexToSelect - _this11._selectedIndex;
+              if (_this23._selectedIndex != null && tab.position == 0 && !tab.origin) {
+                tab.origin = indexToSelect - _this23._selectedIndex;
               }
             });
 
@@ -75138,7 +77679,7 @@
         }, {
           key: "ngAfterContentInit",
           value: function ngAfterContentInit() {
-            var _this12 = this;
+            var _this24 = this;
 
             this._subscribeToAllTabChanges();
 
@@ -75147,25 +77688,25 @@
 
 
             this._tabsSubscription = this._tabs.changes.subscribe(function () {
-              var indexToSelect = _this12._clampTabIndex(_this12._indexToSelect); // Maintain the previously-selected tab if a new tab is added or removed and there is no
+              var indexToSelect = _this24._clampTabIndex(_this24._indexToSelect); // Maintain the previously-selected tab if a new tab is added or removed and there is no
               // explicit change that selects a different tab.
 
 
-              if (indexToSelect === _this12._selectedIndex) {
-                var tabs = _this12._tabs.toArray();
+              if (indexToSelect === _this24._selectedIndex) {
+                var tabs = _this24._tabs.toArray();
 
                 for (var i = 0; i < tabs.length; i++) {
                   if (tabs[i].isActive) {
                     // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
                     // event, otherwise the consumer may end up in an infinite loop in some edge cases like
                     // adding a tab within the `selectedIndexChange` event.
-                    _this12._indexToSelect = _this12._selectedIndex = i;
+                    _this24._indexToSelect = _this24._selectedIndex = i;
                     break;
                   }
                 }
               }
 
-              _this12._changeDetectorRef.markForCheck();
+              _this24._changeDetectorRef.markForCheck();
             });
           }
           /** Listens to changes in all of the tabs. */
@@ -75173,19 +77714,19 @@
         }, {
           key: "_subscribeToAllTabChanges",
           value: function _subscribeToAllTabChanges() {
-            var _this13 = this;
+            var _this25 = this;
 
             // Since we use a query with `descendants: true` to pick up the tabs, we may end up catching
             // some that are inside of nested tab groups. We filter them out manually by checking that
             // the closest group to the tab is the current one.
             this._allTabs.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["startWith"])(this._allTabs)).subscribe(function (tabs) {
-              _this13._tabs.reset(tabs.filter(function (tab) {
+              _this25._tabs.reset(tabs.filter(function (tab) {
                 // @breaking-change 10.0.0 Remove null check for `_closestTabGroup`
                 // once it becomes a required parameter in MatTab.
-                return !tab._closestTabGroup || tab._closestTabGroup === _this13;
+                return !tab._closestTabGroup || tab._closestTabGroup === _this25;
               }));
 
-              _this13._tabs.notifyOnChanges();
+              _this25._tabs.notifyOnChanges();
             });
           }
         }, {
@@ -75233,7 +77774,7 @@
         }, {
           key: "_subscribeToTabLabels",
           value: function _subscribeToTabLabels() {
-            var _this14 = this;
+            var _this26 = this;
 
             if (this._tabLabelSubscription) {
               this._tabLabelSubscription.unsubscribe();
@@ -75242,7 +77783,7 @@
             this._tabLabelSubscription = Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["merge"]).apply(void 0, _toConsumableArray(this._tabs.map(function (tab) {
               return tab._stateChanges;
             }))).subscribe(function () {
-              return _this14._changeDetectorRef.markForCheck();
+              return _this26._changeDetectorRef.markForCheck();
             });
           }
           /** Clamps the given index to the bounds of 0 and the tabs length. */
@@ -75473,12 +78014,12 @@
       var MatTabGroup = /*#__PURE__*/function (_MatTabGroupBase2) {
         _inherits(MatTabGroup, _MatTabGroupBase2);
 
-        var _super8 = _createSuper(MatTabGroup);
+        var _super13 = _createSuper(MatTabGroup);
 
         function MatTabGroup(elementRef, changeDetectorRef, defaultConfig, animationMode) {
           _classCallCheck(this, MatTabGroup);
 
-          return _super8.call(this, elementRef, changeDetectorRef, defaultConfig, animationMode);
+          return _super13.call(this, elementRef, changeDetectorRef, defaultConfig, animationMode);
         }
 
         return MatTabGroup;
@@ -75708,16 +78249,16 @@
       var MatTabLabelWrapper = /*#__PURE__*/function (_MatTabLabelWrapperMi) {
         _inherits(MatTabLabelWrapper, _MatTabLabelWrapperMi);
 
-        var _super9 = _createSuper(MatTabLabelWrapper);
+        var _super14 = _createSuper(MatTabLabelWrapper);
 
         function MatTabLabelWrapper(elementRef) {
-          var _this15;
+          var _this27;
 
           _classCallCheck(this, MatTabLabelWrapper);
 
-          _this15 = _super9.call(this);
-          _this15.elementRef = elementRef;
-          return _this15;
+          _this27 = _super14.call(this);
+          _this27.elementRef = elementRef;
+          return _this27;
         }
         /** Sets focus on the wrapper element */
 
@@ -75832,7 +78373,7 @@
          * parameters to become required.
          */
         _platform, _animationMode) {
-          var _this16 = this;
+          var _this28 = this;
 
           _classCallCheck(this, MatPaginatedTabHeader);
 
@@ -75879,8 +78420,8 @@
           this.indexFocused = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"](); // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
 
           _ngZone.runOutsideAngular(function () {
-            Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["fromEvent"])(_elementRef.nativeElement, 'mouseleave').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["takeUntil"])(_this16._destroyed)).subscribe(function () {
-              _this16._stopInterval();
+            Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["fromEvent"])(_elementRef.nativeElement, 'mouseleave').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["takeUntil"])(_this28._destroyed)).subscribe(function () {
+              _this28._stopInterval();
             });
           });
         }
@@ -75907,29 +78448,29 @@
         }, {
           key: "ngAfterViewInit",
           value: function ngAfterViewInit() {
-            var _this17 = this;
+            var _this29 = this;
 
             // We need to handle these events manually, because we want to bind passive event listeners.
             Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["fromEvent"])(this._previousPaginator.nativeElement, 'touchstart', passiveEventListenerOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["takeUntil"])(this._destroyed)).subscribe(function () {
-              _this17._handlePaginatorPress('before');
+              _this29._handlePaginatorPress('before');
             });
             Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["fromEvent"])(this._nextPaginator.nativeElement, 'touchstart', passiveEventListenerOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["takeUntil"])(this._destroyed)).subscribe(function () {
-              _this17._handlePaginatorPress('after');
+              _this29._handlePaginatorPress('after');
             });
           }
         }, {
           key: "ngAfterContentInit",
           value: function ngAfterContentInit() {
-            var _this18 = this;
+            var _this30 = this;
 
             var dirChange = this._dir ? this._dir.change : Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["of"])(null);
 
             var resize = this._viewportRuler.change(150);
 
             var realign = function realign() {
-              _this18.updatePagination();
+              _this30.updatePagination();
 
-              _this18._alignInkBarToSelectedTab();
+              _this30._alignInkBarToSelectedTab();
             };
 
             this._keyManager = new _angular_cdk_a11y__WEBPACK_IMPORTED_MODULE_0__["FocusKeyManager"](this._items).withHorizontalOrientation(this._getLayoutDirection()).withHomeAndEnd().withWrap();
@@ -75945,15 +78486,15 @@
               // We need to defer this to give the browser some time to recalculate the element dimensions.
               Promise.resolve().then(realign);
 
-              _this18._keyManager.withHorizontalOrientation(_this18._getLayoutDirection());
+              _this30._keyManager.withHorizontalOrientation(_this30._getLayoutDirection());
             }); // If there is a change in the focus key manager we need to emit the `indexFocused`
             // event in order to provide a public event that notifies about focus changes. Also we realign
             // the tabs container by scrolling the new focused tab into the visible section.
 
             this._keyManager.change.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["takeUntil"])(this._destroyed)).subscribe(function (newFocusIndex) {
-              _this18.indexFocused.emit(newFocusIndex);
+              _this30.indexFocused.emit(newFocusIndex);
 
-              _this18._setTabFocus(newFocusIndex);
+              _this30._setTabFocus(newFocusIndex);
             });
           }
         }, {
@@ -76033,7 +78574,7 @@
         }, {
           key: "_onContentChanges",
           value: function _onContentChanges() {
-            var _this19 = this;
+            var _this31 = this;
 
             var textContent = this._elementRef.nativeElement.textContent; // We need to diff the text content of the header, because the MutationObserver callback
             // will fire even if the text content didn't change which is inefficient and is prone
@@ -76044,11 +78585,11 @@
               // means that we need to bring the callback back in ourselves.
 
               this._ngZone.run(function () {
-                _this19.updatePagination();
+                _this31.updatePagination();
 
-                _this19._alignInkBarToSelectedTab();
+                _this31._alignInkBarToSelectedTab();
 
-                _this19._changeDetectorRef.markForCheck();
+                _this31._changeDetectorRef.markForCheck();
               });
             }
           }
@@ -76342,7 +78883,7 @@
         }, {
           key: "_handlePaginatorPress",
           value: function _handlePaginatorPress(direction, mouseEvent) {
-            var _this20 = this;
+            var _this32 = this;
 
             // Don't start auto scrolling for right mouse button clicks. Note that we shouldn't have to
             // null check the `button`, but we do it so we don't break tests that use fake events.
@@ -76356,13 +78897,13 @@
 
             Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["timer"])(HEADER_SCROLL_DELAY, HEADER_SCROLL_INTERVAL) // Keep the timer going until something tells it to stop or the component is destroyed.
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["takeUntil"])(Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["merge"])(this._stopScrolling, this._destroyed))).subscribe(function () {
-              var _this20$_scrollHeader = _this20._scrollHeader(direction),
-                  maxScrollDistance = _this20$_scrollHeader.maxScrollDistance,
-                  distance = _this20$_scrollHeader.distance; // Stop the timer if we've reached the start or the end.
+              var _this32$_scrollHeader = _this32._scrollHeader(direction),
+                  maxScrollDistance = _this32$_scrollHeader.maxScrollDistance,
+                  distance = _this32$_scrollHeader.distance; // Stop the timer if we've reached the start or the end.
 
 
               if (distance === 0 || distance >= maxScrollDistance) {
-                _this20._stopInterval();
+                _this32._stopInterval();
               }
             });
           }
@@ -76497,17 +79038,17 @@
       var _MatTabHeaderBase = /*#__PURE__*/function (_MatPaginatedTabHeade) {
         _inherits(_MatTabHeaderBase, _MatPaginatedTabHeade);
 
-        var _super10 = _createSuper(_MatTabHeaderBase);
+        var _super15 = _createSuper(_MatTabHeaderBase);
 
         function _MatTabHeaderBase(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
         animationMode) {
-          var _this21;
+          var _this33;
 
           _classCallCheck(this, _MatTabHeaderBase);
 
-          _this21 = _super10.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
-          _this21._disableRipple = false;
-          return _this21;
+          _this33 = _super15.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
+          _this33._disableRipple = false;
+          return _this33;
         }
         /** Whether the ripple effect is disabled or not. */
 
@@ -76622,13 +79163,13 @@
       var MatTabHeader = /*#__PURE__*/function (_MatTabHeaderBase2) {
         _inherits(MatTabHeader, _MatTabHeaderBase2);
 
-        var _super11 = _createSuper(MatTabHeader);
+        var _super16 = _createSuper(MatTabHeader);
 
         function MatTabHeader(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, // @breaking-change 9.0.0 `_animationMode` parameter to be made required.
         animationMode) {
           _classCallCheck(this, MatTabHeader);
 
-          return _super11.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
+          return _super16.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
         }
 
         return MatTabHeader;
@@ -76930,23 +79471,23 @@
       var _MatTabNavBase = /*#__PURE__*/function (_MatPaginatedTabHeade2) {
         _inherits(_MatTabNavBase, _MatPaginatedTabHeade2);
 
-        var _super12 = _createSuper(_MatTabNavBase);
+        var _super17 = _createSuper(_MatTabNavBase);
 
         function _MatTabNavBase(elementRef, dir, ngZone, changeDetectorRef, viewportRuler,
         /**
          * @deprecated @breaking-change 9.0.0 `platform` parameter to become required.
          */
         platform, animationMode) {
-          var _this22;
+          var _this34;
 
           _classCallCheck(this, _MatTabNavBase);
 
-          _this22 = _super12.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
-          _this22._disableRipple = false;
+          _this34 = _super17.call(this, elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
+          _this34._disableRipple = false;
           /** Theme color of the nav bar. */
 
-          _this22.color = 'primary';
-          return _this22;
+          _this34.color = 'primary';
+          return _this34;
         }
         /** Background color of the tab nav. */
 
@@ -76983,12 +79524,12 @@
         }, {
           key: "ngAfterContentInit",
           value: function ngAfterContentInit() {
-            var _this23 = this;
+            var _this35 = this;
 
             // We need this to run before the `changes` subscription in parent to ensure that the
             // selectedIndex is up-to-date by the time the super class starts looking for it.
             this._items.changes.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_10__["takeUntil"])(this._destroyed)).subscribe(function () {
-              _this23.updateActiveLink();
+              _this35.updateActiveLink();
             });
 
             _get(_getPrototypeOf(_MatTabNavBase.prototype), "ngAfterContentInit", this).call(this);
@@ -77130,7 +79671,7 @@
       var MatTabNav = /*#__PURE__*/function (_MatTabNavBase2) {
         _inherits(MatTabNav, _MatTabNavBase2);
 
-        var _super13 = _createSuper(MatTabNav);
+        var _super18 = _createSuper(MatTabNav);
 
         function MatTabNav(elementRef, dir, ngZone, changeDetectorRef, viewportRuler,
         /**
@@ -77139,7 +79680,7 @@
         platform, animationMode) {
           _classCallCheck(this, MatTabNav);
 
-          return _super13.call(this, elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode);
+          return _super18.call(this, elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode);
         }
 
         return MatTabNav;
@@ -77442,33 +79983,33 @@
       var _MatTabLinkBase = /*#__PURE__*/function (_MatTabLinkMixinBase2) {
         _inherits(_MatTabLinkBase, _MatTabLinkMixinBase2);
 
-        var _super14 = _createSuper(_MatTabLinkBase);
+        var _super19 = _createSuper(_MatTabLinkBase);
 
         function _MatTabLinkBase(_tabNavBar,
         /** @docs-private */
         elementRef, globalRippleOptions, tabIndex, _focusMonitor, animationMode) {
-          var _this24;
+          var _this36;
 
           _classCallCheck(this, _MatTabLinkBase);
 
-          _this24 = _super14.call(this);
-          _this24._tabNavBar = _tabNavBar;
-          _this24.elementRef = elementRef;
-          _this24._focusMonitor = _focusMonitor;
+          _this36 = _super19.call(this);
+          _this36._tabNavBar = _tabNavBar;
+          _this36.elementRef = elementRef;
+          _this36._focusMonitor = _focusMonitor;
           /** Whether the tab link is active or not. */
 
-          _this24._isActive = false;
-          _this24.rippleConfig = globalRippleOptions || {};
-          _this24.tabIndex = parseInt(tabIndex) || 0;
+          _this36._isActive = false;
+          _this36.rippleConfig = globalRippleOptions || {};
+          _this36.tabIndex = parseInt(tabIndex) || 0;
 
           if (animationMode === 'NoopAnimations') {
-            _this24.rippleConfig.animation = {
+            _this36.rippleConfig.animation = {
               enterDuration: 0,
               exitDuration: 0
             };
           }
 
-          return _this24;
+          return _this36;
         }
         /** Whether the link is active. */
 
@@ -77617,19 +80158,19 @@
       var MatTabLink = /*#__PURE__*/function (_MatTabLinkBase2) {
         _inherits(MatTabLink, _MatTabLinkBase2);
 
-        var _super15 = _createSuper(MatTabLink);
+        var _super20 = _createSuper(MatTabLink);
 
         function MatTabLink(tabNavBar, elementRef, ngZone, platform, globalRippleOptions, tabIndex, focusMonitor, animationMode) {
-          var _this25;
+          var _this37;
 
           _classCallCheck(this, MatTabLink);
 
-          _this25 = _super15.call(this, tabNavBar, elementRef, globalRippleOptions, tabIndex, focusMonitor, animationMode);
-          _this25._tabLinkRipple = new _angular_material_core__WEBPACK_IMPORTED_MODULE_5__["RippleRenderer"](_assertThisInitialized(_this25), ngZone, elementRef, platform);
+          _this37 = _super20.call(this, tabNavBar, elementRef, globalRippleOptions, tabIndex, focusMonitor, animationMode);
+          _this37._tabLinkRipple = new _angular_material_core__WEBPACK_IMPORTED_MODULE_5__["RippleRenderer"](_assertThisInitialized(_this37), ngZone, elementRef, platform);
 
-          _this25._tabLinkRipple.setupTriggerEvents(elementRef.nativeElement);
+          _this37._tabLinkRipple.setupTriggerEvents(elementRef.nativeElement);
 
-          return _this25;
+          return _this37;
         }
 
         _createClass(MatTabLink, [{
