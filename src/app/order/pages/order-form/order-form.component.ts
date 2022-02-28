@@ -376,7 +376,6 @@ export class OrderFormComponent implements OnDestroy {
       res = false;
     }
     return res;
-    // tslint:disable-next-line
   };
 
   private getUserDataFromLocalStorage(): void {
