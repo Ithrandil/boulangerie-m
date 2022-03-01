@@ -1,36 +1,40 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/compat/firestore';
+import { ClosingDay } from '@models/closingDay';
 import { from, Observable } from 'rxjs';
 
+// FIXME: implement proper interface for closing day, one is already created in folder, manage undefined values
 @Injectable({
   providedIn: 'root',
 })
 export class OpeningDaysService {
-  constructor(private firestore: AngularFirestore) {}
+  private closingDaysCollection: AngularFirestoreCollection<ClosingDay>;
+  closingDays: Observable<{ startingDate: any; endingDate: any; rangeId: string; }[]>
+
+  constructor(private readonly firestore: AngularFirestore) {
+    this.closingDaysCollection = this.firestore.collection<{ startingDate: any; endingDate: any; rangeId: string; }>('closingDays');
+    this.closingDays = this.closingDaysCollection.valueChanges({ idField: 'rangeId' });
+  }
 
   public getAllClosingDays(): Observable<
-    { rangeId: string; startingDate: any; endingDate: any }[]
+    { startingDate: any; endingDate: any; rangeId: string; }[]
   > {
-    return this.firestore
-      .collection<{ startingDate: any; endingDate: any }>('closingDays')
-      .valueChanges({ idField: 'rangeId' });
+    return this.closingDays;
   }
 
   public addClosingDays(days: {
     startingDate: Date;
     endingDate: Date;
+    rangeId: string;
   }): Observable<DocumentReference> {
     return from(
-      this.firestore
-        .collection<{ startingDate: Date; endingDate: Date }>('closingDays')
-        .add(days)
+      this.closingDaysCollection.add(days)
     );
   }
 
   public deleteClosingDays(rangeId: string) {
     return from(
-      this.firestore
-        .collection<{ startingDate: Date; endingDate: Date }>('closingDays')
+      this.closingDaysCollection
         .doc(rangeId)
         .delete()
     );

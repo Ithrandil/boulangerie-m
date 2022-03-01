@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Product } from '@models/product';
 import { from, Observable } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { from, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(private firestore: AngularFirestore) { }
 
   public getAllItems(): Observable<Product[]> {
     return this.firestore

@@ -1,5 +1,4 @@
-import { firestore } from 'firebase';
-
+import { Timestamp } from '@firebase/firestore-types';
 import { ProductUnit } from './product';
 
 export interface Order {
@@ -11,8 +10,8 @@ export interface Order {
   deliveryAddress: Address;
   deliveryTime: string;
   order: OrderProduct[];
-  deliveryDate: firestore.Timestamp;
-  orderDate: firestore.Timestamp;
+  deliveryDate: Timestamp;
+  orderDate: Timestamp;
   orderComment: string;
   totalPrice: number;
 }

@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/services/auth.service';
 import { tap } from 'rxjs/operators';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-root',

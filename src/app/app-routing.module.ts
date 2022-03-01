@@ -3,7 +3,7 @@ import {
   canActivate,
   redirectLoggedInTo,
   redirectUnauthorizedTo,
-} from '@angular/fire/auth-guard';
+} from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
@@ -36,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

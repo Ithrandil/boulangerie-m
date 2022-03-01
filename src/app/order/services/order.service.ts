@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Order } from '@models/order';
 import { Product } from '@models/product';
 import { from, Observable } from 'rxjs';
@@ -8,7 +8,12 @@ import { from, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class OrderService {
-  constructor(private firestore: AngularFirestore) {}
+  private ordersCollection: AngularFirestoreCollection<Order>;
+
+  constructor(private firestore: AngularFirestore) {
+    this.ordersCollection = firestore.collection<Order>('orders');
+  }
+
 
   public getAllAvailableItems(): Observable<Product[]> {
     return this.firestore
@@ -19,6 +24,6 @@ export class OrderService {
   }
 
   public addOrder(order: Order): Observable<DocumentReference> {
-    return from(this.firestore.collection<Order>('orders').add(order));
+    return from(this.ordersCollection.add(order));
   }
 }
