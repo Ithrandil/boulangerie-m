@@ -642,8 +642,8 @@ function OrderListComponent_ng_template_4_mat_card_1_ng_template_16_Template(rf,
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" ", orderData_r25.deliveryAddress.city, " ");
 } }
 function OrderListComponent_ng_template_4_mat_card_1_mat_card_title_18_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-card-title", 27);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1, "Commentaires");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-card-title", 19);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1, "Commentaires ");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } }
 function OrderListComponent_ng_template_4_mat_card_1_div_19_Template(rf, ctx) { if (rf & 1) {
@@ -693,7 +693,7 @@ function OrderListComponent_ng_template_4_mat_card_1_div_23_Template(rf, ctx) { 
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", elem_r35 && elem_r35.comment);
 } }
 function OrderListComponent_ng_template_4_mat_card_1_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-card", 10)(1, "mat-card-title", 13)(2, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "mat-card", 10)(1, "mat-card-title", 11)(2, "div", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "div");
@@ -712,15 +712,15 @@ function OrderListComponent_ng_template_4_mat_card_1_Template(rf, ctx) { if (rf 
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](15, OrderListComponent_ng_template_4_mat_card_1_div_15_Template, 10, 3, "div", 15);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](16, OrderListComponent_ng_template_4_mat_card_1_ng_template_16_Template, 20, 6, "ng-template", null, 16, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplateRefExtractor"]);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](18, OrderListComponent_ng_template_4_mat_card_1_mat_card_title_18_Template, 2, 0, "mat-card-title", 26);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](18, OrderListComponent_ng_template_4_mat_card_1_mat_card_title_18_Template, 2, 0, "mat-card-title", 17);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](19, OrderListComponent_ng_template_4_mat_card_1_div_19_Template, 3, 1, "div", 18);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](20, "mat-card-title", 27);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](20, "mat-card-title", 19);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](21, "Produits");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](22, "mat-card-content", 20);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](23, OrderListComponent_ng_template_4_mat_card_1_div_23_Template, 5, 6, "div", 21);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](24, "mat-card-title", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](24, "mat-card-title", 22);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](25);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]()();
 } if (rf & 2) {
@@ -799,7 +799,7 @@ class OrderListComponent {
     }
 }
 OrderListComponent.ɵfac = function OrderListComponent_Factory(t) { return new (t || OrderListComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_order_admin_service__WEBPACK_IMPORTED_MODULE_0__.OrderAdminService)); };
-OrderListComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: OrderListComponent, selectors: [["app-order-list"]], decls: 5, vars: 2, consts: [["fxLayout", "row wrap", "fxLayoutAlign", "center center", 4, "ngIf"], ["mat-align-tabs", "center", 3, "selectedIndexChange"], [3, "label", 4, "ngFor", "ngForOf"], ["label", "Plus tard"], ["matTabContent", ""], ["fxLayout", "row wrap", "fxLayoutAlign", "center center"], [3, "label"], ["id", "noOrder", "fxLayout", "row", "fxLayoutAlign", "center center", 4, "ngIf"], ["fxFlex", "87", "class", "m-card", 4, "ngFor", "ngForOf"], ["id", "noOrder", "fxLayout", "row", "fxLayoutAlign", "center center"], ["fxFlex", "87", 1, "m-card"], ["fxLayout", "row wrap", "fxLayoutAlign", "space-between center", 1, "m-card-title"], ["id", "clientName"], ["fxLayout", "row wrap", "fxLayoutAlign", "space-between center"], ["fxLayout", "row wrap", "fxLayoutAlign", "space-between baseline"], [4, "ngIf", "ngIfElse"], ["mulitpleAddress", ""], ["class", "m-subtitle-card m-card-title", 4, "ngIf"], [4, "ngIf"], [1, "m-subtitle-card", "m-card-title"], ["fxLayout", "column wrap", "fxLayoutAlign", "space-between baseline"], ["class", "product-row", "fxLayout", "row wrap", "fxLayoutAlign", "flex-start center", 4, "ngFor", "ngForOf"], ["fxLayoutAlign", "flex-end", 1, "m-card-title"], [1, "address"], [1, "addressTitle"], ["fxLayout", "row wrap", "fxLayoutAlign", "flex-start center", 1, "product-row"], ["class", "m-subtitle-card", 4, "ngIf"], [1, "m-subtitle-card"], ["fxLayoutAlign", "flex-end"]], template: function OrderListComponent_Template(rf, ctx) { if (rf & 1) {
+OrderListComponent.ɵcmp = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: OrderListComponent, selectors: [["app-order-list"]], decls: 5, vars: 2, consts: [["fxLayout", "row wrap", "fxLayoutAlign", "center center", 4, "ngIf"], ["mat-align-tabs", "center", 3, "selectedIndexChange"], [3, "label", 4, "ngFor", "ngForOf"], ["label", "Plus tard"], ["matTabContent", ""], ["fxLayout", "row wrap", "fxLayoutAlign", "center center"], [3, "label"], ["id", "noOrder", "fxLayout", "row", "fxLayoutAlign", "center center", 4, "ngIf"], ["fxFlex", "87", "class", "m-card", 4, "ngFor", "ngForOf"], ["id", "noOrder", "fxLayout", "row", "fxLayoutAlign", "center center"], ["fxFlex", "87", 1, "m-card"], ["fxLayout", "row wrap", "fxLayoutAlign", "space-between center", 1, "m-card-title"], ["id", "clientName"], ["fxLayout", "row wrap", "fxLayoutAlign", "space-between center"], ["fxLayout", "row wrap", "fxLayoutAlign", "space-between baseline"], [4, "ngIf", "ngIfElse"], ["mulitpleAddress", ""], ["class", "m-subtitle-card m-card-title", 4, "ngIf"], [4, "ngIf"], [1, "m-subtitle-card", "m-card-title"], ["fxLayout", "column wrap", "fxLayoutAlign", "space-between baseline"], ["class", "product-row", "fxLayout", "row wrap", "fxLayoutAlign", "flex-start center", 4, "ngFor", "ngForOf"], ["fxLayoutAlign", "flex-end", 1, "m-card-title"], [1, "address"], [1, "addressTitle"], ["fxLayout", "row wrap", "fxLayoutAlign", "flex-start center", 1, "product-row"]], template: function OrderListComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](0, OrderListComponent_div_0_Template, 2, 0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "mat-tab-group", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("selectedIndexChange", function OrderListComponent_Template_mat_tab_group_selectedIndexChange_1_listener($event) { return ctx.getOrdersOfTheDay(ctx.daysList[$event]); });
