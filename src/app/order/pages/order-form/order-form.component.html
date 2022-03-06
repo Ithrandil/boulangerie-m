@@ -2,133 +2,71 @@
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
     <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
       <mat-label>Nom de votre entreprise</mat-label>
-      <input
-        matInput
-        type="text"
-        placeholder="Ex: Restaurant du port"
-        formControlName="name"
-        required
-      />
+      <input matInput type="text" placeholder="Ex: Restaurant du port" formControlName="name" required />
       <mat-error *ngIf="orderForm.get('name')?.invalid">{{
         getErrorMessage("name")
-      }}</mat-error>
+        }}</mat-error>
     </mat-form-field>
     <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
       <mat-label>Numéro de téléphone</mat-label>
-      <input
-        matInput
-        type="tel"
-        placeholder="Ex: 0546331122"
-        formControlName="phone"
-        required
-      />
+      <input matInput type="tel" placeholder="Ex: 0546331122" formControlName="phone" required />
       <mat-error *ngIf="orderForm.get('phone')?.invalid">{{
         getErrorMessage("phone")
-      }}</mat-error>
+        }}</mat-error>
     </mat-form-field>
   </div>
   <div formGroupName="address">
     <div fxLayout="row" fxLayoutAlign="center">
       <mat-form-field fxFlex="87" appearance="outline">
         <mat-label>Rue</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: 2 rue du port"
-          formControlName="street"
-          required
-        />
+        <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
         <mat-error *ngIf="orderForm.get('address')?.get('street')?.invalid">{{
           getErrorMessage("street", "address")
-        }}</mat-error>
+          }}</mat-error>
       </mat-form-field>
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
       <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
         <mat-label>Code postal</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: 17000"
-          formControlName="zipCode"
-          required
-        />
+        <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
         <mat-error *ngIf="orderForm.get('address')?.get('zipCode')?.invalid">{{
           getErrorMessage("zipCode", "address")
-        }}</mat-error>
+          }}</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
         <mat-label>Ville</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: La Rochelle"
-          formControlName="city"
-          required
-        />
+        <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
         <mat-error *ngIf="orderForm.get('address')?.get('city')?.invalid">{{
           getErrorMessage("city", "address")
-        }}</mat-error>
+          }}</mat-error>
       </mat-form-field>
     </div>
   </div>
-  <div
-    fxLayout="row wrap"
-    class="checkboxRow"
-    fxLayoutAlign="flex-start center"
-  >
-    <mat-checkbox
-      fxFlexOffset="7"
-      (change)="hasDifferentDeliveryAddress($event.checked)"
-      formControlName="hasDifferentDeliveryAddress"
-      >Adresse de livraison différente</mat-checkbox
-    >
+  <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
+    <mat-checkbox fxFlexOffset="7" (change)="hasDifferentDeliveryAddress($event.checked)"
+      formControlName="hasDifferentDeliveryAddress">Adresse de livraison différente</mat-checkbox>
   </div>
   <div formGroupName="deliveryAddress" *ngIf="displayDeliveryForm">
     <div fxLayout="row" fxLayoutAlign="center">
       <mat-form-field fxFlex="87" appearance="outline">
         <mat-label>Rue</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: 2 rue du port"
-          formControlName="street"
-          required
-        />
-        <mat-error
-          *ngIf="orderForm.get('deliveryAddress')?.get('street')?.invalid"
-          >{{ getErrorMessage("street", "address") }}</mat-error
-        >
+        <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
+        <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('street')?.invalid">{{ getErrorMessage("street",
+          "address") }}</mat-error>
       </mat-form-field>
     </div>
     <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
       <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
         <mat-label>Code postal</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: 17000"
-          formControlName="zipCode"
-          required
-        />
-        <mat-error
-          *ngIf="orderForm.get('deliveryAddress')?.get('zipCode')?.invalid"
-          >{{ getErrorMessage("zipCode", "address") }}</mat-error
-        >
+        <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
+        <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('zipCode')?.invalid">{{ getErrorMessage("zipCode",
+          "address") }}</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
         <mat-label>Ville</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Ex: La Rochelle"
-          formControlName="city"
-          required
-        />
-        <mat-error
-          *ngIf="orderForm.get('deliveryAddress')?.get('city')?.invalid"
-          >{{ getErrorMessage("city", "address") }}</mat-error
-        >
+        <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
+        <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('city')?.invalid">{{ getErrorMessage("city", "address")
+          }}</mat-error>
       </mat-form-field>
     </div>
   </div>
@@ -136,59 +74,25 @@
     <mat-divider fxFlex="50"></mat-divider>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
-    <mat-form-field
-      fxFlexOffset="7"
-      fxFlex="40"
-      fxFlex.lt-sm="87"
-      appearance="outline"
-      (click)="picker.open()"
-    >
+    <mat-form-field fxFlexOffset="7" fxFlex="40" fxFlex.lt-sm="87" appearance="outline" (click)="picker.open()">
       <mat-label>Date de livraison</mat-label>
-      <input
-        matInput
-        required
-        formControlName="deliveryDate"
-        [min]="tomorrow"
-        [matDatepicker]="picker"
-        [matDatepickerFilter]="isItOpenToday"
-        readonly
-      />
+      <input matInput required formControlName="deliveryDate" [min]="tomorrow" [matDatepicker]="picker"
+        [matDatepickerFilter]="isItOpenToday" readonly />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker touchUi></mat-datepicker>
       <mat-error *ngIf="orderForm.get('deliveryDate')?.invalid">{{
         getErrorMessage("deliveryDate")
-      }}</mat-error>
+        }}</mat-error>
     </mat-form-field>
   </div>
-  <div
-    fxLayout="row wrap"
-    class="checkboxRow"
-    fxLayoutAlign="flex-start center"
-  >
-    <mat-checkbox
-      fxFlexOffset="7"
-      (change)="specificDeliveryTime($event.checked)"
-      [checked]="selectDeliveryTime"
-      >Besoin d'une heure de livraison précise?</mat-checkbox
-    >
-    <div
-      *ngIf="selectDeliveryTime"
-      fxFlexOffset="7"
-      fxFlexOffset.gt-md="12"
-      fxFlex="40"
-      fxFlex.lt-sm="87"
-    >
+  <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
+    <mat-checkbox fxFlexOffset="7" (change)="specificDeliveryTime($event.checked)" [checked]="selectDeliveryTime">Besoin
+      d'une heure de livraison précise?</mat-checkbox>
+    <div *ngIf="selectDeliveryTime" fxFlexOffset="7" fxFlexOffset.gt-md="12" fxFlex="40" fxFlex.lt-sm="87">
       <mat-form-field appearance="outline">
         <mat-label>Heure de livraison</mat-label>
-        <input
-          [ngxTimepicker]="$any(datePicker)"
-          min="06:00"
-          max="12:00"
-          [format]="24"
-          readonly
-          matInput
-          formControlName="deliveryTime"
-        />
+        <input [ngxTimepicker]="$any(datePicker)" min="06:00" max="12:00" [format]="24" readonly matInput
+          formControlName="deliveryTime" />
         <ngx-material-timepicker #datePicker></ngx-material-timepicker>
       </mat-form-field>
     </div>
@@ -198,22 +102,17 @@
       Votre livraison vous sera livrée à l'adresse renseignée le
       {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }}
       {{
-        this.orderForm.get("deliveryTime")?.value
-          ? "à " + this.orderForm.get("deliveryTime")?.value
-          : "entre 6 heures et midi."
+      this.orderForm.get("deliveryTime")?.value
+      ? "à " + this.orderForm.get("deliveryTime")?.value
+      : "entre 6 heures et midi."
       }}
     </p>
-    <p
-      class="warningMessage"
-      *ngIf="showShortDeliveryMessage || showOrderNeedValidationMessage"
-    >
+    <p class="warningMessage" *ngIf="showShortDeliveryMessage || showOrderNeedValidationMessage">
       <span> Attention, dû au délai court de votre commande: </span>
       <span *ngIf="showOrderNeedValidationMessage">
         <br />&nbsp;&nbsp;- Elle devra être validée par la boulangerie M.
-        <span id="importantSentence"
-          >Sans retour de leur part dans l'heure, considérez la comme
-          annulée.</span
-        >
+        <span id="importantSentence">Sans retour de leur part dans l'heure, considérez la comme
+          annulée.</span>
       </span>
       <span *ngIf="showShortDeliveryMessage">
         <br />&nbsp;&nbsp;- Certains produits ne sont pas disponibles. Ils ont
@@ -233,73 +132,42 @@
       <mat-spinner></mat-spinner>
     </div>
     <ng-template #productContainer>
-      <mat-expansion-panel
-        fxLayout="row wrap"
-        fxLayoutAlign="center center"
-        fxFlex="87"
-        class="productCategory"
-        *ngFor="let category of PRODUCTCATEGORY | keyvalue"
-      >
+      <mat-expansion-panel fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="87" class="productCategory"
+        *ngFor="let category of PRODUCTCATEGORY | keyvalue">
         <mat-expansion-panel-header fxFlex="100" class="productCategoryHeader">
           <mat-panel-title>{{ category.value }}</mat-panel-title>
         </mat-expansion-panel-header>
 
-        <mat-card
-          *ngFor="let product of filterProductByCategory(category.value)"
-          fxFlex="49"
-          fxFlex.lt-sm="100"
+        <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
           [ngClass]="{
             unavailableItem: showShortDeliveryMessage && !product.shortDelivery
-          }"
-        >
+          }">
           <mat-expansion-panel class="productExpansion">
             <mat-expansion-panel-header class="productExpansionHeader">
               <mat-panel-title>{{ product.name }}</mat-panel-title>
             </mat-expansion-panel-header>
             <div class="productExpansionBody">
               <p>{{ product.description }}</p>
-              <mat-form-field
-                fxFlex="100"
-                appearance="outline"
-                [formGroup]="commentFormGroup"
-              >
+              <mat-form-field fxFlex="100" appearance="outline" [formGroup]="commentFormGroup">
                 <mat-label>Commentaire</mat-label>
-                <textarea
-                  matInput
-                  [formControlName]="product.name"
-                  placeholder="Ex: boules tranchées, forme des pains, ..."
-                ></textarea>
+                <textarea matInput [formControlName]="product.name"
+                  placeholder="Ex: boules tranchées, forme des pains, ..."></textarea>
               </mat-form-field>
               <div [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
-                <mat-checkbox
-                  class="slicedCheckbox"
-                  [formControlName]="product.name"
-                  >Tranché
+                <mat-checkbox class="slicedCheckbox" [formControlName]="product.name">Tranché
                 </mat-checkbox>
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-card-content
-            class="cardPriceQuantity"
-            fxLayout="row wrap"
-            fxLayoutAlign="space-between baseline"
-          >
+          <mat-card-content class="cardPriceQuantity m-card-content" fxLayout="row wrap"
+            fxLayoutAlign="space-between baseline">
             <div>
               Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
             </div>
             <div>
-              <mat-form-field
-                [formGroup]="itemFormGroup"
-                class="quantityInput"
-                appearance="outline"
-              >
+              <mat-form-field [formGroup]="itemFormGroup" class="quantityInput" appearance="outline">
                 <mat-label>Quantité</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  min="0"
-                  [formControlName]="product.name"
-                />
+                <input matInput type="number" min="0" [formControlName]="product.name" />
               </mat-form-field>
             </div>
           </mat-card-content>
@@ -311,66 +179,33 @@
     <mat-divider fxFlex="50"></mat-divider>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
-    <mat-form-field
-      fxFlexOffset="7"
-      fxFlex="87"
-      fxFlex.lt-sm="87"
-      appearance="outline"
-    >
+    <mat-form-field fxFlexOffset="7" fxFlex="87" fxFlex.lt-sm="87" appearance="outline">
       <mat-label>Commentaires</mat-label>
-      <textarea
-        matInput
-        formControlName="orderComment"
-        placeholder="Ex: Déposer la livraison en arrière cuisine, ..."
-      ></textarea>
+      <textarea matInput formControlName="orderComment"
+        placeholder="Ex: Déposer la livraison en arrière cuisine, ..."></textarea>
     </mat-form-field>
   </div>
-  <div
-    fxLayout="column wrap"
-    fxLayoutAlign="center center"
-    *ngIf="orderForm.get('totalPrice')?.value > 0"
-  >
+  <div fxLayout="column wrap" fxLayoutAlign="center center" *ngIf="orderForm.get('totalPrice')?.value > 0">
     <h2 fxFlex="50">Résumé de la commande :</h2>
     <div fxFlex="50">
-      <h3
-        *ngFor="let item of orderSummary | summaryPipe"
-        [innerHtml]="item"
-      ></h3>
+      <h3 *ngFor="let item of orderSummary | summaryPipe" [innerHtml]="item"></h3>
     </div>
-    <h3
-      fxFlex="50"
-      fxFlexOffset="2"
-      *ngIf="orderForm.get('orderComment')?.value"
-      class="orderCommentSummaryTitle"
-    >
+    <h3 fxFlex="50" fxFlexOffset="2" *ngIf="orderForm.get('orderComment')?.value" class="orderCommentSummaryTitle">
       Commentaire de la commande :
     </h3>
-    <h3
-      fxFlex="50"
-      fxFlexOffset="2"
-      *ngIf="orderForm.get('orderComment')?.value"
-      class="summaryComment"
-    >
+    <h3 fxFlex="50" fxFlexOffset="2" *ngIf="orderForm.get('orderComment')?.value" class="summaryComment">
       <pre>
       {{ orderForm.get("orderComment")?.value }}
-    </pre
-      >
+    </pre>
     </h3>
     <h2 fxFlex="50" fxFlexOffset="2">Prix total :</h2>
     <h2 fxFlex="50">
       {{ orderForm.get("totalPrice")?.value.toFixed(2) }} € H.T.
     </h2>
   </div>
-  <div
-    fxLayout="row wrap"
-    class="checkboxRow"
-    fxLayoutAlign="flex-start center"
-  >
-    <mat-checkbox
-      fxFlexOffset="7"
-      (change)="userChoiceDataManagement = $event.checked"
-      [checked]="userChoiceDataManagement"
-      >Enregistrer mes infos personnelles
+  <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
+    <mat-checkbox fxFlexOffset="7" (change)="userChoiceDataManagement = $event.checked"
+      [checked]="userChoiceDataManagement">Enregistrer mes infos personnelles
     </mat-checkbox>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="buttonRow">

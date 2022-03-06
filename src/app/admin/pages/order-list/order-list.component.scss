@@ -30,15 +30,6 @@ mat-tab-group {
   flex-direction: column;
 }
 
-mat-card {
-  margin: 1rem 2rem 1rem 2rem;
-}
-
-.mat-card-title {
-  font-size: 1.6rem;
-  color: var(--color-app-brown) !important;
-}
-
 #clientName {
   font-size: 2rem;
 }
@@ -46,20 +37,10 @@ mat-card {
   font-size: 1.4rem;
 }
 
-.productElem {
-  margin-top: 0.3rem;
-  margin-bottom: 0.3rem;
-}
-
-.productTitle {
+.m-subtitle-card {
   margin-top: 3rem !important;
 }
-//FIXME: MARCHE EN LOCAL PAS EN DEPLOY
-pre {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 1.4rem;
-}
 
-#noOrder {
-  min-height: 40vh;
+pre {
+  font-size: 1.4rem;
 }

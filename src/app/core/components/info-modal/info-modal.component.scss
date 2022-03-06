@@ -18,10 +18,10 @@ p {
   border: var(--color-app-brown) solid 1px;
   width: 700px;
   max-width: 90%;
-  content: url("../../../../assets/images/save_order_desktop.png");
-  @media (max-width: 768px) {
-    content: url("../../../../assets/images/save_order_mobile.png");
-  }
+  // content: url("../../../../assets/images/save_order_desktop.png");
+  // @media (max-width: 768px) {
+  //   content: url("../../../../assets/images/save_order_mobile.png");
+  // }
 }
 
 #newCardProduct {
