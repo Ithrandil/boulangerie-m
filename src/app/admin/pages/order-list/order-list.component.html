@@ -103,7 +103,7 @@
         <h2>Il n'y a actuellement aucune commande.</h2>
       </div>
       <mat-card *ngFor="let orderData of ordersOfThDayList" fxFlex="87" class="m-card">
-        <mat-card-title fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <mat-card-title fxLayout="row wrap" fxLayoutAlign="space-between center" class="m-card-title">
           <div id="clientName">
             {{ orderData.name }}
           </div>
@@ -165,11 +165,12 @@
             </div>
           </ng-template>
         </mat-card-content>
-        <mat-card-title *ngIf="orderData.orderComment" class="m-subtitle-card">Commentaires</mat-card-title>
+        <mat-card-title *ngIf="orderData.orderComment" class="m-subtitle-card m-card-title">Commentaires
+        </mat-card-title>
         <div *ngIf="orderData.orderComment">
           <pre>{{ orderData.orderComment }}</pre>
         </div>
-        <mat-card-title class="m-subtitle-card">Produits</mat-card-title>
+        <mat-card-title class="m-subtitle-card m-card-title">Produits</mat-card-title>
         <mat-card-content fxLayout="column wrap" fxLayoutAlign="space-between baseline">
           <div class="product-row" fxLayout="row wrap" fxLayoutAlign="flex-start center"
             *ngFor="let elem of orderData.order">
@@ -181,7 +182,8 @@
             <span *ngIf="elem && elem.comment">&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment }}</span>
           </div>
         </mat-card-content>
-        <mat-card-title fxLayoutAlign="flex-end">Prix total: {{ orderData?.totalPrice?.toFixed(2) }} €
+        <mat-card-title fxLayoutAlign="flex-end" class="m-card-title">Prix total: {{ orderData?.totalPrice?.toFixed(2)
+          }} €
           H.T.</mat-card-title>
       </mat-card>
     </ng-template>
