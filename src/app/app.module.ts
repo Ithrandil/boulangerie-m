@@ -22,6 +22,7 @@ import { AuthModule } from './auth/auth.module';
 import { InfoModalComponent } from './core/components/info-modal/info-modal.component';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -51,6 +52,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatDialogModule,
     MatButtonModule,
     MatCheckboxModule,
+    FontAwesomeModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
