@@ -14,7 +14,7 @@ export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
   public productsOfThDayList: OrderProduct[] = [];
   public today = new Date(Date.now());
 
-  constructor(private orderAdminService: OrderAdminService) {}
+  constructor(private orderAdminService: OrderAdminService) { }
 
   ngOnInit(): void {
     this.getOrdersOfTheDay(this.today);
@@ -31,9 +31,9 @@ export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
       .pipe(
         tap(
           (ordersOfTheDay) =>
-            (this.productsOfThDayList = this.mapRecapProductionTeamData(
-              ordersOfTheDay
-            ))
+          (this.productsOfThDayList = this.mapRecapProductionTeamData(
+            ordersOfTheDay
+          ))
         ),
         takeUntil(this.unsubscribe$)
       )

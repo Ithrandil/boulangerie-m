@@ -3,10 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import localeFrExtra from '@angular/common/locales/extra/fr';
 import localeFr from '@angular/common/locales/fr';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
-import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -32,8 +30,16 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAnalyticsModule,
-    AngularFirestoreModule,
+    // FIXME: l'init en dessous ne fonctionnait pas, a voir prk
+    // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      // TODO: Pour avoir un émulateur en mode dev, a voir plus tard
+      // connectFirestoreEmulator(firestore, 'localhost', 8080);
+      // TODO: Pour sauvegarder les données de la db dans le cache pour rationaliser les appels. A voir dans un second temps
+      // enableIndexedDbPersistence(firestore);
+      return firestore;
+    }),
     BrowserAnimationsModule,
     OrderModule,
     FlexLayoutModule,
@@ -46,7 +52,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatButtonModule,
     MatCheckboxModule,
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }, AngularFireAuthGuard],
+  providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

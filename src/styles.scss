@@ -124,4 +124,29 @@ mat-divider {
 // avoid comments to overflow and fuck my css and loose two hours for no shit
 pre {
   white-space: pre-line;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// mat-card default style
+.m-card {
+  margin: 1rem 2rem 1rem 2rem;
+}
+
+.m-card-title {
+  font-size: 1.6rem;
+  color: var(--color-app-brown) !important;
+}
+
+.product-row {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.m-card-content {
+  font-size: 1.3rem;
+  margin-bottom: 0.8rem !important;
+}
+
+#noOrder {
+  min-height: 40vh;
 }

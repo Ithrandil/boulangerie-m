@@ -64,10 +64,7 @@ mat-card {
   margin-bottom: 1rem;
   padding: 0.5rem;
 }
-mat-card-content {
-  font-size: 1.3rem;
-  margin-bottom: 0.8rem;
-}
+
 .productExpansion:not([class*="mat-elevation-z"]) {
   box-shadow: none;
 }
@@ -134,10 +131,6 @@ mat-card-content {
 
 .summaryComment {
   text-align: center;
-}
-
-pre {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 /***********************************/

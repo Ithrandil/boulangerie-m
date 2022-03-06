@@ -33,7 +33,7 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
