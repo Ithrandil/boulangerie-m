@@ -3,80 +3,13 @@
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
-
-  background-image: url("./../assets/images/background/bakery-background.jpg");
-  background-position: center;
-  background-size: cover;
-  background-color: var(--color-app-light-grey);
 }
 .container-page {
   width: 100%;
-  max-width: 90rem;
+  max-width: var(--container-width);
   height: 100%;
   background-color: var(--color-app-light-grey);
   align-self: center;
   overflow: auto;
 }
-
-// STYLE HEADER
-.header {
-  background-color: var(--color-app-light-grey);
-  height: 14rem;
-  border-bottom: solid 1px black;
-  color: var(--color-app-brown);
-  font-size: 2.5rem;
-  text-align: center;
-  @media (max-width: 768px) {
-    height: 6rem;
-  }
-}
-.logo-header {
-  max-width: 10rem;
-  max-height: 10rem;
-  @media (max-width: 768px) {
-    margin-top: 6rem;
-    z-index: 99;
-    position: relative;
-  }
-}
-
-.mobileMenuButton {
-  border: none;
-  background-color: var(--color-app-light-grey);
-}
-
-.logoutHeader {
-  font-size: 1.6rem;
-}
-
-// style footer
-.footer {
-  color: var(--color-app-brown);
-  padding-top: 1.5rem;
-  margin-bottom: -11rem;
-  border-top: solid 1px black;
-  background-color: var(--color-app-light-grey);
-  text-align: center;
-  @media (max-width: 768px) {
-    margin-bottom: -26.6rem;
-  }
-}
-
-:hover .link {
-  cursor: pointer;
-}
-
-a:link,
-a:visited,
-a:active,
-a:hover {
-  color: var(--color-app-brown);
-}
-
-.iconFb {
-  max-width: 2rem;
-}
-
-.textWithIcon {
-  vertical-align: super;
-}
+// FIXME: voir si ca reste ici oou dans style.css

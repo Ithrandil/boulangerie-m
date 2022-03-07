@@ -1,0 +1,29 @@
+<footer class="container-fluid">
+  <div class="row">
+    <p class="col-12 col-lg-4">
+      Boulangerie M <br />
+      127 Avenue du Lieutenant-Colonel Bernier <br />
+      17000 La Rochelle
+    </p>
+    <div class="col-12 col-lg-4">
+      <p>
+        <fa-icon [icon]="faPhone"></fa-icon>
+        <span class="textWithIcon"> 05 46 01 09 72 </span>
+      </p>
+      <p>
+        <fa-icon [icon]="faFacebook"></fa-icon>
+        <a class="textWithIcon" href="https://www.facebook.com/pages/category/Bakery/Boulangerie-M-437577199741453/"
+          target="blank">Notre page facebook</a>
+      </p>
+    </div>
+    <div class="col-12 col-lg-4">
+      <a (click)="router.navigate(['mentions-legales'])" href="">
+        Mentions Légales
+      </a>
+      <p>
+        Réalisé gracieusement par
+        <a href="https://www.linkedin.com/in/alexandre-guerin/" target="blank">Ithrandil</a>
+      </p>
+    </div>
+  </div>
+</footer>

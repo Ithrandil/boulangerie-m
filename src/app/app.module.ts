@@ -23,10 +23,12 @@ import { InfoModalComponent } from './core/components/info-modal/info-modal.comp
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Header } from './core/components/header/header';
+import { Footer } from './core/components/footer/footer';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
-  declarations: [AppComponent, MentionsLegalesComponent, InfoModalComponent],
+  declarations: [AppComponent, MentionsLegalesComponent, InfoModalComponent, Header, Footer],
   imports: [
     BrowserModule,
     AppRoutingModule,

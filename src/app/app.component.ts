@@ -1,8 +1,4 @@
 import { Component } from '@angular/core';
-// FIXME: remove after full fontawesome implementation
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/services/auth.service';
 import { tap } from 'rxjs/operators';
 import firebase from 'firebase/compat/app';
@@ -16,10 +12,7 @@ export class AppComponent {
   public isConnected!: firebase.User | null;
   public activatedRoute = '';
   constructor(
-    public router: Router,
     public authService: AuthService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer
   ) {
     this.authService
       .isUserAuthenticated()
@@ -29,18 +22,6 @@ export class AppComponent {
         })
       )
       .subscribe();
-    iconRegistry.addSvgIcon(
-      'facebook',
-      sanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/logos/facebook-circular-logo.svg'
-      )
-    );
-  }
-  public logoutAdminSpace(): void {
-    this.authService.logout();
-    this.router.navigate(['']);
-  }
-  public onActivate(): void {
-    this.activatedRoute = this.router.routerState.snapshot.url;
+    // FIXME: ca servait à l'affichage dynamique du menu entre autre. A déplacer
   }
 }
