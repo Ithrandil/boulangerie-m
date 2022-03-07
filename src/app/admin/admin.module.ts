@@ -21,6 +21,7 @@ import { OrderAdminService } from './services/order-admin.service';
 import { ProductService } from './services/product.service';
 import { OpeningDaysFormComponent } from './pages/opening-days-form/opening-days-formcomponent';
 import { OpeningDaysService } from './services/opening-days.service';
+import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -44,8 +45,9 @@ import { OpeningDaysService } from './services/opening-days.service';
     MatDatepickerModule,
     MatListModule,
     MatButtonModule,
+    SharedModule
   ],
   exports: [AdminRoutingModule],
   providers: [ProductService, OrderAdminService, OpeningDaysService],
 })
-export class AdminModule {}
+export class AdminModule { }

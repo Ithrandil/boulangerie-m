@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Order } from '@models/order';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -11,9 +11,10 @@ import { fr } from 'date-fns/locale';
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.scss'],
 })
-export class OrderListComponent implements OnInit, OnDestroy {
+export class OrderListComponent implements OnInit, OnDestroy, AfterViewInit {
   private unsubscribe$ = new Subject<void>();
   public ordersOfThDayList: Order[] = [];
+  private previousIndex: number = -1;
 
   public daysList: Date[] = [
     new Date(Date.now()),
@@ -26,12 +27,17 @@ export class OrderListComponent implements OnInit, OnDestroy {
     format(this.daysList[1], 'eeee d MMMM', { locale: fr }),
     format(this.daysList[2], 'eeee d MMMM', { locale: fr }),
     format(this.daysList[3], 'eeee d MMMM', { locale: fr }),
+    "Plus tard"
   ];
 
-  constructor(private orderAdminService: OrderAdminService) {}
+  constructor(private orderAdminService: OrderAdminService) { }
 
   ngOnInit(): void {
-    this.getOrdersOfTheDay(new Date(Date.now()));
+    this.getOrdersOfTheDay(0);
+  }
+
+  ngAfterViewInit(): void {
+    this.setActiveTab(0);
   }
 
   ngOnDestroy(): void {
@@ -39,8 +45,8 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.unsubscribe$.unsubscribe();
   }
 
-  getOrdersOfTheDay(day: Date): void {
-    if (!day) {
+  getOrdersOfTheDay(index: number): void {
+    if (index > 3) {
       this.orderAdminService
         .getAllOtherOrders(add(new Date(Date.now()), { days: 4 }))
         .pipe(
@@ -52,7 +58,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
         .subscribe();
     } else {
       this.orderAdminService
-        .getOrdersByDay(day)
+        .getOrdersByDay(this.daysList[index])
         .pipe(
           tap((ordersOfTheDay) => {
             this.ordersOfThDayList = ordersOfTheDay;
@@ -61,5 +67,16 @@ export class OrderListComponent implements OnInit, OnDestroy {
         )
         .subscribe();
     }
+    if (this.previousIndex >= 0) {
+      this.setActiveTab(index);
+    }
+  }
+
+  private setActiveTab(index: number): void {
+    document.getElementById(index as unknown as string)?.classList.add("active");
+    if (this.previousIndex >= 0) {
+      document.getElementById(this.previousIndex as unknown as string)?.classList.remove("active");
+    }
+    this.previousIndex = index;
   }
 }

@@ -7,11 +7,15 @@
 
   --container-width: 90rem;
 }
+html, body {
+  font-size: 14px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 body {
   display: flex;
   height: 100vh;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  
   
   @media (min-width: 90rem) { // must match --container-width
     background-image: url("./assets/images/background/bakery-background.jpg");
@@ -19,14 +23,46 @@ body {
     background-size: cover;
     background-color: var(--color-app-light-grey);
   }
-}
-
-a:link,
-a:visited,
-a:active,
-a:hover {
+  
+  //FIXME: masquer les scroll bar, en afficher une seule restylée ou aucune?
+  // ::-webkit-scrollbar {
+    //   width: 0px;
+    //   background: transparent; /* make scrollbar transparent */
+    // }
+    // /* Hide scrollbar for IE, Edge and Firefox */
+    // -ms-overflow-style: none;  /* IE and Edge */
+    // scrollbar-width: none;  /* Firefox */
+    
+  }
+  
+  
+  a:link,
+  a:visited,
+  a:active,
+  a:hover {
     color: var(--color-app-brown);
   }
+  
+  /** Text style **/
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-app-brown);
+  }
+.text-muted {
+  font-size: 0.8rem;
+}
+
+// avoid comments to overflow
+pre {
+  white-space: pre-line;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+
+
+
+
 // html,
 // body {
 //   font-size: 10px;
@@ -141,11 +177,6 @@ a:hover {
 //   background-color: var(--color-app-light-grey);
 // }
 
-// // avoid comments to overflow and fuck my css and loose two hours for no shit
-// pre {
-//   white-space: pre-line;
-//   font-family: Roboto, "Helvetica Neue", sans-serif;
-// }
 
 // // mat-card default style
 // .m-card {
@@ -167,6 +198,3 @@ a:hover {
 //   margin-bottom: 0.8rem !important;
 // }
 
-// #noOrder {
-//   min-height: 40vh;
-// }
