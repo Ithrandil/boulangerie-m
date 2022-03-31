@@ -25,7 +25,6 @@ export class OpeningDaysService {
   public addClosingDays(days: {
     startingDate: Date;
     endingDate: Date;
-    rangeId: string;
   }): Observable<DocumentReference> {
     return from(
       this.closingDaysCollection.add(days)

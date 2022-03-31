@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-opening-days-form',
@@ -10,6 +12,10 @@ import { take, takeUntil } from 'rxjs/operators';
   styleUrls: ['./opening-days-form.component.scss'],
 })
 export class OpeningDaysFormComponent implements OnInit, OnDestroy {
+  public calendarSartingDay = new Date().toISOString().split('T')[0];
+  public trashIcon = faTrash;
+  public addIcon = faPlusCircle;
+
   private unsubscribe$ = new Subject<void>();
   public allClosingDays: {
     rangeId: string;
@@ -41,15 +47,18 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    this.closedDaysForm.markAllAsTouched();
     const alreadyAClosedDay = this.allClosingDays.find(
-      (el) =>
-        el?.startingDate?.getTime() ===
-        this.closedDaysForm?.value?.startingDate?.getTime()
+      (el) => el?.startingDate?.getTime() ===
+        new Date(this.closedDaysForm.value.startingDate).setHours(0, 0, 0)
     );
+
     if (this.closedDaysForm.valid && !alreadyAClosedDay) {
+      const formatedDate = {
+        startingDate: new Date(this.closedDaysForm.value.startingDate),
+        endingDate: new Date(this.closedDaysForm.value.endingDate)
+      }
       this.openingDaysService
-        .addClosingDays(this.closedDaysForm.value)
+        .addClosingDays(formatedDate)
         .pipe(take(1))
         .subscribe();
     }

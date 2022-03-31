@@ -1,57 +1,47 @@
-<mat-card fxFlex="87" class="m-card">
-  <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
-    <div>Quels jours fermer?</div>
-  </mat-card-title>
-  <mat-card-content fxLayout="row wrap" fxLayoutAlign="space-around center">
-    <mat-form-field appearance="outline">
-      <mat-label>Sélectionner une période</mat-label>
-      <mat-date-range-input [formGroup]="closedDaysForm" [rangePicker]="picker">
-        <input required formControlName="startingDate" matStartDate placeholder="Date de début" />
-        <input required formControlName="endingDate" matEndDate placeholder="Date de fin" />
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-      <mat-error *ngIf="
-          closedDaysForm.controls.startingDate.hasError('matStartDateInvalid')
-        ">Invalid start date
-      </mat-error>
-      <mat-error *ngIf="
-          closedDaysForm.controls.startingDate.hasError('matEndDateInvalid')
-        ">Invalid end date
-      </mat-error>
-    </mat-form-field>
-    <button mat-fab aria-label="Bouton de validation de choix de jours fermés" (click)="onSubmit()">
-      <mat-icon>add_circle</mat-icon>
-    </button>
-  </mat-card-content>
-</mat-card>
+<app-card>
+  <div card-header>
+    <h4 class="text-center">Quels jours fermer?</h4>
+  </div>
+  <div card-body>
+    <p>Rappel : Les dimanches de XXX à XXX sont déjà automatiquement fermés, il n'y a pas besoin de les rajouter.</p>
+    <div [formGroup]="closedDaysForm">
+      <label for="start">Jour de début de fermeture</label>
+      <input type="date" id="start" name="startingDate" min="{{calendarSartingDay}}" formControlName="startingDate">
+      <label for="end">Dernier jour de fermeture</label>
+      <input type="date" id="end" name="endingDate" min="{{closedDaysForm.value.startingDate}}"
+        formControlName="endingDate">
+      <button (click)="onSubmit()">
+        <fa-icon [icon]="addIcon"></fa-icon>
+      </button>
+    </div>
+  </div>
+</app-card>
 
-<mat-card fxFlex="87" class="m-card">
-  <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
-    <div>Jours de fermeture à venir</div>
-  </mat-card-title>
-  <mat-card-content fxLayout="column wrap" fxLayoutAlign="space-around center">
-    <mat-list *ngIf="allClosingDays.length > 0; else noClosingDates" role="list">
-      <mat-list-item role="listitem" *ngFor="let dates of allClosingDays" fxLayout="row wrap"
-        fxLayoutAlign="space-around center">
-        <p class="closedDayListElem" *ngIf="dates.endingDate; else oneDayClosing">
+<app-card>
+  <div card-header>
+    <h4 class="text-center">Jours de fermeture à venir</h4>
+  </div>
+  <div card-body *ngIf="allClosingDays.length > 0; else noClosingDates">
+    <ul class="list-group" *ngFor="let dates of allClosingDays" role="list">
+      <div class="d-flex flex-row justify-content-center">
+        <li class="list-group-item col-10 col-md-4" role="listitem"
+          *ngIf="dates.endingDate !== dates.startingDate && dates.endingDate !== null; else oneDayClosing">
           - Du {{ dates.startingDate | date: "fullDate" }} au
           {{ dates.endingDate | date: "fullDate" }}
-        </p>
+        </li>
         <ng-template #oneDayClosing>
-          <p class="closedDayListElem">
+          <li class="list-group-item col-10 col-md-4" role="listitem">
             - Le {{ dates.startingDate | date: "fullDate" }}
-          </p>
+          </li>
         </ng-template>
-        <button mat-mini-fab color="warn" aria-label="Supprimer les jours de fermeture"
+        <button class="col-2 col-md-1" aria-label="Supprimer les jours de fermeture"
           (click)="deleteClosingDays(dates.rangeId)">
-          <mat-icon>delete</mat-icon>
+          <fa-icon [icon]="trashIcon"></fa-icon>
         </button>
-      </mat-list-item>
-    </mat-list>
-
-    <ng-template #noClosingDates>
-      <h3>Aucun jours de fermeture prévus</h3>
-    </ng-template>
-  </mat-card-content>
-</mat-card>
+      </div>
+    </ul>
+  </div>
+  <ng-template #noClosingDates>
+    <h3>Aucun jours de fermeture prévus</h3>
+  </ng-template>
+</app-card>

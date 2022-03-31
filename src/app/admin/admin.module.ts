@@ -45,7 +45,8 @@ import { SharedModule } from '@app/shared/shared.module';
     MatDatepickerModule,
     MatListModule,
     MatButtonModule,
-    SharedModule
+    SharedModule,
+
   ],
   exports: [AdminRoutingModule],
   providers: [ProductService, OrderAdminService, OpeningDaysService],

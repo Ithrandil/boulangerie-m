@@ -22,9 +22,9 @@ import { AuthModule } from './auth/auth.module';
 import { InfoModalComponent } from './core/components/info-modal/info-modal.component';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Header } from './core/components/header/header';
 import { Footer } from './core/components/footer/footer';
+import { SharedModule } from './shared/shared.module';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -54,7 +54,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatDialogModule,
     MatButtonModule,
     MatCheckboxModule,
-    FontAwesomeModule,
+    SharedModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
