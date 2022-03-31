@@ -20,7 +20,7 @@ export class OrderService {
       .collection<Product>('products', (ref) =>
         ref.where('available', '==', true)
       )
-      .valueChanges();
+      .valueChanges({ idField: 'productId' });
   }
 
   public addOrder(order: Order): Observable<DocumentReference> {

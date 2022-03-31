@@ -1,4 +1,6 @@
-<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+
+  <!--TODO: A SUPPRIMER DANS LA V2, CES DONNES SERONT A INJECTER DANS LE POST VIA LE USER CONNECTE++++++++++++++++++++++++++++++++++++++++++-->
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
     <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
       <mat-label>Nom de votre entreprise</mat-label>
@@ -70,9 +72,8 @@
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <mat-divider fxFlex="50"></mat-divider>
-  </div>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
   <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
     <mat-form-field fxFlexOffset="7" fxFlex="40" fxFlex.lt-sm="87" appearance="outline" (click)="picker.open()">
       <mat-label>Date de livraison</mat-label>
@@ -120,97 +121,83 @@
       </span>
     </p>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <mat-divider fxFlex="50"></mat-divider>
-  </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <h2>Produits</h2>
-  </div>
-
-  <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
-    <div *ngIf="!productList.length; else productContainer">
-      <mat-spinner></mat-spinner>
+  <!-- Bloc produits ----------------------------------------------------------------------------- -->
+  <h2>Produits</h2>
+  <div *ngIf="!productList.length; else productContainer">
+    <div class="spinner-grow" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
-    <ng-template #productContainer>
-      <mat-expansion-panel fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="87" class="productCategory"
-        *ngFor="let category of PRODUCTCATEGORY | keyvalue">
-        <mat-expansion-panel-header fxFlex="100" class="productCategoryHeader">
-          <mat-panel-title>{{ category.value }}</mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
-          [ngClass]="{
-            unavailableItem: showShortDeliveryMessage && !product.shortDelivery
-          }">
-          <mat-expansion-panel class="productExpansion">
-            <mat-expansion-panel-header class="productExpansionHeader">
-              <mat-panel-title>{{ product.name }}</mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="productExpansionBody">
+  </div>
+  <ng-template #productContainer>
+    <!-- TODO: utiliser autre chose qu'un card pour le wrapper de catégories -->
+    <app-card *ngFor="let category of PRODUCTCATEGORY | keyvalue">
+      <div card-header>
+        <div data-bs-toggle="collapse" attr.data-bs-target="#{{category.key}}" aria-expanded="false"
+          attr.aria-controls="{{category.key}}">
+          {{ category.value }}
+        </div>
+        <!-- TODO: Ajouter un chevron -->
+      </div>
+      <div card-body class="collapse" id="{{category.key}}">
+        <!-- FIXME: le bg-secondary fonctionne pas -->
+        <app-card *ngFor="let product of filterProductByCategory(category.value)"
+          [ngClass]="{'bg-secondary': showShortDeliveryMessage && !product.shortDelivery}">
+          <div card-header data-bs-toggle="collapse" attr.data-bs-target="#product-{{product.productId}}"
+            aria-expanded="false" attr.aria-controls="product-{{product.productId}}">
+            {{ product.name }}
+          </div>
+          <div card-body>
+            <div class="collapse" id="product-{{product.productId}}">
               <p>{{ product.description }}</p>
-              <mat-form-field fxFlex="100" appearance="outline" [formGroup]="commentFormGroup">
-                <mat-label>Commentaire</mat-label>
-                <textarea matInput [formControlName]="product.name"
-                  placeholder="Ex: boules tranchées, forme des pains, ..."></textarea>
-              </mat-form-field>
-              <div [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
-                <mat-checkbox class="slicedCheckbox" [formControlName]="product.name">Tranché
-                </mat-checkbox>
+              <div [formGroup]="commentFormGroup">
+                <label for="productComment" class="form-label">Commentaire</label>
+                <textarea type="text" [formControlName]="product.name" id="productComment" class="form-control"
+                  aria-describedby="productComment" placeholder="Ex: boules tranchées, forme des pains, ..."></textarea>
               </div>
             </div>
-          </mat-expansion-panel>
-          <mat-card-content class="cardPriceQuantity m-card-content" fxLayout="row wrap"
-            fxLayoutAlign="space-between baseline">
-            <div>
-              Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
+            <div class="form-check" [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
+              <input class="form-check-input" type="checkbox" id="sliced-{{product.productId}}"
+                [formControlName]="product.name">
+              <label class="form-check-label" for="sliced-{{product.productId}}">
+                Tranché
+              </label>
             </div>
-            <div>
-              <mat-form-field [formGroup]="itemFormGroup" class="quantityInput" appearance="outline">
-                <mat-label>Quantité</mat-label>
-                <input matInput type="number" min="0" [formControlName]="product.name" />
-              </mat-form-field>
+            Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
+            <div [formGroup]="itemFormGroup">
+              <label for="quantity-{{product.productId}}" class="form-label sr-only">Quantité</label>
+              <input type="number" class="form-control" id="quantity-{{product.productId}}" min="0"
+                [formControlName]="product.name" placeholder="Quantité">
             </div>
-          </mat-card-content>
-        </mat-card>
-      </mat-expansion-panel>
-    </ng-template>
+          </div>
+        </app-card>
+      </div>
+    </app-card>
+  </ng-template>
+
+  <!-- ---------------------------------------------------------------------------------------------- -->
+  <div>
+    <label for="orderComment" class="form-label">Commentaires</label>
+    <textarea class="form-control" formControlName="orderComment" id="orderComment" rows="3"
+      placeholder="Ex: Déposer la livraison en arrière cuisine, ...">
+    </textarea>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <mat-divider fxFlex="50"></mat-divider>
-  </div>
-  <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
-    <mat-form-field fxFlexOffset="7" fxFlex="87" fxFlex.lt-sm="87" appearance="outline">
-      <mat-label>Commentaires</mat-label>
-      <textarea matInput formControlName="orderComment"
-        placeholder="Ex: Déposer la livraison en arrière cuisine, ..."></textarea>
-    </mat-form-field>
-  </div>
-  <div fxLayout="column wrap" fxLayoutAlign="center center" *ngIf="orderForm.get('totalPrice')?.value > 0">
-    <h2 fxFlex="50">Résumé de la commande :</h2>
-    <div fxFlex="50">
-      <h3 *ngFor="let item of orderSummary | summaryPipe" [innerHtml]="item"></h3>
-    </div>
-    <h3 fxFlex="50" fxFlexOffset="2" *ngIf="orderForm.get('orderComment')?.value" class="orderCommentSummaryTitle">
+  <!-- Bloc résumé de la commande --------------------------------------------------------------------->
+  <div *ngIf="orderForm.get('totalPrice')?.value > 0">
+    <h2>Résumé de la commande :</h2>
+    <p *ngFor="let item of orderSummary | summaryPipe" [innerHtml]="item"></p>
+    <h3 *ngIf="orderForm.get('orderComment')?.value">
       Commentaire de la commande :
     </h3>
-    <h3 fxFlex="50" fxFlexOffset="2" *ngIf="orderForm.get('orderComment')?.value" class="summaryComment">
-      <pre>
-      {{ orderForm.get("orderComment")?.value }}
-    </pre>
-    </h3>
-    <h2 fxFlex="50" fxFlexOffset="2">Prix total :</h2>
-    <h2 fxFlex="50">
+    <p *ngIf="orderForm.get('orderComment')?.value">
+      <!-- <pre>
+        {{ orderForm.get("orderComment")?.value }} 
+      </pre> -->
+    </p>
+    <h2>Prix total :</h2>
+    <h2>
       {{ orderForm.get("totalPrice")?.value.toFixed(2) }} € H.T.
     </h2>
   </div>
-  <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
-    <mat-checkbox fxFlexOffset="7" (change)="userChoiceDataManagement = $event.checked"
-      [checked]="userChoiceDataManagement">Enregistrer mes infos personnelles
-    </mat-checkbox>
-  </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center" class="buttonRow">
-    <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
-      Commander
-    </button>
-  </div>
+  <!---------------------------------------------------------------------------------------------------->
+  <button type="button" class="btn btn-warning" type="submit">Commander</button>
 </form>
