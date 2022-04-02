@@ -1,0 +1,13 @@
+<div class="border rounded wrapper">
+    <div id="title" class="border-bottom d-flex flex-row justify-content-between px-4 py-3 fs-5"
+        data-bs-toggle="collapse" attr.data-bs-target="#collapse-{{collapseId}}" aria-expanded="false"
+        attr.aria-controls="collapse-{{collapseId}}" (click)="rotateArrow()">
+        {{collapseTitle}}
+        <div>
+            <i class="arrow" [ngClass]="{up: isOpen}"></i>
+        </div>
+    </div>
+    <div class="collapse" id="collapse-{{collapseId}}">
+        <ng-content></ng-content>
+    </div>
+</div>

@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from './components/card/card.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CollapseComponent } from './components/collapse/collapse.component';
 
 
 
 @NgModule({
   declarations: [
-    CardComponent
+    CardComponent,
+    CollapseComponent
   ],
   imports: [
     CommonModule,
@@ -15,6 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   ],
   exports: [
     CardComponent,
+    CollapseComponent,
     FontAwesomeModule
   ]
 })

@@ -1,4 +1,4 @@
-<form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="d-flex flex-column">
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()" class="container">
 
   <!--TODO: A SUPPRIMER DANS LA V2, CES DONNES SERONT A INJECTER DANS LE POST VIA LE USER CONNECTE++++++++++++++++++++++++++++++++++++++++++-->
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
@@ -129,18 +129,11 @@
     </div>
   </div>
   <ng-template #productContainer>
-    <!-- TODO: utiliser autre chose qu'un card pour le wrapper de catégories -->
-    <app-card *ngFor="let category of PRODUCTCATEGORY | keyvalue">
-      <div card-header>
-        <div data-bs-toggle="collapse" attr.data-bs-target="#{{category.key}}" aria-expanded="false"
-          attr.aria-controls="{{category.key}}">
-          {{ category.value }}
-        </div>
-        <!-- TODO: Ajouter un chevron -->
-      </div>
-      <div card-body class="collapse" id="{{category.key}}">
-        <!-- FIXME: le bg-secondary fonctionne pas -->
-        <app-card *ngFor="let product of filterProductByCategory(category.value)"
+    <app-collapse class="mx-4" collapseTitle="{{ category.value }}" collapseId="{{category.key}}"
+      *ngFor="let category of PRODUCTCATEGORY | keyvalue">
+      <!-- FIXME: le bg-secondary fonctionne pas -->
+      <div class="d-flex flex-row flex-wrap">
+        <app-card *ngFor="let product of filterProductByCategory(category.value)" class="col col-md-6 col-lg-4"
           [ngClass]="{'bg-secondary': showShortDeliveryMessage && !product.shortDelivery}">
           <div card-header data-bs-toggle="collapse" attr.data-bs-target="#product-{{product.productId}}"
             aria-expanded="false" attr.aria-controls="product-{{product.productId}}">
@@ -154,24 +147,26 @@
                 <textarea type="text" [formControlName]="product.name" id="productComment" class="form-control"
                   aria-describedby="productComment" placeholder="Ex: boules tranchées, forme des pains, ..."></textarea>
               </div>
+              <div class="form-check" [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
+                <input class="form-check-input" type="checkbox" id="sliced-{{product.productId}}"
+                  [formControlName]="product.name">
+                <label class="form-check-label" for="sliced-{{product.productId}}">
+                  Tranché
+                </label>
+              </div>
             </div>
-            <div class="form-check" [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
-              <input class="form-check-input" type="checkbox" id="sliced-{{product.productId}}"
-                [formControlName]="product.name">
-              <label class="form-check-label" for="sliced-{{product.productId}}">
-                Tranché
-              </label>
-            </div>
-            Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
-            <div [formGroup]="itemFormGroup">
-              <label for="quantity-{{product.productId}}" class="form-label sr-only">Quantité</label>
-              <input type="number" class="form-control" id="quantity-{{product.productId}}" min="0"
-                [formControlName]="product.name" placeholder="Quantité">
+            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+              Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
+              <div [formGroup]="itemFormGroup" id="quantityInput">
+                <label for="quantity-{{product.productId}}" class="form-label sr-only">Quantité</label>
+                <input type="number" class="form-control" id="quantity-{{product.productId}}" min="0"
+                  [formControlName]="product.name" placeholder="Quantité">
+              </div>
             </div>
           </div>
         </app-card>
       </div>
-    </app-card>
+    </app-collapse>
   </ng-template>
 
   <!-- ---------------------------------------------------------------------------------------------- -->
