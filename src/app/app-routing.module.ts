@@ -7,11 +7,12 @@ import {
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './auth/pages/register-page/register-page.component';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderFormComponent } from './order/pages/order-form/order-form.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['connexion']);
-const redirectAlreadyLoggedIn = () => redirectLoggedInTo(['admin']);
+const redirectAlreadyLoggedIn = () => redirectLoggedInTo(['']); //TODO: rédécomposer entre partie admin et partie client après tout l'implémentation
 
 const routes: Routes = [
   { path: '', redirectTo: 'commande', pathMatch: 'full' },
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'connexion',
     component: LoginPageComponent,
+    ...canActivate(redirectAlreadyLoggedIn),
+  },
+  {
+    path: 'inscription',
+    component: RegisterPageComponent,
     ...canActivate(redirectAlreadyLoggedIn),
   },
   {

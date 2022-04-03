@@ -1,0 +1,18 @@
+:host {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-top: 5rem;
+}
+
+.registerLogoContainer {
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.logoRegisterForm {
+    width: 18rem;
+}
+
+// TODO: finaliser le style de cette page

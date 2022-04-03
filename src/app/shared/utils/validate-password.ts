@@ -1,17 +1,18 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
 export class ValidatePassword {
-    static MatchPassword(abstractControl: AbstractControl) {
-        console.log(abstractControl);
-        //   TODO: aller récuperer le match fait sur numa ou csf
-        // let password = abstractControl.get('password').value;
-        // let confirmPassword = abstractControl.get('confirmPassword').value;
-        //  if (password != confirmPassword) {
-        //      abstractControl.get('confirmPassword').setErrors({
-        //        MatchPassword: true
-        //      })
-        // } else {
-        //   return null
-        // }
+    static MatchPassword(controlName: string, checkControlName: string): ValidatorFn {
+        return (controls: AbstractControl) => {
+            const control = controls.get(controlName);
+            const checkControl = controls.get(checkControlName);
+            if (checkControl?.errors && !checkControl.errors['matchPassword']) {
+                return null;
+            }
+            if (control?.value !== checkControl?.value) {
+                controls.get(checkControlName)?.setErrors({ matchPassword: true });
+                return { matchPassword: true };
+            } else {
+                return null;
+            }
+        };
     }
-
 }
