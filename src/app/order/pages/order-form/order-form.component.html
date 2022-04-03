@@ -4,14 +4,14 @@
       <mat-label>Nom de votre entreprise</mat-label>
       <input matInput type="text" placeholder="Ex: Restaurant du port" formControlName="name" required />
       <mat-error *ngIf="orderForm.get('name')?.invalid">{{
-        getErrorMessage("name")
+        getErrorMessage("name", orderForm, errorMessages)
         }}</mat-error>
     </mat-form-field>
     <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
       <mat-label>Numéro de téléphone</mat-label>
       <input matInput type="tel" placeholder="Ex: 0546331122" formControlName="phone" required />
       <mat-error *ngIf="orderForm.get('phone')?.invalid">{{
-        getErrorMessage("phone")
+        getErrorMessage("phone", orderForm, errorMessages)
         }}</mat-error>
     </mat-form-field>
   </div>
@@ -21,7 +21,7 @@
         <mat-label>Rue</mat-label>
         <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
         <mat-error *ngIf="orderForm.get('address')?.get('street')?.invalid">{{
-          getErrorMessage("street", "address")
+          getErrorMessage("street", orderForm, errorMessages, "address")
           }}</mat-error>
       </mat-form-field>
     </div>
@@ -30,14 +30,14 @@
         <mat-label>Code postal</mat-label>
         <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
         <mat-error *ngIf="orderForm.get('address')?.get('zipCode')?.invalid">{{
-          getErrorMessage("zipCode", "address")
+          getErrorMessage("zipCode", orderForm, errorMessages, "address")
           }}</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
         <mat-label>Ville</mat-label>
         <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
         <mat-error *ngIf="orderForm.get('address')?.get('city')?.invalid">{{
-          getErrorMessage("city", "address")
+          getErrorMessage("city", orderForm, errorMessages, "address")
           }}</mat-error>
       </mat-form-field>
     </div>
@@ -52,6 +52,7 @@
         <mat-label>Rue</mat-label>
         <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
         <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('street')?.invalid">{{ getErrorMessage("street",
+          orderForm, errorMessages,
           "address") }}</mat-error>
       </mat-form-field>
     </div>
@@ -60,12 +61,14 @@
         <mat-label>Code postal</mat-label>
         <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
         <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('zipCode')?.invalid">{{ getErrorMessage("zipCode",
+          orderForm, errorMessages,
           "address") }}</mat-error>
       </mat-form-field>
       <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
         <mat-label>Ville</mat-label>
         <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
-        <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('city')?.invalid">{{ getErrorMessage("city", "address")
+        <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('city')?.invalid">{{ getErrorMessage("city", orderForm,
+          errorMessages, "address")
           }}</mat-error>
       </mat-form-field>
     </div>
@@ -81,7 +84,7 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker touchUi></mat-datepicker>
       <mat-error *ngIf="orderForm.get('deliveryDate')?.invalid">{{
-        getErrorMessage("deliveryDate")
+        getErrorMessage("deliveryDate", orderForm, errorMessages)
         }}</mat-error>
     </mat-form-field>
   </div>

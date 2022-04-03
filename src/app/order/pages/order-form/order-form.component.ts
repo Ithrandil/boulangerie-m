@@ -16,6 +16,7 @@ import { first, take, takeUntil, tap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
 
+import { FormUtils } from '@app/shared/utils/form-utils';
 @Component({
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
@@ -73,7 +74,8 @@ export class OrderFormComponent implements OnDestroy {
     orderComment: [''],
     totalPrice: [0, [Validators.required]],
   });
-  private errorMessages: FormErrorMessages = {
+  public getErrorMessage = FormUtils.GetErrorMessage;
+  public errorMessages: FormErrorMessages = {
     name: {
       required: 'Nom de votre entreprise obligatoire',
     },
@@ -320,36 +322,6 @@ export class OrderFormComponent implements OnDestroy {
             .subscribe();
         });
     }
-  }
-
-  public getErrorMessage(controlName: string, controlGroup?: string): string {
-    const errors = [];
-    if (controlGroup) {
-      if (
-        this.orderForm.get(controlGroup)?.get(controlName)?.hasError('required')
-      ) {
-        return this.errorMessages[controlName].required;
-      }
-      if (this.orderForm.get(controlGroup)?.get(controlName)?.errors) {
-        for (const key of Object.keys(
-          this.orderForm.get(controlGroup)?.get(controlName)?.errors as {}
-        )) {
-          errors.push(this.errorMessages[controlName][key]);
-        }
-      }
-    } else {
-      if (this.orderForm.get(controlName)?.hasError('required')) {
-        return this.errorMessages[controlName].required;
-      }
-      if (this.orderForm.get(controlName)?.errors) {
-        for (const key of Object.keys(
-          this.orderForm.get(controlName)?.errors as {}
-        )) {
-          errors.push(this.errorMessages[controlName][key]);
-        }
-      }
-    }
-    return errors.join(', ');
   }
 
   public filterProductByCategory(category: ProductCategory): Product[] {

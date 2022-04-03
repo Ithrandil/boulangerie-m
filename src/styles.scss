@@ -5,12 +5,15 @@
   --color-app-light-grey: #f9f7f8;
   --color-app-grey: #dfd9dd;
   --color-app-brown-grey: #bea28c;
+  --container-width: 120rem;
 }
 
 html,
 body {
   font-size: 10px;
+  // font-size: 14px; FIXME: voir si je change en 14?
 }
+
 body {
   display: flex;
   height: 100vh;
@@ -25,13 +28,15 @@ h3 {
 
 ::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* make scrollbar transparent */
+  background: transparent;
+  /* make scrollbar transparent */
 }
 
 // Toggle custom style
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
   background-color: var(--color-app-light-brown);
 }
+
 .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
   background-color: var(--color-app-brown);
 }
@@ -41,19 +46,21 @@ h3 {
   color: var(--color-app-brown);
   font-size: medium;
 }
+
 .mat-checkbox-inner-container {
   border-radius: 2px;
   background-color: white;
 }
+
 .mat-checkbox-checked.mat-accent .mat-checkbox-background {
   background-color: var(--color-app-brown);
 }
-.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent
-  .mat-ripple-element {
+
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
   background: var(--color-app-brown);
 }
-.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent
-  .mat-ripple-element {
+
+.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
   background: var(--color-app-brown);
 }
 
@@ -62,6 +69,7 @@ h3 {
   background-color: var(--color-app-light-brown);
   color: var(--color-app-brown);
 }
+
 .mat-button-base:hover {
   background-color: var(--color-app-brown);
   color: var(--color-app-light-brown);
@@ -74,15 +82,18 @@ h3 {
     background-color: white;
     color: rgba(0, 0, 0, 0.54);
   }
+
   .mat-button-base:hover {
     background-color: white;
     color: var(--color-app-light-brown);
     transition: background 0.8s;
   }
 }
+
 .mat-calendar-body-cell-content:hover {
   color: var(--color-app-brown) !important;
 }
+
 .mat-calendar-body-selected {
   background-color: var(--color-app-light-brown);
   color: var(--color-app-brown);
@@ -105,15 +116,18 @@ mat-divider {
   background-color: white;
   border-radius: 5px;
 }
+
 //mat-input focused color
 
 .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
   color: var(--color-app-brown) !important;
 }
+
 // mat-label focused style
 .mat-form-field.mat-focused .mat-form-field-label {
   color: var(--color-app-brown) !important;
 }
+
 /***********************************/
 
 // modal custom style

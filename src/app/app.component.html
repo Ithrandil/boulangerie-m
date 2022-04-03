@@ -1,26 +1,13 @@
-<mat-toolbar-row
-  class="header"
-  fxLayout="row wrap"
-  fxLayoutAlign="flex-start center"
-  fxLayoutAlign.lt-sm="center center"
->
+<!-- TODO: externaliser dans un header component (cf la branche stale sur github)-->
+<mat-toolbar-row class="header" fxLayout="row wrap" fxLayoutAlign="flex-start center"
+  fxLayoutAlign.lt-sm="center center">
   <div fxFlex="20" fxHide.lt-sm (click)="router.navigate([''])">
-    <img
-      alt="logo boulangerie-m"
-      src="../assets/images/logo-header.png"
-      class="logo-header link"
-    />
+    <img alt="logo boulangerie-m" src="../assets/images/logo-header.png" class="logo-header link" />
   </div>
   <div *ngIf="!isConnected" fxFlex="60" fxHide.lt-sm>
     Plateforme de commande réservée aux professionnels
   </div>
-  <div
-    *ngIf="isConnected"
-    fxLayout="row wrap"
-    fxLayoutAlign="space-evenly center"
-    fxFlex="80"
-    fxHide.lt-sm
-  >
+  <div *ngIf="isConnected" fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxFlex="80" fxHide.lt-sm>
     <div class="link" (click)="router.navigate([''])">Formulaire</div>
     <div class="link" (click)="router.navigate(['admin/liste-commandes'])">
       Commandes
@@ -34,11 +21,7 @@
     <div class="link" (click)="router.navigate(['admin/gestion-fermeture'])">
       Jours fermés
     </div>
-    <div
-      class="link logoutHeader"
-      fxLayoutAlign="center center"
-      (click)="logoutAdminSpace()"
-    >
+    <div class="link logoutHeader" fxLayoutAlign="center center" (click)="logoutAdminSpace()">
       <mat-icon>exit_to_app</mat-icon>
       <span>Se déconnecter</span>
     </div>
@@ -46,60 +29,33 @@
   <!-- Mobile menu -------------------------------------------->
   <div *ngIf="isConnected" fxHide.gt-xs fxFlex.lt-sm="10"></div>
   <div fxHide.gt-xs fxFlex.lt-sm="80" (click)="router.navigate([''])">
-    <img
-      alt="logo boulangerie-m"
-      src="../assets/images/logo-header.png"
-      class="logo-header link"
-    />
+    <img alt="logo boulangerie-m" src="../assets/images/logo-header.png" class="logo-header link" />
   </div>
-  <button
-    *ngIf="isConnected"
-    class="mobileMenuButton"
-    fxHide.gt-xs
-    fxFlex.lt-sm="10"
-    mat-icon-button
-    [matMenuTriggerFor]="menu"
-  >
+  <button *ngIf="isConnected" class="mobileMenuButton" fxHide.gt-xs fxFlex.lt-sm="10" mat-icon-button
+    [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
   </button>
   <mat-menu #menu="matMenu" xPosition="after">
-    <button
-      *ngIf="!activatedRoute.includes('liste')"
-      mat-menu-item
-      (click)="router.navigate(['admin/liste-commandes'])"
-    >
+    <button *ngIf="!activatedRoute.includes('liste')" mat-menu-item
+      (click)="router.navigate(['admin/liste-commandes'])">
       <mat-icon>shopping_basket</mat-icon>
       <span>Commandes</span>
     </button>
-    <button
-      *ngIf="!activatedRoute.includes('production')"
-      mat-menu-item
-      (click)="router.navigate(['admin/recap-production'])"
-    >
+    <button *ngIf="!activatedRoute.includes('production')" mat-menu-item
+      (click)="router.navigate(['admin/recap-production'])">
       <mat-icon>supervisor_account</mat-icon>
       <span>Production</span>
     </button>
-    <button
-      *ngIf="!activatedRoute.includes('produits')"
-      mat-menu-item
-      (click)="router.navigate(['admin/produits'])"
-    >
+    <button *ngIf="!activatedRoute.includes('produits')" mat-menu-item (click)="router.navigate(['admin/produits'])">
       <mat-icon>fastfood</mat-icon>
       <span>Produits</span>
     </button>
-    <button
-      *ngIf="!activatedRoute.includes('fermeture')"
-      mat-menu-item
-      (click)="router.navigate(['admin/gestion-fermeture'])"
-    >
+    <button *ngIf="!activatedRoute.includes('fermeture')" mat-menu-item
+      (click)="router.navigate(['admin/gestion-fermeture'])">
       <mat-icon>event_busy</mat-icon>
       <span>Fermeture</span>
     </button>
-    <button
-      *ngIf="activatedRoute.includes('admin')"
-      mat-menu-item
-      (click)="router.navigate(['/'])"
-    >
+    <button *ngIf="activatedRoute.includes('admin')" mat-menu-item (click)="router.navigate(['/'])">
       <mat-icon>list</mat-icon>
       <span>Formulaire</span>
     </button>
@@ -113,12 +69,7 @@
 <div class="container-page">
   <router-outlet (activate)="onActivate()"></router-outlet>
 </div>
-<footer
-  class="footer"
-  fxLayout="row wrap"
-  fxLayout.lt-sm="column wrap"
-  fxLayoutAlign="space-evenly center"
->
+<footer class="footer" fxLayout="row wrap" fxLayout.lt-sm="column wrap" fxLayoutAlign="space-evenly center">
   <div>
     <p>
       Boulangerie M <br />
@@ -133,12 +84,8 @@
     </p>
     <p>
       <mat-icon svgIcon="facebook" class="iconFb"></mat-icon>&nbsp;
-      <a
-        class="textWithIcon"
-        href="https://www.facebook.com/pages/category/Bakery/Boulangerie-M-437577199741453/"
-        target="blank"
-        >Notre page facebook</a
-      >
+      <a class="textWithIcon" href="https://www.facebook.com/pages/category/Bakery/Boulangerie-M-437577199741453/"
+        target="blank">Notre page facebook</a>
     </p>
   </div>
   <div>
@@ -153,9 +100,8 @@
     </div>
     <p>
       Réalisé gracieusement par
-      <a href="https://www.linkedin.com/in/alexandre-guerin/" target="blank"
-        >Ithrandil</a
-      >
+      <a href="https://www.linkedin.com/in/alexandre-guerin/" target="blank">Ithrandil</a>
     </p>
   </div>
 </footer>
+<!-- TODO: externaliser dans un footer component -->

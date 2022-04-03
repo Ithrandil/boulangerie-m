@@ -28,7 +28,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     format(this.daysList[3], 'eeee d MMMM', { locale: fr }),
   ];
 
-  constructor(private orderAdminService: OrderAdminService) {}
+  constructor(private orderAdminService: OrderAdminService) { }
 
   ngOnInit(): void {
     this.getOrdersOfTheDay(new Date(Date.now()));
@@ -38,7 +38,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.unsubscribe();
   }
-
+  // TODO: refacto pour pouvoir inclure "Plus tard" et du coup enlever la moitié du HTML
   getOrdersOfTheDay(day: Date): void {
     if (!day) {
       this.orderAdminService
