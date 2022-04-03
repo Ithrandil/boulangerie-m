@@ -31,7 +31,7 @@ export class RegisterPageComponent implements OnInit {
     {
       validators: [ValidatePassword.MatchPassword('password', 'confirmPassword')]
     });
-  // TODO: Ajouter un lien en bas de page "Déja inscrit" qui redirige vers pas connexion
+  // TODO: Ajouter un lien en bas de page "Déja inscrit" qui redirige vers page connexion
   public getErrorMessage = FormUtils.GetErrorMessage;
   public errorMessages: FormErrorMessages = {
     email: {
@@ -87,8 +87,8 @@ export class RegisterPageComponent implements OnInit {
             title: "Félicitations!",
             bodyText: `
             <p>Votre compte a bien été créé.</p>
-            <p>Vous pouvez dès maintenant accéder à votre espace client où vous pourrez vérifier vos informations ainsi que définir une adresse de facturation différente.</p>
-            <p>N'hésitez pas à nous contacter si vous rencontrez un problème</p>
+            <p>Vous allez recevoir un email, veuillez suivre le liens pour valider votre compte.</p>
+            <p>N'hésitez pas à nous contacter si vous rencontrez un problème.</p>
             `
           },
           disableClose: true,
