@@ -21,24 +21,24 @@ export class LoginModalComponent implements OnInit {
     private authService: AuthService,
     public router: Router,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   public login(): void {
     if (this.loginForm.valid) {
       this.authService
         .login(this.loginForm.value)
         .pipe(take(1))
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.router.navigate(['admin']);
             this.dialog.closeAll();
           },
-          (err) => {
+          error: (err) => {
             this.loginErrorMessage = err.message;
           }
-        );
+        });
     }
   }
 }
