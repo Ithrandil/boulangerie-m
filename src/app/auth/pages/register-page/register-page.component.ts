@@ -31,7 +31,6 @@ export class RegisterPageComponent implements OnInit {
     {
       validators: [ValidatePassword.MatchPassword('password', 'confirmPassword')]
     });
-  // TODO: Ajouter un lien en bas de page "Déja inscrit" qui redirige vers page connexion
   public getErrorMessage = FormUtils.GetErrorMessage;
   public errorMessages: FormErrorMessages = {
     email: {
@@ -69,7 +68,7 @@ export class RegisterPageComponent implements OnInit {
   public registerValidationModal!: MatDialogRef<TemplateModalComponent>;
 
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private dialog: MatDialog, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private dialog: MatDialog, public router: Router) {
 
   }
 

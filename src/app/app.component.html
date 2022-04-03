@@ -8,6 +8,7 @@
     Plateforme de commande réservée aux professionnels
   </div>
   <div *ngIf="isConnected" fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxFlex="80" fxHide.lt-sm>
+    <!-- TODO: revoir les divs avec des classes link... -->
     <div class="link" (click)="router.navigate([''])">Formulaire</div>
     <div class="link" (click)="router.navigate(['admin/liste-commandes'])">
       Commandes
