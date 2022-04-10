@@ -1,1 +1,8 @@
 COUCOU INFOS PERSOS
+<p>{{(userInformations | json )}}</p>
+<p>phone {{userInformations?.phone}}</p>
+<p>name {{userInformations?.name}}</p>
+<p>email {{userInformations?.email}}</p>
+<p>street {{userInformations?.address?.street}}</p>
+<p>zipCode {{userInformations?.address?.zipCode}}</p>
+<p>city {{userInformations?.address?.city}}</p>
