@@ -12,9 +12,15 @@ import { take } from 'rxjs/operators';
 })
 export class LoginModalComponent implements OnInit {
   public loginErrorMessage = '';
+  public resetPasswordErrorMessage = '';
+  public forgottenPassword = false;
+  public title = this.forgottenPassword ? "Mot de passe oublié" : "Connexion";
   public loginForm = this.fb.group({
     email: [null, [Validators.required]],
     password: [null, [Validators.required]],
+  });
+  public resetPasswordForm = this.fb.group({
+    email: [null, [Validators.required]],
   });
   constructor(
     private fb: FormBuilder,
@@ -32,11 +38,31 @@ export class LoginModalComponent implements OnInit {
         .pipe(take(1))
         .subscribe({
           next: () => {
+            // TODO: revoir la redirection après implémentation compte utilisateur
             this.router.navigate(['admin']);
             this.dialog.closeAll();
           },
           error: (err) => {
+            // TODO: faire une vrai gestion d'erreur en fr, voir l'api
             this.loginErrorMessage = err.message;
+          }
+        });
+    }
+  }
+
+  public resetUserPassword(): void {
+    if (this.resetPasswordForm.valid) {
+      this.authService
+        .resetUserPassword(this.resetPasswordForm.value.email)
+        .pipe(take(1))
+        .subscribe({
+          next: () => {
+            window.location.reload();
+            // TODO: voir pour de l'ux mieux
+          },
+          error: (err) => {
+            // TODO: faire une vrai gestion d'erreur en fr, voir l'api
+            this.resetPasswordErrorMessage = err.message;
           }
         });
     }
