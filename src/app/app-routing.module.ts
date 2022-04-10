@@ -34,6 +34,12 @@ const routes: Routes = [
       import('./admin/admin.module').then((m) => m.AdminModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
+  {
+    path: 'compte',
+    loadChildren: () =>
+      import('./user/user.module').then((m) => m.UserModule),
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
   // { path: '404', component: PageNotFoundPage },
   { path: '**', redirectTo: 'commande' },
 ];
