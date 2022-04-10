@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { User } from '@models/user';
 import firebase from 'firebase/compat/app';
 import { from, Observable, switchMap } from 'rxjs';
@@ -40,8 +40,8 @@ export class AuthService {
     );
   }
 
-  private saveUserAtRegistration(user: User): Observable<DocumentReference<User>> {
-    return from(this.userCollection.add(user));
+  private saveUserAtRegistration(user: User): Observable<any> {
+    return from(this.userCollection.doc(user.firebaseUid).set(user));
   }
 
   public login(credentials: {
