@@ -69,6 +69,17 @@ export class AuthService {
     return this.auth.user;
   }
 
+  public resetUserPassword(email: string): Observable<void> {
+    return from(this.auth.sendPasswordResetEmail(email)
+      .then((res) => {
+        return res;
+      },
+        (err) => {
+          throw err;
+        })
+    )
+  }
+
   public updateUserSomethingWIP() {
     // FIXME: juste en attendant de se servir de firestore et que tslint casse pas les couilles
     this.firestore;
