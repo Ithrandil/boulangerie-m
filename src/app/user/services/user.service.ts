@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, switchMap, take } from 'rxjs';
+import { from, Observable, switchMap, take } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from '@models/user';
@@ -22,6 +22,10 @@ export class UserService {
       switchMap(user => { return this.firestore.doc(`users/${user?.uid}`).valueChanges() as Observable<User> }
       )
     )
+  }
+
+  public updateUserInformations(user: User, firebaseUid: string | undefined): Observable<any> {
+    return from(this.firestore.doc(`users/${firebaseUid}`).update(user));
   }
 
 }

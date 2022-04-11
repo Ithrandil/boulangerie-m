@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { InfosPersoComponent } from './pages/infos-perso/infos-perso.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -29,6 +30,8 @@ import { InfosPersoComponent } from './pages/infos-perso/infos-perso.component';
     MatButtonModule,
     MatCheckboxModule,
     MatCardModule,
+    MatIconModule,
+
     // MatExpansionModule,
     // MatDividerModule,
     // MatProgressSpinnerModule,
