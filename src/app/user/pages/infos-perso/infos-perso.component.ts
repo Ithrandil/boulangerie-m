@@ -96,6 +96,9 @@ export class InfosPersoComponent {
 
   public submitUpdateInfos() {
     if (this.infosPersosForm.valid) {
+      if (!this.infosPersosForm.get('hasDifferentDeliveryAddress')?.value && !!this.userInformations.deliveryAddress) {
+        this.userService.deleteDeliveryAddress(this.userInformations.firebaseUid).pipe(take(1)).subscribe();
+      }
       this.userService.updateUserInformations(this.infosPersosForm.value, this.userInformations.firebaseUid).pipe(take(1)).subscribe(() => {
         this.updatingInfos = false;
         this.updateValidationModal = this.dialog.open(TemplateModalComponent, {
@@ -110,6 +113,7 @@ export class InfosPersoComponent {
           width: '400px',
           maxWidth: '90%',
         });
+        this.infosPersosForm.reset();
       });
     }
   }

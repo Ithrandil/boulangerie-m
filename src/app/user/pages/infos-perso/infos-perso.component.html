@@ -15,6 +15,11 @@
         <p>Adresse:</p>
         <p>{{userInformations?.address?.street}}</p>
         <p>{{userInformations?.address?.zipCode}} {{userInformations?.address?.city}}</p>
+        <div *ngIf="userInformations?.deliveryAddress">
+            <p>Adresse de livraison:</p>
+            <p>{{userInformations?.deliveryAddress?.street}}</p>
+            <p>{{userInformations?.deliveryAddress?.zipCode}} {{userInformations?.deliveryAddress?.city}}</p>
+        </div>
     </mat-card-content>
 </mat-card>
 <!-- -------------------------------------------------------------------------------------------- -->
@@ -101,7 +106,7 @@
     <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
         <button fxFlex="40" fxFlex.lt-sm="87" fxFlexOrder.lt-sm="1" fxFlexOrder.gt-xs="2" mat-raised-button
             type="submit">
-            Envoyer l'email
+            Mettre à jour mes informations
         </button>
     </div>
 </form>

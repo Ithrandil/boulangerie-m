@@ -28,4 +28,10 @@ export class UserService {
     return from(this.firestore.doc(`users/${firebaseUid}`).update(user));
   }
 
+  public deleteDeliveryAddress(firebaseUid: string | undefined): Observable<any> {
+    return from(this.firestore.doc(`users/${firebaseUid}`).update({
+      deliveryAddress: firebase.firestore.FieldValue.delete()
+    }));
+  }
+
 }
