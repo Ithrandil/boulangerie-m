@@ -1,0 +1,90 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="!userOrders.length && ordersLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div id="noOrder" fxLayout="row" fxLayoutAlign="center center"
+    *ngIf="!userOrders.length && userOrders.length === 0 && !ordersLoading">
+    <h2>Vous n'avez pas encore passé de commandes.</h2>
+</div>
+<div fxLayout="column wrap">
+    <mat-expansion-panel fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="87"
+        *ngFor="let order of userOrders; let i = index">
+        <mat-expansion-panel-header fxFlex="100">
+            <mat-panel-title>Commande n°{{userOrders.length - i}} pour le
+                {{ order.deliveryDate.toDate() | date: "EEEE d MMMM y"
+                }}{{
+                order?.deliveryTime ? " à " + order.deliveryTime : ""
+                }}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-card fxFlex="100" class="m-card">
+            <mat-card-subtitle fxLayout="row wrap" fxLayoutAlign="space-between center">
+                Commandé le
+                {{ order.orderDate.toDate() | date: "EEEE d MMMM y" }} à
+                {{ order.orderDate.toDate() | date: "h:mm" }}
+            </mat-card-subtitle>
+            <mat-card-content fxLayout="row wrap" fxLayoutAlign="space-between baseline">
+                <div *ngIf="!order.deliveryAddress; else mulitpleAddress">
+                    <div>Adresse de livraison et facturation :</div>
+                    <div class="address">
+                        {{ order.address.street }}
+                    </div>
+                    <div class="address">
+                        <span>
+                            {{ order.address.zipCode }}
+                        </span>
+                        <span>
+                            {{ order.address.city }}
+                        </span>
+                    </div>
+                </div>
+                <ng-template #mulitpleAddress>
+                    <div>
+                        <div>Adresse de facturation :</div>
+                        <div class="address">{{ order.address.street }}</div>
+                        <div class="address">
+                            <span>
+                                {{ order.address.zipCode }}
+                            </span>
+                            <span>
+                                {{ order.address.city }}
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="addressTitle">Adresse de livraison :</div>
+                        <div class="address">{{ order.deliveryAddress.street }}</div>
+                        <div class="address">
+                            <span>
+                                {{ order.deliveryAddress.zipCode }}
+                            </span>
+                            <span>
+                                {{ order.deliveryAddress.city }}
+                            </span>
+                        </div>
+                    </div>
+                </ng-template>
+            </mat-card-content>
+            <mat-card-title *ngIf="order.orderComment" class="m-subtitle-card m-card-title">Commentaires
+            </mat-card-title>
+            <div *ngIf="order.orderComment">
+                <pre>{{ order.orderComment }}</pre>
+            </div>
+            <mat-card-title class="m-subtitle-card m-card-title">Produits</mat-card-title>
+            <mat-card-content fxLayout="column wrap" fxLayoutAlign="space-between baseline">
+                <div class="product-row" fxLayout="row wrap" fxLayoutAlign="flex-start center"
+                    *ngFor="let elem of order.order">
+                    -&nbsp;{{ elem?.product }}&nbsp;:&nbsp;
+                    {{ elem?.quantity }}
+                    &nbsp;{{ elem?.unit
+                    }}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
+                    <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
+                    <span *ngIf="elem && elem.comment">&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment }}</span>
+                </div>
+            </mat-card-content>
+            <mat-card-title fxLayoutAlign="flex-end" class="m-card-title">Prix total: {{ order?.totalPrice?.toFixed(2)
+                }} €
+                H.T.</mat-card-title>
+        </mat-card>
+    </mat-expansion-panel>
+</div>

@@ -4,8 +4,9 @@ import { TemplateModalComponent } from './components/info-modal/template-modal.c
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-
+// FIXME: repasser sur tout les modules pour supprimer les doublons!
 
 @NgModule({
     declarations: [
@@ -15,10 +16,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         CommonModule,
         FlexLayoutModule,
         MatDialogModule,
-        MatButtonModule
+        MatButtonModule,
+        MatProgressSpinnerModule
     ],
     exports: [
-        TemplateModalComponent
+        TemplateModalComponent,
+        CommonModule,
+        FlexLayoutModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatProgressSpinnerModule
     ]
 })
 export class SharedModule { }

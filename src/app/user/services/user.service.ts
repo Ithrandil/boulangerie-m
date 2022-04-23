@@ -4,6 +4,7 @@ import { from, Observable, switchMap, take } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from '@models/user';
+import { Order } from '@models/order';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +22,15 @@ export class UserService {
       switchMap(user => { return this.firestore.doc(`users/${user?.uid}`).valueChanges() as Observable<User> }
       )
     )
+  }
+
+  getUserOrders(firebaseUid: string): Observable<Order[]> {
+    return this.firestore
+      .collection<Order>('orders', (ref) =>
+        ref
+          .where('firebaseUid', '==', firebaseUid)
+      )
+      .valueChanges({ idField: 'orderId' });
   }
 
   public updateUserInformations(user: User, firebaseUid: string | undefined): Observable<any> {
