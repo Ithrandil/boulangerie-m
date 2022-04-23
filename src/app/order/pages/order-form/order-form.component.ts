@@ -12,11 +12,12 @@ import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
 import { Product, ProductCategory } from '@models/product';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { first, take, takeUntil, tap } from 'rxjs/operators';
+import { first, take, takeUntil, tap, switchMap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
 
 import { FormUtils } from '@app/shared/utils/form-utils';
+import { UserService } from '@app/user/services/user.service';
 @Component({
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
@@ -46,28 +47,7 @@ export class OrderFormComponent implements OnDestroy {
   public itemFormGroup: FormGroup;
   public sliceFormGroup: FormGroup;
   public commentFormGroup: FormGroup;
-  public displayDeliveryForm = false;
-  public userChoiceDataManagement = false;
   public orderForm = this.fb.group({
-    name: ['', [Validators.required]],
-    phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-    address: this.fb.group({
-      street: ['', [Validators.required]],
-      zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
-      city: ['', [Validators.required]],
-    }),
-    deliveryAddress: this.fb.group(
-      {
-        street: ['', [Validators.required]],
-        zipCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
-        city: ['', [Validators.required]],
-      },
-      { disabled: !this.displayDeliveryForm }
-    ),
-    hasDifferentDeliveryAddress: [
-      this.displayDeliveryForm,
-      [Validators.required],
-    ],
     deliveryDate: [null, [Validators.required]],
     deliveryTime: [null],
     orderDate: [new Date(Date.now()), [Validators.required]],
@@ -76,23 +56,6 @@ export class OrderFormComponent implements OnDestroy {
   });
   public getErrorMessage = FormUtils.GetErrorMessage;
   public errorMessages: FormErrorMessages = {
-    name: {
-      required: 'Nom de votre entreprise obligatoire',
-    },
-    phone: {
-      required: 'Numéro de téléphone obligatoire',
-      pattern: 'Doit contenir 10 chiffres',
-    },
-    street: {
-      required: 'Rue obligatoire',
-    },
-    zipCode: {
-      required: 'Code postal obligatoire',
-      pattern: 'Doit contenir 5 chiffres',
-    },
-    city: {
-      required: 'Ville obligatoire',
-    },
     deliveryDate: {
       required: 'Date de livraison obligatoire',
       matDatepickerMin: 'Date incorrecte',
@@ -103,7 +66,8 @@ export class OrderFormComponent implements OnDestroy {
     private orderService: OrderService,
     private openingDaysService: OpeningDaysService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private userService: UserService
   ) {
     this.tomorrow.setDate(new Date().getDate() + 1);
 
@@ -138,7 +102,6 @@ export class OrderFormComponent implements OnDestroy {
               new FormControl(null)
             );
           });
-          this.getUserDataFromLocalStorage();
         })
       )
       .subscribe();
@@ -161,7 +124,6 @@ export class OrderFormComponent implements OnDestroy {
       )
       .subscribe();
 
-    this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
     this.filterShortDeliveryProducts();
     this.openingDaysService
       .getAllClosingDays()
@@ -197,15 +159,6 @@ export class OrderFormComponent implements OnDestroy {
     } else {
       this.orderForm.get('deliveryTime')?.reset();
       this.orderForm.get('deliveryTime')?.disable();
-    }
-  }
-
-  public hasDifferentDeliveryAddress(checked: boolean): void {
-    this.displayDeliveryForm = checked;
-    if (this.displayDeliveryForm) {
-      this.orderForm.get('deliveryAddress')?.enable();
-    } else {
-      this.orderForm.get('deliveryAddress')?.disable();
     }
   }
 
@@ -301,26 +254,41 @@ export class OrderFormComponent implements OnDestroy {
         ...this.orderForm.value,
         order: orderList,
       };
-      this.userDataManagement();
-      this.orderService
-        .addOrder(finalOrder)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.validatedModal = this.dialog.open(FormValidatedModalComponent, {
-            disableClose: true,
-            width: '400px',
-            maxWidth: '90%',
-          });
-          this.validatedModal
-            .afterClosed()
-            .pipe(
-              tap(() => {
-                window.location.reload();
-              }),
-              first()
-            )
-            .subscribe();
+      this.userService.getUserInfos().pipe(
+        take(1),
+        switchMap(userInfos => {
+          let finalOrderWithUserInfos: Order = {
+            ...finalOrder,
+            name: userInfos.name,
+            phone: userInfos.phone,
+            address: userInfos.address,
+            firebaseUid: userInfos.firebaseUid
+          }
+          if (userInfos.hasDifferentDeliveryAddress && userInfos.deliveryAddress) {
+            finalOrderWithUserInfos = {
+              ...finalOrderWithUserInfos,
+              hasDifferentDeliveryAddress: userInfos.hasDifferentDeliveryAddress,
+              deliveryAddress: userInfos.deliveryAddress
+            };
+          }
+          return this.orderService.addOrder(finalOrderWithUserInfos)
+        })
+      ).subscribe(() => {
+        this.validatedModal = this.dialog.open(FormValidatedModalComponent, {
+          disableClose: true,
+          width: '400px',
+          maxWidth: '90%',
         });
+        this.validatedModal
+          .afterClosed()
+          .pipe(
+            tap(() => {
+              window.location.reload();
+            }),
+            first()
+          )
+          .subscribe();
+      });
     }
   }
 
@@ -349,100 +317,4 @@ export class OrderFormComponent implements OnDestroy {
     }
     return res;
   };
-
-  private getUserDataFromLocalStorage(): void {
-    const userData = localStorage.getItem('userBoulM');
-    if (userData && userData.length > 0) {
-      const userDataParsed: Order = JSON.parse(userData);
-      this.userChoiceDataManagement = true;
-      this.orderForm.get('name')?.setValue(userDataParsed.name);
-      this.orderForm.get('phone')?.setValue(userDataParsed.phone);
-      this.orderForm
-        .get('address')
-        ?.get('street')
-        ?.setValue(userDataParsed.address.street);
-      this.orderForm
-        .get('address')
-        ?.get('zipCode')
-        ?.setValue(userDataParsed.address.zipCode);
-      this.orderForm
-        .get('address')
-        ?.get('city')
-        ?.setValue(userDataParsed.address.city);
-      // Deactivated for the first implementation
-      // userDataParsed.order.forEach((el) => {
-      //   this.itemFormGroup.get(el.product)?.setValue(el.quantity);
-      //   this.sliceFormGroup.get(el.product)?.setValue(el.isSliced);
-      //   this.commentFormGroup.get(el.product)?.setValue(el.comment);
-      // });
-      if (userDataParsed.deliveryAddress) {
-        this.orderForm.get('hasDifferentDeliveryAddress')?.setValue(true);
-        this.hasDifferentDeliveryAddress(true);
-        this.orderForm
-          .get('deliveryAddress')
-          ?.get('street')
-          ?.setValue(userDataParsed.deliveryAddress.street);
-        this.orderForm
-          .get('deliveryAddress')
-          ?.get('zipCode')
-          ?.setValue(userDataParsed.deliveryAddress.zipCode);
-        this.orderForm
-          .get('deliveryAddress')
-          ?.get('city')
-          ?.setValue(userDataParsed.deliveryAddress.city);
-      }
-      if (userDataParsed.deliveryTime) {
-        this.orderForm.get('selectDeliveryTime')?.setValue(true);
-        this.specificDeliveryTime(true);
-        this.orderForm
-          .get('deliveryTime')
-          ?.setValue(userDataParsed.deliveryTime);
-      }
-      if (userDataParsed.orderComment) {
-        this.orderForm
-          .get('orderComment')
-          ?.setValue(userDataParsed.orderComment);
-      }
-    }
-    localStorage.removeItem('haveSeenInfoBoulM');
-  }
-
-  private userDataManagement(): void {
-    if (this.userChoiceDataManagement) {
-      let userFormData = {
-        name: this.orderForm.get('name')?.value,
-        phone: this.orderForm.get('phone')?.value,
-        address: {
-          street: this.orderForm.get('address')?.get('street')?.value,
-          zipCode: this.orderForm.get('address')?.get('zipCode')?.value,
-          city: this.orderForm.get('address')?.get('city')?.value,
-        },
-      };
-      if (this.displayDeliveryForm) {
-        userFormData = {
-          ...userFormData,
-          ...{
-            deliveryAddress: {
-              street: this.orderForm.get('deliveryAddress')?.get('street')
-                ?.value,
-              zipCode: this.orderForm.get('deliveryAddress')?.get('zipCode')
-                ?.value,
-              city: this.orderForm.get('deliveryAddress')?.get('city')?.value,
-            },
-          },
-        };
-      }
-      if (this.selectDeliveryTime) {
-        userFormData = {
-          ...userFormData,
-          ...{ deliveryTime: this.orderForm.get('deliveryTime')?.value },
-        };
-      }
-      localStorage.setItem('userBoulM', JSON.stringify(userFormData));
-      // Deactivated on first implementation
-      // localStorage.setItem('userBoulM', JSON.stringify({...userFormData, ...finalOrder}));
-    } else {
-      localStorage.removeItem('userBoulM');
-    }
-  }
 }

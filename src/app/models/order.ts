@@ -3,6 +3,7 @@ import { ProductUnit } from './product';
 
 export interface Order {
   orderId: string;
+  firebaseUid: string,
   name: string;
   phone: number;
   address: Address;

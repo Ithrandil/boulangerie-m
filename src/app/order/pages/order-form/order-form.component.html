@@ -1,81 +1,4 @@
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-  <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
-    <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
-      <mat-label>Nom de votre entreprise</mat-label>
-      <input matInput type="text" placeholder="Ex: Restaurant du port" formControlName="name" required />
-      <mat-error *ngIf="orderForm.get('name')?.invalid">{{
-        getErrorMessage("name", orderForm, errorMessages)
-        }}</mat-error>
-    </mat-form-field>
-    <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
-      <mat-label>Numéro de téléphone</mat-label>
-      <input matInput type="tel" placeholder="Ex: 0546331122" formControlName="phone" required />
-      <mat-error *ngIf="orderForm.get('phone')?.invalid">{{
-        getErrorMessage("phone", orderForm, errorMessages)
-        }}</mat-error>
-    </mat-form-field>
-  </div>
-  <div formGroupName="address">
-    <div fxLayout="row" fxLayoutAlign="center">
-      <mat-form-field fxFlex="87" appearance="outline">
-        <mat-label>Rue</mat-label>
-        <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
-        <mat-error *ngIf="orderForm.get('address')?.get('street')?.invalid">{{
-          getErrorMessage("street", orderForm, errorMessages, "address")
-          }}</mat-error>
-      </mat-form-field>
-    </div>
-    <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
-      <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
-        <mat-label>Code postal</mat-label>
-        <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
-        <mat-error *ngIf="orderForm.get('address')?.get('zipCode')?.invalid">{{
-          getErrorMessage("zipCode", orderForm, errorMessages, "address")
-          }}</mat-error>
-      </mat-form-field>
-      <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
-        <mat-label>Ville</mat-label>
-        <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
-        <mat-error *ngIf="orderForm.get('address')?.get('city')?.invalid">{{
-          getErrorMessage("city", orderForm, errorMessages, "address")
-          }}</mat-error>
-      </mat-form-field>
-    </div>
-  </div>
-  <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
-    <mat-checkbox fxFlexOffset="7" (change)="hasDifferentDeliveryAddress($event.checked)"
-      formControlName="hasDifferentDeliveryAddress">Adresse de livraison différente</mat-checkbox>
-  </div>
-  <div formGroupName="deliveryAddress" *ngIf="displayDeliveryForm">
-    <div fxLayout="row" fxLayoutAlign="center">
-      <mat-form-field fxFlex="87" appearance="outline">
-        <mat-label>Rue</mat-label>
-        <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
-        <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('street')?.invalid">{{ getErrorMessage("street",
-          orderForm, errorMessages,
-          "address") }}</mat-error>
-      </mat-form-field>
-    </div>
-    <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
-      <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
-        <mat-label>Code postal</mat-label>
-        <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
-        <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('zipCode')?.invalid">{{ getErrorMessage("zipCode",
-          orderForm, errorMessages,
-          "address") }}</mat-error>
-      </mat-form-field>
-      <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
-        <mat-label>Ville</mat-label>
-        <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
-        <mat-error *ngIf="orderForm.get('deliveryAddress')?.get('city')?.invalid">{{ getErrorMessage("city", orderForm,
-          errorMessages, "address")
-          }}</mat-error>
-      </mat-form-field>
-    </div>
-  </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <mat-divider fxFlex="50"></mat-divider>
-  </div>
   <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
     <mat-form-field fxFlexOffset="7" fxFlex="40" fxFlex.lt-sm="87" appearance="outline" (click)="picker.open()">
       <mat-label>Date de livraison</mat-label>
@@ -205,11 +128,6 @@
     <h2 fxFlex="50">
       {{ orderForm.get("totalPrice")?.value.toFixed(2) }} € H.T.
     </h2>
-  </div>
-  <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
-    <mat-checkbox fxFlexOffset="7" (change)="userChoiceDataManagement = $event.checked"
-      [checked]="userChoiceDataManagement">Enregistrer mes infos personnelles
-    </mat-checkbox>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="buttonRow">
     <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
