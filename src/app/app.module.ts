@@ -44,6 +44,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     BrowserAnimationsModule,
     OrderModule,
     FlexLayoutModule,
+    // FIXME: C PAS DU LAZY LOADING LA!!!!
     AuthModule,
     MatToolbarModule,
     MatMenuModule,
@@ -52,6 +53,7 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatDialogModule,
     MatButtonModule,
     MatCheckboxModule,
+    // FIXME: C PAS DU LAZY LOADING LA!!!!
     UserModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],

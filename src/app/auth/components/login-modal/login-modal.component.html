@@ -6,7 +6,7 @@
   <div fxLayout="row wrap" fxLayoutAlign="center center">
     <mat-form-field fxFlex="87" appearance="outline">
       <mat-label>E-mail</mat-label>
-      <input matInput type="text" placeholder="Ex: john.doe@gmail.com" formControlName="email" required />
+      <input matInput type="email" placeholder="Ex: john.doe@gmail.com" formControlName="email" required />
       <mat-error *ngIf="loginForm?.get('email')?.invalid">E-mail obligatoire</mat-error>
     </mat-form-field>
   </div>

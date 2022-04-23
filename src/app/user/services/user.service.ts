@@ -4,7 +4,6 @@ import { from, Observable, switchMap, take } from 'rxjs';
 import firebase from 'firebase/compat/app';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { User } from '@models/user';
-// import { User } from '@models/user';
 
 @Injectable({
   providedIn: 'root',

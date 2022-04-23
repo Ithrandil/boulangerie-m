@@ -38,7 +38,7 @@ export class RegisterPageComponent implements OnInit {
       pattern: 'Doit avoir le format email',
     },
     password: {
-      required: 'Mot de passe obligatoire obligatoire',
+      required: 'Mot de passe obligatoire',
       pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*'
     },
     confirmPassword: {
