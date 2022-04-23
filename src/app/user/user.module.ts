@@ -14,11 +14,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import { InfosPersoComponent } from './pages/infos-perso/infos-perso.component';
 import { MatIconModule } from '@angular/material/icon';
+import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
 
 
 @NgModule({
   declarations: [
-    InfosPersoComponent
+    InfosPersoComponent,
+    UserOrdersComponent
   ],
   imports: [
     CommonModule,
