@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/compat/firestore';
 import { Order } from '@models/order';
 import { User } from '@models/user';
 import firebase from 'firebase/compat/app';
@@ -10,7 +10,11 @@ import { from, Observable, switchMap, take } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(public auth: AngularFireAuth, private firestore: AngularFirestore) { }
+  private ordersCollection: AngularFirestoreCollection<Order>;
+
+  constructor(public auth: AngularFireAuth, private firestore: AngularFirestore) {
+    this.ordersCollection = firestore.collection<Order>('orders');
+  }
 
   public getFirebaseUser(): Observable<firebase.User | null> {
     return this.auth.user;
@@ -41,6 +45,11 @@ export class UserService {
           .where('firebaseUid', '==', firebaseUid)
       )
       .valueChanges({ idField: 'orderId' });
+  }
+
+
+  public placeSameOrder(order: Order): Observable<DocumentReference> {
+    return from(this.ordersCollection.add(order));
   }
 
   public cancelOrder(orderId: string): Observable<any> {

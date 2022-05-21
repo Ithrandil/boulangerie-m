@@ -3,7 +3,7 @@ import { Timestamp } from '@firebase/firestore-types';
 import { ProductUnit } from './product';
 
 export interface Order {
-  orderId: string;
+  orderId?: string;
   firebaseUid: string,
   name: string;
   phone: number;

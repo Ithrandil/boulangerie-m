@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 import { UserService } from '@app/user/services/user.service';
 import { Order } from '@models/order';
 import { switchMap, take, tap } from 'rxjs';
@@ -21,7 +22,7 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
   public currentIndex: number = 0;
   public arrayCancelableOrders: boolean[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.getUserOrdersByDate();
@@ -84,8 +85,8 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
     })
   }
 
-  cancelOrder(orderId: string) {
-    this.userService.cancelOrder(orderId).pipe(take(1)).subscribe({
+  cancelOrder(orderId: string | undefined) {
+    this.userService.cancelOrder(orderId as string).pipe(take(1)).subscribe({
       next: () => {
         // TODO: trigger une modale avant de lancer l'annulation? probablement mieux. Puis ensuite rien, afficher annulé et masquer bouton
       },
@@ -97,4 +98,9 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
       },
     });
   }
+
+  placeSameOrder(order: Order) {
+    this.router.navigate(["/compte/repasser-commande"], { state: { data: { ...order } } })
+  }
+
 }

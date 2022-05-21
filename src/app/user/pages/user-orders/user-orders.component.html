@@ -86,9 +86,13 @@
             <mat-card-title fxLayoutAlign="flex-end" class="m-card-title">Prix total: {{ order?.totalPrice?.toFixed(2)
                 }} €
                 H.T.</mat-card-title>
-            <div fxLayoutAlign="flex-end" *ngIf="arrayCancelableOrders[(currentIndex * 10) + i] && !order.isCanceled">
-                <button mat-raised-button aria-label="Annuler ma commande" (click)="cancelOrder(order.orderId)">
+            <div fxLayoutAlign="space-between">
+                <button *ngIf="arrayCancelableOrders[(currentIndex * 10) + i] && !order.isCanceled" mat-raised-button
+                    aria-label="Annuler ma commande" (click)="cancelOrder(order?.orderId)">
                     Annuler ma commande
+                </button>
+                <button mat-raised-button aria-label="Repasser cette commande" (click)="placeSameOrder(order)">
+                    Repasser la commande
                 </button>
             </div>
         </mat-card>

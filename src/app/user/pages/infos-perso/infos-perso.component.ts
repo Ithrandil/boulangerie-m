@@ -90,7 +90,6 @@ export class InfosPersoComponent {
 
   constructor(private fb: FormBuilder, private userService: UserService, private dialog: MatDialog
   ) {
-    this.userService.getFirebaseUser().subscribe(v => console.log("USER===>", v))
     this.userService.getUserInfos()
       .subscribe(
         user => {
