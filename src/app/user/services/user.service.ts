@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { from, Observable, switchMap, take } from 'rxjs';
-import firebase from 'firebase/compat/app';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { User } from '@models/user';
 import { Order } from '@models/order';
+import { User } from '@models/user';
+import firebase from 'firebase/compat/app';
+import { from, Observable, switchMap, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,15 +24,6 @@ export class UserService {
     )
   }
 
-  getUserOrders(firebaseUid: string): Observable<Order[]> {
-    return this.firestore
-      .collection<Order>('orders', (ref) =>
-        ref
-          .where('firebaseUid', '==', firebaseUid)
-      )
-      .valueChanges({ idField: 'orderId' });
-  }
-
   public updateUserInformations(user: User, firebaseUid: string | undefined): Observable<any> {
     return from(this.firestore.doc(`users/${firebaseUid}`).update(user));
   }
@@ -41,6 +32,19 @@ export class UserService {
     return from(this.firestore.doc(`users/${firebaseUid}`).update({
       deliveryAddress: firebase.firestore.FieldValue.delete()
     }));
+  }
+
+  public getUserOrders(firebaseUid: string): Observable<Order[]> {
+    return this.firestore
+      .collection<Order>('orders', (ref) =>
+        ref
+          .where('firebaseUid', '==', firebaseUid)
+      )
+      .valueChanges({ idField: 'orderId' });
+  }
+
+  public cancelOrder(orderId: string): Observable<any> {
+    return from(this.firestore.doc(`orders/${orderId}`).update({ isCanceled: true }));
   }
 
 }

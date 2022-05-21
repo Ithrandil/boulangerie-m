@@ -85,6 +85,16 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
   }
 
   cancelOrder(orderId: string) {
-    console.log("BOUTON", orderId)
+    this.userService.cancelOrder(orderId).pipe(take(1)).subscribe({
+      next: () => {
+        // TODO: trigger une modale avant de lancer l'annulation? probablement mieux. Puis ensuite rien, afficher annulé et masquer bouton
+      },
+      error: (err) => {
+        console.log(err)
+        window.alert(`Une erreur a eu lieu pendant l'annulation de votre commande ${orderId}, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}`,)
+      },
+      complete: () => {
+      },
+    });
   }
 }

@@ -15,7 +15,7 @@
                 {{ order.deliveryDate.toDate() | date: "EEEE d MMMM y"
                 }}{{
                 order?.deliveryTime ? " à " + order.deliveryTime : ""
-                }}
+                }}{{order.isCanceled ? " ANNULÉE": ""}}
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-card fxFlex="100" class="m-card">
@@ -86,7 +86,7 @@
             <mat-card-title fxLayoutAlign="flex-end" class="m-card-title">Prix total: {{ order?.totalPrice?.toFixed(2)
                 }} €
                 H.T.</mat-card-title>
-            <div fxLayoutAlign="flex-end" *ngIf="arrayCancelableOrders[(currentIndex * 10) + i]">
+            <div fxLayoutAlign="flex-end" *ngIf="arrayCancelableOrders[(currentIndex * 10) + i] && !order.isCanceled">
                 <button mat-raised-button aria-label="Annuler ma commande" (click)="cancelOrder(order.orderId)">
                     Annuler ma commande
                 </button>
