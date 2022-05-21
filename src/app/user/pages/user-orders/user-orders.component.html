@@ -86,6 +86,11 @@
             <mat-card-title fxLayoutAlign="flex-end" class="m-card-title">Prix total: {{ order?.totalPrice?.toFixed(2)
                 }} €
                 H.T.</mat-card-title>
+            <div fxLayoutAlign="flex-end" *ngIf="arrayCancelableOrders[(currentIndex * 10) + i]">
+                <button mat-raised-button aria-label="Annuler ma commande" (click)="cancelOrder(order.orderId)">
+                    Annuler ma commande
+                </button>
+            </div>
         </mat-card>
     </mat-expansion-panel>
     <mat-paginator [length]="totalUserOrders.length" [pageSize]="10" [hidePageSize]="true" [showFirstLastButtons]="true"

@@ -19,6 +19,7 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
   public totalUserOrders: Order[] = [];
   public displayedUserOrders: Order[] = [];
   public currentIndex: number = 0;
+  public arrayCancelableOrders: boolean[] = [];
 
   constructor(private userService: UserService) { }
 
@@ -65,8 +66,25 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   initiateFirstPageData() {
-    this.displayedUserOrders = this.totalUserOrders.slice(0, 10)
+    this.displayedUserOrders = this.totalUserOrders.slice(0, 10);
+
+    let today = new Date()
+    this.arrayCancelableOrders = this.totalUserOrders.map(el => {
+      let deliveryDate = el.deliveryDate.toDate().getTime();
+      let daysDifference = (deliveryDate - today.getTime()) / (1000 * 3600 * 24);
+
+      if (daysDifference >= 2) {
+        return true;
+      } else if (daysDifference > 1 && daysDifference < 2 && today.getHours() < 18) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+  }
+
+  cancelOrder(orderId: string) {
+    console.log("BOUTON", orderId)
   }
 }
