@@ -12,7 +12,7 @@ export class AuthService {
   private userCollection: AngularFirestoreCollection<User>;
 
   constructor(public auth: AngularFireAuth, private firestore: AngularFirestore) {
-    this.userCollection = firestore.collection<User>('users');
+    this.userCollection = this.firestore.collection<User>('users');
 
   }
 
@@ -80,8 +80,19 @@ export class AuthService {
     )
   }
 
-  public updateUserSomethingWIP() {
-    // FIXME: juste en attendant de se servir de firestore et que tslint casse pas les couilles
-    this.firestore;
-  }
+  // public updateUserPassword(currentPassword: string, newPassword: string) {
+  //   const cpUser = firebase.auth().currentUser;
+  //   const credentials = firebase.auth.EmailAuthProvider.credential(
+  //     cpUser?.email as string, currentPassword);
+
+  //   return cpUser?.reauthenticateWithCredential(credentials).then(
+  //     res => {
+  //       console.log("relogin du user", res)
+  //       // const reloggedUser = firebase.auth().currentUser;
+  //       cpUser?.updatePassword(newPassword).then(e => console.log("FINITO", e))
+  //         .catch(err => console.log("erreur dans le update pwd", err))
+  //     }
+  //   )
+  //     .catch(error => { throw error });
+  // }
 }

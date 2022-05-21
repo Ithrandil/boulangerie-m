@@ -16,6 +16,7 @@ import { take } from 'rxjs';
 export class InfosPersoComponent {
   public userInformations!: User;
   public updatingInfos = false;
+  // public updatingPassword = false;
   public displayDeliveryForm = false;
 
   public infosPersosForm = this.fb.group({
@@ -59,10 +60,37 @@ export class InfosPersoComponent {
       required: 'Ville obligatoire',
     }
   };
+
+
+  // private regexPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/g);
+  // public updatePasswordForm = this.fb.group({
+  //   currentPassword: ['', [Validators.required]],
+  //   password: ['', [Validators.required, Validators.pattern(this.regexPassword)]],
+  //   confirmPassword: ['', [Validators.required, Validators.pattern(this.regexPassword)]],
+  // },
+  //   {
+  //     validators: [ValidatePassword.MatchPassword('password', 'confirmPassword')]
+  //   });
+  // public errorMessagesUpdatePassword: FormErrorMessages = {
+  //   currentPassword: {
+  //     required: 'Mot de passe obligatoire',
+  //   },
+  //   password: {
+  //     required: 'Nouveau mot de passe obligatoire',
+  //     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*'
+  //   },
+  //   confirmPassword: {
+  //     required: 'Confirmation du nouveau mot de passe obligatoire',
+  //     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*',
+  //     matchPassword: 'Doit être identique au mot de passe'
+  //   },
+
+  // };
   public updateValidationModal!: MatDialogRef<TemplateModalComponent>;
 
   constructor(private fb: FormBuilder, private userService: UserService, private dialog: MatDialog
   ) {
+    this.userService.getFirebaseUser().subscribe(v => console.log("USER===>", v))
     this.userService.getUserInfos()
       .subscribe(
         user => {
@@ -99,23 +127,44 @@ export class InfosPersoComponent {
       if (!this.infosPersosForm.get('hasDifferentDeliveryAddress')?.value && !!this.userInformations.deliveryAddress) {
         this.userService.deleteDeliveryAddress(this.userInformations.firebaseUid).pipe(take(1)).subscribe();
       }
-      this.userService.updateUserInformations(this.infosPersosForm.value, this.userInformations.firebaseUid).pipe(take(1)).subscribe(() => {
-        this.updatingInfos = false;
-        this.updateValidationModal = this.dialog.open(TemplateModalComponent, {
-          data: {
-            title: "Mise à jour effectuée!",
-            bodyText: `
+      this.userService.updateUserInformations(this.infosPersosForm.value, this.userInformations.firebaseUid).pipe(take(1)).subscribe(
+        {
+          next: () => {
+            this.updatingInfos = false;
+            this.updateValidationModal = this.dialog.open(TemplateModalComponent, {
+              data: {
+                title: "Mise à jour effectuée!",
+                bodyText: `
             <p>Vos informations ont bien été mises à jour.</p>
             <p>Elles seront prises en compte pour toutes vos futures commandes.</p>
             `
+              },
+              disableClose: true,
+              width: '400px',
+              maxWidth: '90%',
+            });
+            this.infosPersosForm.reset();
           },
-          disableClose: true,
-          width: '400px',
-          maxWidth: '90%',
-        });
-        this.infosPersosForm.reset();
-      });
+          error: (e) => {
+            console.error(e)
+          },
+        }
+      );
     }
   }
+
+  // public submitUpdatePassword() {
+  //   if (this.updatePasswordForm.valid) {
+  //     this.authService.updateUserPassword(this.updatePasswordForm.get("currentPassword")?.value, this.updatePasswordForm.get("newPassword")?.value)?.then(
+  //       (res) => {
+  //         this.updatingPassword = false;
+  //         this.updatePasswordForm.reset();
+  //       })
+  //       .catch(err => {
+  //         if (err.code === "auth/wrong-password") {
+  //         }
+  //       });
+  //   }
+  // }
 
 }

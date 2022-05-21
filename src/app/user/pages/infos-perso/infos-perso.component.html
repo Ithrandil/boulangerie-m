@@ -3,12 +3,9 @@
 <mat-card class="m-card">
     <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
         <div>Mes infos</div>
-        <button mat-fab aria-label="Bouton de validation de choix de jours fermés"
-            (click)="updatingInfos = !updatingInfos">
-            <mat-icon>edit</mat-icon>
-        </button>
     </mat-card-title>
     <mat-card-content fxLayout="column wrap" fxLayoutAlign="space-around center">
+        <p>Email : {{userInformations?.email}}</p>
         <p>Nom de votre entreprise : {{userInformations?.name}}</p>
         <p>Numéro de téléphone : {{userInformations?.phone}}</p>
         <p>Email : {{userInformations?.email}}</p>
@@ -20,6 +17,13 @@
             <p>{{userInformations?.deliveryAddress?.street}}</p>
             <p>{{userInformations?.deliveryAddress?.zipCode}} {{userInformations?.deliveryAddress?.city}}</p>
         </div>
+        <button mat-raised-button aria-label="Modifier mes informations personnelles"
+            (click)="updatingInfos = !updatingInfos">
+            Modifier mes infos
+        </button>
+        <!-- <button mat-raised-button aria-label="Modifier mon mot de passe" (click)="updatingPassword = !updatingPassword">
+            Modifier mon mot de passe
+        </button> -->
     </mat-card-content>
 </mat-card>
 <!-- -------------------------------------------------------------------------------------------- -->
@@ -110,3 +114,36 @@
         </button>
     </div>
 </form>
+<!-- ------------------------------------------------------------------------ -->
+<!-- <form [formGroup]="updatePasswordForm" (ngSubmit)="submitUpdatePassword()" *ngIf="updatingPassword">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <mat-form-field fxFlex="87" appearance="outline">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput type="password" formControlName="currentPassword" required />
+            <mat-error *ngIf="updatePasswordForm.get('currentPassword')?.invalid">{{
+                getErrorMessage("currentPassword", updatePasswordForm, errorMessagesUpdatePassword)
+                }}</mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <mat-form-field fxFlex="87" appearance="outline">
+            <mat-label>Nouveau mot de passe</mat-label>
+            <input matInput type="password" formControlName="password" required />
+            <mat-error *ngIf="updatePasswordForm.get('password')?.invalid">{{
+                getErrorMessage("password", updatePasswordForm, errorMessagesUpdatePassword)
+                }}</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="87" appearance="outline">
+            <mat-label>Confirmer le nouveau mot de passe</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" required />
+            <mat-error *ngIf="updatePasswordForm.get('confirmPassword')?.invalid">{{
+                getErrorMessage("confirmPassword", updatePasswordForm, errorMessagesUpdatePassword)
+                }}</mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
+            Valider
+        </button>
+    </div>
+</form> -->
