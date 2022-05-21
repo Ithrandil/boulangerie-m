@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
-
 import { ReactiveFormsModule } from '@angular/forms';
-
-import { UserRoutingModule } from './user-routing.module';
-
-import { UserService } from './services/user.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
-import { InfosPersoComponent } from './pages/infos-perso/infos-perso.component';
-import { MatIconModule } from '@angular/material/icon';
-import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
-import { SharedModule } from '@app/shared/shared.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { SharedModule } from '@app/shared/shared.module';
+
+import { InfosPersoComponent } from './pages/infos-perso/infos-perso.component';
+import { UserOrdersComponent } from './pages/user-orders/user-orders.component';
+import { UserService } from './services/user.service';
+import { UserRoutingModule } from './user-routing.module';
 
 
 @NgModule({
@@ -31,7 +30,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatIconModule,
     SharedModule,
     MatExpansionModule,
-
+    MatPaginatorModule,
   ],
   providers: [UserService],
 })

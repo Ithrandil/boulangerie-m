@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { UserService } from '@app/user/services/user.service';
 import { Order } from '@models/order';
-import { switchMap, take } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs';
 
 
 @Component({
@@ -9,14 +10,39 @@ import { switchMap, take } from 'rxjs';
   templateUrl: './user-orders.component.html',
   styleUrls: ['./user-orders.component.scss'],
 })
-export class UserOrdersComponent implements OnInit {
+export class UserOrdersComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+
+
   public ordersLoading: boolean = false;
-  public userOrders: Order[] = [];
+  public totalUserOrders: Order[] = [];
+  public displayedUserOrders: Order[] = [];
+  public currentIndex: number = 0;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.getUserOrdersByDate();
+  }
+
+  ngAfterViewInit() {
+    this.paginator.page
+      .pipe(
+        tap((event) => {
+          let isUserGoingForward = event.previousPageIndex! < event.pageIndex;
+          this.currentIndex = event.pageIndex;
+          if (isUserGoingForward) {
+            if (event?.pageIndex == Math.floor(this.totalUserOrders.length / 10)) {
+              this.displayedUserOrders = this.totalUserOrders.slice((event?.pageIndex * 10), this.totalUserOrders.length + 1);
+            } else {
+              this.displayedUserOrders = this.totalUserOrders.slice(((event?.pageIndex - 1) * 10), (event?.pageIndex * 10));
+            }
+          } else {
+            this.displayedUserOrders = this.totalUserOrders.slice((event?.pageIndex * 10), ((event?.pageIndex + 1) * 10));
+          }
+        })
+      ).subscribe();
   }
 
   getUserOrdersByDate(): void {
@@ -25,7 +51,7 @@ export class UserOrdersComponent implements OnInit {
       take(1),
       switchMap(userInfos => this.userService.getUserOrders(userInfos.firebaseUid as string))
     ).subscribe(orders => {
-      this.userOrders = orders.sort((a, b) => {
+      this.totalUserOrders = orders.sort((a, b) => {
         if (a.deliveryDate > b.deliveryDate) {
           return -1;
         }
@@ -35,6 +61,12 @@ export class UserOrdersComponent implements OnInit {
         return 0;
       });
       this.ordersLoading = false;
+      this.initiateFirstPageData();
     });
+  }
+
+
+  initiateFirstPageData() {
+    this.displayedUserOrders = this.totalUserOrders.slice(0, 10)
   }
 }

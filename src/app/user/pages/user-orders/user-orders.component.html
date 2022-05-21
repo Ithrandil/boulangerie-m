@@ -1,16 +1,17 @@
-<div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="!userOrders.length && ordersLoading">
+<div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="!totalUserOrders.length && ordersLoading">
     <mat-spinner></mat-spinner>
 </div>
 
 <div id="noOrder" fxLayout="row" fxLayoutAlign="center center"
-    *ngIf="!userOrders.length && userOrders.length === 0 && !ordersLoading">
+    *ngIf="!totalUserOrders.length && totalUserOrders.length === 0 && !ordersLoading">
     <h2>Vous n'avez pas encore passé de commandes.</h2>
 </div>
 <div fxLayout="column wrap">
     <mat-expansion-panel fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="87"
-        *ngFor="let order of userOrders; let i = index">
+        *ngFor="let order of displayedUserOrders; let i = index">
         <mat-expansion-panel-header fxFlex="100">
-            <mat-panel-title>Commande n°{{userOrders.length - i}} pour le
+            <mat-panel-title>Commande
+                n°{{totalUserOrders.length - (currentIndex * 10) - i}} pour le
                 {{ order.deliveryDate.toDate() | date: "EEEE d MMMM y"
                 }}{{
                 order?.deliveryTime ? " à " + order.deliveryTime : ""
@@ -87,4 +88,7 @@
                 H.T.</mat-card-title>
         </mat-card>
     </mat-expansion-panel>
+    <mat-paginator [length]="totalUserOrders.length" [pageSize]="10" [hidePageSize]="true" [showFirstLastButtons]="true"
+        aria-label="Selectionnez la page">
+    </mat-paginator>
 </div>
