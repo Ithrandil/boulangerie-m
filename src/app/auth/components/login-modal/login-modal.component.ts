@@ -67,4 +67,9 @@ export class LoginModalComponent implements OnInit {
         });
     }
   }
+
+  public goToRegister() {
+    this.router.navigate(["/inscription"]);
+    this.dialog.closeAll();
+  }
 }
