@@ -38,8 +38,7 @@ export class LoginModalComponent implements OnInit {
         .pipe(take(1))
         .subscribe({
           next: () => {
-            // TODO: revoir la redirection après implémentation compte utilisateur
-            this.router.navigate(['admin']);
+            this.router.navigate(['/commande']);
             this.dialog.closeAll();
           },
           error: (err) => {

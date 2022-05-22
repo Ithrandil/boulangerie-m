@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
-import {
-  canActivate,
-  redirectLoggedInTo,
-  redirectUnauthorizedTo,
-} from '@angular/fire/compat/auth-guard';
+import { canActivate, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/compat/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
@@ -16,7 +12,7 @@ const redirectAlreadyLoggedIn = () => redirectLoggedInTo(['']); //TODO: rédéco
 
 const routes: Routes = [
   { path: '', redirectTo: 'commande', pathMatch: 'full' },
-  { path: 'commande', component: OrderFormComponent },
+  { path: 'commande', component: OrderFormComponent, ...canActivate(redirectUnauthorizedToLogin), },
   { path: 'mentions-legales', component: MentionsLegalesComponent },
   {
     path: 'connexion',

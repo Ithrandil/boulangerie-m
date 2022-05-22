@@ -3,7 +3,6 @@
   <div fxFlexLayout="row wrap" [innerHtml]="data.bodyText">
   </div>
   <p fxFlexLayout="row" fxLayoutAlign="flex-end center">L'équipe M</p>
-  {{data.buttonAction}}
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
   <button mat-button (click)="buttonAction()" [mat-dialog-close]="true">{{buttonText}}</button>

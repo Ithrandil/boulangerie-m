@@ -22,7 +22,7 @@
     <div class="link" (click)="router.navigate(['admin/gestion-fermeture'])">
       Jours fermés
     </div>
-    <div class="link logoutHeader" fxLayoutAlign="center center" (click)="logoutAdminSpace()">
+    <div class="link logoutHeader" fxLayoutAlign="center center" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       <span>Se déconnecter</span>
     </div>
@@ -60,7 +60,7 @@
       <mat-icon>list</mat-icon>
       <span>Formulaire</span>
     </button>
-    <button mat-menu-item (click)="logoutAdminSpace()">
+    <button mat-menu-item (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       <span>Se déconnecter</span>
     </button>
@@ -92,12 +92,6 @@
   <div>
     <div class="link" (click)="router.navigate(['mentions-legales'])">
       <p>Mentions Légales</p>
-    </div>
-    <div class="link">
-      <p *ngIf="!isConnected" (click)="router.navigate(['admin'])">
-        Espace administrateur
-      </p>
-      <p *ngIf="isConnected" (click)="logoutAdminSpace()">Déconnexion</p>
     </div>
     <p>
       Réalisé gracieusement par

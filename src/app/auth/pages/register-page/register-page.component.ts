@@ -98,8 +98,7 @@ export class RegisterPageComponent implements OnInit {
           .afterClosed()
           .pipe(
             tap(() => {
-              this.router.navigate(["/"])
-              //TODO: rediriger vers la page des infos utilisateur quand implémenté
+              this.router.navigate(["/compte/infos"])
             }),
             first()
           )

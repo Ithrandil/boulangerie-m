@@ -5,7 +5,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/services/auth.service';
 import firebase from 'firebase/compat/app';
-import { tap, first } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
+
 import { TemplateModalComponent } from './shared/components/info-modal/template-modal.component';
 
 @Component({
@@ -53,8 +54,7 @@ export class AppComponent {
               .afterClosed()
               .pipe(
                 tap(() => {
-                  // TODO:rename
-                  this.logoutAdminSpace();
+                  this.logout();
                 }),
                 first()
               )
@@ -70,9 +70,9 @@ export class AppComponent {
       )
     );
   }
-  public logoutAdminSpace(): void {
+  public logout(): void {
     this.authService.logout();
-    this.router.navigate(['']);
+    window.location.reload();
   }
   public onActivate(): void {
     this.activatedRoute = this.router.routerState.snapshot.url;
