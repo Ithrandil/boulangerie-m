@@ -18,37 +18,3 @@
   align-self: center;
   overflow: auto;
 }
-
-// STYLE HEADER
-.header {
-  background-color: var(--color-app-light-grey);
-  height: 14rem;
-  border-bottom: solid 1px black;
-  color: var(--color-app-brown);
-  font-size: 2.5rem;
-  text-align: center;
-
-  @media (max-width: 768px) {
-    height: 6rem;
-  }
-}
-
-.logo-header {
-  max-width: 10rem;
-  max-height: 10rem;
-
-  @media (max-width: 768px) {
-    margin-top: 6rem;
-    z-index: 99;
-    position: relative;
-  }
-}
-
-.mobileMenuButton {
-  border: none;
-  background-color: var(--color-app-light-grey);
-}
-
-.logoutHeader {
-  font-size: 1.6rem;
-}

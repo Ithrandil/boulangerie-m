@@ -5,6 +5,7 @@ export interface User extends UserFirebase {
   hasDifferentDeliveryAddress?: boolean;
   deliveryAddress?: Address;
   firebaseUid?: string;
+  isAdmin: boolean;
 }
 
 export interface Address {

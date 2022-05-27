@@ -3,14 +3,14 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { User } from '@models/user';
 import firebase from 'firebase/compat/app';
-import { from, Observable, switchMap } from 'rxjs';
+import { from, map, Observable, of, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private userCollection: AngularFirestoreCollection<User>;
-
+  private isAdmin!: boolean;
   constructor(public auth: AngularFireAuth, private firestore: AngularFirestore) {
     this.userCollection = this.firestore.collection<User>('users');
 
@@ -33,7 +33,8 @@ export class AuthService {
           name: credentials.name,
           phone: credentials.phone,
           address: credentials.address,
-          email: credentials.email
+          email: credentials.email,
+          isAdmin: false
         }
         return this.saveUserAtRegistration(newUser);
       })
@@ -44,10 +45,23 @@ export class AuthService {
     return from(this.userCollection.doc(user.firebaseUid).set(user));
   }
 
+  public isUserAdmin(): Observable<boolean> {
+    if (this.isAdmin !== undefined) {
+      return of(this.isAdmin);
+    } else {
+      return this.auth.user.pipe(
+        switchMap(userFirebase => this.userCollection.doc(userFirebase?.uid).valueChanges()),
+        map(boulMUser => {
+          this.isAdmin = boulMUser?.isAdmin as boolean;
+          return boulMUser?.isAdmin as boolean
+        }));
+    }
+  }
+
   public login(credentials: {
     email: string;
     password: string;
-  }): Observable<firebase.auth.UserCredential> {
+  }): Observable<any> {
     return from(
       this.auth.signInWithEmailAndPassword(credentials.email, credentials.password)
         .then(

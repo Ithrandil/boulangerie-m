@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/services/auth.service';
-import firebase from 'firebase/compat/app';
 import { first, tap } from 'rxjs/operators';
 
 import { TemplateModalComponent } from './shared/components/info-modal/template-modal.component';
@@ -13,7 +12,6 @@ import { TemplateModalComponent } from './shared/components/info-modal/template-
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  public isConnected!: firebase.User | null;
   public activatedRoute = '';
   public resendEmailVerificationEmailModal!: MatDialogRef<TemplateModalComponent>;
 
@@ -27,8 +25,7 @@ export class AppComponent {
       .isUserAuthenticated()
       .pipe(
         tap((user) => {
-          this.isConnected = user;
-          if (this.isConnected && !user?.emailVerified) {
+          if (user && !user?.emailVerified) {
             // TODO: il existe un pipe email verified import { emailVerified } from '@angular/fire/compat/auth-guard';
             // TODO: voir pour changer le lien dans l'email de validation vers une view (ou je rajoute un bouton ensuite pour être propre)
             this.resendEmailVerificationEmailModal = this.dialog.open(TemplateModalComponent, {
@@ -60,12 +57,13 @@ export class AppComponent {
         })
       )
       .subscribe();
-
   }
+
   public logout(): void {
     this.authService.logout();
     window.location.reload();
   }
+
   public onActivate(): void {
     this.activatedRoute = this.router.routerState.snapshot.url;
   }

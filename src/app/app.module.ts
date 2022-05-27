@@ -20,13 +20,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { InfoModalComponent } from './core/components/info-modal/info-modal.component';
+import { FooterComponent } from './core/pages/footer/footer.component';
+import { HeaderComponent } from './core/pages/header/header.component';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
+import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
-  declarations: [AppComponent, MentionsLegalesComponent, InfoModalComponent],
+  declarations: [AppComponent, MentionsLegalesComponent, InfoModalComponent, FooterComponent, HeaderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -54,7 +57,9 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     MatButtonModule,
     MatCheckboxModule,
     // FIXME: C PAS DU LAZY LOADING LA!!!!
-    UserModule
+    UserModule,
+    // FIXME: vu que je le mets là soit il sert plus à rien, soit il faut le supprimer de partout
+    SharedModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],

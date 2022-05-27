@@ -164,3 +164,15 @@ pre {
 #noOrder {
   min-height: 40vh;
 }
+
+// link style
+:hover .link {
+  cursor: pointer;
+}
+
+a:link,
+a:visited,
+a:active,
+a:hover {
+  color: var(--color-app-brown);
+}
