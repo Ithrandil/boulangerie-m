@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/services/auth.service';
 import firebase from 'firebase/compat/app';
@@ -22,8 +20,7 @@ export class AppComponent {
   constructor(
     public router: Router,
     public authService: AuthService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
+
     private dialog: MatDialog
   ) {
     this.authService
@@ -63,12 +60,7 @@ export class AppComponent {
         })
       )
       .subscribe();
-    iconRegistry.addSvgIcon(
-      'facebook',
-      sanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/logos/facebook-circular-logo.svg'
-      )
-    );
+
   }
   public logout(): void {
     this.authService.logout();

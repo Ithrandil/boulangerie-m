@@ -52,36 +52,3 @@
 .logoutHeader {
   font-size: 1.6rem;
 }
-
-// style footer
-.footer {
-  color: var(--color-app-brown);
-  padding-top: 1.5rem;
-  margin-bottom: -11rem;
-  border-top: solid 1px black;
-  background-color: var(--color-app-light-grey);
-  text-align: center;
-
-  @media (max-width: 768px) {
-    margin-bottom: -26.6rem;
-  }
-}
-
-:hover .link {
-  cursor: pointer;
-}
-
-a:link,
-a:visited,
-a:active,
-a:hover {
-  color: var(--color-app-brown);
-}
-
-.iconFb {
-  max-width: 2rem;
-}
-
-.textWithIcon {
-  vertical-align: super;
-}
