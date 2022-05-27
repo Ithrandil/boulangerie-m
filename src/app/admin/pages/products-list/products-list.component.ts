@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 })
 export class ProductsListComponent implements OnInit {
   public productList$: Observable<Product[]>;
-  public showEasterEgg = false;
   constructor(private productService: ProductService) {
     this.productList$ = this.productService.getAllItems();
   }

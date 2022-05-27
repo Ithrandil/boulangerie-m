@@ -2,17 +2,16 @@
   *ngIf="!productsOfThDayList.length && productsOfThDayList.length > 0">
   <mat-spinner></mat-spinner>
 </div>
-
 <div id="noOrder" fxLayout="row" fxLayoutAlign="center center"
   *ngIf="!productsOfThDayList.length && productsOfThDayList.length === 0">
   <h2>Il n'y a actuellement aucune commande.</h2>
 </div>
 <mat-card fxFlex="87" *ngIf="productsOfThDayList.length > 0" class="m-card">
-  <mat-card-title fxLayout="row wrap" fxLayoutAlign="space-between center" class="m-card-title">
+  <mat-card-title fxLayout="row wrap" fxLayoutAlign="space-between center" class="m-card-title recapTitle">
     <div>Production pour {{ today | date: "EEEE d MMMM y" }}</div>
   </mat-card-title>
   <mat-card-content fxLayout="column wrap" fxLayoutAlign="space-between baseline">
-    <div class="product-row" fxLayout="row wrap" fxLayoutAlign="flex-start center"
+    <div class="product-row productRecap" fxLayout="row wrap" fxLayoutAlign="flex-start center"
       *ngFor="let elem of productsOfThDayList">
       -&nbsp;{{ elem?.product }}&nbsp;:&nbsp;
       {{ elem?.quantity }}
