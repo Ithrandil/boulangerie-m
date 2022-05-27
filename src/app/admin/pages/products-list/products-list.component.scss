@@ -3,18 +3,29 @@
 }
 
 .listProducts {
+  margin-top: 3rem;
+
+  @media (max-width: 768px) {
+    margin-top: 4.5rem;
+  }
+
   margin-left: 1rem;
 }
+
 div:last-of-type {
   padding-right: 1rem;
 }
+
 .productCard {
   margin-top: 1rem;
 }
 
 .mat-expansion-panel:not([class*="mat-elevation-z"]) {
   box-shadow: none;
-  max-width: 23.5rem !important;
+
+  @media (min-width: 821px) {
+    max-width: 23.5rem !important;
+  }
 }
 
 .mat-expansion-panel-header {
@@ -23,6 +34,7 @@ div:last-of-type {
   margin: 0.4rem 0 0.8rem 0;
   height: 2.5rem;
 }
+
 .mat-expansion-panel-header-title {
   color: var(--color-app-brown) !important;
 }
@@ -30,7 +42,8 @@ div:last-of-type {
 ::ng-deep .mat-expansion-panel-body {
   font-size: 1.3rem;
   padding: 0 0 0 1rem !important;
-  > p {
+
+  >p {
     font-size: 1.3rem;
     font-weight: lighter;
     margin: 0 0 0.8rem 0 !important;
