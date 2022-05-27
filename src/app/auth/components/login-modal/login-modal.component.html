@@ -28,12 +28,10 @@
     </button>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <!-- TODO: PB style du lien et puis un click sur un a... -->
-    <a (click)="goToRegister()">Pas encore inscrit ?</a>
+    <span class="redirectLink" (click)="goToRegister()">Pas encore inscrit ?</span>
   </div>
   <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <!-- TODO: PB style du lien et puis un click sur un a... -->
-    <a (click)="forgottenPassword = !forgottenPassword">Mot de passe oublié?</a>
+    <span class="redirectLink" (click)="forgottenPassword = !forgottenPassword">Mot de passe oublié?</span>
   </div>
 </form>
 

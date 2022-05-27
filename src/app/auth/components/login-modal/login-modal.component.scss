@@ -6,3 +6,13 @@
 button {
   margin-bottom: 2rem;
 }
+
+// link style
+:hover .redirectLink {
+  cursor: pointer;
+}
+
+.redirectLink {
+  color: var(--color-app-brown);
+  margin-bottom: 1rem;
+}
