@@ -2,11 +2,13 @@
     <h2>Formulaire d'inscription</h2>
 </div>
 <div fxLayout="row wrap" fxLayoutAlign="center">
-    <div fxFlex="40" fxFlex.lt-sm="87" fxLayout="column" fxLayoutAlign="space-evenly center"
-        class="registerLogoContainer">
-        <p>Bienvenu sur la site de gestion de commande de la boulangerie M réservée uniquement aux professionnels</p>
-        <img alt="logo boulangerie-m" src="../assets/images/logo-header.png" class="logoRegisterForm" />
-        <p>Lorm ipsum blablable</p>
+    <div id="welcomeContainer" fxFlex="40" fxFlex.lt-md="87" fxLayout="column" fxLayoutAlign="space-around center">
+        <p class="welcomeText">Bienvenu sur la site de gestion de commandes de la boulangerie M, réservé uniquement aux
+            professionnels</p>
+        <img fxHide fxShow.gt-sm alt="logo boulangerie-m" src="../assets/images/logo-header.png"
+            class="logoRegisterForm" />
+        <p class="welcomeText">Veuillez vous inscrire afin d'accéder au formulaire, à vos anciennes commandes, repasser
+            les mêmes commandes et bien plus.</p>
     </div>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxFlex="40" fxFlex.lt-sm="87">
         <div fxLayout="column" fxLayoutAlign="center">
@@ -81,13 +83,12 @@
             </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center">
-            <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
+            <button id="submitRegistrationButton" fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
                 S'inscrire
             </button>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center">
-            <!-- TODO: PB style du lien et puis un click sur un a... -->
-            <a (click)="router.navigate(['/connexion'])">Déjà inscrit?</a>
+            <span class="redirectLink" (click)="router.navigate(['/connexion'])">Déjà inscrit?</span>
         </div>
     </form>
 </div>

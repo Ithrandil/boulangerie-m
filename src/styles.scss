@@ -176,3 +176,13 @@ a:active,
 a:hover {
   color: var(--color-app-brown);
 }
+
+// redirect link style
+:hover .redirectLink {
+  cursor: pointer;
+}
+
+.redirectLink {
+  color: var(--color-app-brown);
+  margin-bottom: 1rem;
+}

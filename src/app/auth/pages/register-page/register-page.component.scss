@@ -5,14 +5,26 @@
     margin-top: 5rem;
 }
 
-.registerLogoContainer {
-    @media (max-width: 768px) {
-        display: none;
+.logoRegisterForm {
+    width: 22rem;
+}
+
+#welcomeContainer {
+    @media (min-width: 768px) {
+        margin-right: 7rem;
     }
 }
 
-.logoRegisterForm {
-    width: 18rem;
+.welcomeText {
+    text-align: center;
+    color: var(--color-app-brown);
+
+    @media (min-width: 768px) {
+        font-size: 2rem;
+    }
+
 }
 
-// TODO: finaliser le style de cette page
+#submitRegistrationButton {
+    margin-bottom: 2rem;
+}
