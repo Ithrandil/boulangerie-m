@@ -1,21 +1,21 @@
-<mat-card class="m-card">
+<mat-card class="m-card cardInfosPerso">
     <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
-        <h2>Mes informations personnelles</h2>
+        <h2 class="titleInfosPerso">Mes informations personnelles</h2>
     </mat-card-title>
     <mat-card-content>
-        <h3>Nom de votre entreprise</h3>
+        <h3 class="h3InfosPerso">Nom de votre entreprise</h3>
         <p>{{userInformations?.name}}</p>
-        <h3>Adresse:</h3>
+        <h3 class="h3InfosPerso">Adresse:</h3>
         <p>{{userInformations?.address?.street}}<br>{{userInformations?.address?.zipCode}}
             {{userInformations?.address?.city}}</p>
         <div *ngIf="userInformations?.deliveryAddress">
-            <h3>Adresse de livraison</h3>
+            <h3 class="h3InfosPerso">Adresse de livraison</h3>
             <p>{{userInformations?.deliveryAddress?.street}} <br>{{userInformations?.deliveryAddress?.zipCode}}
                 {{userInformations?.deliveryAddress?.city}}</p>
         </div>
-        <h3>Email : </h3>
+        <h3 class="h3InfosPerso">Email : </h3>
         <p>{{userInformations?.email}}</p>
-        <h3>Numéro de téléphone</h3>
+        <h3 class="h3InfosPerso">Numéro de téléphone</h3>
         <p>{{userInformations?.phone}}</p>
         <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" *ngIf="!updatingInfos">
             <button fxFlex="40" fxFlex.lt-sm="87" class="updateInfosButton" mat-raised-button
@@ -27,7 +27,7 @@
 </mat-card>
 <!-- -------------------------------------------------------------------------------------------- -->
 
-<mat-card class="m-card" *ngIf="updatingInfos">
+<mat-card class="m-card cardInfosPerso" *ngIf="updatingInfos">
 
     <div class="importantInformation">Attention, ces changements ne seront effectifs que pour les prochaines commandes
         et n'affectorint donc pas vos
