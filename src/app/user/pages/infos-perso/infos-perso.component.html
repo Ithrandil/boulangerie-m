@@ -1,24 +1,25 @@
-<!-- TODO: FAIRE UN STYLE GLOBAL POUR MAT PLUTOT QUE DE SURCHARGER PARTOUT
- -->
 <mat-card class="m-card">
     <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
-        <div>Mes infos</div>
+        <h2>Mes informations personnelles</h2>
     </mat-card-title>
-    <mat-card-content fxLayout="column wrap" fxLayoutAlign="space-around center">
-        <p>Email : {{userInformations?.email}}</p>
-        <p>Numéro de téléphone : {{userInformations?.phone}}</p>
-        <p>Nom de votre entreprise : {{userInformations?.name}}</p>
-        <p>Adresse:</p>
-        <p>{{userInformations?.address?.street}}</p>
-        <p>{{userInformations?.address?.zipCode}} {{userInformations?.address?.city}}</p>
+    <mat-card-content fxLayout="column wrap" fxLayoutAlign="space-around flex-start">
+        <h3>Nom de votre entreprise</h3>
+        <p>{{userInformations?.name}}</p>
+        <h3>Adresse:</h3>
+        <p>{{userInformations?.address?.street}}<br>{{userInformations?.address?.zipCode}}
+            {{userInformations?.address?.city}}</p>
         <div *ngIf="userInformations?.deliveryAddress">
-            <p>Adresse de livraison:</p>
-            <p>{{userInformations?.deliveryAddress?.street}}</p>
-            <p>{{userInformations?.deliveryAddress?.zipCode}} {{userInformations?.deliveryAddress?.city}}</p>
+            <h3>Adresse de livraison</h3>
+            <p>{{userInformations?.deliveryAddress?.street}} <br>{{userInformations?.deliveryAddress?.zipCode}}
+                {{userInformations?.deliveryAddress?.city}}</p>
         </div>
-        <button mat-raised-button aria-label="Modifier mes informations personnelles"
+        <h3>Email : </h3>
+        <p>{{userInformations?.email}}</p>
+        <h3>Numéro de téléphone</h3>
+        <p>{{userInformations?.phone}}</p>
+        <button class="updateInfosButton" mat-raised-button aria-label="Modifier mes informations personnelles"
             (click)="updatingInfos = !updatingInfos">
-            Modifier mes infos
+            Modifier mes informations
         </button>
         <!-- <button mat-raised-button aria-label="Modifier mon mot de passe" (click)="updatingPassword = !updatingPassword">
             Modifier mon mot de passe
