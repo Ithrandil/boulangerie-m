@@ -1,21 +1,16 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { UserService } from '@app/user/services/user.service';
 import { Order } from '@models/order';
-import { switchMap, take, tap } from 'rxjs';
-
+import { switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-user-orders',
   templateUrl: './user-orders.component.html',
   styleUrls: ['./user-orders.component.scss'],
 })
-export class UserOrdersComponent implements OnInit, AfterViewInit {
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-
+export class UserOrdersComponent implements OnInit {
   public ordersLoading: boolean = false;
   public totalUserOrders: Order[] = [];
   public displayedUserOrders: Order[] = [];
@@ -28,24 +23,6 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
     this.getUserOrdersByDate();
   }
 
-  ngAfterViewInit() {
-    this.paginator.page
-      .pipe(
-        tap((event) => {
-          let isUserGoingForward = event.previousPageIndex! < event.pageIndex;
-          this.currentIndex = event.pageIndex;
-          if (isUserGoingForward) {
-            if (event?.pageIndex == Math.floor(this.totalUserOrders.length / 10)) {
-              this.displayedUserOrders = this.totalUserOrders.slice((event?.pageIndex * 10), this.totalUserOrders.length + 1);
-            } else {
-              this.displayedUserOrders = this.totalUserOrders.slice(((event?.pageIndex - 1) * 10), (event?.pageIndex * 10));
-            }
-          } else {
-            this.displayedUserOrders = this.totalUserOrders.slice((event?.pageIndex * 10), ((event?.pageIndex + 1) * 10));
-          }
-        })
-      ).subscribe();
-  }
 
   getUserOrdersByDate(): void {
     this.ordersLoading = true;
@@ -83,6 +60,20 @@ export class UserOrdersComponent implements OnInit, AfterViewInit {
         return false;
       }
     })
+  }
+
+  pagination(event: PageEvent) {
+    let isUserGoingForward = event.previousPageIndex! < event.pageIndex;
+    this.currentIndex = event.pageIndex;
+    if (isUserGoingForward) {
+      if (event?.pageIndex == Math.floor(this.totalUserOrders.length / 10)) {
+        this.displayedUserOrders = this.totalUserOrders.slice((event?.pageIndex * 10), this.totalUserOrders.length + 1);
+      } else {
+        this.displayedUserOrders = this.totalUserOrders.slice(((event?.pageIndex - 1) * 10), (event?.pageIndex * 10));
+      }
+    } else {
+      this.displayedUserOrders = this.totalUserOrders.slice((event?.pageIndex * 10), ((event?.pageIndex + 1) * 10));
+    }
   }
 
   cancelOrder(orderId: string | undefined) {

@@ -1,3 +1,25 @@
+.ordersListCard {
+    margin-top: 5rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.cancelButton {
+    @media (max-width: 600px) {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+}
+
 ::ng-deep mat-expansion-panel>.mat-expansion-panel-content {
-    width: 100% !important;
+    width: 100%;
+}
+
+.orderContainer {
+    margin-bottom: 1.5rem;
+}
+
+#canceledOrder {
+    padding-left: 1rem;
+    color: crimson;
 }

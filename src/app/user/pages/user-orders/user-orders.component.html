@@ -6,21 +6,24 @@
     *ngIf="!totalUserOrders.length && totalUserOrders.length === 0 && !ordersLoading">
     <h2>Vous n'avez pas encore passé de commandes.</h2>
 </div>
-<div fxLayout="column wrap">
-    <mat-expansion-panel fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="87"
-        *ngFor="let order of displayedUserOrders; let i = index">
-        <mat-expansion-panel-header fxFlex="100">
-            <mat-panel-title>Commande
-                n°{{totalUserOrders.length - (currentIndex * 10) - i}} pour le
-                {{ order.deliveryDate.toDate() | date: "EEEE d MMMM y"
-                }}{{
-                order?.deliveryTime ? " à " + order.deliveryTime : ""
-                }}{{order.isCanceled ? " ANNULÉE": ""}}
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-card fxFlex="100" class="m-card">
+<mat-card class="m-card ordersListCard" *ngIf="totalUserOrders.length">
+    <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
+        <h2>Mes commandes</h2>
+    </mat-card-title>
+    <mat-card-content fxLayout="column wrap">
+        <mat-expansion-panel fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="87" class="orderContainer"
+            *ngFor="let order of displayedUserOrders; let i = index">
+            <mat-expansion-panel-header fxFlex="100">
+                <mat-panel-title>Commande
+                    n°{{totalUserOrders.length - (currentIndex * 10) - i}} pour le
+                    {{ order.deliveryDate.toDate() | date: "EEEE d MMMM y"
+                    }}{{
+                    order?.deliveryTime ? " à " + order.deliveryTime : ""
+                    }}<span id="canceledOrder">{{order.isCanceled ? " ANNULÉE": ""}}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
             <mat-card-subtitle fxLayout="row wrap" fxLayoutAlign="space-between center">
-                Commandé le
+                Commandée le
                 {{ order.orderDate.toDate() | date: "EEEE d MMMM y" }} à
                 {{ order.orderDate.toDate() | date: "h:mm" }}
             </mat-card-subtitle>
@@ -80,24 +83,28 @@
                     &nbsp;{{ elem?.unit
                     }}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
                     <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
-                    <span *ngIf="elem && elem.comment">&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment }}</span>
+                    <span *ngIf="elem && elem.comment">&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment
+                        }}</span>
                 </div>
             </mat-card-content>
-            <mat-card-title fxLayoutAlign="flex-end" class="m-card-title">Prix total: {{ order?.totalPrice?.toFixed(2)
+            <mat-card-title fxLayoutAlign="flex-end" class="m-card-title">Prix total: {{
+                order?.totalPrice?.toFixed(2)
                 }} €
                 H.T.</mat-card-title>
-            <div fxLayoutAlign="space-between">
-                <button *ngIf="arrayCancelableOrders[(currentIndex * 10) + i] && !order.isCanceled" mat-raised-button
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+                <button fxFlex="40" fxFlex.lt-sm="87" class="cancelButton"
+                    *ngIf="arrayCancelableOrders[(currentIndex * 10) + i] && !order.isCanceled" mat-raised-button
                     aria-label="Annuler ma commande" (click)="cancelOrder(order?.orderId)">
                     Annuler ma commande
                 </button>
-                <button mat-raised-button aria-label="Repasser cette commande" (click)="placeSameOrder(order)">
+                <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button aria-label="Repasser cette commande"
+                    (click)="placeSameOrder(order)">
                     Repasser la commande
                 </button>
             </div>
-        </mat-card>
-    </mat-expansion-panel>
-    <mat-paginator [length]="totalUserOrders.length" [pageSize]="10" [hidePageSize]="true" [showFirstLastButtons]="true"
-        aria-label="Selectionnez la page">
-    </mat-paginator>
-</div>
+        </mat-expansion-panel>
+        <mat-paginator #paginator [length]="totalUserOrders.length" [pageSize]="10" [hidePageSize]="true"
+            [showFirstLastButtons]="true" aria-label="Selectionnez la page" (page)="pagination($event)">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>
