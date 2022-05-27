@@ -12,9 +12,11 @@
     </mat-form-field>
   </div>
   <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
-    <mat-checkbox fxFlexOffset="7" (change)="specificDeliveryTime($event.checked)" [checked]="selectDeliveryTime">Besoin
+    <mat-checkbox fxFlexOffset="10" fxFlexOffset.gt-xs="7" (change)="specificDeliveryTime($event.checked)"
+      [checked]="selectDeliveryTime">
+      Besoin
       d'une heure de livraison précise?</mat-checkbox>
-    <div *ngIf="selectDeliveryTime" fxFlexOffset="7" fxFlexOffset.gt-md="12" fxFlex="40" fxFlex.lt-sm="87">
+    <div *ngIf="selectDeliveryTime" fxFlexOffset="25" fxFlexOffset.gt-xs="8" fxFlex="40" fxFlex.lt-sm="87">
       <mat-form-field appearance="outline">
         <mat-label>Heure de livraison</mat-label>
         <input [ngxTimepicker]="$any(datePicker)" min="06:00" max="12:00" [format]="24" readonly matInput
