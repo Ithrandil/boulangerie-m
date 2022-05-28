@@ -1,6 +1,6 @@
-import { FormGroup } from "@angular/forms";
-import { FormErrorMessages } from "@models/formErrorMessages";
-// TODO: Refactoriser après implémentation des différents formulaire, voir si c'est toujours nécessaire
+import { FormGroup } from '@angular/forms';
+import { FormErrorMessages } from '@models/formErrorMessages';
+
 export class FormUtils {
   static GetErrorMessage(controlName: string, form: FormGroup, errorMessages: FormErrorMessages, controlGroup?: string): string {
     const errors = [];

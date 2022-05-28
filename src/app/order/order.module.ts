@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
@@ -33,6 +35,9 @@ import { OrderService } from './services/order.service';
     ReactiveFormsModule,
     MatInputModule,
     MatCheckboxModule,
+    // TODO: chercher pourquoi je ne peux pas enlever certains imports de modules ici et ds un autre
+    FlexLayoutModule,
+    MatButtonModule,
     MatCardModule,
     MatExpansionModule,
     MatDatepickerModule,
