@@ -8,7 +8,7 @@ import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions
 import { OrderFormComponent } from './order/pages/order-form/order-form.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['connexion']);
-const redirectAlreadyLoggedIn = () => redirectLoggedInTo(['']); //TODO: rédécomposer entre partie admin et partie client après tout l'implémentation
+const redirectAlreadyLoggedIn = () => redirectLoggedInTo(['']);
 
 const routes: Routes = [
   { path: '', redirectTo: 'commande', pathMatch: 'full' },
@@ -36,7 +36,6 @@ const routes: Routes = [
       import('./user/user.module').then((m) => m.UserModule),
     ...canActivate(redirectUnauthorizedToLogin),
   },
-  // { path: '404', component: PageNotFoundPage },
   { path: '**', redirectTo: 'commande' },
 ];
 

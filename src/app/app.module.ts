@@ -22,7 +22,6 @@ import { HeaderComponent } from './core/pages/header/header.component';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
 import { SharedModule } from './shared/shared.module';
-import { UserModule } from './user/user.module';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 @NgModule({
@@ -31,8 +30,6 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    // FIXME: l'init en dessous ne fonctionnait pas, a voir prk
-    // provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => {
       const firestore = getFirestore();
       // TODO: Pour avoir un émulateur en mode dev, a voir plus tard
@@ -44,15 +41,12 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
     BrowserAnimationsModule,
     SharedModule,
     OrderModule,
-    // FIXME: C PAS DU LAZY LOADING LA!!!!
     AuthModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
     HttpClientModule,
     MatCheckboxModule,
-    // FIXME: C PAS DU LAZY LOADING LA!!!!
-    UserModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
