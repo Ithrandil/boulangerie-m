@@ -68,40 +68,46 @@
           <mat-panel-title>{{ category.value }}</mat-panel-title>
         </mat-expansion-panel-header>
 
-        <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
+        <!-- <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
           [ngClass]="{
             unavailableItem: showShortDeliveryMessage && !product.shortDelivery
-          }">
-          <mat-expansion-panel class="productExpansion">
-            <mat-expansion-panel-header class="productExpansionHeader">
-              <mat-panel-title>{{ product.name }}</mat-panel-title>
-            </mat-expansion-panel-header>
-            <div class="productExpansionBody">
-              <p>{{ product.description }}</p>
-              <mat-form-field fxFlex="100" appearance="outline" [formGroup]="commentFormGroup">
-                <mat-label>Commentaire</mat-label>
-                <textarea matInput [formControlName]="product.name"
-                  placeholder="Ex: boules tranchées, forme des pains, ..."></textarea>
-              </mat-form-field>
-              <div [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
-                <mat-checkbox class="slicedCheckbox" [formControlName]="product.name">Tranché
-                </mat-checkbox>
+          }"> -->
+        <div fxLayout="column wrap" fxLayoutAlign="space-around center" class="cardProductContainer">
+          <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
+            [ngClass]="{
+                unavailableItem: showShortDeliveryMessage && !product.shortDelivery
+              }">
+            <mat-expansion-panel class="productExpansion">
+              <mat-expansion-panel-header class="productExpansionHeader">
+                <mat-panel-title>{{ product.name }}</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="productExpansionBody">
+                <p>{{ product.description }}</p>
+                <mat-form-field fxFlex="100" appearance="outline" [formGroup]="commentFormGroup">
+                  <mat-label>Commentaire</mat-label>
+                  <textarea matInput [formControlName]="product.name"
+                    placeholder="Ex: boules tranchées, forme des pains, ..."></textarea>
+                </mat-form-field>
+                <div [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
+                  <mat-checkbox class="slicedCheckbox" [formControlName]="product.name">Tranché
+                  </mat-checkbox>
+                </div>
               </div>
-            </div>
-          </mat-expansion-panel>
-          <mat-card-content class="cardPriceQuantity m-card-content" fxLayout="row wrap"
-            fxLayoutAlign="space-between baseline">
-            <div>
-              Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
-            </div>
-            <div>
-              <mat-form-field [formGroup]="itemFormGroup" class="quantityInput" appearance="outline">
-                <mat-label>Quantité</mat-label>
-                <input matInput type="number" min="0" [formControlName]="product.name" />
-              </mat-form-field>
-            </div>
-          </mat-card-content>
-        </mat-card>
+            </mat-expansion-panel>
+            <mat-card-content class="cardPriceQuantity m-card-content" fxLayout="row wrap"
+              fxLayoutAlign="space-between baseline">
+              <div>
+                Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
+              </div>
+              <div>
+                <mat-form-field [formGroup]="itemFormGroup" class="quantityInput" appearance="outline">
+                  <mat-label>Quantité</mat-label>
+                  <input matInput type="number" min="0" [formControlName]="product.name" />
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </mat-expansion-panel>
     </ng-template>
   </div>

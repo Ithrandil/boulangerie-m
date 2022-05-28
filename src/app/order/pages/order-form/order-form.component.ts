@@ -10,7 +10,6 @@ import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
 import { Product, ProductCategory } from '@models/product';
-import { getHours } from 'date-fns';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { first, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
@@ -33,7 +32,8 @@ export class OrderFormComponent implements OnDestroy {
   public minimalDay = new Date();
   public filterDaysAfterToday = DateUtils.FilterDaysAfterToday;
   public orderDays = DateUtils.OrderDays;
-  public IsItOpenToday = DateUtils.IsItOpenToday
+  public IsItOpenToday = DateUtils.IsItOpenToday;
+  public setMinimalDay = DateUtils.SetMinimalDay;
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
   public showDeliveryMessage = false;
   public showShortDeliveryMessage = false;
@@ -134,7 +134,7 @@ export class OrderFormComponent implements OnDestroy {
         this.closingDays = res;
         this.closingDays = this.orderDays(this.closingDays);
         this.closingDays = this.filterDaysAfterToday(this.closingDays);
-        this.setMinimalDay();
+        this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
       });
   }
 
@@ -306,29 +306,4 @@ export class OrderFormComponent implements OnDestroy {
   public isItOpenToday = (d: Date | null): boolean => {
     return this.IsItOpenToday(d, this.closingDays);
   };
-
-  private setMinimalDay() {
-    // Set à minuit
-    this.minimalDay.setHours(0, 0, 0, 0);
-    // Set à dans deux jours, délai minimum de livraison
-    this.minimalDay.setDate(new Date().getDate() + 2);
-    // Si 18h passée, ajoute un jour
-    if (getHours(new Date()) >= 18) {
-      this.minimalDay.setDate(new Date().getDate() + 1);
-    }
-    // Si on est samedi entre octobre et mai inclus, on tombe le lundi mais le dimanche n'est pas ouvré donc on rajoute un jour
-    if (this.minimalDay.getDay() === 1 && (this.minimalDay.getMonth() > 8 || this.minimalDay.getMonth() < 5)) {
-      this.minimalDay.setDate(this.minimalDay.getDate() + 1);
-    }
-    // Si le jour minimum de livraison est un dimanche entre octobre et mai inclus, c'est fermé, on rajoute un jour
-    if (this.minimalDay.getDay() === 0 && (this.minimalDay.getMonth() > 8 || this.minimalDay.getMonth() < 5)) {
-      this.minimalDay.setDate(this.minimalDay.getDate() + 1);
-    }
-    // Si un des jours de fermeture est prévu avant le jour minimum de livraison on rajoute un jour
-    this.closingDays.forEach(closedDay => {
-      if (closedDay.startingDate.seconds * 1000 <= this.minimalDay.getTime()) {
-        this.minimalDay.setDate(this.minimalDay.getDate() + 1);
-      }
-    })
-  }
 }

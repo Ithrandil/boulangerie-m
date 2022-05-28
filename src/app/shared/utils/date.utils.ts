@@ -1,4 +1,5 @@
 import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
+import { getHours } from 'date-fns';
 
 export class DateUtils {
     static OrderDays(
@@ -59,4 +60,30 @@ export class DateUtils {
         }
         return res;
     };
+
+    static SetMinimalDay(minimalDay: Date, closingDays: ClosingDay[]): Date {
+        // Set à minuit
+        minimalDay.setHours(0, 0, 0, 0);
+        // Set à dans deux jours, délai minimum de livraison
+        minimalDay.setDate(new Date().getDate() + 2);
+        // Si 18h passée, ajoute un jour
+        if (getHours(new Date()) >= 18) {
+            minimalDay.setDate(new Date().getDate() + 1);
+        }
+        // Si on est samedi entre octobre et mai inclus, on tombe le lundi mais le dimanche n'est pas ouvré donc on rajoute un jour
+        if (minimalDay.getDay() === 1 && (minimalDay.getMonth() > 8 || minimalDay.getMonth() < 5)) {
+            minimalDay.setDate(minimalDay.getDate() + 1);
+        }
+        // Si le jour minimum de livraison est un dimanche entre octobre et mai inclus, c'est fermé, on rajoute un jour
+        if (minimalDay.getDay() === 0 && (minimalDay.getMonth() > 8 || minimalDay.getMonth() < 5)) {
+            minimalDay.setDate(minimalDay.getDate() + 1);
+        }
+        // Si un des jours de fermeture est prévu avant le jour minimum de livraison on rajoute un jour
+        closingDays.forEach(closedDay => {
+            if (closedDay.startingDate.seconds * 1000 <= minimalDay.getTime()) {
+                minimalDay.setDate(minimalDay.getDate() + 1);
+            }
+        })
+        return minimalDay;
+    }
 }

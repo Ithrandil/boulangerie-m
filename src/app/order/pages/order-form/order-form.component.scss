@@ -110,12 +110,17 @@ mat-card {
   color: var(--color-app-brown) !important;
 }
 
+.cardProductContainer {
+  margin-left: -48px;
+  margin-right: -48px;
+}
+
 ::ng-deep .mat-expansion-panel-body {
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  font-size: 1.3rem;
-  padding: 0 !important;
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  // justify-content: space-around;
+  // font-size: 1.3rem;
+  // padding: 0;
 
   >p {
     font-size: 1.3rem;
@@ -162,3 +167,16 @@ mat-card {
 }
 
 /***********************************/
+
+#delayMessage {
+  text-align: center;
+  color: var(--color-app-brown);
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+  font-weight: 500;
+
+  @media (min-width: 768px) {
+    font-size: 2rem;
+
+  }
+}

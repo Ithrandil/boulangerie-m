@@ -19,7 +19,7 @@ import { first, take, tap } from 'rxjs';
   styleUrls: ['./place-same-order-form.component.scss'],
 })
 export class PlaceSameOrderFormComponent {
-  public tomorrow = new Date();
+  public minimalDay = new Date();
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
   public closingDays: ClosingDay[] = [];
   public orderToPlace: Order;
@@ -28,7 +28,8 @@ export class PlaceSameOrderFormComponent {
     orderDate: [new Date(Date.now()), [Validators.required]],
   });
   public getErrorMessage = FormUtils.GetErrorMessage;
-  public IsItOpenToday = DateUtils.IsItOpenToday
+  public IsItOpenToday = DateUtils.IsItOpenToday;
+  public setMinimalDay = DateUtils.SetMinimalDay;
   public errorMessages: FormErrorMessages = {
     deliveryDate: {
       required: 'Date de livraison obligatoire',
@@ -46,15 +47,17 @@ export class PlaceSameOrderFormComponent {
       delete this.orderToPlace.isCanceled
     }
     delete this.orderToPlace.orderId;
-    this.tomorrow.setDate(new Date().getDate() + 1);
+
     this.openingDaysService
       .getAllClosingDays()
       .pipe(take(1))
-      .subscribe((res) => (this.closingDays = res));
+      .subscribe((res) => {
+        this.closingDays = res;
+        this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
+      });
 
   }
 
-  // FIXME: ici aussi il faudra revoir les 2 jours et le dimanche non pris en compte
   placeOrderAgain() {
     this.orderForm.get('orderDate')?.setValue(new Date(Date.now()));
     if (this.orderForm.valid) {

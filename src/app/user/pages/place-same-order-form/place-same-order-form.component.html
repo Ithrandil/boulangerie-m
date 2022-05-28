@@ -71,7 +71,7 @@
         <div fxLayoutAlign="center center">
             <mat-form-field fxFlexOffset="7" fxFlex="40" fxFlex.lt-sm="87" appearance="outline" (click)="picker.open()">
                 <mat-label>Date de livraison</mat-label>
-                <input matInput required formControlName="deliveryDate" [min]="tomorrow" [matDatepicker]="picker"
+                <input matInput required formControlName="deliveryDate" [min]="minimalDay" [matDatepicker]="picker"
                     [matDatepickerFilter]="isItOpenToday" readonly />
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker touchUi></mat-datepicker>
