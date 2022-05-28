@@ -26,8 +26,6 @@ export class AppComponent {
       .pipe(
         tap((user) => {
           if (user && !user?.emailVerified) {
-            // TODO: il existe un pipe email verified import { emailVerified } from '@angular/fire/compat/auth-guard';
-            // TODO: voir pour changer le lien dans l'email de validation vers une view (ou je rajoute un bouton ensuite pour être propre)
             this.resendEmailVerificationEmailModal = this.dialog.open(TemplateModalComponent, {
               data: {
                 title: "Email non vérifié",
