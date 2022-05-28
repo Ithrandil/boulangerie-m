@@ -1,15 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {
-  DateAdapter,
-  MAT_DATE_LOCALE,
-  MatNativeDateModule,
-} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -38,8 +32,6 @@ import { OrderService } from './services/order.service';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    FlexLayoutModule,
-    MatButtonModule,
     MatCheckboxModule,
     MatCardModule,
     MatExpansionModule,
@@ -57,4 +49,4 @@ import { OrderService } from './services/order.service';
   ],
   exports: [OrderRoutingModule],
 })
-export class OrderModule {}
+export class OrderModule { }

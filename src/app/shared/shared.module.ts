@@ -8,8 +8,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { TemplateModalComponent } from './components/info-modal/template-modal.component';
 
-// FIXME: repasser sur tout les modules pour supprimer les doublons!
-
 @NgModule({
     declarations: [
         TemplateModalComponent

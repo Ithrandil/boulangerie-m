@@ -5,10 +5,7 @@ import localeFr from '@angular/common/locales/fr';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -45,21 +42,17 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
       return firestore;
     }),
     BrowserAnimationsModule,
+    SharedModule,
     OrderModule,
-    FlexLayoutModule,
     // FIXME: C PAS DU LAZY LOADING LA!!!!
     AuthModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
     HttpClientModule,
-    MatDialogModule,
-    MatButtonModule,
     MatCheckboxModule,
     // FIXME: C PAS DU LAZY LOADING LA!!!!
     UserModule,
-    // FIXME: vu que je le mets là soit il sert plus à rien, soit il faut le supprimer de partout
-    SharedModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
