@@ -6,6 +6,7 @@ import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
 import { FormUtils } from '@app/shared/utils/form-utils';
 import { UserService } from '@app/user/services/user.service';
+import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order } from '@models/order';
 import { first, take, tap } from 'rxjs';
@@ -19,13 +20,7 @@ import { first, take, tap } from 'rxjs';
 export class PlaceSameOrderFormComponent {
   public tomorrow = new Date();
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
-
-  // FIXME: TYPE MOI BORDEL
-  public closingDays: {
-    rangeId: string;
-    startingDate: any;
-    endingDate: any;
-  }[] = [];
+  public closingDays: ClosingDay[] = [];
   public orderToPlace: Order;
   public orderForm = this.fb.group({
     deliveryDate: [null, [Validators.required]],
@@ -87,6 +82,7 @@ export class PlaceSameOrderFormComponent {
 
   }
 
+  // FIXME: est ce que ca peut être mis dans un utils car ici et dans order form
   public isItOpenToday = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     const month = (d || new Date()).getMonth();

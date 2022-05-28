@@ -1,8 +1,9 @@
+import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
+
 export class DateUtils {
-    // TODO: essaie de typer la array de jours
     static OrderDays(
-        array: { rangeId: string; startingDate: any; endingDate: any }[]
-    ): { rangeId: string; startingDate: any; endingDate: any }[] {
+        array: ClosingDay[]
+    ): ClosingDay[] {
         return array
             .sort((el1, el2) => {
                 if (el1.startingDate.seconds < el2.startingDate.seconds) {
@@ -16,14 +17,14 @@ export class DateUtils {
     }
 
     static FilterDaysAfterToday(
-        array: { rangeId: string; startingDate: any; endingDate: any }[]
-    ): { rangeId: string; startingDate: any; endingDate: any }[] {
+        array: ClosingDay[]
+    ): ClosingDay[] {
         return array.filter((el) => el.startingDate.seconds > Math.floor(Date.now() / 1000))
     }
 
     static formatDaysToHumanDate(
-        array: { rangeId: string; startingDate: any; endingDate: any }[]
-    ): { rangeId: string; startingDate: any; endingDate: any }[] {
+        array: ClosingDay[]
+    ): ClosingDayForHumans[] {
         return array
             .map((el) => {
                 return {

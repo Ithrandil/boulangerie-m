@@ -6,6 +6,7 @@ import { FormValidatedModalComponent } from '@app/order/components/form-validate
 import { DateUtils } from '@app/shared/utils/date.utils';
 import { FormUtils } from '@app/shared/utils/form-utils';
 import { UserService } from '@app/user/services/user.service';
+import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
 import { Product, ProductCategory } from '@models/product';
@@ -25,12 +26,7 @@ export class OrderFormComponent implements OnDestroy {
     sliced: [],
     comments: [],
   };
-  // FIXME: TYPE MOI BORDEL
-  public closingDays: {
-    rangeId: string;
-    startingDate: any;
-    endingDate: any;
-  }[] = [];
+  public closingDays: ClosingDay[] = [];
   public PRODUCTCATEGORY = ProductCategory;
   public tomorrow = new Date();
   public minimalDay = new Date();
@@ -69,11 +65,11 @@ export class OrderFormComponent implements OnDestroy {
     private userService: UserService
   ) {
     this.tomorrow.setDate(new Date().getDate() + 1);
+
     // FIXME: prévenir Nico que les deux jours minimum va empecher les utilisateurs de passer commande pour le mardi
     // car c'est maintenant deux jours OUVRES, du coup si ils commandent le dimanche, ils pourront passer que pour le jeudi!!!
     // Appeler Aymeric ou Aymeric demain la dessus!
     // QUID de la livraison en date courte? j'enleve tout vu que maintenant c'est 2 jours minimum, c'est plus possible de commander pour le lendemain!
-
 
     this.itemFormGroup = this.fb.group({
       default: [''],
@@ -134,25 +130,9 @@ export class OrderFormComponent implements OnDestroy {
       .pipe(take(1))
       .subscribe((res) => {
         this.closingDays = res;
-        // this.closingDays = [
-        //   // { rangeId: "MARDI31MAIMINUT", startingDate: { seconds: 1653948000 }, endingDate: { seconds: 1653948000 } },
-        //   // { rangeId: "LUNDI30MAIMINUIT", startingDate: { seconds: 1653861600 }, endingDate: { seconds: 1653861600 } },
-        //   { rangeId: "DATEINFERIEURPOURTESTFILTRAGE", startingDate: { seconds: 1639263600 }, endingDate: { seconds: 1639263600 } }
-        // ];
-        // RAJOUT DE LUNDI FERME
-        // this.closingDays.push({ rangeId: "LUNDI30MAIMINUIT", startingDate: { seconds: 1653861600 }, endingDate: { seconds: 1653861600 } })
-        // RAJOUT DE MARDI FERME
-        // this.closingDays.push({ rangeId: "MARDI31MAIMINUT", startingDate: { seconds: 1653948000 }, endingDate: { seconds: 1653948000 } })
         this.closingDays = this.orderDays(this.closingDays);
         this.closingDays = this.filterDaysAfterToday(this.closingDays);
         this.setMinimalDay();
-
-        // TODO: DEMOCK MOI ENCULER
-        // .subscribe((res) => {
-        // this.closingDays = res;
-        //   this.closingDays = this.orderDays(this.closingDays);
-        // this.closingDays = this.filterDaysAfterToday(this.closingDays);
-        // this.setMinimalDay();
       });
   }
 
@@ -344,9 +324,6 @@ export class OrderFormComponent implements OnDestroy {
   };
 
   private setMinimalDay() {
-    /**
-     * IMPLEMENTATION FINALE PROPRE
-     */
     // Set à minuit
     this.minimalDay.setHours(0, 0, 0, 0);
     // Set à dans deux jours, délai minimum de livraison
@@ -365,132 +342,5 @@ export class OrderFormComponent implements OnDestroy {
         this.minimalDay.setDate(this.minimalDay.getDate() + 1);
       }
     })
-    /**
-     * *****************************
-     */
-
-
-    // let numberOfDelayDays: number = 2;
-    // const tempMinimalDay: Date = new Date();
-    // tempMinimalDay.setHours(0, 0, 0, 0)
-
-    // console.log("numberOfDelayDays", numberOfDelayDays)
-
-    // console.log("tempMinimalDay avant incrément => AUJOURD'HUI", tempMinimalDay.getDay())
-
-    // tempMinimalDay.setDate(new Date().getDate() + 2);
-
-    // console.log("tempMinimalDay après incrément 2 jrs => APRES DEMAIN", tempMinimalDay.getDay())
-
-
-
-    // // VERSION TEST EN ETANT VENDREDI et donc livraison possible dimanche (même si jour bloqué sur calendrier)
-
-    // tempMinimalDay.setDate(tempMinimalDay.getDate() - 1);
-    // console.log("on est dimanche?", tempMinimalDay)
-
-    // // Si le jour est un dimanche entre juin et septembre il faut rajouter un jour de plus
-    // if (tempMinimalDay.getDay() === 0 && (tempMinimalDay.getMonth() > 8 || tempMinimalDay.getMonth() < 5)) {
-    //   console.log("ON rentre bien dedans")
-    //   numberOfDelayDays++;
-    //   tempMinimalDay.setDate(tempMinimalDay.getDate() + 1);
-
-    //   console.log("du coup pour vendredi, livraison possible le lundi uniquement", tempMinimalDay)
-    //   console.log("numberOfDelayDays", numberOfDelayDays)
-    // }
-
-    // // FAIRE une boucle pour savoir si le prochain jour normalement commandable est fermé
-    // // closing days => millisecondes depuis 1er janvier 1970 (EN UTC (a prendre en compte ou pas?????????????))
-    // console.log(this.closingDays)
-
-
-    // // MOCK de this.closingDays pour avoir lundi prochain fermé
-    // let lundiProchain = new Date();
-    // lundiProchain.setDate(new Date().getDate() + 2)
-    // let mockedClosingDay = [{ startingDate: { seconds: 1653948000 }, endingDate: { seconds: 1653948000 } }, { startingDate: { seconds: 1653861600 }, endingDate: { seconds: 1653861600 } }, { startingDate: { seconds: 1639263600 }, endingDate: { seconds: 1639263600 } }]
-    // console.log("avant filtrage", mockedClosingDay)
-    // mockedClosingDay = this.formatAndFilterClosingDatesForList(mockedClosingDay)
-    // console.log("apres filtrage", mockedClosingDay)
-
-    // while (mockedClosingDay.find(closedDay =>
-    //   closedDay.startingDate.seconds * 1000 <= tempMinimalDay.getTime() &&
-    //   closedDay.endingDate.seconds * 1000 >= tempMinimalDay.getTime()
-    // )) {
-    //   numberOfDelayDays++;
-    //   tempMinimalDay.setDate(tempMinimalDay.getDate() + 1);
-    // }
-
-    // // if (mockedClosingDay.find(closedDay =>
-    // //   closedDay.startingDate.seconds * 1000 <= tempMinimalDay.getTime() &&
-    // //   closedDay.endingDate.seconds * 1000 >= tempMinimalDay.getTime()
-    // // )) {
-    // //   numberOfDelayDays++;
-    // //   tempMinimalDay.setDate(tempMinimalDay.getDate() + 1);
-    // // }
-    // console.log("closedDay.startingDate.seconds * 1000", mockedClosingDay[0].startingDate.seconds * 1000)
-    // console.log("tempMinimalDay.getTime()", tempMinimalDay.getTime())
-    // console.log("tempMinimalDay.getTime()", tempMinimalDay)
-
-    // TODO: il faut aussi tester  les closing day sur des périodes si ca fonctionne
-
-    // VERSION ACTUELLE + 2 JOURS
-
-    // this.minimalDay.setDate(new Date().getDate() + 2);
-    // // SI dimanche dans les deux jours entre juin et septembre inclus rajouter un jour
-    // // SI jours feriés / fermés issu de la bdd, rajouter ces jours
-
-    // if (new Date(Date.now()).getHours() >= 18) {
-    //   this.minimalDay.setDate(this.minimalDay.getDate() + 1);
-    // }
-    /**
-    * SE SERVIR DE CETTE LOGIQUE POUR ENLEVER LES JOURS FERMES DANS LE DELAI
-    * // Sunday open only between june and september included
-   if (day === 0 && (month > 8 || month < 5)) {
-     res = false;
-   }
-   // get and inject specific closed day from closing days form
-   if (
-     d &&
-     this.closingDays.find(
-       (el) =>
-         el.startingDate.seconds * 1000 <= d?.getTime() &&
-         el.endingDate.seconds * 1000 >= d?.getTime()
-     )
-   ) {
-     res = false;
-   }
-    */
   }
-
-  // TODO: EN FAIRE UN UTILS CAR JE VAIS MEN SERVIR AUSSI DANS ORDER FORM
-  // private formatAndFilterClosingDatesForList(
-  //   array: { startingDate: any; endingDate: any }[]
-  //   // PAS BESOIN DU RANGEID AVEC LE MOCK
-  //   // array: { rangeId: string; startingDate: any; endingDate: any }[]
-  //   // ): { rangeId: string; startingDate: any; endingDate: any }[] {
-  // ): { startingDate: any; endingDate: any }[] {
-  //   return array
-  //     .sort((el1, el2) => {
-  //       if (el1.startingDate.seconds < el2.startingDate.seconds) {
-  //         return -1;
-  //       }
-  //       if (el1.startingDate.seconds > el2.startingDate.seconds) {
-  //         return 1;
-  //       }
-  //       return 0;
-  //     })
-  //     .filter((el) => el.startingDate.seconds > Math.floor(Date.now() / 1000))
-  //   // TODO:FAIRE UNE DEUXIEME METHODE POUR CA POUR POUVOIR REUTILISER
-  //   // .map((el) => {
-  //   //   return {
-  //   //     // rangeId: el.rangeId,
-  //   //     startingDate: el.startingDate.toDate(),
-  //   //     endingDate:
-  //   //       el.startingDate.seconds === el.endingDate.seconds
-  //   //         ? null
-  //   //         : el.endingDate.toDate(),
-  //   //   };
-  //   // });
-  // }
 }
-

@@ -31,8 +31,8 @@
     <div>Jours de fermeture à venir</div>
   </mat-card-title>
   <mat-card-content fxLayout="column wrap" fxLayoutAlign="space-around center">
-    <mat-list *ngIf="allClosingDays.length > 0; else noClosingDates" role="list">
-      <mat-list-item role="listitem" *ngFor="let dates of allClosingDays" fxLayout="row wrap"
+    <mat-list *ngIf="allClosingDaysToHuman.length > 0; else noClosingDates" role="list">
+      <mat-list-item role="listitem" *ngFor="let dates of allClosingDaysToHuman" fxLayout="row wrap"
         fxLayoutAlign="space-around center">
         <p class="closedDayListElem" *ngIf="dates.endingDate; else oneDayClosing">
           - Du {{ dates.startingDate | date: "fullDate" }} au
@@ -55,3 +55,5 @@
     </ng-template>
   </mat-card-content>
 </mat-card>
+
+<!-- TODO: REVOIR COMPLETEMENT LE STYLE CEST DEGEULASSE PUTAIN -->

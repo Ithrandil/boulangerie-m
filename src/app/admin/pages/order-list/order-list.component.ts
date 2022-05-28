@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Order } from '@models/order';
+import { add, format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { add, format } from 'date-fns';
+
 import { OrderAdminService } from './../../services/order-admin.service';
-import { fr } from 'date-fns/locale';
 
 @Component({
   selector: 'app-order-list',
@@ -16,6 +17,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   public ordersOfThDayList: Order[] = [];
 
   public daysList: Date[] = [
+    // TODO: refacto toutes les dates avec date fns ou virer la lib
     new Date(Date.now()),
     add(new Date(Date.now()), { days: 1 }),
     add(new Date(Date.now()), { days: 2 }),
@@ -38,7 +40,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.unsubscribe$.next();
     this.unsubscribe$.unsubscribe();
   }
-  // TODO: refacto pour pouvoir inclure "Plus tard" et du coup enlever la moitié du HTML
+  // TODO: refacto pour pouvoir inclure "Plus tard" et du coup enlever la moitié du HTML CF stale branch ou j'avais trouvé une solution!!!
   getOrdersOfTheDay(day: Date): void {
     if (!day) {
       this.orderAdminService

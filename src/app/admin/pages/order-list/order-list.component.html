@@ -2,6 +2,7 @@
   *ngIf="!ordersOfThDayList.length && ordersOfThDayList.length > 0">
   <mat-spinner></mat-spinner>
 </div>
+<!-- TODO: Voir pour enlever les jours fermés dans la liste si pas trop compliqué -->
 
 <mat-tab-group mat-align-tabs="center" (selectedIndexChange)="getOrdersOfTheDay(daysList[$event])">
   <mat-tab *ngFor="let days of tabsLabels; let i = index" [label]="tabsLabels[i] | titlecase">
