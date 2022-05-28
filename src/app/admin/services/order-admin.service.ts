@@ -25,7 +25,6 @@ export class OrderAdminService {
 
   getOrdersByDay(day: Date): Observable<Order[]> {
     day = set(day, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
-    // TODO: refacto toutes les dates avec date fns ou virer la lib
     let dayAfter = add(day, { days: 1 });
     dayAfter = set(dayAfter, {
       hours: 0,

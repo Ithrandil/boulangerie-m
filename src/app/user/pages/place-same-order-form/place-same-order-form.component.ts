@@ -28,6 +28,8 @@ export class PlaceSameOrderFormComponent {
     orderDate: [new Date(Date.now()), [Validators.required]],
   });
   public getErrorMessage = FormUtils.GetErrorMessage;
+  public filterDaysAfterToday = DateUtils.FilterDaysAfterToday;
+  public orderDays = DateUtils.OrderDays;
   public IsItOpenToday = DateUtils.IsItOpenToday;
   public setMinimalDay = DateUtils.SetMinimalDay;
   public errorMessages: FormErrorMessages = {
@@ -53,6 +55,8 @@ export class PlaceSameOrderFormComponent {
       .pipe(take(1))
       .subscribe((res) => {
         this.closingDays = res;
+        this.closingDays = this.orderDays(this.closingDays);
+        this.closingDays = this.filterDaysAfterToday(this.closingDays);
         this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
       });
 
