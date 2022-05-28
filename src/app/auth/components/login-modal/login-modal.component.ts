@@ -42,8 +42,11 @@ export class LoginModalComponent implements OnInit {
             this.dialog.closeAll();
           },
           error: (err) => {
-            // TODO: faire une vrai gestion d'erreur en fr, voir l'api
-            this.loginErrorMessage = err.message;
+            if (err.code === "auth/wrong-password") {
+              this.loginErrorMessage = "Mauvais e-mail ou mot de passe, veuillez réessayer."
+            } else {
+              this.loginErrorMessage = "Une erreur est survenue, veuillez réessayer plus tard. " + err.message;
+            }
           }
         });
     }
@@ -57,11 +60,9 @@ export class LoginModalComponent implements OnInit {
         .subscribe({
           next: () => {
             window.location.reload();
-            // TODO: voir pour de l'ux mieux
           },
           error: (err) => {
-            // TODO: faire une vrai gestion d'erreur en fr, voir l'api
-            this.resetPasswordErrorMessage = err.message;
+            this.resetPasswordErrorMessage = "Une erreur est survenue, veuillez réessayer plus tard. " + err.message;
           }
         });
     }

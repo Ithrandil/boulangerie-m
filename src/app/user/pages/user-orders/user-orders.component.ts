@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { TemplateModalComponent } from '@app/shared/components/info-modal/template-modal.component';
 import { UserService } from '@app/user/services/user.service';
 import { Order } from '@models/order';
 import { switchMap, take } from 'rxjs';
@@ -16,8 +18,10 @@ export class UserOrdersComponent implements OnInit {
   public displayedUserOrders: Order[] = [];
   public currentIndex: number = 0;
   public arrayCancelableOrders: boolean[] = [];
+  public cancelOrderConfirmationModal!: MatDialogRef<TemplateModalComponent>;
 
-  constructor(private userService: UserService, private router: Router) { }
+
+  constructor(private userService: UserService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getUserOrdersByDate();
@@ -77,17 +81,31 @@ export class UserOrdersComponent implements OnInit {
   }
 
   cancelOrder(orderId: string | undefined) {
-    this.userService.cancelOrder(orderId as string).pipe(take(1)).subscribe({
-      next: () => {
-        // TODO: trigger une modale avant de lancer l'annulation? probablement mieux. Puis ensuite rien, afficher annulé et masquer bouton
+    this.cancelOrderConfirmationModal = this.dialog.open(TemplateModalComponent, {
+      data: {
+        title: "Annuler la commande",
+        bodyText: `
+        <p>Êtes vous sûrs de vouloir annuler votre commande ?</p>
+        <p>Vous avez aurez toujours possibilité de recommander la même commande après l'annulation.</p>
+        <p>De plus, elle sera toujours visible dans votre liste des commandes.</p>
+        `,
+        buttonText: "Annuler la commande",
       },
-      error: (err) => {
-        console.log(err)
-        window.alert(`Une erreur a eu lieu pendant l'annulation de votre commande ${orderId}, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}`,)
-      },
-      complete: () => {
-      },
+      disableClose: true,
+      width: '400px',
+      maxWidth: '90%',
     });
+    this.cancelOrderConfirmationModal
+      .afterClosed()
+      .pipe(
+        switchMap(() => this.userService.cancelOrder(orderId as string)),
+        take(1)
+      )
+      .subscribe({
+        error: (err) => {
+          window.alert(`Une erreur a eu lieu pendant l'annulation de votre commande ${orderId}, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}`,)
+        }
+      });
   }
 
   placeSameOrder(order: Order) {

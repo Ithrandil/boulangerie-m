@@ -17,7 +17,7 @@ export class TemplateModalComponent implements OnInit {
       this.data.buttonAction();
       setTimeout(() => {
         this.dialogRef.close();
-      }, 500);
+      }, 1000);
     } else {
       this.dialogRef.close();
     }
