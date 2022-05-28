@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/auth/services/auth.service';
-import { first, tap } from 'rxjs/operators';
+import { first, take, tap } from 'rxjs/operators';
 
 import { TemplateModalComponent } from './shared/components/info-modal/template-modal.component';
 
@@ -18,7 +19,7 @@ export class AppComponent {
   constructor(
     public router: Router,
     public authService: AuthService,
-
+    private auth: AngularFireAuth,
     private dialog: MatDialog
   ) {
     this.authService
@@ -36,7 +37,7 @@ export class AppComponent {
                 <p>Si vous n'avez pas reçu l'email, vous pouvez en redemander un autre en cliquant sur le bouton ci dessous.</p>
                 `,
                 buttonText: "Renvoyer un email",
-                buttonAction: "RESEND_EMAIL_VERIFICATION"
+                buttonAction: () => this.auth.user.pipe(take(1), tap(user => user?.sendEmailVerification())).subscribe()
               },
               disableClose: true,
               width: '400px',
