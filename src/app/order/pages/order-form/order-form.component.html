@@ -1,8 +1,11 @@
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <p id="delayMessage">Compte tenu de nos méthodes de production, toute commande doit être passée l'avant-veille du jour
+    de livraison (jours ouvrés uniquement).<br>
+    Exemple : pour une livraison le mercredi, dernier délai le lundi à 18h.</p>
   <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
     <mat-form-field fxFlexOffset="7" fxFlex="40" fxFlex.lt-sm="87" appearance="outline" (click)="picker.open()">
       <mat-label>Date de livraison</mat-label>
-      <input matInput required formControlName="deliveryDate" [min]="tomorrow" [matDatepicker]="picker"
+      <input matInput required formControlName="deliveryDate" [min]="minimalDay" [matDatepicker]="picker"
         [matDatepickerFilter]="isItOpenToday" readonly />
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker touchUi></mat-datepicker>
@@ -54,7 +57,6 @@
   <div fxLayout="row wrap" fxLayoutAlign="center center">
     <h2>Produits</h2>
   </div>
-
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
     <div *ngIf="!productList.length; else productContainer">
       <mat-spinner></mat-spinner>
