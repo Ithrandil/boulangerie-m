@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
+import { DateUtils } from '@app/shared/utils/date.utils';
 import { FormUtils } from '@app/shared/utils/form-utils';
 import { UserService } from '@app/user/services/user.service';
 import { ClosingDay } from '@models/closingDay';
@@ -27,6 +28,7 @@ export class PlaceSameOrderFormComponent {
     orderDate: [new Date(Date.now()), [Validators.required]],
   });
   public getErrorMessage = FormUtils.GetErrorMessage;
+  public IsItOpenToday = DateUtils.IsItOpenToday
   public errorMessages: FormErrorMessages = {
     deliveryDate: {
       required: 'Date de livraison obligatoire',
@@ -82,27 +84,8 @@ export class PlaceSameOrderFormComponent {
 
   }
 
-  // FIXME: est ce que ca peut être mis dans un utils car ici et dans order form
   public isItOpenToday = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    const month = (d || new Date()).getMonth();
-    let res = true;
-    // Sunday open only between june and september included
-    if (day === 0 && (month > 8 || month < 5)) {
-      res = false;
-    }
-    // get and inject specific closed day from closing days form
-    if (
-      d &&
-      this.closingDays.find(
-        (el) =>
-          el.startingDate.seconds * 1000 <= d?.getTime() &&
-          el.endingDate.seconds * 1000 >= d?.getTime()
-      )
-    ) {
-      res = false;
-    }
-    return res;
+    return this.IsItOpenToday(d, this.closingDays);
   };
 
 }

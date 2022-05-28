@@ -37,4 +37,26 @@ export class DateUtils {
                 };
             });
     }
+
+    static IsItOpenToday = (d: Date | null, closingDays: ClosingDay[]): boolean => {
+        const day = (d || new Date()).getDay();
+        const month = (d || new Date()).getMonth();
+        let res = true;
+        // Sunday open only between june and september included
+        if (day === 0 && (month > 8 || month < 5)) {
+            res = false;
+        }
+        // get and inject specific closed day from closing days form
+        if (
+            d &&
+            closingDays.find(
+                (el) =>
+                    el.startingDate.seconds * 1000 <= d?.getTime() &&
+                    el.endingDate.seconds * 1000 >= d?.getTime()
+            )
+        ) {
+            res = false;
+        }
+        return res;
+    };
 }

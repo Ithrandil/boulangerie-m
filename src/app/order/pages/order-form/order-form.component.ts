@@ -33,6 +33,7 @@ export class OrderFormComponent implements OnDestroy {
   public minimalDay = new Date();
   public filterDaysAfterToday = DateUtils.FilterDaysAfterToday;
   public orderDays = DateUtils.OrderDays;
+  public IsItOpenToday = DateUtils.IsItOpenToday
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
   public showDeliveryMessage = false;
   public showShortDeliveryMessage = false;
@@ -303,25 +304,7 @@ export class OrderFormComponent implements OnDestroy {
   }
 
   public isItOpenToday = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    const month = (d || new Date()).getMonth();
-    let res = true;
-    // Sunday open only between june and september included
-    if (day === 0 && (month > 8 || month < 5)) {
-      res = false;
-    }
-    // get and inject specific closed day from closing days form
-    if (
-      d &&
-      this.closingDays.find(
-        (el) =>
-          el.startingDate.seconds * 1000 <= d?.getTime() &&
-          el.endingDate.seconds * 1000 >= d?.getTime()
-      )
-    ) {
-      res = false;
-    }
-    return res;
+    return this.IsItOpenToday(d, this.closingDays);
   };
 
   private setMinimalDay() {
