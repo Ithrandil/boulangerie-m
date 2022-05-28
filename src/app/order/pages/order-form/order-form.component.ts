@@ -10,6 +10,7 @@ import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
 import { Product, ProductCategory } from '@models/product';
+import { getHours } from 'date-fns';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { first, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
@@ -328,7 +329,11 @@ export class OrderFormComponent implements OnDestroy {
     this.minimalDay.setHours(0, 0, 0, 0);
     // Set à dans deux jours, délai minimum de livraison
     this.minimalDay.setDate(new Date().getDate() + 2);
-    // Si on est samedi entre octobre et mai inclus, on tombe le lundi mais le dimanche n'est pas ouvré donc on rajoute un jours
+    // Si 18h passée, ajoute un jour
+    if (getHours(new Date()) >= 18) {
+      this.minimalDay.setDate(new Date().getDate() + 1);
+    }
+    // Si on est samedi entre octobre et mai inclus, on tombe le lundi mais le dimanche n'est pas ouvré donc on rajoute un jour
     if (this.minimalDay.getDay() === 1 && (this.minimalDay.getMonth() > 8 || this.minimalDay.getMonth() < 5)) {
       this.minimalDay.setDate(this.minimalDay.getDate() + 1);
     }
