@@ -15,7 +15,7 @@
   background-color: $color-app-light-grey;
   align-self: center;
 
-  @include for-desktop-down {
+  @include for-tablet-landscape-down {
     margin-top: 6rem;
   }
 }

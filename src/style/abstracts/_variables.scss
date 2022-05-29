@@ -2,7 +2,7 @@
 * Ensemble des variables utilisées dans le style
 **/
 
-$global-container-width: 120rem;
+$global-container-width: 128rem;
 
 /* Typography */
 $font-size-root: 10px;
@@ -14,6 +14,9 @@ $font-size-h4: $font-size-default * 1;
 $font-size-h3: $font-size-default * 1.17;
 $font-size-h2: $font-size-default * 1.5;
 $font-size-h1: $font-size-default * 2;
+
+$font-weight-500 : 500;
+$font-weight-bold : bold;
 
 /* Global colors */
 $color-app-brown: #af762f;

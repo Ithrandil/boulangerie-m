@@ -1,0 +1,14 @@
+@import "abstracts/variables";
+
+/* Mat Calendar custom style */
+
+.mat-calendar-body-cell {
+    color: $color-app-brown;
+    background-color: $color-app-light-brown;
+}
+
+.mat-calendar-body-selected,
+.mat-calendar-body-cell-content:hover {
+    color: $color-app-brown;
+    background-color: $color-app-light-brown  !important;
+}

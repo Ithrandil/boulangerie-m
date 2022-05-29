@@ -1,3 +1,14 @@
+@import "abstracts/variables";
+
+#footer {
+    background-color: $color-app-brown-grey;
+    border-top: solid 1px black;
+    color: $color-app-light-grey;
+    text-shadow: 1px 1px 0 black;
+
+    padding-top: 1.5rem;
+}
+
 // .footer {
 //     color: var(--color-app-brown);
 //     padding-top: 1.5rem;

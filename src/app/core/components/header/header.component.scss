@@ -11,10 +11,11 @@
 }
 
 #header {
-    background-color: $color-app-light-grey;
+    background-color: $color-app-brown-grey;
     border-bottom: solid 1px black;
 
-    color: $color-app-brown;
+    color: $color-app-light-grey;
+    text-shadow: 1px 1px 0 black;
 
     @include for-phone-only {
         min-height: 6rem;
