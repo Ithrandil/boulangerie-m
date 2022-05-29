@@ -8,6 +8,7 @@
 // @import 'layout/forms';
 
 @import 'components/buttons';
+@import 'components/spinners';
 // @import 'components/cards';
 
 // avoid comments to overflow and fuck my css and loose two hours for no shit
@@ -61,18 +62,6 @@ pre {
 //   background: var(--color-app-brown);
 // }
 
-// // Button custom style
-// .mat-button-base {
-//   background-color: var(--color-app-light-brown);
-//   color: var(--color-app-brown);
-// }
-
-// .mat-button-base:hover {
-//   background-color: var(--color-app-brown);
-//   color: var(--color-app-light-brown);
-//   transition: background 0.8s;
-// }
-
 // // Calendar custom style
 // .mat-calendar-controls {
 //   .mat-button-base {
@@ -100,12 +89,6 @@ pre {
 // mat-divider {
 //   margin: 1rem 0 1rem 0 !important;
 //   border-top-width: 5px !important;
-// }
-
-// // Spinner custom style
-// .mat-progress-spinner circle,
-// .mat-spinner circle {
-//   stroke: var(--color-app-light-brown);
 // }
 
 // //*** FORM FIELD CUSTOM STYLE
