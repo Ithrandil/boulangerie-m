@@ -16,9 +16,9 @@ import { environment } from './../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
+import { FooterComponent } from './core/components/footer/footer.component';
+import { HeaderComponent } from './core/components/header/header.component';
 import { InfoModalComponent } from './core/components/info-modal/info-modal.component';
-import { FooterComponent } from './core/pages/footer/footer.component';
-import { HeaderComponent } from './core/pages/header/header.component';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
 import { SharedModule } from './shared/shared.module';
@@ -52,3 +52,5 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
   bootstrap: [AppComponent],
 })
 export class AppModule { }
+
+// FIXME: PROD!!! Angular is running in development mode. Call enableProdMode() to enable production mode.

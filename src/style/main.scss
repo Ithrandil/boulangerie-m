@@ -1,0 +1,196 @@
+@import 'abstracts/mixins';
+@import 'abstracts/variables';
+
+@import 'base/reset';
+@import 'base/typography';
+
+// @import 'layout/navigation';
+// @import 'layout/grid';
+@import 'layout/body';
+// @import 'layout/sidebar';
+// @import 'layout/forms';
+
+// @import 'components/buttons';
+// @import 'components/carousel';
+// @import 'components/cover';
+// @import 'components/dropdown';
+
+// @import 'pages/home';
+// @import 'pages/contact';
+
+// @import 'themes/theme';
+// @import 'themes/admin';
+
+// avoid comments to overflow and fuck my css and loose two hours for no shit
+pre {
+  white-space: pre-line;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+
+
+// body {
+// height: 100vh;
+// display: flex;
+// margin: 0;
+// }
+
+
+
+// ::-webkit-scrollbar {
+//   width: 0px;
+//   background: transparent;
+//   /* make scrollbar transparent */
+// }
+
+// // Toggle custom style
+// .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+//   background-color: var(--color-app-light-brown);
+// }
+
+// .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+//   background-color: var(--color-app-brown);
+// }
+
+// // Checkbox custom style
+// .mat-checkbox-label {
+//   color: var(--color-app-brown);
+//   font-size: medium;
+// }
+
+// .mat-checkbox-inner-container {
+//   border-radius: 2px;
+//   background-color: white;
+// }
+
+// .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+//   background-color: var(--color-app-brown);
+// }
+
+// .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+//   background: var(--color-app-brown);
+// }
+
+// .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+//   background: var(--color-app-brown);
+// }
+
+// // Button custom style
+// .mat-button-base {
+//   background-color: var(--color-app-light-brown);
+//   color: var(--color-app-brown);
+// }
+
+// .mat-button-base:hover {
+//   background-color: var(--color-app-brown);
+//   color: var(--color-app-light-brown);
+//   transition: background 0.8s;
+// }
+
+// // Calendar custom style
+// .mat-calendar-controls {
+//   .mat-button-base {
+//     background-color: white;
+//     color: rgba(0, 0, 0, 0.54);
+//   }
+
+//   .mat-button-base:hover {
+//     background-color: white;
+//     color: var(--color-app-light-brown);
+//     transition: background 0.8s;
+//   }
+// }
+
+// .mat-calendar-body-cell-content:hover {
+//   color: var(--color-app-brown) !important;
+// }
+
+// .mat-calendar-body-selected {
+//   background-color: var(--color-app-light-brown);
+//   color: var(--color-app-brown);
+// }
+
+// // Divider custom style
+// mat-divider {
+//   margin: 1rem 0 1rem 0 !important;
+//   border-top-width: 5px !important;
+// }
+
+// // Spinner custom style
+// .mat-progress-spinner circle,
+// .mat-spinner circle {
+//   stroke: var(--color-app-light-brown);
+// }
+
+// //*** FORM FIELD CUSTOM STYLE
+// .mat-form-field-appearance-outline .mat-form-field-outline {
+//   background-color: white;
+//   border-radius: 5px;
+// }
+
+// //mat-input focused color
+
+// .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+//   color: var(--color-app-brown) !important;
+// }
+
+// // mat-label focused style
+// .mat-form-field.mat-focused .mat-form-field-label {
+//   color: var(--color-app-brown) !important;
+// }
+
+// /***********************************/
+
+// // modal custom style
+// .mat-dialog-container {
+//   background-color: var(--color-app-light-grey);
+// }
+
+
+
+// // mat-card default style
+// .m-card {
+//   margin: 1rem 2rem 1rem 2rem;
+// }
+
+// .m-card-title {
+//   font-size: 1.6rem;
+//   color: var(--color-app-brown) !important;
+// }
+
+// .product-row {
+//   margin-top: 0.3rem;
+//   margin-bottom: 0.3rem;
+// }
+
+// .m-card-content {
+//   font-size: 1.3rem;
+//   margin-bottom: 0.8rem !important;
+// }
+
+// #noOrder {
+//   min-height: 40vh;
+// }
+
+// // link style
+// :hover .link {
+//   cursor: pointer;
+// }
+
+// a:link,
+// a:visited,
+// a:active,
+// a:hover {
+//   color: var(--color-app-brown);
+// }
+
+// // redirect link style
+// :hover .redirectLink {
+//   cursor: pointer;
+// }
+
+// .redirectLink {
+//   color: var(--color-app-brown);
+//   margin-bottom: 1rem;
+// }

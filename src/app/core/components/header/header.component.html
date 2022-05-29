@@ -1,0 +1,36 @@
+<mat-toolbar class="header">
+    <nav fxLayout="row" fxFlex="100" fxHide.lt-md fxLayoutAlign="space-between center">
+        <img (click)="router.navigate([''])" alt="logo boulangerie-m" src="../assets/images/logo-header.png"
+            class="logo-header" />
+        <ul fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+            <li *ngFor="let menuElem of menuElements" class="link" (click)="router.navigate([menuElem.path])">
+                {{menuElem.wording}}
+            </li>
+            <li class="link logoutHeader" fxLayoutAlign="center center" (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Se déconnecter</span>
+            </li>
+        </ul>
+    </nav>
+    <!-- Mobile menu -------------------------------------------->
+    <nav fxLayout="row" fxFlex="100" fxHide.gt-sm fxLayoutAlign="center center">
+        <img (click)="router.navigate([''])" alt="logo boulangerie-m" src="../assets/images/logo-header.png"
+            class="logo-header" />
+        <button class="mobileMenuButton" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="after">
+            <div *ngFor="let menuElem of menuElements">
+                <button mat-menu-item (click)="router.navigate([menuElem.path])">
+                    <mat-icon>{{menuElem.icon}}</mat-icon>
+                    <span>{{menuElem.wording}}</span>
+                </button>
+            </div>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Se déconnecter</span>
+            </button>
+        </mat-menu>
+    </nav>
+</mat-toolbar>

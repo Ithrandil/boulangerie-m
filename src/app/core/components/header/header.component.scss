@@ -1,0 +1,58 @@
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+:host {
+    /* Sets the sticky toolbar to be on top */
+    position: sticky;
+    /* For macOS/iOS Safari */
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.header {
+    background-color: $color-app-light-grey;
+    border-bottom: solid 1px black;
+
+    color: $color-app-brown;
+
+    @include for-phone-only {
+        min-height: 6rem;
+    }
+
+    @include for-tablet-landscape-up {
+        min-height: 14rem;
+    }
+
+}
+
+ul {
+    list-style-type: none;
+}
+
+.logo-header {
+    max-width: 10rem;
+    max-height: 10rem;
+    margin-top: 6rem;
+
+    @include for-tablet-landscape-only {
+        margin-top: 0;
+        margin-left: 2vw;
+        margin-right: 2vw;
+    }
+
+    @include for-desktop-up {
+        margin-top: 0;
+        margin-left: 2vw;
+        margin-right: 20vw;
+    }
+}
+
+.logoutHeader {
+    margin-right: 2vw;
+}
+
+.mobileMenuButton {
+    position: fixed;
+    right: 5vw;
+}

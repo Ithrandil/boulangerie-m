@@ -1,0 +1,22 @@
+/**
+* Ensemble des variables utilisées dans le style
+**/
+
+/* Typography */
+$font-size-root: 10px;
+$font-size-default: 1.6rem;
+$font-size-subtitle: $font-size-default * 0.9;
+$font-size-h6: $font-size-default * .67;
+$font-size-h5: $font-size-default * .83;
+$font-size-h4: $font-size-default * 1;
+$font-size-h3: $font-size-default * 1.17;
+$font-size-h2: $font-size-default * 1.5;
+$font-size-h1: $font-size-default * 2;
+
+/* Global colors */
+$color-app-brown: #af762f;
+$color-app-light-brown: #f5cf8e;
+$color-app-light-grey: #f9f7f8;
+$color-app-grey: #dfd9dd;
+$color-app-brown-grey: #bea28c;
+$container-width: 120rem;

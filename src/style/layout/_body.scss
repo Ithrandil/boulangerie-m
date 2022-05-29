@@ -1,0 +1,24 @@
+html,
+body {
+    @include for-desktop-down {
+        background-color: $color-app-light-grey;
+    }
+
+    @include for-desktop-up {
+        background-image: url("./../../assets/images/background/bakery-background.jpg");
+        background-position: center;
+        background-size: cover;
+    }
+}
+
+/* Link style */
+:hover .link {
+    cursor: pointer;
+}
+
+a:link,
+a:visited,
+a:active,
+a:hover {
+    color: $color-app-brown;
+}
