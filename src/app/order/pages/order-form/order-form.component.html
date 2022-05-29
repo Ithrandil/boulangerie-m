@@ -3,9 +3,10 @@
   <p id="delayMessage">Compte tenu de nos méthodes de production, toute commande doit être passée
     <span>l'avant-veille</span> du jour
     de livraison (jours ouvrés uniquement).<br>
-    Exemple : pour une livraison le mercredi, dernier délai le lundi à 18h.</p>
-  <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
-    <mat-form-field fxFlexOffset="7" fxFlex="40" fxFlex.lt-sm="87" appearance="outline" (click)="picker.open()">
+    Exemple : pour une livraison le mercredi, dernier délai le lundi à 18h.
+  </p>
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="flex-start center">
+    <mat-form-field fxFlex="40" fxFlex.lt-sm="100" appearance="outline" (click)="picker.open()">
       <mat-label>Date de livraison</mat-label>
       <input matInput required formControlName="deliveryDate" [min]="minimalDay" [matDatepicker]="picker"
         [matDatepickerFilter]="isItOpenToday" readonly />
@@ -16,108 +17,95 @@
         }}</mat-error>
     </mat-form-field>
   </div>
-  <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
-    <mat-checkbox fxFlexOffset="10" fxFlexOffset.gt-xs="7" (change)="specificDeliveryTime($event.checked)"
-      [checked]="selectDeliveryTime">
-      Besoin
-      d'une heure de livraison précise?</mat-checkbox>
-    <div *ngIf="selectDeliveryTime" fxFlexOffset="25" fxFlexOffset.gt-xs="8" fxFlex="40" fxFlex.lt-sm="87">
-      <mat-form-field appearance="outline">
-        <mat-label>Heure de livraison</mat-label>
-        <input [ngxTimepicker]="$any(datePicker)" min="06:00" max="12:00" [format]="24" readonly matInput
-          formControlName="deliveryTime" />
-        <ngx-material-timepicker #datePicker></ngx-material-timepicker>
-      </mat-form-field>
-    </div>
+  <div fxLayout="row" id="checkboxRow" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="flex-start center">
+    <mat-checkbox (change)="specificDeliveryTime($event.checked)" [checked]="selectDeliveryTime">
+      Besoin d'une heure de livraison précise?
+    </mat-checkbox>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <p class="deliveryMessage" *ngIf="showDeliveryMessage">
-      Votre livraison vous sera livrée à l'adresse renseignée le
-      {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }}
-      {{
-      this.orderForm.get("deliveryTime")?.value
-      ? "à " + this.orderForm.get("deliveryTime")?.value
-      : "entre 6 heures et midi."
-      }}
-    </p>
-    <p class="warningMessage" *ngIf="showShortDeliveryMessage || showOrderNeedValidationMessage">
-      <span> Attention, dû au délai court de votre commande: </span>
-      <span *ngIf="showOrderNeedValidationMessage">
-        <br />&nbsp;&nbsp;- Elle devra être validée par la boulangerie M.
-        <span id="importantSentence">Sans retour de leur part dans l'heure, considérez la comme
-          annulée.</span>
-      </span>
-      <span *ngIf="showShortDeliveryMessage">
-        <br />&nbsp;&nbsp;- Certains produits ne sont pas disponibles. Ils ont
-        été désactivés dans le formulaire.
-      </span>
-    </p>
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="flex-start center">
+    <mat-form-field *ngIf="selectDeliveryTime" fxFlex="40" fxFlex.lt-sm="100" appearance="outline">
+      <mat-label>Heure de livraison</mat-label>
+      <input [ngxTimepicker]="$any(datePicker)" min="06:00" max="12:00" [format]="24" readonly matInput
+        formControlName="deliveryTime" />
+      <ngx-material-timepicker #datePicker></ngx-material-timepicker>
+    </mat-form-field>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <mat-divider fxFlex="50"></mat-divider>
+  <p id="deliveryMessage" *ngIf="showDeliveryMessage">
+    Votre livraison vous sera livrée le
+    {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }}
+    {{
+    this.orderForm.get("deliveryTime")?.value
+    ? "à " + this.orderForm.get("deliveryTime")?.value
+    : "entre 6 heures et midi."
+    }}
+  </p>
+  <!-- TODO: A SUPPRIMER SI PLUS PERTINENT A VOIR AVEC NICO !!!! sinon revoir le style !!!!-->
+  <p class="warningMessage" *ngIf="showShortDeliveryMessage || showOrderNeedValidationMessage">
+    <span> Attention, dû au délai court de votre commande: </span>
+    <span *ngIf="showOrderNeedValidationMessage">
+      <br />&nbsp;&nbsp;- Elle devra être validée par la boulangerie M.
+      <span id="importantSentence">Sans retour de leur part dans l'heure, considérez la comme
+        annulée.</span>
+    </span>
+    <span *ngIf="showShortDeliveryMessage">
+      <br />&nbsp;&nbsp;- Certains produits ne sont pas disponibles. Ils ont
+      été désactivés dans le formulaire.
+    </span>
+  </p>
+  <!-- --------------------------------------------------- -->
+  <mat-divider class="dividerOrderForm"></mat-divider>
+  <h2>Produits</h2>
+  <div *ngIf="!productList.length; else productContainer">
+    <mat-spinner></mat-spinner>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <h2>Produits</h2>
-  </div>
-  <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
-    <div *ngIf="!productList.length; else productContainer">
-      <mat-spinner></mat-spinner>
-    </div>
-    <ng-template #productContainer>
-      <mat-expansion-panel fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="87" class="productCategory"
-        *ngFor="let category of PRODUCTCATEGORY | keyvalue">
-        <mat-expansion-panel-header fxFlex="100" class="productCategoryHeader">
-          <mat-panel-title>{{ category.value }}</mat-panel-title>
-        </mat-expansion-panel-header>
+  <ng-template #productContainer>
+    <mat-expansion-panel class="productCategory" *ngFor="let category of PRODUCTCATEGORY | keyvalue">
+      <mat-expansion-panel-header class="productCategoryHeader">
+        <mat-panel-title>{{ category.value }}</mat-panel-title>
+      </mat-expansion-panel-header>
 
-        <!-- <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
+      <!-- <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
           [ngClass]="{
             unavailableItem: showShortDeliveryMessage && !product.shortDelivery
           }"> -->
-        <div fxLayout="column wrap" fxLayoutAlign="space-around center" class="cardProductContainer">
-          <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
-            [ngClass]="{
+      <mat-card *ngFor="let product of filterProductByCategory(category.value)" [ngClass]="{
                 unavailableItem: showShortDeliveryMessage && !product.shortDelivery
               }">
-            <mat-expansion-panel class="productExpansion">
-              <mat-expansion-panel-header class="productExpansionHeader">
-                <mat-panel-title>{{ product.name }}</mat-panel-title>
-              </mat-expansion-panel-header>
-              <div class="productExpansionBody">
-                <p>{{ product.description }}</p>
-                <mat-form-field fxFlex="100" appearance="outline" [formGroup]="commentFormGroup">
-                  <mat-label>Commentaire</mat-label>
-                  <textarea matInput [formControlName]="product.name"
-                    placeholder="Ex: boules tranchées, forme des pains, ..."></textarea>
-                </mat-form-field>
-                <div [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
-                  <mat-checkbox class="slicedCheckbox" [formControlName]="product.name">Tranché
-                  </mat-checkbox>
-                </div>
-              </div>
-            </mat-expansion-panel>
-            <mat-card-content class="cardPriceQuantity m-card-content" fxLayout="row wrap"
-              fxLayoutAlign="space-between baseline">
-              <div>
-                Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
-              </div>
-              <div>
-                <mat-form-field [formGroup]="itemFormGroup" class="quantityInput" appearance="outline">
-                  <mat-label>Quantité</mat-label>
-                  <input matInput type="number" min="0" [formControlName]="product.name" />
-                </mat-form-field>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </mat-expansion-panel>
-    </ng-template>
-  </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <mat-divider fxFlex="50"></mat-divider>
-  </div>
-  <div fxLayout="row wrap" fxLayoutAlign="flex-start center">
-    <mat-form-field fxFlexOffset="7" fxFlex="87" fxFlex.lt-sm="87" appearance="outline">
+        <mat-expansion-panel class="productExpansion">
+          <mat-expansion-panel-header class="productExpansionHeader">
+            <mat-panel-title>{{ product.name }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="productExpansionBody">
+            <p>{{ product.description }}</p>
+            <mat-form-field fxFlex="100" appearance="outline" [formGroup]="commentFormGroup">
+              <mat-label>Commentaire</mat-label>
+              <textarea matInput [formControlName]="product.name"
+                placeholder="Ex: boules tranchées, forme des pains, ..."></textarea>
+            </mat-form-field>
+            <div [formGroup]="sliceFormGroup" *ngIf="product.isSliceable">
+              <mat-checkbox class="slicedCheckbox" [formControlName]="product.name">Tranché
+              </mat-checkbox>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        <mat-card-content class="cardPriceQuantity m-card-content" fxLayout="row wrap"
+          fxLayoutAlign="space-between baseline">
+          <div>
+            Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
+          </div>
+          <div>
+            <mat-form-field [formGroup]="itemFormGroup" class="quantityInput" appearance="outline">
+              <mat-label>Quantité</mat-label>
+              <input matInput type="number" min="0" [formControlName]="product.name" />
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-expansion-panel>
+  </ng-template>
+  <mat-divider class="dividerOrderForm"></mat-divider>
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="flex-start center">
+    <mat-form-field fxFlex="40" fxFlex.lt-sm="100" appearance="outline">
       <mat-label>Commentaires</mat-label>
       <textarea matInput formControlName="orderComment"
         placeholder="Ex: Déposer la livraison en arrière cuisine, ..."></textarea>
