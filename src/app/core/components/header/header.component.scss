@@ -10,7 +10,7 @@
     z-index: 99;
 }
 
-.header {
+#header {
     background-color: $color-app-light-grey;
     border-bottom: solid 1px black;
 
@@ -48,11 +48,11 @@ ul {
     }
 }
 
-.logoutHeader {
+#logoutHeader {
     margin-right: 2vw;
 }
 
-.mobileMenuButton {
+#mobileMenuButton {
     position: fixed;
     right: 5vw;
 }
