@@ -1,20 +1,21 @@
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
 :host {
   display: flex;
   flex: 1;
   flex-direction: column;
-  justify-content: space-between;
-
-  background-image: url("./../assets/images/background/bakery-background.jpg");
-  background-position: center;
-  background-size: cover;
-  background-color: var(--color-app-light-grey);
+  height: 100%;
 }
 
 .container-page {
   width: 100%;
-  max-width: var(--container-width);
+  max-width: $global-container-width;
   height: 100%;
-  background-color: var(--color-app-light-grey);
+  background-color: $color-app-light-grey;
   align-self: center;
-  overflow: auto;
+
+  @include for-desktop-down {
+    margin-top: 6rem;
+  }
 }

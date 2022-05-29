@@ -1,5 +1,7 @@
 html,
 body {
+    height: 100%;
+
     @include for-desktop-down {
         background-color: $color-app-light-grey;
     }
