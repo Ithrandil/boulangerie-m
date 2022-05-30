@@ -1,31 +1,28 @@
 @import "abstracts/variables";
+@import "abstracts/mixins";
 
 #footer {
     background-color: $color-app-brown-grey;
     border-top: solid 1px black;
     color: $color-app-light-grey;
     text-shadow: 1px 1px 0 black;
+    text-align: center;
 
     padding-top: 1.5rem;
+    width: 100%;
+
+    margin-bottom: -23.4rem;
+
+    @include for-tablet-landscape-up {
+        margin-bottom: 0;
+    }
 }
 
-// .footer {
-//     color: var(--color-app-brown);
-//     padding-top: 1.5rem;
-//     margin-bottom: -11rem;
-//     border-top: solid 1px black;
-//     background-color: var(--color-app-light-grey);
-//     text-align: center;
+.textWithIcon {
+    vertical-align: top;
+}
 
-//     @media (max-width: 768px) {
-//         margin-bottom: -26.6rem;
-//     }
-// }
-
-// .iconFb {
-//     max-width: 2rem;
-// }
-
-// .textWithIcon {
-//     vertical-align: super;
-// }
+.footerLink {
+    color: $color-app-light-grey;
+    text-shadow: 1px 1px 0 black;
+}

@@ -3,17 +3,17 @@
 
 :host {
   display: flex;
-  flex: 1;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
 }
 
 .container-page {
-  width: 100%;
+  flex: 1;
   max-width: $global-container-width;
-  height: 100%;
+  width: 100%;
   background-color: $color-app-light-grey;
   align-self: center;
+  padding-bottom: 6rem;
 
   @include for-tablet-landscape-down {
     margin-top: 6rem;
