@@ -44,151 +44,75 @@ form {
     margin: 2rem 0 2rem 0;
 }
 
-// .buttonRow {
-//   margin-top: 3rem;
-// }
+.productCategory {
+    background-color: $color-app-light-grey;
+    margin-bottom: 1rem;
 
+    .mat-card:last-child {
+        margin-bottom: 0;
+    }
 
+    //   @media (min-width: 600px) {
+    //     .mat-card:nth-child(2) {
+    //       margin-top: 2rem;
+    //     }
+    //   }
+}
 
-// .warningMessage {
-//   color: crimson;
+mat-expansion-panel-header.categoryExpansionHeader,
+mat-expansion-panel-header.categoryExpansionHeader:focus {
+    background-color: white;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+        0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
 
-//   @media (max-width: 768px) {
-//     text-align-last: center;
-//   }
-// }
+#expansionPanelContent {
+    background-color: $color-app-light-grey;
+}
 
-// #importantSentence {
-//   text-decoration: underline;
-//   font-weight: bold;
-// }
+.productExpansion:not([class*="mat-elevation-z"]) {
+    box-shadow: none;
+}
 
-// ::ng-deep ngx-material-timepicker-container {
-//   --button-color: var(--color-app-brown) !important;
-//   --dial-background-color: var(--color-app-brown) !important;
-//   --clock-hand-color: var(--color-app-brown) !important;
-// }
+mat-expansion-panel-header.productExpansionHeader {
+    padding-left: 0.5rem;
+    font-size: 1.4rem;
+}
 
-// //*** CUSTOM ACCORDION PRODUCT CATEGORY
-// .productCategory {
-//   background-color: var(--color-app-light-grey);
-//   margin-bottom: 0.5rem;
+mat-card {
+    width: 100%;
+    padding: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
 
-//   .mat-card:first-child {
-//     margin-top: 2rem;
-//   }
+.cardPriceQuantity {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
 
-//   @media (min-width: 600px) {
-//     .mat-card:nth-child(2) {
-//       margin-top: 2rem;
-//     }
-//   }
-// }
+.quantityInput {
+    max-width: 9rem;
+}
 
-// .productCategoryHeader {
-//   background-color: white;
-//   font-size: 1.7rem;
-//   max-height: 4rem;
-//   box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-//     0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-// }
+:host ::ng-deep .quantityInput div.mat-form-field-wrapper {
+    padding-bottom: 0;
+}
 
-// //***
+:host ::ng-deep .quantityInput div.mat-form-field-infix {
+    padding: 0;
+    border: 0;
 
-// //*** CUSTOM CARD PRODUCT STYLE
-// mat-card {
-//   margin-bottom: 1rem;
-//   padding: 0.5rem;
-// }
+    input {
+        height: 3rem;
+    }
+}
 
-// .productExpansion:not([class*="mat-elevation-z"]) {
-//   box-shadow: none;
-// }
+.productExpansionBody {
+    text-align: left;
+    margin: 1rem;
 
-// .productExpansionHeader {
-//   padding: 0 5px 0 0;
-//   font-size: 1.5rem;
-//   margin: 0;
-//   height: 2.5rem;
-// }
-
-// ::ng-deep .mat-expansion-panel-content {
-//   flex: 1;
-// }
-
-// .productExpansionBody {
-//   display: flex;
-//   flex: 1;
-//   flex-direction: column;
-//   margin: 1rem 1rem 0 1rem;
-// }
-
-// ::ng-deep .slicedCheckbox>label>span {
-//   font-size: 1.3rem;
-// }
-
-// .cardPriceQuantity {
-//   margin-top: 1rem;
-// }
-
-// .mat-expansion-panel-header-title {
-//   color: var(--color-app-brown) !important;
-// }
-
-// .cardProductContainer {
-//   margin-left: -48px;
-//   margin-right: -48px;
-// }
-
-// ::ng-deep .mat-expansion-panel-body {
-//   // flex-direction: row;
-//   // flex-wrap: wrap;
-//   // justify-content: space-around;
-//   // font-size: 1.3rem;
-//   // padding: 0;
-
-//   >p {
-//     font-size: 1.3rem;
-//     font-weight: lighter;
-//     margin: 0 0 0.8rem 1rem !important;
-//   }
-// }
-
-// .quantityInput {
-//   max-width: 9rem;
-// }
-
-// :host ::ng-deep .quantityInput div.mat-form-field-wrapper {
-//   padding-bottom: 0 !important;
-// }
-
-// :host ::ng-deep .quantityInput div.mat-form-field-infix {
-//   padding: 0;
-//   border: 0;
-
-//   input {
-//     height: 3rem;
-//   }
-// }
-
-// .unavailableItem {
-//   background-color: rgba(128, 128, 128, 0.2);
-
-//   ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-//     background-color: rgba(128, 128, 128, 0);
-//   }
-
-//   .mat-expansion-panel {
-//     background-color: rgba(128, 128, 128, 0);
-//   }
-// }
-
-// .orderCommentSummaryTitle {
-//   text-decoration: underline;
-// }
-
-// .summaryComment {
-//   text-align: center;
-// }
-
-// /***********************************/
+    mat-form-field {
+        width: 100%;
+    }
+}

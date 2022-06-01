@@ -1,0 +1,14 @@
+/* input background color */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: white;
+}
+
+/* input bordder color when focus */
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: $color-app-brown ;
+}
+
+/* input label color */
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: $color-app-brown;
+}
