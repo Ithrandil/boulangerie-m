@@ -2,7 +2,7 @@
     <nav fxLayout="row" fxFlex="100" fxHide.lt-md fxLayoutAlign="space-between center">
         <img (click)="router.navigate([''])" alt="logo boulangerie-m" src="../assets/images/logo-header.png"
             class="logo-header" />
-        <ul fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+        <ul *ngIf="isConnected" fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
             <li *ngFor="let menuElem of menuElements" class="link" (click)="router.navigate([menuElem.path])">
                 {{menuElem.wording}}
             </li>

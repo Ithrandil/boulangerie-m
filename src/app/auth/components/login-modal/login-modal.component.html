@@ -1,54 +1,54 @@
-<div matDialogTitle fxLayout="row wrap" fxLayoutAlign="center center">
-  <h2 fxFlex="87" fxLayoutAlign="center center">{{forgottenPassword ? "Mot de passe oublié" : "Connexion"}}
+<div matDialogTitle fxLayout="row" fxLayoutAlign="center center">
+  <h2 fxLayoutAlign="center center">{{forgottenPassword ? "Mot de passe oublié" : "Connexion"}}
   </h2>
 </div>
 <form [formGroup]="loginForm" (ngSubmit)="login()" *ngIf="!forgottenPassword">
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center">
     <mat-form-field fxFlex="87" appearance="outline">
       <mat-label>E-mail</mat-label>
       <input matInput type="email" placeholder="Ex: john.doe@gmail.com" formControlName="email" required />
       <mat-error *ngIf="loginForm?.get('email')?.invalid">E-mail obligatoire</mat-error>
     </mat-form-field>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center">
     <mat-form-field fxFlex="87" appearance="outline">
       <mat-label>Mot de passe</mat-label>
       <input matInput type="password" formControlName="password" required />
       <mat-error *ngIf="loginForm?.get('password')?.invalid">Mot de passe obligatoire</mat-error>
     </mat-form-field>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center">
     <p fxFlex="87" fxLayoutAlign="center center" *ngIf="loginErrorMessage" class="errorMessage">
       {{ loginErrorMessage }}
     </p>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
-    <button fxFlex="40" fxFlex.lt-sm="87" fxFlexOrder.lt-sm="1" fxFlexOrder.gt-xs="2" mat-raised-button type="submit">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
       Se connecter
     </button>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <span class="redirectLink" (click)="goToRegister()">Pas encore inscrit ?</span>
+  <div fxLayout="row" fxLayoutAlign="center center" id="registerRow">
+    <span class="link" (click)="goToRegister()">Pas encore inscrit ?</span>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <span class="redirectLink" (click)="forgottenPassword = !forgottenPassword">Mot de passe oublié?</span>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <span class="link" (click)="forgottenPassword = !forgottenPassword">Mot de passe oublié?</span>
   </div>
 </form>
 
 <form [formGroup]="resetPasswordForm" (ngSubmit)="resetUserPassword()" *ngIf="forgottenPassword">
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center">
     <mat-form-field fxFlex="87" appearance="outline">
       <mat-label>E-mail</mat-label>
       <input matInput type="text" placeholder="Ex: john.doe@gmail.com" formControlName="email" required />
       <mat-error *ngIf="resetPasswordForm?.get('email')?.invalid">E-mail obligatoire</mat-error>
     </mat-form-field>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center">
-    <p fxFlex="87" fxLayoutAlign="center center" *ngIf="resetPasswordErrorMessage" class="errorMessage">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <p *ngIf="resetPasswordErrorMessage" class="errorMessage">
       {{ resetPasswordErrorMessage }}
     </p>
   </div>
-  <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+  <div fxLayout=" wrap" fxLayoutAlign="space-evenly center">
     <button fxFlex="40" fxFlex.lt-sm="87" fxFlexOrder.lt-sm="2" fxFlexOrder.gt-xs="1" mat-raised-button type="button"
       (click)="forgottenPassword = !forgottenPassword">
       Annuler
