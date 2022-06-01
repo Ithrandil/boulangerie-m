@@ -1,8 +1,11 @@
-:host {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    margin-top: 5rem;
+@import "abstracts/mixins";
+
+h2 {
+    margin-bottom: 3rem;
+
+    @include for-tablet-landscape-up {
+        margin-top: 3rem;
+    }
 }
 
 .logoRegisterForm {
@@ -17,14 +20,12 @@
 
 .welcomeText {
     text-align: center;
-    color: var(--color-app-brown);
-
-    @media (min-width: 768px) {
-        font-size: 2rem;
-    }
-
 }
 
 #submitRegistrationButton {
+    margin-bottom: 2rem;
+}
+
+mat-divider {
     margin-bottom: 2rem;
 }

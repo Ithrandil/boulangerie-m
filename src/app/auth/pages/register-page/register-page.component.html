@@ -10,7 +10,8 @@
         <p class="welcomeText">Veuillez vous inscrire afin d'accéder au formulaire, à vos anciennes commandes, repasser
             les mêmes commandes et bien plus.</p>
     </div>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxFlex="40" fxFlex.lt-sm="87">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center" fxFlex="40"
+        fxFlex.lt-sm="87">
         <div fxLayout="column" fxLayoutAlign="center">
             <mat-form-field fxFlex="87" appearance="outline">
                 <mat-label>Email</mat-label>
@@ -88,7 +89,7 @@
             </button>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center">
-            <span class="redirectLink" (click)="router.navigate(['/connexion'])">Déjà inscrit?</span>
+            <span class="link" (click)="router.navigate(['/connexion'])">Déjà inscrit?</span>
         </div>
     </form>
 </div>
