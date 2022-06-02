@@ -1,4 +1,8 @@
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+  <div class="alert" fxLayout="row wrap" fxLayoutAlign="center center">
+    Attention, votre site de commande évolue ce weekend! <br> Les délais de livraison vont changer. <br>Pour éviter tout
+    problème, merci de <span id="boldAlert">passer vos commandes pour mardi et mercredi avant dimanche !</span>
+  </div>
   <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
     <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
       <mat-label>Nom de votre entreprise</mat-label>
