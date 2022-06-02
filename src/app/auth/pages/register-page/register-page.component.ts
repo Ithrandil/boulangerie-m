@@ -15,6 +15,7 @@ import { first, take, tap } from 'rxjs';
   styleUrls: ['./register-page.component.scss'],
 })
 export class RegisterPageComponent implements OnInit {
+  public errorMessage = "";
   private regexPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/g);
   public registerForm = this.fb.group({
     email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')]],
@@ -80,32 +81,40 @@ export class RegisterPageComponent implements OnInit {
     if (this.registerForm.valid) {
       this.authService.register(this.registerForm.value).pipe(
         take(1)
-      ).subscribe(() => {
-        this.registerValidationModal = this.dialog.open(TemplateModalComponent, {
-          data: {
-            title: "Félicitations!",
-            bodyText: `
+      ).subscribe({
+        next: () => {
+          this.registerValidationModal = this.dialog.open(TemplateModalComponent, {
+            data: {
+              title: "Félicitations!",
+              bodyText: `
             <p>Votre compte a bien été créé.</p>
             <p>Vous allez recevoir un email, veuillez suivre le liens pour valider votre compte.</p>
             <p>N'hésitez pas à nous contacter si vous rencontrez un problème.</p>
             `
-          },
-          disableClose: true,
-          width: '400px',
-          maxWidth: '90%',
-        });
-        this.registerValidationModal
-          .afterClosed()
-          .pipe(
-            tap(() => {
-              this.router.navigate(["/compte/infos"])
-            }),
-            first()
-          )
-          .subscribe();
-      }
+            },
+            disableClose: true,
+            width: '400px',
+            maxWidth: '90%',
+          });
+          this.registerValidationModal
+            .afterClosed()
+            .pipe(
+              tap(() => {
+                this.router.navigate(["/compte/infos"])
+              }),
+              first()
+            )
+            .subscribe();
+        }, error: (error) => {
+          if (error.code === "auth/email-already-in-use") {
+            this.errorMessage = "Il semblerait que cet e-mail est déjà utilisé, veuillez vous connecter."
+          } else {
+            window.alert("Une erreur s'est produit, veuillez réessayer plus tard." + error.message);
+          }
 
-      );
+
+        }
+      });
     }
   }
 }

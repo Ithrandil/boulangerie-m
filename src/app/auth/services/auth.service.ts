@@ -24,7 +24,7 @@ export class AuthService {
           return result.user;
         })
         .catch((error) => {
-          window.alert(error.message);
+          throw error;
         })
     ).pipe(
       switchMap((user) => {

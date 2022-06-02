@@ -83,6 +83,9 @@
                     }}</mat-error>
             </mat-form-field>
         </div>
+        <div *ngIf="errorMessage" fxLayout="row" fxLayoutAlign="center center">
+            <p class="errorMessage">Erreur : {{errorMessage}}</p>
+        </div>
         <div fxLayout="row" fxLayoutAlign="center center">
             <button id="submitRegistrationButton" fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
                 S'inscrire

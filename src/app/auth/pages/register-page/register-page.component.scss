@@ -13,7 +13,7 @@ h2 {
 }
 
 #welcomeContainer {
-    @media (min-width: 768px) {
+    @include for-tablet-landscape-up {
         margin-right: 7rem;
     }
 }
