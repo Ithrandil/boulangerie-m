@@ -30,28 +30,20 @@
       <ngx-material-timepicker #datePicker></ngx-material-timepicker>
     </mat-form-field>
   </div>
-  <p id="deliveryMessage" *ngIf="showDeliveryMessage">
-    Votre livraison vous sera livrée le
-    {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }}
-    {{
+  <p id="deliveryMessage">
+    Votre livraison vous sera livrée
+    <span *ngIf="orderForm.get('deliveryDate')?.value">
+      le
+      {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }}
+
+    </span>{{
     this.orderForm.get("deliveryTime")?.value
     ? "à " + this.orderForm.get("deliveryTime")?.value
     : "entre 6 heures et midi."
     }}
   </p>
-  <!-- TODO: A SUPPRIMER SI PLUS PERTINENT A VOIR AVEC NICO !!!! sinon revoir le style !!!!-->
-  <p class="warningMessage" *ngIf="showShortDeliveryMessage || showOrderNeedValidationMessage">
-    <span> Attention, dû au délai court de votre commande: </span>
-    <span *ngIf="showOrderNeedValidationMessage">
-      <br />&nbsp;&nbsp;- Elle devra être validée par la boulangerie M.
-      <span id="importantSentence">Sans retour de leur part dans l'heure, considérez la comme
-        annulée.</span>
-    </span>
-    <span *ngIf="showShortDeliveryMessage">
-      <br />&nbsp;&nbsp;- Certains produits ne sont pas disponibles. Ils ont
-      été désactivés dans le formulaire.
-    </span>
-  </p>
+  <!-- <p id="TEST">Les fêtes arrivent, pensez à commander pour ne rien rater!
+  </p> -->
   <!-- --------------------------------------------------- -->
   <mat-divider class="dividerOrderForm"></mat-divider>
   <h2>Produits</h2>
@@ -63,11 +55,6 @@
       <mat-expansion-panel-header class="categoryExpansionHeader">
         <mat-panel-title>{{ category.value }}</mat-panel-title>
       </mat-expansion-panel-header>
-
-      <!-- <mat-card *ngFor="let product of filterProductByCategory(category.value)" fxFlex="49" fxFlex.lt-sm="100"
-          [ngClass]="{
-            unavailableItem: showShortDeliveryMessage && !product.shortDelivery
-          }"> -->
       <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row wrap"
         fxLayoutAlign.gt-sm="space-evenly center">
         <mat-card fxFlex.gt-sm="48" *ngFor="let product of filterProductByCategory(category.value)">

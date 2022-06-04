@@ -35,6 +35,7 @@ ul {
     max-width: 10rem;
     max-height: 10rem;
     margin-top: 6rem;
+    cursor: pointer;
 
     @include for-tablet-landscape-only {
         margin-top: 0;

@@ -10,7 +10,7 @@ import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
 import { Product, ProductCategory } from '@models/product';
-import { combineLatest, Observable, Subject } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
 import { first, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
@@ -35,9 +35,6 @@ export class OrderFormComponent implements OnDestroy {
   public IsItOpenToday = DateUtils.IsItOpenToday;
   public setMinimalDay = DateUtils.SetMinimalDay;
   public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
-  public showDeliveryMessage = false;
-  public showShortDeliveryMessage = false;
-  public showOrderNeedValidationMessage = false;
   public selectDeliveryTime = false;
   private unsubscribe$ = new Subject<void>();
   public productList: Product[] = [];
@@ -67,11 +64,6 @@ export class OrderFormComponent implements OnDestroy {
     private userService: UserService
   ) {
     this.tomorrow.setDate(new Date().getDate() + 1);
-
-    // FIXME: prévenir Nico que les deux jours minimum va empecher les utilisateurs de passer commande pour le mardi
-    // car c'est maintenant deux jours OUVRES, du coup si ils commandent le dimanche, ils pourront passer que pour le jeudi!!!
-    // Appeler Aymeric ou Aymeric demain la dessus!
-    // QUID de la livraison en date courte? j'enleve tout vu que maintenant c'est 2 jours minimum, c'est plus possible de commander pour le lendemain!
 
     this.itemFormGroup = this.fb.group({
       default: [''],
@@ -126,7 +118,6 @@ export class OrderFormComponent implements OnDestroy {
       )
       .subscribe();
 
-    this.filterShortDeliveryProducts();
     this.openingDaysService
       .getAllClosingDays()
       .pipe(take(1))
@@ -167,58 +158,6 @@ export class OrderFormComponent implements OnDestroy {
       this.orderForm.get('deliveryTime')?.reset();
       this.orderForm.get('deliveryTime')?.disable();
     }
-  }
-
-  private filterShortDeliveryProducts(): void {
-    if (new Date(Date.now()).getHours() >= 18) {
-      this.tomorrow.setDate(this.tomorrow.getDate() + 1);
-    }
-
-    combineLatest([
-      this.orderForm.get('deliveryDate')?.valueChanges as Observable<Date>,
-      this.orderForm.get('orderDate')?.valueChanges as Observable<Date>,
-    ])
-      .pipe(
-        tap(([deliveryDate, orderDate]) => {
-          const orderTime = orderDate.getHours();
-          const differenceIndays =
-            (deliveryDate.getTime() - orderDate.getTime()) / (1000 * 3600 * 24);
-          if (differenceIndays >= 1) {
-            this.showDeliveryMessage = true;
-            this.showShortDeliveryMessage = false;
-            this.showOrderNeedValidationMessage = false;
-            this.productList.forEach((product) => {
-              if (!product.shortDelivery) {
-                this.itemFormGroup.get(product.name)?.enable();
-              }
-            });
-          } else if (
-            orderTime >= 11 &&
-            orderTime < 18 &&
-            differenceIndays < 1
-          ) {
-            this.showDeliveryMessage = false;
-            this.showOrderNeedValidationMessage = true;
-            this.productList.forEach((product) => {
-              if (!product.shortDelivery) {
-                this.showShortDeliveryMessage = true;
-                this.itemFormGroup.get(product.name)?.disable();
-              }
-            });
-          } else if (orderTime < 11 && differenceIndays < 1) {
-            this.showDeliveryMessage = true;
-            this.showOrderNeedValidationMessage = false;
-            this.productList.forEach((product) => {
-              if (!product.shortDelivery) {
-                this.showShortDeliveryMessage = true;
-                this.itemFormGroup.get(product.name)?.disable();
-              }
-            });
-          }
-        })
-      )
-      .subscribe();
-    this.orderForm.get('orderDate')?.updateValueAndValidity();
   }
 
   public onSubmit(): void {
