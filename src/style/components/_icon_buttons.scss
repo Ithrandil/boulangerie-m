@@ -1,0 +1,13 @@
+// // Button with icon custom style
+
+button.mat-fab {
+    background-color: $color-app-light-brown  !important;
+    color: $color-app-brown  !important;
+}
+
+
+.mat-fab:hover {
+    background-color: $color-app-brown  !important;
+    color: $color-app-light-brown  !important;
+    transition: background 0.8s !important;
+}
