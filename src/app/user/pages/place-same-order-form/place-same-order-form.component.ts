@@ -3,14 +3,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
-import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
+import { TemplateModalComponent } from '@app/shared/components/info-modal/template-modal.component';
 import { DateUtils } from '@app/shared/utils/date.utils';
 import { FormUtils } from '@app/shared/utils/form-utils';
 import { UserService } from '@app/user/services/user.service';
 import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order } from '@models/order';
-import { first, take, tap } from 'rxjs';
+import { take } from 'rxjs';
 
 
 @Component({
@@ -20,7 +20,7 @@ import { first, take, tap } from 'rxjs';
 })
 export class PlaceSameOrderFormComponent {
   public minimalDay = new Date();
-  public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
+  public validatedModal!: MatDialogRef<TemplateModalComponent>;
   public closingDays: ClosingDay[] = [];
   public orderToPlace: Order;
   public orderForm = this.fb.group({
@@ -71,24 +71,37 @@ export class PlaceSameOrderFormComponent {
       };
       this.userService.placeSameOrder(finalOrder).pipe(
         take(1))
-        .subscribe(() => {
-          this.validatedModal = this.dialog.open(FormValidatedModalComponent, {
-            disableClose: true,
-            width: '400px',
-            maxWidth: '90%',
-          });
-          this.validatedModal
-            .afterClosed()
-            .pipe(
-              tap(() => {
-                this.router.navigate(["/compte/mes-commandes"])
-              }),
-              first()
-            )
-            .subscribe();
+        .subscribe({
+          next: () => {
+            this.validatedModal = this.dialog.open(TemplateModalComponent, {
+              data: {
+                title: "Votre commande a bien été repassée!",
+                bodyText: `
+                <p>La boulangerie M vous remercie de votre commande.</p>
+                <p>En espérant vous revoir très prochainement et que votre commande vous satifera pleinement.</p>
+                `,
+                buttonAction: () => this.router.navigate(["/compte/mes-commandes"])
+              },
+              disableClose: true,
+              width: '400px',
+              maxWidth: '90%',
+            });
+          },
+          error: (err) => {
+            this.validatedModal = this.dialog.open(TemplateModalComponent, {
+              data: {
+                title: "Oups",
+                bodyText: `
+              <p>Une erreur a eu lieu la confirmation de votre commande, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}</p>
+              `
+              },
+              disableClose: true,
+              width: '400px',
+              maxWidth: '90%',
+            });
+          }
         });
     }
-
   }
 
   public isItOpenToday = (d: Date | null): boolean => {

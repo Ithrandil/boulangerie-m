@@ -31,42 +31,42 @@
                 </mat-card-subtitle>
                 <div *ngIf="!order.deliveryAddress; else mulitpleAddress">
                     <h4>Adresse de livraison et facturation :</h4>
-                    <div>
+                    <p>
                         {{ order.address.street }}
-                    </div>
-                    <div>
+                    </p>
+                    <p>
                         <span>
                             {{ order.address.zipCode }}
                         </span>
                         <span>
                             {{ order.address.city }}
                         </span>
-                    </div>
+                    </p>
                 </div>
                 <ng-template #mulitpleAddress>
                     <div>
                         <h4>Adresse de facturation :</h4>
-                        <div>{{ order.address.street }}</div>
-                        <div>
+                        <p>{{ order.address.street }}</p>
+                        <p>
                             <span>
                                 {{ order.address.zipCode }}
                             </span>
                             <span>
                                 {{ order.address.city }}
                             </span>
-                        </div>
+                        </p>
                     </div>
                     <div>
                         <h4>Adresse de livraison :</h4>
-                        <div>{{ order.deliveryAddress.street }}</div>
-                        <div>
+                        <p>{{ order.deliveryAddress.street }}</p>
+                        <p>
                             <span>
                                 {{ order.deliveryAddress.zipCode }}
                             </span>
                             <span>
                                 {{ order.deliveryAddress.city }}
                             </span>
-                        </div>
+                        </p>
                     </div>
                 </ng-template>
                 <h3 *ngIf="order.orderComment">Commentaires
@@ -92,11 +92,10 @@
                 <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutAlign.lt-sm="center center">
                     <button fxFlex="40" fxFlex.lt-sm="100" class="cancelButton"
                         *ngIf="arrayCancelableOrders[(currentIndex * 10) + i] && !order.isCanceled" mat-raised-button
-                        aria-label="Annuler ma commande" (click)="cancelOrder(order?.orderId)">
+                        (click)="cancelOrder(order?.orderId)">
                         Annuler ma commande
                     </button>
-                    <button fxFlex="40" fxFlex.lt-sm="100" mat-raised-button aria-label="Repasser cette commande"
-                        (click)="placeSameOrder(order)">
+                    <button fxFlex="40" fxFlex.lt-sm="100" mat-raised-button (click)="placeSameOrder(order)">
                         Repasser la commande
                     </button>
                 </div>
