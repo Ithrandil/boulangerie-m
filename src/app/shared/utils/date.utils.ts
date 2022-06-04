@@ -42,6 +42,7 @@ export class DateUtils {
     }
 
     static IsItOpenToday = (d: Date | null, closingDays: ClosingDay[]): boolean => {
+        d?.setHours(0, 0, 0, 0);
         const day = (d || new Date()).getDay();
         const month = (d || new Date()).getMonth();
         let res = true;
