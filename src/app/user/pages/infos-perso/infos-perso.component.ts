@@ -16,7 +16,6 @@ import { take } from 'rxjs';
 export class InfosPersoComponent {
   public userInformations!: User;
   public updatingInfos = false;
-  // public updatingPassword = false;
   public displayDeliveryForm = false;
 
   public infosPersosForm = this.fb.group({
@@ -62,36 +61,12 @@ export class InfosPersoComponent {
   };
 
 
-  // private regexPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/g);
-  // public updatePasswordForm = this.fb.group({
-  //   currentPassword: ['', [Validators.required]],
-  //   password: ['', [Validators.required, Validators.pattern(this.regexPassword)]],
-  //   confirmPassword: ['', [Validators.required, Validators.pattern(this.regexPassword)]],
-  // },
-  //   {
-  //     validators: [ValidatePassword.MatchPassword('password', 'confirmPassword')]
-  //   });
-  // public errorMessagesUpdatePassword: FormErrorMessages = {
-  //   currentPassword: {
-  //     required: 'Mot de passe obligatoire',
-  //   },
-  //   password: {
-  //     required: 'Nouveau mot de passe obligatoire',
-  //     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*'
-  //   },
-  //   confirmPassword: {
-  //     required: 'Confirmation du nouveau mot de passe obligatoire',
-  //     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*',
-  //     matchPassword: 'Doit être identique au mot de passe'
-  //   },
-
-  // };
   public updateValidationModal!: MatDialogRef<TemplateModalComponent>;
-
+  
   constructor(private fb: FormBuilder, private userService: UserService, private dialog: MatDialog
   ) {
     this.userService.getUserInfos()
-      .subscribe(
+    .subscribe(
         user => {
           this.userInformations = user;
           this.infosPersosForm.get('name')?.setValue(this.userInformations.name);
@@ -99,19 +74,20 @@ export class InfosPersoComponent {
           this.infosPersosForm.get('address')?.get('street')?.setValue(this.userInformations.address.street);
           this.infosPersosForm.get('address')?.get('zipCode')?.setValue(this.userInformations.address.zipCode);
           this.infosPersosForm.get('address')?.get('city')?.setValue(this.userInformations.address.city);
+          this.infosPersosForm.get('hasDifferentDeliveryAddress')?.setValue(false);
           if (this.userInformations.deliveryAddress) {
             this.displayDeliveryForm = true;
             this.infosPersosForm.get('hasDifferentDeliveryAddress')?.setValue(true);
             this.infosPersosForm.get('deliveryAddress')?.get('street')?.setValue(this.userInformations.address.street);
             this.infosPersosForm.get('deliveryAddress')?.get('zipCode')?.setValue(this.userInformations.address.zipCode);
             this.infosPersosForm.get('deliveryAddress')?.get('city')?.setValue(this.userInformations.address.city);
-
+            
           }
           this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
         }
       )
-  }
-
+    }
+    
   public hasDifferentDeliveryAddress(checked: boolean): void {
     this.displayDeliveryForm = checked;
     if (this.displayDeliveryForm) {
@@ -120,7 +96,7 @@ export class InfosPersoComponent {
       this.infosPersosForm.get('deliveryAddress')?.disable();
     }
   }
-
+  
   public submitUpdateInfos() {
     if (this.infosPersosForm.valid) {
       if (!this.infosPersosForm.get('hasDifferentDeliveryAddress')?.value && !!this.userInformations.deliveryAddress) {
@@ -134,9 +110,9 @@ export class InfosPersoComponent {
               data: {
                 title: "Mise à jour effectuée!",
                 bodyText: `
-            <p>Vos informations ont bien été mises à jour.</p>
-            <p>Elles seront prises en compte pour toutes vos futures commandes.</p>
-            `
+                <p>Vos informations ont bien été mises à jour.</p>
+                <p>Elles seront prises en compte pour toutes vos futures commandes.</p>
+                `
               },
               disableClose: true,
               width: '400px',
@@ -145,25 +121,63 @@ export class InfosPersoComponent {
             this.infosPersosForm.reset();
           },
           error: (e) => {
-            console.error(e)
-          },
+            this.updateValidationModal = this.dialog.open(TemplateModalComponent, {
+              data: {
+                title: "Oups, une erreur est survenue!",
+                bodyText: `
+                <p>Ils semble qu'il y ai eu un problème lors de la mise à jour de vos informations.</p>
+                <p>Veuillez réessayer plus tard.</p>
+                <p>Erreur : ${e.message}.</p>
+                `
+              },
+              disableClose: true,
+              width: '400px',
+              maxWidth: '90%',
+            });          },
         }
-      );
+        );
+      }
     }
   }
 
-  // public submitUpdatePassword() {
-  //   if (this.updatePasswordForm.valid) {
-  //     this.authService.updateUserPassword(this.updatePasswordForm.get("currentPassword")?.value, this.updatePasswordForm.get("newPassword")?.value)?.then(
-  //       (res) => {
-  //         this.updatingPassword = false;
-  //         this.updatePasswordForm.reset();
-  //       })
-  //       .catch(err => {
-  //         if (err.code === "auth/wrong-password") {
-  //         }
-  //       });
-  //   }
-  // }
+// public updatingPassword = false;
+  
+// private regexPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/g);
+// public updatePasswordForm = this.fb.group({
+//   currentPassword: ['', [Validators.required]],
+//   password: ['', [Validators.required, Validators.pattern(this.regexPassword)]],
+//   confirmPassword: ['', [Validators.required, Validators.pattern(this.regexPassword)]],
+// },
+//   {
+//     validators: [ValidatePassword.MatchPassword('password', 'confirmPassword')]
+//   });
+// public errorMessagesUpdatePassword: FormErrorMessages = {
+//   currentPassword: {
+  //     required: 'Mot de passe obligatoire',
+  //   },
+  //   password: {
+    //     required: 'Nouveau mot de passe obligatoire',
+    //     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*'
+    //   },
+    //   confirmPassword: {
+      //     required: 'Confirmation du nouveau mot de passe obligatoire',
+      //     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*',
+      //     matchPassword: 'Doit être identique au mot de passe'
+      //   },
+      
+      // };
 
-}
+
+// public submitUpdatePassword() {
+  //   if (this.updatePasswordForm.valid) {
+    //     this.authService.updateUserPassword(this.updatePasswordForm.get("currentPassword")?.value, this.updatePasswordForm.get("newPassword")?.value)?.then(
+      //       (res) => {
+        //         this.updatingPassword = false;
+        //         this.updatePasswordForm.reset();
+        //       })
+        //       .catch(err => {
+          //         if (err.code === "auth/wrong-password") {
+            //         }
+//       });
+//   }
+// }

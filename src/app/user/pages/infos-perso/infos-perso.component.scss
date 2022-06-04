@@ -1,58 +1,59 @@
-.cardInfosPerso {
-    @media (max-width: 768px) {
-        margin-top: 5rem;
-    }
+@import "abstracts/variables";
+@import "abstracts/mixins";
 
-    @media (min-width: 768px) {
-        padding-left: 5rem;
-        padding-right: 5rem;
-        padding-bottom: 3rem;
-        padding-top: 3rem;
+#cardInfosPerso {
+    @include for-tablet-landscape-up {
+        margin-top: 2.5rem;
     }
 }
 
-.titleInfosPerso {
-    @media (min-width: 768px) {
-        font-size: 2.5rem;
-    }
+mat-card {
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
+
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+
 
 .h3InfosPerso {
+    color: $color-app-brown;
     margin-bottom: 0.5rem;
+}
 
-    @media (min-width: 768px) {
+#cardModifInfos {
+    margin-top: 2.5rem;
+}
+
+#importantInformation {
+    color: crimson;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+
+    @include for-tablet-landscape-up {
         font-size: 2rem;
     }
 }
 
-p {
-    @media (min-width: 768px) {
-        font-size: 1.7rem;
-        margin-bottom: 3rem;
-    }
+#differentAddress {
+    color: $color-app-brown;
 }
 
-.cancelButton {
-    @media (max-width: 600px) {
-        margin-bottom: 2rem;
-    }
+#deliveryAddress {
+    margin-top: 2rem;
+}
 
+#cancelButton {
+    @include for-tablet-landscape-down {
+        margin-top: 4rem;
+        margin-bottom: 1rem;
+    }
 }
 
 .updateInfosButton {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-.importantInformation {
-    color: crimson;
-    font-size: 1.5rem;
-
-    @media (min-width: 768px) {
-        font-size: 1.8rem;
-    }
-
-    margin-bottom: 3rem;
-    margin-top: 1rem;
-    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
