@@ -5,15 +5,21 @@
   <mat-card fxFlex="100" fxFlex.gt-xs="40" fxFlex.gt-md="30" *ngFor="let product of productList$ | async">
     <mat-expansion-panel [disabled]="!product.description">
       <mat-expansion-panel-header>
-        <mat-panel-title>{{ product.name }}</mat-panel-title>
+        <mat-panel-title [ngClass]="product.isBio ? 'is-bio' : ''">{{ product.name }}</mat-panel-title>
       </mat-expansion-panel-header>
       <p class="descriptionText">{{ product.description }}</p>
     </mat-expansion-panel>
-    <mat-card-content fxLayout="row" fxLayoutAlign="space-around center" class="m-card-content">
+    <mat-card-content class="m-card-content">
+
       Prix: {{ product.price.toFixed(2) }} € / {{ product.unit }}
-      <mat-slide-toggle (change)="updateProductAvailability(product.productId, $event)" [checked]="product.available"
-        labelPosition="before">Visible
-      </mat-slide-toggle>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-slide-toggle (change)="updateProductAvailability(product.productId, $event)" [checked]="product.available"
+          labelPosition="before">Visible
+        </mat-slide-toggle>
+        <mat-slide-toggle class="toggleBio" (change)="updateProductisBio(product.productId, $event)"
+          [checked]="product.isBio" labelPosition="before">Bio
+        </mat-slide-toggle>
+      </div>
     </mat-card-content>
   </mat-card>
 </div>

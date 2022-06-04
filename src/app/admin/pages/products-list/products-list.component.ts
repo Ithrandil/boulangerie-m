@@ -24,5 +24,15 @@ export class ProductsListComponent implements OnInit {
       productId,
       event.checked
     );
+
+  }
+  public updateProductisBio(
+    productId: string,
+    event: MatSlideToggleChange
+  ): Observable<void> {
+    return this.productService.updateProductisBio(
+      productId,
+      event.checked
+    );
   }
 }

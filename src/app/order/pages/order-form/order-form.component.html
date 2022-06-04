@@ -60,7 +60,8 @@
         <mat-card fxFlex.gt-sm="48" *ngFor="let product of filterProductByCategory(category.value)">
           <mat-expansion-panel class="productExpansion">
             <mat-expansion-panel-header class="productExpansionHeader">
-              <mat-panel-title>{{ product.name }}</mat-panel-title>
+              <mat-panel-title [ngClass]="product.isBio ? 'is-bio' : ''">{{ product.name }}<span></span>
+              </mat-panel-title>
             </mat-expansion-panel-header>
             <div fxFlex="column" class="productExpansionBody">
               <p>{{ product.description }}</p>

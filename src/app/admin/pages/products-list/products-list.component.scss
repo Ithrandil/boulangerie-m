@@ -17,6 +17,12 @@ mat-card {
     padding-top: 0;
 }
 
+mat-card-content {
+    margin-left: 2rem;
+    margin-right: 2rem;
+
+}
+
 mat-expansion-panel:not([class*="mat-elevation-z"]) {
     box-shadow: none;
 
