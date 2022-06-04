@@ -4,6 +4,7 @@
   </div>
   <p fxFlexLayout="row" fxLayoutAlign="flex-end center">L'équipe M</p>
 </mat-dialog-content>
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-  <button mat-button (click)="buttonAction()">{{buttonText}}</button>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="space-around center">
+  <button fxFlex="100" mat-button *ngIf="extraCloseButton" [mat-dialog-close]="true">Fermer</button>
+  <button fxFlex="100" mat-button (click)="buttonAction()">{{buttonText}}</button>
 </mat-dialog-actions>

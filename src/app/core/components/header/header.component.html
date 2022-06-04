@@ -2,7 +2,7 @@
     <nav fxLayout="row" fxFlex="100" fxHide.lt-md fxLayoutAlign="space-between center">
         <img (click)="router.navigate([''])" alt="logo boulangerie-m" src="../assets/images/logo-header.png"
             class="logo-header" />
-        <ul *ngIf="isConnected" fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+        <ul *ngIf="isConnected && menuElements.length" fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
             <li *ngFor="let menuElem of menuElements" class="link" (click)="router.navigate([menuElem.path])">
                 {{menuElem.wording}}
             </li>
@@ -16,7 +16,8 @@
     <nav fxLayout="row" fxFlex="100" fxHide.gt-sm fxLayoutAlign="center center">
         <img (click)="router.navigate([''])" alt="logo boulangerie-m" src="../assets/images/logo-header.png"
             class="logo-header" />
-        <button id="mobileMenuButton" mat-icon-button [matMenuTriggerFor]="menu">
+        <button *ngIf="isConnected && menuElements.length" id="mobileMenuButton" mat-icon-button
+            [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="after">

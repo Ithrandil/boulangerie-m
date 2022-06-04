@@ -1,25 +1,57 @@
-.ordersListCard {
-    margin-top: 5rem;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-}
+@import "abstracts/mixins";
 
-.cancelButton {
-    @media (max-width: 600px) {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
+#ordersListCard {
+    @include for-tablet-landscape-up {
+        margin-top: 2.5rem;
     }
 }
 
-::ng-deep mat-expansion-panel>.mat-expansion-panel-content {
-    width: 100%;
+// TODO: revoir cet espacement au niveau global ( layout global pour tout sauf le form?)
+mat-card {
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
-.orderContainer {
-    margin-bottom: 1.5rem;
+h1 {
+    text-align: center;
+    text-decoration: underline;
 }
+
+/*****************************/
 
 #canceledOrder {
     padding-left: 1rem;
     color: crimson;
+}
+
+#orderContainer {
+    margin-bottom: 2rem;
+}
+
+mat-expansion-panel-header.userOrder {
+    height: 7rem;
+
+    @include for-tablet-landscape-up {
+        height: 5rem;
+    }
+}
+
+mat-card-content.orderDetail {
+    margin: 2rem;
+}
+
+h3 {
+    margin-top: 2rem;
+}
+
+// TODO: style global UL LI (repasser partout ou il y a des listes pour refacto
+ul {
+    padding-left: 2rem;
+}
+
+.cancelButton {
+    @include for-tablet-landscape-down {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
 }

@@ -5,7 +5,11 @@ body {
 
     // TODO: faire une passe pour refacto le color des H
     h1,
-    h2 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         color: $color-app-brown;
     }
 }

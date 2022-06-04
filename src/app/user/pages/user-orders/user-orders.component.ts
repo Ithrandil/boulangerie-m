@@ -89,23 +89,28 @@ export class UserOrdersComponent implements OnInit {
         <p>Vous avez aurez toujours possibilité de recommander la même commande après l'annulation.</p>
         <p>De plus, elle sera toujours visible dans votre liste des commandes.</p>
         `,
+        extraCloseButton: true,
         buttonText: "Annuler la commande",
+        buttonAction: () => this.userService.cancelOrder(orderId as string).pipe(take(1)).subscribe({
+          error: (err) => {
+            this.cancelOrderConfirmationModal = this.dialog.open(TemplateModalComponent, {
+              data: {
+                title: "Oups",
+                bodyText: `
+                <p>Une erreur a eu lieu pendant l'annulation de votre commande ${orderId}, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}</p>
+                `
+              },
+              disableClose: true,
+              width: '400px',
+              maxWidth: '90%',
+            });
+          }
+        })
       },
       disableClose: true,
       width: '400px',
       maxWidth: '90%',
     });
-    this.cancelOrderConfirmationModal
-      .afterClosed()
-      .pipe(
-        switchMap(() => this.userService.cancelOrder(orderId as string)),
-        take(1)
-      )
-      .subscribe({
-        error: (err) => {
-          window.alert(`Une erreur a eu lieu pendant l'annulation de votre commande ${orderId}, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}`,)
-        }
-      });
   }
 
   placeSameOrder(order: Order) {
