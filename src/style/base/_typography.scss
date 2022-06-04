@@ -2,6 +2,12 @@ html,
 body {
     font-size: $font-size-root;
     color: $color-app-brown;
+
+    // TODO: faire une passe pour refacto le color des H
+    h1,
+    h2 {
+        color: $color-app-brown;
+    }
 }
 
 /* Mat typography global override */
