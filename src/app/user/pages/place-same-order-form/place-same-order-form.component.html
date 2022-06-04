@@ -77,6 +77,19 @@
                         }}</mat-error>
                 </mat-form-field>
             </div>
+            <div fxLayout="row" id="checkboxRow" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="flex-start center">
+                <mat-checkbox (change)="specificDeliveryTime($event.checked)" [checked]="selectDeliveryTime">
+                    Besoin d'une heure de livraison précise?
+                </mat-checkbox>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="flex-start center">
+                <mat-form-field *ngIf="selectDeliveryTime" fxFlex="40" fxFlex.lt-sm="100" appearance="outline">
+                    <mat-label>Heure de livraison</mat-label>
+                    <input [ngxTimepicker]="$any(datePicker)" min="06:00" max="12:00" [format]="24" readonly matInput
+                        formControlName="deliveryTime" />
+                    <ngx-material-timepicker #datePicker></ngx-material-timepicker>
+                </mat-form-field>
+            </div>
 
             <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutAlign.lt-sm="center center">
                 <button fxFlex="40" fxFlex.lt-sm="100" class="cancelButton" routerLink="/compte/mes-commandes"

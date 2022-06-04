@@ -23,8 +23,10 @@ export class PlaceSameOrderFormComponent {
   public validatedModal!: MatDialogRef<TemplateModalComponent>;
   public closingDays: ClosingDay[] = [];
   public orderToPlace: Order;
+  public selectDeliveryTime = false;
   public orderForm = this.fb.group({
     deliveryDate: [null, [Validators.required]],
+    deliveryTime: [null],
     orderDate: [new Date(Date.now()), [Validators.required]],
   });
   public getErrorMessage = FormUtils.GetErrorMessage;
@@ -107,5 +109,15 @@ export class PlaceSameOrderFormComponent {
   public isItOpenToday = (d: Date | null): boolean => {
     return this.IsItOpenToday(d, this.closingDays);
   };
+
+  public specificDeliveryTime(checked: boolean): void {
+    this.selectDeliveryTime = checked;
+    if (this.selectDeliveryTime) {
+      this.orderForm.get('deliveryTime')?.enable();
+    } else {
+      this.orderForm.get('deliveryTime')?.reset();
+      this.orderForm.get('deliveryTime')?.disable();
+    }
+  }
 
 }

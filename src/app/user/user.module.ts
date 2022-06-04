@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { SharedModule } from '@app/shared/shared.module';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 import { InfosPersoComponent } from './pages/infos-perso/infos-perso.component';
 import { PlaceSameOrderFormComponent } from './pages/place-same-order-form/place-same-order-form.component';
@@ -35,7 +36,7 @@ import { UserRoutingModule } from './user-routing.module';
     MatExpansionModule,
     MatPaginatorModule,
     MatDatepickerModule,
-
+    NgxMaterialTimepickerModule,
   ],
   providers: [UserService],
 })
