@@ -1,22 +1,24 @@
-:host {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
+@import "abstracts/mixins";
 
-  margin-top: 3rem;
+#prodRecapCard {
+    margin: 2rem;
 
-  @media (max-width: 768px) {
-    margin-top: 4.5rem;
-  }
-
-  font-size: 5rem;
+    @include for-tablet-landscape-down {
+        margin-top: 0;
+    }
 }
 
-.recapTitle {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+h2 {
+    text-align: center;
+    text-decoration: underline;
 }
 
-.productRecap {
-  font-size: 1.5rem;
+// TODO: style global UL LI (repasser partout ou il y a des listes pour refacto
+ul {
+    padding-left: 2rem;
+
+    li {
+        margin-bottom: 0.8rem;
+        font-size: 1.6rem;
+    }
 }

@@ -53,7 +53,7 @@
         <h3>Produits</h3>
         <ul>
             <li *ngFor="let elem of orderToPlace.order">
-                {{ elem?.product }}
+                {{ elem?.product }} :
                 {{ elem?.quantity }}
                 {{ elem?.unit}}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
                 <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
