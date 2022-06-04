@@ -1,6 +1,24 @@
-:host {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  margin-top: 3rem;
+@import "abstracts/mixins";
+
+#prodRecapCard {
+    margin: 2rem;
+
+    @include for-tablet-landscape-down {
+        margin-top: 0;
+    }
+}
+
+h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+// TODO: style global en utilisant MAT LIST UL LI (repasser partout ou il y a des listes pour refacto
+ul {
+    padding-left: 2rem;
+
+    li {
+        margin-bottom: 0.8rem;
+        font-size: 1.6rem;
+    }
 }

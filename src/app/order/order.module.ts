@@ -5,11 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {
-  DateAdapter,
-  MAT_DATE_LOCALE,
-  MatNativeDateModule,
-} from '@angular/material/core';
+import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -19,7 +15,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
-import { FormValidatedModalComponent } from './components/form-validated-modal/form-validated-modal.component';
 import { OrderRoutingModule } from './order-routing.module';
 import { OrderFormComponent } from './pages/order-form/order-form.component';
 import { MondayStartWeekDateAdapter } from './services/mondayStartWeekDateAdapter.service';
@@ -29,7 +24,6 @@ import { OrderService } from './services/order.service';
 @NgModule({
   declarations: [
     OrderFormComponent,
-    FormValidatedModalComponent,
     OrderSummaryPipe,
   ],
   imports: [
@@ -38,9 +32,10 @@ import { OrderService } from './services/order.service';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatCheckboxModule,
+    // TODO: chercher pourquoi je ne peux pas enlever certains imports de modules ici et ds un autre
     FlexLayoutModule,
     MatButtonModule,
-    MatCheckboxModule,
     MatCardModule,
     MatExpansionModule,
     MatDatepickerModule,
@@ -57,4 +52,4 @@ import { OrderService } from './services/order.service';
   ],
   exports: [OrderRoutingModule],
 })
-export class OrderModule {}
+export class OrderModule { }

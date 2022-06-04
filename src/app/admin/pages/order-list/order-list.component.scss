@@ -1,46 +1,37 @@
-:host {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  margin-top: 3rem;
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+// TODO: style global en utilisant MAT LIST UL LI (repasser partout ou il y a des listes pour refacto
+ul {
+    padding-left: 2rem;
 }
 
 :host ::ng-deep .mat-tab-header {
-  top: 0;
-  z-index: 2;
-  position: sticky;
-  position: -webkit-sticky; /* macOS/iOS Safari */
-  background-color: var(--color-app-light-grey);
-  @media (max-width: 768px) {
+    top: 6rem;
     padding-top: 4rem;
-  }
-}
+    z-index: 2;
+    position: sticky;
+    position: -webkit-sticky;
+    /* macOS/iOS Safari */
+    background-color: $color-app-light-grey;
 
-mat-tab-group {
-  max-width: 100vw;
+    @include for-tablet-landscape-up {
+        top: 14rem;
+        padding-top: 0;
+        margin-top: 3rem;
+    }
 }
 
 ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
-  background: var(--color-app-brown);
+    background: $color-app-brown;
 }
 
-::ng-deep .mat-tab-body-content {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
+mat-card {
+    @include for-tablet-landscape-up {
+        margin-top: 2.5rem;
+    }
 
-#clientName {
-  font-size: 2rem;
-}
-.address {
-  font-size: 1.4rem;
-}
-
-.m-subtitle-card {
-  margin-top: 3rem !important;
-}
-
-pre {
-  font-size: 1.4rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }

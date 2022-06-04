@@ -1,0 +1,156 @@
+<mat-card id="cardInfosPerso" class="m-card">
+    <mat-card-title fxLayout="row" fxLayoutAlign="center center" class="m-card-title">
+        <h1>Mes informations personnelles</h1>
+    </mat-card-title>
+    <mat-card-content>
+        <h3 class="h3InfosPerso">Nom de votre entreprise :</h3>
+        <p>{{userInformations?.name}}</p>
+        <h3 class="h3InfosPerso">{{ userInformations?.deliveryAddress ? "Adresse de facturation :" : "Adresse :"}}</h3>
+        <p>{{userInformations?.address?.street}}<br>{{userInformations?.address?.zipCode}}
+            {{userInformations?.address?.city}}</p>
+        <div *ngIf="userInformations?.deliveryAddress">
+            <h3 class="h3InfosPerso">Adresse de livraison :</h3>
+            <p>{{userInformations?.deliveryAddress?.street}} <br>{{userInformations?.deliveryAddress?.zipCode}}
+                {{userInformations?.deliveryAddress?.city}}</p>
+        </div>
+        <h3 class="h3InfosPerso">Email : </h3>
+        <p>{{userInformations?.email}}</p>
+        <h3 class="h3InfosPerso">Numéro de téléphone :</h3>
+        <p>{{userInformations?.phone}}</p>
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly center" *ngIf="!updatingInfos">
+            <button fxFlex="40" fxFlex.lt-sm="87" class="updateInfosButton" mat-raised-button
+                aria-label="Modifier mes informations personnelles" (click)="updatingInfos = !updatingInfos">
+                Modifier mes informations
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>
+<!-- -------------------------------------------------------------------------------------------- -->
+
+<mat-card id="cardModifInfos" class="m-card" *ngIf="updatingInfos">
+
+    <div id="importantInformation">Attention, ces changements ne seront effectifs que pour les prochaines commandes
+        et n'affecteront donc pas vos
+        précédentes commandes.</div>
+    <form [formGroup]="infosPersosForm" (ngSubmit)="submitUpdateInfos()">
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
+            <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+                <mat-label>Nom de votre entreprise</mat-label>
+                <input matInput type="text" placeholder="Ex: Restaurant du port" formControlName="name" required />
+                <mat-error *ngIf="infosPersosForm.get('name')?.invalid">{{
+                    getErrorMessage("name", infosPersosForm, errorMessages)
+                    }}</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+                <mat-label>Numéro de téléphone</mat-label>
+                <input matInput type="tel" placeholder="Ex: 0546331122" formControlName="phone" required />
+                <mat-error *ngIf="infosPersosForm.get('phone')?.invalid">{{
+                    getErrorMessage("phone", infosPersosForm, errorMessages)
+                    }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div formGroupName="address">
+            <div fxLayout="row" fxLayoutAlign="center">
+                <mat-form-field fxFlex="87" appearance="outline">
+                    <mat-label>Rue</mat-label>
+                    <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
+                    <mat-error *ngIf="infosPersosForm.get('address')?.get('street')?.invalid">{{
+                        getErrorMessage("street", infosPersosForm, errorMessages, "address")
+                        }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
+                <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+                    <mat-label>Code postal</mat-label>
+                    <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
+                    <mat-error *ngIf="infosPersosForm.get('address')?.get('zipCode')?.invalid">{{
+                        getErrorMessage("zipCode", infosPersosForm, errorMessages, "address")
+                        }}</mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+                    <mat-label>Ville</mat-label>
+                    <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
+                    <mat-error *ngIf="infosPersosForm.get('address')?.get('city')?.invalid">{{
+                        getErrorMessage("city", infosPersosForm, errorMessages, "address")
+                        }}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" class="checkboxRow" fxLayoutAlign="flex-start center">
+            <mat-checkbox id="differentAddress" fxFlexOffset="7" (change)="hasDifferentDeliveryAddress($event.checked)"
+                formControlName="hasDifferentDeliveryAddress">Adresse de livraison différente</mat-checkbox>
+        </div>
+        <div id="deliveryAddress" formGroupName="deliveryAddress" *ngIf="displayDeliveryForm">
+            <div fxLayout="row" fxLayoutAlign="center">
+                <mat-form-field fxFlex="87" appearance="outline">
+                    <mat-label>Rue</mat-label>
+                    <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
+                    <mat-error *ngIf="infosPersosForm.get('deliveryAddress')?.get('street')?.invalid">{{
+                        getErrorMessage("street",
+                        infosPersosForm, errorMessages,
+                        "address") }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="space-evenly space-evenly">
+                <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+                    <mat-label>Code postal</mat-label>
+                    <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
+                    <mat-error *ngIf="infosPersosForm.get('deliveryAddress')?.get('zipCode')?.invalid">{{
+                        getErrorMessage("zipCode",
+                        infosPersosForm, errorMessages,
+                        "address") }}</mat-error>
+                </mat-form-field>
+                <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+                    <mat-label>Ville</mat-label>
+                    <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
+                    <mat-error *ngIf="infosPersosForm.get('deliveryAddress')?.get('city')?.invalid">{{
+                        getErrorMessage("city", infosPersosForm,
+                        errorMessages, "address")
+                        }}</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+            <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button aria-label="Annuler" id="cancelButton"
+                (click)="updatingInfos = !updatingInfos">
+                Annuler
+            </button>
+            <button fxFlex="40" fxFlex.lt-sm="87" class="updateInfosButton" mat-raised-button type="submit">
+                Mettre à jour mes informations
+            </button>
+        </div>
+    </form>
+</mat-card>
+<!-- ------------------------------------------------------------------------ -->
+<!-- <form [formGroup]="updatePasswordForm" (ngSubmit)="submitUpdatePassword()" *ngIf="updatingPassword">
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <mat-form-field fxFlex="87" appearance="outline">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput type="password" formControlName="currentPassword" required />
+            <mat-error *ngIf="updatePasswordForm.get('currentPassword')?.invalid">{{
+                getErrorMessage("currentPassword", updatePasswordForm, errorMessagesUpdatePassword)
+                }}</mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <mat-form-field fxFlex="87" appearance="outline">
+            <mat-label>Nouveau mot de passe</mat-label>
+            <input matInput type="password" formControlName="password" required />
+            <mat-error *ngIf="updatePasswordForm.get('password')?.invalid">{{
+                getErrorMessage("password", updatePasswordForm, errorMessagesUpdatePassword)
+                }}</mat-error>
+        </mat-form-field>
+        <mat-form-field fxFlex="87" appearance="outline">
+            <mat-label>Confirmer le nouveau mot de passe</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" required />
+            <mat-error *ngIf="updatePasswordForm.get('confirmPassword')?.invalid">{{
+                getErrorMessage("confirmPassword", updatePasswordForm, errorMessagesUpdatePassword)
+                }}</mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-evenly center">
+        <button fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
+            Valider
+        </button>
+    </div>
+</form> -->

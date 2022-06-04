@@ -1,0 +1,60 @@
+html,
+body {
+    font-size: $font-size-root;
+    color: $color-app-brown;
+
+    // TODO: faire une passe pour refacto le color des H
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $color-app-brown;
+    }
+}
+
+/* Mat typography global override */
+.mat-typography {
+    font-size: $font-size-default;
+
+    h1 {
+        font-size: $font-size-h1;
+    }
+
+    h2 {
+        font-size: $font-size-h2;
+    }
+
+    h3 {
+        font-size: $font-size-h3;
+    }
+
+    h4 {
+        font-size: $font-size-h4;
+    }
+
+    h5 {
+        font-size: $font-size-h5;
+    }
+
+    h6 {
+        font-size: $font-size-h6;
+    }
+}
+
+// TODO: je pense pas que ca doit être là, c'est pas vraiment du générique
+/* Mat typography mobile menu override */
+.mat-menu-item {
+    font-size: $font-size-default;
+}
+
+/* Mat typography accordion header override */
+.mat-expansion-panel-header {
+    font-size: $font-size-default;
+}
+
+/* Mat typography button override */
+.mat-raised-button {
+    font-size: $font-size-default;
+}

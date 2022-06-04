@@ -1,0 +1,15 @@
+@import "abstracts/variables";
+
+/* Style overide mat dialog */
+mat-dialog-container.mat-dialog-container {
+    background-color: $color-app-light-grey;
+    color: $color-app-brown;
+
+    h2 {
+        text-decoration: underline;
+    }
+
+    button {
+        margin-bottom: 2rem;
+    }
+}

@@ -1,0 +1,107 @@
+<mat-card class="m-card">
+    <h2>Vous souhaitez repasser la commande suivante :
+    </h2>
+    <mat-card-content id="sameOrderContent">
+        <mat-card-subtitle>
+            Veuillez vérifier les produits et sélectionnez un nouveau jour de livraison.
+        </mat-card-subtitle>
+        <div *ngIf="!orderToPlace.deliveryAddress; else mulitpleAddress">
+            <h4>Adresse de livraison et facturation :</h4>
+            <p>
+                {{ orderToPlace.address.street }}
+            </p>
+            <p>
+                <span>
+                    {{ orderToPlace.address.zipCode }}
+                </span>
+                <span>
+                    {{ orderToPlace.address.city }}
+                </span>
+            </p>
+        </div>
+        <ng-template #mulitpleAddress>
+            <div>
+                <h4>Adresse de facturation :</h4>
+                <p>{{ orderToPlace.address.street }}</p>
+                <p>
+                    <span>
+                        {{ orderToPlace.address.zipCode }}
+                    </span>
+                    <span>
+                        {{ orderToPlace.address.city }}
+                    </span>
+                </p>
+            </div>
+            <div>
+                <h4>Adresse de livraison :</h4>
+                <p>{{ orderToPlace.deliveryAddress.street }}</p>
+                <p>
+                    <span>
+                        {{ orderToPlace.deliveryAddress.zipCode }}
+                    </span>
+                    <span>
+                        {{ orderToPlace.deliveryAddress.city }}
+                    </span>
+                </p>
+            </div>
+        </ng-template>
+        <h3 *ngIf="orderToPlace.orderComment">Commentaires
+        </h3>
+        <div *ngIf="orderToPlace.orderComment">
+            <pre>{{ orderToPlace.orderComment }}</pre>
+        </div>
+        <h3>Produits</h3>
+        <ul>
+            <li *ngFor="let elem of orderToPlace.order">
+                {{ elem?.product }} :
+                {{ elem?.quantity }}
+                {{ elem.unit === PRODUCTUNIT.KG ? PRODUCTUNITWORDING.KG :
+                PRODUCTUNITWORDING.UNIT
+                }}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
+                <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
+                <span *ngIf="elem && elem.comment">&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment
+                    }}</span>
+            </li>
+        </ul>
+        <h3 fxLayoutAlign="flex-end">Prix total: {{ orderToPlace?.totalPrice?.toFixed(2)
+            }} €
+            H.T.</h3>
+        <form [formGroup]="orderForm" (ngSubmit)="placeOrderAgain()">
+            <div fxLayoutAlign="center center">
+                <mat-form-field fxFlex="40" fxFlex.lt-sm="100" appearance="outline" (click)="picker.open()">
+                    <mat-label>Date de livraison</mat-label>
+                    <input matInput required formControlName="deliveryDate" [min]="minimalDay" [matDatepicker]="picker"
+                        [matDatepickerFilter]="isItOpenToday" readonly />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker touchUi></mat-datepicker>
+                    <mat-error *ngIf="orderForm.get('deliveryDate')?.invalid">{{
+                        getErrorMessage("deliveryDate", orderForm, errorMessages)
+                        }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" id="checkboxRow" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="flex-start center">
+                <mat-checkbox (change)="specificDeliveryTime($event.checked)" [checked]="selectDeliveryTime">
+                    Besoin d'une heure de livraison précise?
+                </mat-checkbox>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="flex-start center">
+                <mat-form-field *ngIf="selectDeliveryTime" fxFlex="40" fxFlex.lt-sm="100" appearance="outline">
+                    <mat-label>Heure de livraison</mat-label>
+                    <input [ngxTimepicker]="$any(datePicker)" min="06:00" max="12:00" [format]="24" readonly matInput
+                        formControlName="deliveryTime" />
+                    <ngx-material-timepicker #datePicker></ngx-material-timepicker>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutAlign.lt-sm="center center">
+                <button fxFlex="40" fxFlex.lt-sm="100" class="cancelButton" routerLink="/compte/mes-commandes"
+                    routerLinkActive="active" mat-raised-button>
+                    Annuler
+                </button>
+                <button fxFlex="40" fxFlex.lt-sm="100" mat-raised-button type="submit">
+                    Repasser la commande
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -6,6 +6,8 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -19,14 +21,29 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": ["es2018", "dom"],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "paths": {
-      "@models/*": ["src/app/models/*"],
-      "@app/*": ["src/app/*"],
-      "@app": ["src/app"],
-      "@environment": ["src/environments/environment"],
-      "@assets/*": ["src/assets/*"],
-      "@assets": ["src/assets"]
+      "@models/*": [
+        "src/app/models/*"
+      ],
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@app": [
+        "src/app"
+      ],
+      "@environment": [
+        "src/environments/environment"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@assets": [
+        "src/assets"
+      ]
     }
   },
   "angularCompilerOptions": {

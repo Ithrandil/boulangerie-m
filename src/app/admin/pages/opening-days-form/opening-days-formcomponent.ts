@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
+import { DateUtils } from '@app/shared/utils/date.utils';
+import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -11,15 +13,15 @@ import { take, takeUntil } from 'rxjs/operators';
 })
 export class OpeningDaysFormComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
-  public allClosingDays: {
-    rangeId: string;
-    startingDate: any;
-    endingDate: any;
-  }[] = [];
+  public allClosingDays: ClosingDay[] = [];
+  public allClosingDaysToHuman: ClosingDayForHumans[] = [];
   public closedDaysForm = this.fb.group({
     startingDate: [null, [Validators.required]],
     endingDate: [null, [Validators.required]],
   });
+  public filterDaysAfterToday = DateUtils.FilterDaysAfterToday;
+  public orderDays = DateUtils.OrderDays;
+  public formatDaysToHumanDate = DateUtils.formatDaysToHumanDate;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +31,9 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
       .getAllClosingDays()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        this.allClosingDays = this.formatAndFilterClosingDatesForList(response);
+        this.allClosingDays = this.filterDaysAfterToday(response);
+        this.allClosingDays = this.orderDays(this.allClosingDays);
+        this.allClosingDaysToHuman = this.formatDaysToHumanDate(this.allClosingDays);
       });
   }
 
@@ -44,7 +48,7 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
     this.closedDaysForm.markAllAsTouched();
     const alreadyAClosedDay = this.allClosingDays.find(
       (el) =>
-        el?.startingDate?.getTime() ===
+        el?.startingDate.seconds * 1000 ===
         this.closedDaysForm?.value?.startingDate?.getTime()
     );
     if (this.closedDaysForm.valid && !alreadyAClosedDay) {
@@ -60,31 +64,5 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
       .deleteClosingDays(rangeId)
       .pipe(take(1))
       .subscribe();
-  }
-
-  private formatAndFilterClosingDatesForList(
-    array: { rangeId: string; startingDate: any; endingDate: any }[]
-  ): { rangeId: string; startingDate: any; endingDate: any }[] {
-    return array
-      .sort((el1, el2) => {
-        if (el1.startingDate.seconds < el2.startingDate.seconds) {
-          return -1;
-        }
-        if (el1.startingDate.seconds > el2.startingDate.seconds) {
-          return 1;
-        }
-        return 0;
-      })
-      .filter((el) => el.startingDate.seconds > Math.floor(Date.now() / 1000))
-      .map((el) => {
-        return {
-          rangeId: el.rangeId,
-          startingDate: el.startingDate.toDate(),
-          endingDate:
-            el.startingDate.seconds === el.endingDate.seconds
-              ? null
-              : el.endingDate.toDate(),
-        };
-      });
   }
 }

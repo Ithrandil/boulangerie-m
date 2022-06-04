@@ -3,30 +3,23 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from 
 import { ClosingDay } from '@models/closingDay';
 import { from, Observable } from 'rxjs';
 
-// FIXME: implement proper interface for closing day, one is already created in folder, manage undefined values
 @Injectable({
   providedIn: 'root',
 })
 export class OpeningDaysService {
   private closingDaysCollection: AngularFirestoreCollection<ClosingDay>;
-  closingDays: Observable<{ startingDate: any; endingDate: any; rangeId: string; }[]>
+  closingDays: Observable<ClosingDay[]>
 
   constructor(private readonly firestore: AngularFirestore) {
-    this.closingDaysCollection = this.firestore.collection<{ startingDate: any; endingDate: any; rangeId: string; }>('closingDays');
+    this.closingDaysCollection = this.firestore.collection<ClosingDay>('closingDays');
     this.closingDays = this.closingDaysCollection.valueChanges({ idField: 'rangeId' });
   }
 
-  public getAllClosingDays(): Observable<
-    { startingDate: any; endingDate: any; rangeId: string; }[]
-  > {
+  public getAllClosingDays(): Observable<ClosingDay[]> {
     return this.closingDays;
   }
 
-  public addClosingDays(days: {
-    startingDate: Date;
-    endingDate: Date;
-    rangeId: string;
-  }): Observable<DocumentReference> {
+  public addClosingDays(days: ClosingDay): Observable<DocumentReference> {
     return from(
       this.closingDaysCollection.add(days)
     );

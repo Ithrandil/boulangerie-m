@@ -1,0 +1,13 @@
+@import "abstracts/variables";
+
+/* Style overide mat button */
+.mat-button-base {
+    background-color: $color-app-light-brown;
+    color: $color-app-brown;
+
+    &:hover {
+        background-color: $color-app-brown;
+        color: $color-app-light-brown;
+        transition: background 0.8s;
+    }
+}

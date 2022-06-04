@@ -1,7 +1,13 @@
+import { Timestamp } from '@firebase/firestore-types';
+
 export interface ClosingDay {
-    rangeId?: string | undefined;
-    startingDate: Date | { seconds: number; nanoseconds: number };
-    endingDate: { seconds: number; nanoseconds: number } | Date;
+    rangeId: string;
+    startingDate: Timestamp;
+    endingDate: Timestamp;
 }
 
-// Dans le model orders il y a un import fonctionnel de timestamp
+export interface ClosingDayForHumans {
+    rangeId: string;
+    startingDate: Date;
+    endingDate: Date | null;
+}

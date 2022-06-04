@@ -8,7 +8,7 @@ import { LoginModalComponent } from '@app/auth/components/login-modal/login-moda
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.dialog.open(LoginModalComponent, {

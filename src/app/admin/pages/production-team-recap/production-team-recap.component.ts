@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Order, OrderProduct } from '@models/order';
+import { ProductUnit, ProductUnitWording } from '@models/product';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+
 import { OrderAdminService } from '../../services/order-admin.service';
 
 @Component({
@@ -10,9 +12,12 @@ import { OrderAdminService } from '../../services/order-admin.service';
   styleUrls: ['./production-team-recap.component.scss'],
 })
 export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
+  public PRODUCTUNITWORDING = ProductUnitWording;
+  public PRODUCTUNIT = ProductUnit;
   private unsubscribe$ = new Subject<void>();
   public productsOfThDayList: OrderProduct[] = [];
   public today = new Date(Date.now());
+  public loading: boolean = false;
 
   constructor(private orderAdminService: OrderAdminService) { }
 
@@ -26,6 +31,7 @@ export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
   }
 
   getOrdersOfTheDay(day: Date): void {
+    this.loading = true;
     this.orderAdminService
       .getOrdersByDay(day)
       .pipe(
@@ -37,7 +43,7 @@ export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
         ),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe();
+      .subscribe({ next: () => this.loading = false });
   }
 
   mapRecapProductionTeamData(ordersList: Order[]): OrderProduct[] {
@@ -85,6 +91,8 @@ export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
         (el) => el.product !== product.product
       );
     });
+
+    finalArray.forEach(product => product.quantity = +product.quantity.toFixed(2))
     return finalArray.sort((a, b) =>
       a.product < b.product ? -1 : a.product > b.product ? 1 : 0
     );

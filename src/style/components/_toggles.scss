@@ -1,0 +1,19 @@
+@import "abstracts/variables";
+
+
+// Toggle custom style
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: $color-app-light-brown;
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: $color-app-brown;
+}
+
+.mat-slide-toggle.mat-checked.toggleBio .mat-slide-toggle-bar {
+    background-color: $color-app-light-bio;
+}
+
+.mat-slide-toggle.mat-checked.toggleBio .mat-slide-toggle-thumb {
+    background-color: $color-app-bio;
+}

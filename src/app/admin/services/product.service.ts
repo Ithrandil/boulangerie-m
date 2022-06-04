@@ -27,6 +27,18 @@ export class ProductService {
     );
   }
 
+  public updateProductisBio(
+    docId: string,
+    value: boolean
+  ): Observable<void> {
+    return from(
+      this.firestore
+        .collection<Product>('products')
+        .doc(docId)
+        .update({ isBio: value } as Product)
+    );
+  }
+
   public updateProductShortDelivery(
     docId: string,
     value: boolean

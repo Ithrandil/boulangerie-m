@@ -1,0 +1,7 @@
+@import "abstracts/variables";
+
+/* Spinner custom style overide */
+
+.mat-spinner circle {
+    stroke: $color-app-light-brown;
+}

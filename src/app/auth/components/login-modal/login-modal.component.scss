@@ -1,8 +1,5 @@
-.errorMessage {
-  color: crimson;
-  text-align: center;
-}
+@import "abstracts/variables";
 
-button {
-  margin-bottom: 2rem;
+#registerRow {
+    margin-bottom: 1rem;
 }

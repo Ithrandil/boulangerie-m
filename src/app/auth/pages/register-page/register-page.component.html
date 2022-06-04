@@ -1,0 +1,98 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <h2>Formulaire d'inscription</h2>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="center">
+    <div id="welcomeContainer" fxFlex="40" fxFlex.lt-md="87" fxLayout="column" fxLayoutAlign="space-around center">
+        <p class="welcomeText">Bienvenu sur le site de gestion de commandes de la boulangerie M, réservé uniquement aux
+            professionnels.</p>
+        <img fxHide fxShow.gt-sm alt="logo boulangerie-m" src="../assets/images/logo-header.png"
+            class="logoRegisterForm" />
+        <p class="welcomeText">Veuillez vous inscrire afin d'accéder au formulaire, à vos anciennes commandes, repasser
+            les mêmes commandes et bien plus.</p>
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center" fxFlex="40"
+        fxFlex.lt-sm="87">
+        <div fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field fxFlex="87" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="Ex: restaurant-du-port@gmail.com" formControlName="email"
+                    required />
+                <mat-error *ngIf="registerForm.get('email')?.invalid">{{
+                    getErrorMessage("email", registerForm, errorMessages)
+                    }}</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="87" appearance="outline">
+                <mat-label>Mot de passe</mat-label>
+                <input matInput type="password" formControlName="password" required />
+                <mat-error *ngIf="registerForm.get('password')?.invalid">{{
+                    getErrorMessage("password", registerForm, errorMessages)
+                    }}</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="87" appearance="outline">
+                <mat-label>Confirmer le mot de passe</mat-label>
+                <input matInput type="password" formControlName="confirmPassword" required />
+                <mat-error *ngIf="registerForm.get('confirmPassword')?.invalid">{{
+                    getErrorMessage("confirmPassword", registerForm, errorMessages)
+                    }}</mat-error>
+            </mat-form-field>
+
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <mat-divider fxFlex="50"></mat-divider>
+            </div>
+
+            <mat-form-field fxFlex="87" appearance="outline">
+                <mat-label>Nom de votre entreprise</mat-label>
+                <input matInput type="text" placeholder="Ex: Restaurant du port" formControlName="name" required />
+                <mat-error *ngIf="registerForm.get('name')?.invalid">{{
+                    getErrorMessage("name", registerForm, errorMessages)
+                    }}</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="87" appearance="outline">
+                <mat-label>Numéro de téléphone</mat-label>
+                <input matInput type="tel" placeholder="Ex: 0546331122" formControlName="phone" required />
+                <mat-error *ngIf="registerForm.get('phone')?.invalid">{{
+                    getErrorMessage("phone", registerForm, errorMessages)
+                    }}</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-divider fxFlex="50"></mat-divider>
+        </div>
+
+        <div formGroupName="address" fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field fxFlex="87" appearance="outline">
+                <mat-label>Rue</mat-label>
+                <input matInput type="text" placeholder="Ex: 2 rue du port" formControlName="street" required />
+                <mat-error *ngIf="registerForm.get('address')?.get('street')?.invalid">{{
+                    getErrorMessage("street", registerForm, errorMessages, "address")
+                    }}</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+                <mat-label>Code postal</mat-label>
+                <input matInput type="text" placeholder="Ex: 17000" formControlName="zipCode" required />
+                <mat-error *ngIf="registerForm.get('address')?.get('zipCode')?.invalid">{{
+                    getErrorMessage("zipCode", registerForm, errorMessages, "address")
+                    }}</mat-error>
+            </mat-form-field>
+            <mat-form-field fxFlex="40" fxFlex.lt-sm="87" appearance="outline">
+                <mat-label>Ville</mat-label>
+                <input matInput type="text" placeholder="Ex: La Rochelle" formControlName="city" required />
+                <mat-error *ngIf="registerForm.get('address')?.get('city')?.invalid">{{
+                    getErrorMessage("city", registerForm, errorMessages, "address")
+                    }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div *ngIf="errorMessage" fxLayout="row" fxLayoutAlign="center center">
+            <p class="errorMessage">Erreur : {{errorMessage}}</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button id="submitRegistrationButton" fxFlex="40" fxFlex.lt-sm="87" mat-raised-button type="submit">
+                S'inscrire
+            </button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <span class="link" (click)="router.navigate(['/connexion'])">Déjà inscrit?</span>
+        </div>
+    </form>
+</div>

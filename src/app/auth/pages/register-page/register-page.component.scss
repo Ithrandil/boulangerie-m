@@ -1,0 +1,31 @@
+@import "abstracts/mixins";
+
+h2 {
+    margin-bottom: 3rem;
+
+    @include for-tablet-landscape-up {
+        margin-top: 3rem;
+    }
+}
+
+.logoRegisterForm {
+    width: 22rem;
+}
+
+#welcomeContainer {
+    @include for-tablet-landscape-up {
+        margin-right: 7rem;
+    }
+}
+
+.welcomeText {
+    text-align: center;
+}
+
+#submitRegistrationButton {
+    margin-bottom: 2rem;
+}
+
+mat-divider {
+    margin-bottom: 2rem;
+}

@@ -1,0 +1,43 @@
+html,
+body {
+    height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @include for-desktop-down {
+        background-color: $color-app-light-grey;
+    }
+
+    @include for-desktop-up {
+        background-image: url("./../../assets/images/background/bakery-background.jpg");
+        background-position: center;
+        background-size: cover;
+    }
+}
+
+/* Link style */
+:hover .link {
+    cursor: pointer;
+}
+
+a:link,
+a:visited,
+a:active,
+a:hover {
+    color: $color-app-brown;
+}
+
+.errorMessage {
+    color: crimson;
+    text-align: center;
+}
+
+.noOrder {
+    min-height: 40vh;
+}
+
+pre {
+    white-space: pre-line;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

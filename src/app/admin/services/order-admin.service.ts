@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Order } from '@models/order';
-import { Observable } from 'rxjs';
 import { add, set } from 'date-fns';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,9 @@ export class OrderAdminService {
       .collection<Order>('orders', (ref) =>
         ref.where('deliveryDate', '>=', day).orderBy('deliveryDate')
       )
-      .valueChanges({ idField: 'orderId' });
+      .valueChanges({ idField: 'orderId' }).pipe(
+        map((orders: Order[]) => this.removeCanceledOrders(orders)
+        ));
   }
 
   getOrdersByDay(day: Date): Observable<Order[]> {
@@ -37,12 +39,12 @@ export class OrderAdminService {
           .where('deliveryDate', '>=', day)
           .where('deliveryDate', '<', dayAfter)
       )
-      .valueChanges({ idField: 'orderId' });
+      .valueChanges({ idField: 'orderId' }).pipe(
+        map((orders: Order[]) => this.removeCanceledOrders(orders)
+        ));
   }
 
-  getOrderById(orderId: string): Observable<Order> {
-    return this.firestore
-      .doc<Order>(`orders/${orderId}`)
-      .valueChanges() as Observable<Order>;
+  private removeCanceledOrders(orders: Order[]): Order[] {
+    return orders.filter(order => !order.isCanceled);
   }
 }

@@ -1,170 +1,117 @@
-form {
-  padding: 3rem 0 3rem 0;
+@import "abstracts/variables";
+@import "abstracts/mixins";
 
-  @media (max-width: 768px) {
-    padding: 5rem 0 3rem 0;
-  }
-}
-
-.alert {
-  text-align: center;
-  color: crimson;
-  font-size: 2rem;
-  margin: 1rem;
-}
-
-#boldAlert {
-  text-decoration: underline;
-  font-weight: bold;
-}
-
-.checkboxRow {
-  margin-bottom: 1rem;
-}
-
-.buttonRow {
-  margin-top: 3rem;
-}
-
-.deliveryMessage {
-  color: var(--color-app-brown);
-  font-weight: bold;
-
-  @media (max-width: 768px) {
+:host {
     text-align: center;
-  }
 }
 
-.warningMessage {
-  color: crimson;
-
-  @media (max-width: 768px) {
-    text-align-last: center;
-  }
+h1 {
+    margin-bottom: 2.5rem;
+    text-decoration: underline;
 }
 
-#importantSentence {
-  text-decoration: underline;
-  font-weight: bold;
-}
+form {
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
 
-::ng-deep ngx-material-timepicker-container {
-  --button-color: var(--color-app-brown) !important;
-  --dial-background-color: var(--color-app-brown) !important;
-  --clock-hand-color: var(--color-app-brown) !important;
-}
+    @include for-tablet-landscape-up {
+        margin: 2.5rem 7.5rem 0 7.5rem;
 
-//*** CUSTOM ACCORDION PRODUCT CATEGORY
-.productCategory {
-  background-color: var(--color-app-light-grey);
-  margin-bottom: 0.5rem;
-
-  .mat-card:first-child {
-    margin-top: 2rem;
-  }
-
-  @media (min-width: 600px) {
-    .mat-card:nth-child(2) {
-      margin-top: 2rem;
     }
-  }
 }
 
-.productCategoryHeader {
-  background-color: white;
-  font-size: 1.7rem;
-  max-height: 4rem;
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+#customMessage {
+    color: crimson;
+    font-size: 2.5rem;
 }
 
-//***
+#delayMessage {
+    font-weight: $font-weight-500;
 
-//*** CUSTOM CARD PRODUCT STYLE
-mat-card {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
+    @include for-tablet-landscape-up {
+        font-size: 2rem;
+    }
+
+    span {
+        text-decoration: underline;
+    }
+}
+
+#checkboxRow {
+    margin-bottom: 2rem;
+}
+
+#deliveryMessage {
+    font-weight: $font-weight-500;
+}
+
+.dividerOrderForm {
+    margin: 2rem 0 2rem 0;
+}
+
+.productCategory {
+    background-color: $color-app-light-grey;
+    margin-bottom: 1rem;
+
+    .mat-card:last-child {
+        margin-bottom: 0;
+    }
+}
+
+mat-expansion-panel-header.categoryExpansionHeader,
+mat-expansion-panel-header.categoryExpansionHeader:focus {
+    background-color: white;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+        0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+#expansionPanelContent {
+    background-color: $color-app-light-grey;
 }
 
 .productExpansion:not([class*="mat-elevation-z"]) {
-  box-shadow: none;
+    box-shadow: none;
 }
 
-.productExpansionHeader {
-  padding: 0 5px 0 0;
-  font-size: 1.5rem;
-  margin: 0;
-  height: 2.5rem;
+mat-expansion-panel-header.productExpansionHeader {
+    padding-left: 0.5rem;
+    font-size: 1.4rem;
 }
 
-.productExpansionBody {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  margin: 1rem 1rem 0 1rem;
-}
-
-::ng-deep .slicedCheckbox>label>span {
-  font-size: 1.3rem;
+mat-card {
+    width: 100%;
+    padding: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .cardPriceQuantity {
-  margin-top: 1rem;
-}
-
-.mat-expansion-panel-header-title {
-  color: var(--color-app-brown) !important;
-}
-
-::ng-deep .mat-expansion-panel-body {
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  font-size: 1.3rem;
-  padding: 0 !important;
-
-  >p {
-    font-size: 1.3rem;
-    font-weight: lighter;
-    margin: 0 0 0.8rem 1rem !important;
-  }
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 .quantityInput {
-  max-width: 9rem;
+    max-width: 9rem;
 }
 
 :host ::ng-deep .quantityInput div.mat-form-field-wrapper {
-  padding-bottom: 0 !important;
+    padding-bottom: 0;
 }
 
 :host ::ng-deep .quantityInput div.mat-form-field-infix {
-  padding: 0;
-  border: 0;
+    padding: 0;
+    border: 0;
 
-  input {
-    height: 3rem;
-  }
+    input {
+        height: 3rem;
+    }
 }
 
-.unavailableItem {
-  background-color: rgba(128, 128, 128, 0.2);
+.productExpansionBody {
+    text-align: left;
+    margin: 1rem;
 
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-    background-color: rgba(128, 128, 128, 0);
-  }
-
-  .mat-expansion-panel {
-    background-color: rgba(128, 128, 128, 0);
-  }
+    mat-form-field {
+        width: 100%;
+    }
 }
-
-.orderCommentSummaryTitle {
-  text-decoration: underline;
-}
-
-.summaryComment {
-  text-align: center;
-}
-
-/***********************************/

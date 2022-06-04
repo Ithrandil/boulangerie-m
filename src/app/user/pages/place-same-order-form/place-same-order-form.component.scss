@@ -1,0 +1,38 @@
+@import "abstracts/mixins";
+
+mat-card {
+    @include for-tablet-landscape-up {
+        margin-top: 2.5rem;
+    }
+
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+mat-card-content#sameOrderContent {
+    @include for-tablet-landscape-up {
+        margin: 2rem;
+    }
+}
+
+h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+// TODO: style global en utilisant MAT LIST UL LI (repasser partout ou il y a des listes pour refacto
+ul {
+    padding-left: 2rem;
+}
+
+// TODO: même classe dans user order
+.cancelButton {
+    @include for-tablet-landscape-down {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+}
+
+#checkboxRow {
+    margin-bottom: 2rem;
+}

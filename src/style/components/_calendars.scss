@@ -1,0 +1,35 @@
+@import "abstracts/variables";
+
+/* Mat Calendar & timepicker custom style */
+
+.mat-calendar-body-cell {
+    color: $color-app-brown;
+    background-color: $color-app-light-brown;
+}
+
+.mat-calendar-body-selected,
+.mat-calendar-body-cell-content:hover {
+    color: $color-app-brown;
+    background-color: $color-app-light-brown  !important;
+}
+
+div.timepicker {
+    header.timepicker__header {
+        background-color: $color-app-brown;
+    }
+
+    div.clock-face__container {
+        span.active {
+            background-color: $color-app-brown  !important;
+        }
+    }
+
+    span.clock-face__clock-hand {
+        background-color: $color-app-brown;
+
+    }
+
+    button.timepicker-button {
+        color: $color-app-brown;
+    }
+}

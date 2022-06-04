@@ -1,32 +1,29 @@
-<div class="containerProducts">
-  <div fxLayout="column wrap" fxLayoutAlign="center center" *ngIf="showEasterEgg" (click)="showEasterEgg = false"
-    style="margin-top: 6rem">
-    <h2>VIVE LA SAUCISSE!!!!!</h2>
-    <img src="https://i.ibb.co/dp2mZSK/dino.jpg" alt="dino" border="0" style="max-width: 100vw" />
-  </div>
-  <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="!showEasterEgg">
-    <h2>Produits</h2>
-  </div>
-  <div class="listProducts" fxLayout="row wrap" fxLayoutAlign="space-evenly center" fxLayoutGap="1rem">
-    <div fxFlex.lt-md="calc(50 - 1rem)" fxFlex.lt-sm="calc(100 - 1rem)" class="productCard"
-      *ngFor="let product of productList$ | async">
-      <mat-card>
-        <mat-expansion-panel [disabled]="!product.description">
-          <mat-expansion-panel-header>
-            <mat-panel-title>{{ product.name }}</mat-panel-title>
-          </mat-expansion-panel-header>
-          <p>{{ product.description }}</p>
-        </mat-expansion-panel>
-        <mat-card-content class="m-card-content">Prix: {{ product.price.toFixed(2) }} € /
-          {{ product.unit }}</mat-card-content>
-        <mat-card-content class="toggleContainer m-card-content">
-          <mat-slide-toggle (change)="updateProductAvailability(product.productId, $event)"
-            [checked]="product.available" labelPosition="before">Visible
-          </mat-slide-toggle>
-          <mat-slide-toggle (change)="updateProductShortDelivery(product.productId, $event)"
-            [checked]="product.shortDelivery" labelPosition="before">Livraison courte</mat-slide-toggle>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <h1>Produits</h1>
 </div>
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+  <mat-card fxFlex="100" fxFlex.gt-xs="40" fxFlex.gt-md="30" *ngFor="let product of productList$ | async">
+    <mat-expansion-panel [disabled]="!product.description">
+      <mat-expansion-panel-header>
+        <mat-panel-title [ngClass]="product.isBio ? 'is-bio' : ''">{{ product.name }}</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p class="descriptionText">{{ product.description }}</p>
+    </mat-expansion-panel>
+    <mat-card-content class="m-card-content">
+
+      Prix: {{ product.price.toFixed(2) }} € / {{ product.unit === PRODUCTUNIT.KG ? PRODUCTUNITWORDING.KG :
+      PRODUCTUNITWORDING.UNIT
+      }}
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-slide-toggle (change)="updateProductAvailability(product.productId, $event)" [checked]="product.available"
+          labelPosition="before">Visible
+        </mat-slide-toggle>
+        <mat-slide-toggle class="toggleBio" (change)="updateProductisBio(product.productId, $event)"
+          [checked]="product.isBio" labelPosition="before">Bio
+        </mat-slide-toggle>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- TODO: implémenter comme pour le formulaire les accordéons par catégorie (bonus recherche?) -->

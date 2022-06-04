@@ -1,0 +1,110 @@
+<div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="!totalUserOrders.length && ordersLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div class="noOrder" fxLayout="row" fxLayoutAlign="center center"
+    *ngIf="!totalUserOrders.length && totalUserOrders.length === 0 && !ordersLoading">
+    <h2>Vous n'avez pas encore passé de commandes.</h2>
+</div>
+<mat-card class="m-card" id="ordersListCard" *ngIf="totalUserOrders.length">
+    <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
+        <h1>Mes commandes</h1>
+    </mat-card-title>
+
+
+    <mat-card-content>
+        <mat-expansion-panel id="orderContainer" *ngFor="let order of displayedUserOrders; let i = index">
+            <mat-expansion-panel-header class="userOrder">
+                <mat-panel-title>Commande
+                    n°{{totalUserOrders.length - (currentIndex * 10) - i}} pour le
+                    {{ order.deliveryDate.toDate() | date: "EEEE d MMMM y"
+                    }}{{
+                    order?.deliveryTime ? " à " + order.deliveryTime : ""
+                    }}<span id="canceledOrder">{{order.isCanceled ? " ANNULÉE": ""}}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-card-content class="orderDetail">
+                <mat-card-subtitle>
+                    Commandée le
+                    {{ order.orderDate.toDate() | date: "EEEE d MMMM y" }} à
+                    {{ order.orderDate.toDate() | date: "h:mm" }}
+                </mat-card-subtitle>
+                <div *ngIf="!order.deliveryAddress; else mulitpleAddress">
+                    <h4>Adresse de livraison et facturation :</h4>
+                    <p>
+                        {{ order.address.street }}
+                    </p>
+                    <p>
+                        <span>
+                            {{ order.address.zipCode }}
+                        </span>
+                        <span>
+                            {{ order.address.city }}
+                        </span>
+                    </p>
+                </div>
+                <ng-template #mulitpleAddress>
+                    <div>
+                        <h4>Adresse de facturation :</h4>
+                        <p>{{ order.address.street }}</p>
+                        <p>
+                            <span>
+                                {{ order.address.zipCode }}
+                            </span>
+                            <span>
+                                {{ order.address.city }}
+                            </span>
+                        </p>
+                    </div>
+                    <div>
+                        <h4>Adresse de livraison :</h4>
+                        <p>{{ order.deliveryAddress.street }}</p>
+                        <p>
+                            <span>
+                                {{ order.deliveryAddress.zipCode }}
+                            </span>
+                            <span>
+                                {{ order.deliveryAddress.city }}
+                            </span>
+                        </p>
+                    </div>
+                </ng-template>
+                <h3 *ngIf="order.orderComment">Commentaires
+                </h3>
+                <div *ngIf="order.orderComment">
+                    <pre>{{ order.orderComment }}</pre>
+                </div>
+                <h3>Produits</h3>
+                <ul>
+                    <li *ngFor="let elem of order.order">
+                        {{ elem?.product }} :
+                        {{ elem?.quantity }}
+                        {{ elem.unit === PRODUCTUNIT.KG ? PRODUCTUNITWORDING.KG :
+                        PRODUCTUNITWORDING.UNIT
+                        }}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
+                        <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
+                        <span *ngIf="elem && elem.comment">&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment
+                            }}</span>
+                    </li>
+                </ul>
+                <h3 fxLayoutAlign="flex-end">Prix total: {{
+                    order?.totalPrice?.toFixed(2)
+                    }} €
+                    H.T.</h3>
+                <div fxLayout="row wrap" fxLayoutAlign="space-around center" fxLayoutAlign.lt-sm="center center">
+                    <button fxFlex="40" fxFlex.lt-sm="100" class="cancelButton"
+                        *ngIf="arrayCancelableOrders[(currentIndex * 10) + i] && !order.isCanceled" mat-raised-button
+                        (click)="cancelOrder(order?.orderId)">
+                        Annuler ma commande
+                    </button>
+                    <button fxFlex="40" fxFlex.lt-sm="100" mat-raised-button (click)="placeSameOrder(order)">
+                        Repasser la commande
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-expansion-panel>
+        <mat-paginator #paginator [length]="totalUserOrders.length" [pageSize]="10" [hidePageSize]="true"
+            [showFirstLastButtons]="true" aria-label="Selectionnez la page" (page)="pagination($event)">
+        </mat-paginator>
+    </mat-card-content>
+</mat-card>

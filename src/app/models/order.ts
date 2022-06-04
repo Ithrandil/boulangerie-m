@@ -1,8 +1,10 @@
 import { Timestamp } from '@firebase/firestore-types';
+
 import { ProductUnit } from './product';
 
 export interface Order {
-  orderId: string;
+  orderId?: string;
+  firebaseUid: string,
   name: string;
   phone: number;
   address: Address;
@@ -14,6 +16,7 @@ export interface Order {
   orderDate: Timestamp;
   orderComment: string;
   totalPrice: number;
+  isCanceled?: boolean;
 }
 
 export interface OrderProduct {
