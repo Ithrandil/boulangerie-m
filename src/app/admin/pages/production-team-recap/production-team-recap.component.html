@@ -13,7 +13,9 @@
       <li *ngFor="let elem of productsOfThDayList">
         {{ elem?.product }} :
         {{ elem?.quantity }}
-        {{ elem?.unit}}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
+        {{ elem.unit === PRODUCTUNIT.KG ? PRODUCTUNITWORDING.KG :
+        PRODUCTUNITWORDING.UNIT
+        }}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
         <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
         <span *ngIf="elem && elem.comment">&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment
           }}</span>

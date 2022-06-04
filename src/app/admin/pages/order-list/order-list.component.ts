@@ -3,6 +3,7 @@ import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { DateUtils } from '@app/shared/utils/date.utils';
 import { ClosingDay } from '@models/closingDay';
 import { Order } from '@models/order';
+import { ProductUnit, ProductUnitWording } from '@models/product';
 import { add, format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { Subject } from 'rxjs';
@@ -16,6 +17,8 @@ import { OrderAdminService } from './../../services/order-admin.service';
   styleUrls: ['./order-list.component.scss'],
 })
 export class OrderListComponent implements OnInit, OnDestroy {
+  public PRODUCTUNITWORDING = ProductUnitWording;
+  public PRODUCTUNIT = ProductUnit;
   public loading: boolean = false;
   private day = new Date();
   private unsubscribe$ = new Subject<void>();

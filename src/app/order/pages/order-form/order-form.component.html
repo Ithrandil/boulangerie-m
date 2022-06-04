@@ -51,7 +51,7 @@
   <ng-template #productContainer>
     <mat-expansion-panel class="productCategory" *ngFor="let category of PRODUCTCATEGORY | keyvalue">
       <mat-expansion-panel-header class="categoryExpansionHeader">
-        <mat-panel-title>{{ category.value }}</mat-panel-title>
+        <mat-panel-title>{{ findProductCategoryWording(category.value) }}</mat-panel-title>
       </mat-expansion-panel-header>
       <div fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row wrap"
         fxLayoutAlign.gt-sm="space-evenly center">
@@ -77,7 +77,9 @@
           <mat-card-content class="cardPriceQuantity m-card-content" fxLayout="row"
             fxLayoutAlign="space-between baseline">
             <div>
-              Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit }}
+              Prix: {{ product.price.toFixed(2) }} € H.T. / {{ product.unit === PRODUCTUNIT.KG ? PRODUCTUNITWORDING.KG :
+              PRODUCTUNITWORDING.UNIT
+              }}
             </div>
             <mat-form-field [formGroup]="itemFormGroup" class="quantityInput" appearance="outline">
               <mat-label>Quantité</mat-label>

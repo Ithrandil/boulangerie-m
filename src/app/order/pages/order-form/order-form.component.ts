@@ -9,7 +9,7 @@ import { UserService } from '@app/user/services/user.service';
 import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
-import { Product, ProductCategory } from '@models/product';
+import { Product, ProductCategory, ProductCategoryWording, ProductUnit, ProductUnitWording } from '@models/product';
 import { combineLatest, Subject } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
@@ -29,6 +29,9 @@ export class OrderFormComponent implements OnDestroy {
   public customMessage: string = "";
   public closingDays: ClosingDay[] = [];
   public PRODUCTCATEGORY = ProductCategory;
+  public PRODUCTCATEGORYWORDING = Object.entries(ProductCategoryWording);
+  public PRODUCTUNIT = ProductUnit;
+  public PRODUCTUNITWORDING = ProductUnitWording;
   public tomorrow = new Date();
   public minimalDay = new Date();
   public filterDaysAfterToday = DateUtils.FilterDaysAfterToday;
@@ -255,6 +258,10 @@ export class OrderFormComponent implements OnDestroy {
 
   public filterProductByCategory(category: ProductCategory): Product[] {
     return this.productList.filter((prod) => prod.category === category);
+  }
+
+  public findProductCategoryWording(category: ProductCategory): string {
+    return (this.PRODUCTCATEGORYWORDING.find(el => el[0] === category))![1];
   }
 
   public isItOpenToday = (d: Date | null): boolean => {

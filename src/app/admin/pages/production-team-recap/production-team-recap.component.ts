@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Order, OrderProduct } from '@models/order';
+import { ProductUnit, ProductUnitWording } from '@models/product';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 
@@ -11,6 +12,8 @@ import { OrderAdminService } from '../../services/order-admin.service';
   styleUrls: ['./production-team-recap.component.scss'],
 })
 export class ProductionTeamRecapComponent implements OnInit, OnDestroy {
+  public PRODUCTUNITWORDING = ProductUnitWording;
+  public PRODUCTUNIT = ProductUnit;
   private unsubscribe$ = new Subject<void>();
   public productsOfThDayList: OrderProduct[] = [];
   public today = new Date(Date.now());

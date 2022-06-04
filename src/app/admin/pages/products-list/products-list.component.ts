@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ProductService } from '@app/admin/services/product.service';
-import { Product } from '@models/product';
+import { Product, ProductUnit, ProductUnitWording } from '@models/product';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 })
 export class ProductsListComponent implements OnInit {
   public productList$: Observable<Product[]>;
+  public PRODUCTUNIT = ProductUnit;
+  public PRODUCTUNITWORDING = ProductUnitWording;
   constructor(private productService: ProductService) {
     this.productList$ = this.productService.getAllItems();
   }

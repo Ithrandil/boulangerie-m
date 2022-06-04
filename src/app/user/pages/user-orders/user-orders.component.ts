@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TemplateModalComponent } from '@app/shared/components/info-modal/template-modal.component';
 import { UserService } from '@app/user/services/user.service';
 import { Order } from '@models/order';
+import { ProductUnit, ProductUnitWording } from '@models/product';
 import { switchMap, take } from 'rxjs';
 
 @Component({
@@ -13,6 +14,8 @@ import { switchMap, take } from 'rxjs';
   styleUrls: ['./user-orders.component.scss'],
 })
 export class UserOrdersComponent implements OnInit {
+  public PRODUCTUNITWORDING = ProductUnitWording;
+  public PRODUCTUNIT = ProductUnit;
   public ordersLoading: boolean = false;
   public totalUserOrders: Order[] = [];
   public displayedUserOrders: Order[] = [];

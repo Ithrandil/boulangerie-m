@@ -10,6 +10,7 @@ import { UserService } from '@app/user/services/user.service';
 import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order } from '@models/order';
+import { ProductUnit, ProductUnitWording } from '@models/product';
 import { take } from 'rxjs';
 
 
@@ -19,6 +20,8 @@ import { take } from 'rxjs';
   styleUrls: ['./place-same-order-form.component.scss'],
 })
 export class PlaceSameOrderFormComponent {
+  public PRODUCTUNITWORDING = ProductUnitWording;
+  public PRODUCTUNIT = ProductUnit;
   public minimalDay = new Date();
   public validatedModal!: MatDialogRef<TemplateModalComponent>;
   public closingDays: ClosingDay[] = [];

@@ -11,7 +11,9 @@
     </mat-expansion-panel>
     <mat-card-content class="m-card-content">
 
-      Prix: {{ product.price.toFixed(2) }} € / {{ product.unit }}
+      Prix: {{ product.price.toFixed(2) }} € / {{ product.unit === PRODUCTUNIT.KG ? PRODUCTUNITWORDING.KG :
+      PRODUCTUNITWORDING.UNIT
+      }}
       <div fxLayout="row" fxLayoutAlign="space-between center">
         <mat-slide-toggle (change)="updateProductAvailability(product.productId, $event)" [checked]="product.available"
           labelPosition="before">Visible
