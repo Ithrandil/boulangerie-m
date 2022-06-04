@@ -8,6 +8,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { LoginModalComponent } from './components/login-modal/login-modal.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { AdminGuard } from './services/admin.guard';
 import { AuthService } from './services/auth.service';
 
 @NgModule({
@@ -19,6 +20,6 @@ import { AuthService } from './services/auth.service';
     MatInputModule,
     SharedModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, AdminGuard],
 })
 export class AuthModule { }

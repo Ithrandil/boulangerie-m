@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LoginPageComponent } from './auth/pages/login-page/login-page.component';
 import { RegisterPageComponent } from './auth/pages/register-page/register-page.component';
+import { AdminGuard } from './auth/services/admin.guard';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderFormComponent } from './order/pages/order-form/order-form.component';
 
@@ -28,7 +29,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
-    ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [AdminGuard]
   },
   {
     path: 'compte',
