@@ -42,9 +42,7 @@
     : "entre 6 heures et midi."
     }}
   </p>
-  <!-- <p id="TEST">Les fêtes arrivent, pensez à commander pour ne rien rater!
-  </p> -->
-  <!-- --------------------------------------------------- -->
+  <p id="customMessage" *ngIf="customMessage">{{customMessage}}</p>
   <mat-divider class="dividerOrderForm"></mat-divider>
   <h2>Produits</h2>
   <div *ngIf="!productList.length; else productContainer" fxLayoutAlign="center center">
