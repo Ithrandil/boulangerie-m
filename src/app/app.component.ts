@@ -34,7 +34,7 @@ export class AppComponent {
                 <p>Votre compte a bien été créé mais vous n'avez pas validé votre email.</p>
                 <p>Vous avez normalement reçu un mail de confirmation avec un lien sur lequel cliquer pour finaliser votre création de compte.</p>
                 <p>Pensez à vérifier vos spams!</p>
-                <p>Si vous n'avez pas reçu l'email, vous pouvez en redemander un autre en cliquant sur le bouton ci dessous.</p>
+                <p>Si vous n'avez pas reçu l'email, vous pouvez en redemander un autre en cliquant sur le bouton ci-dessous.</p>
                 `,
                 buttonText: "Renvoyer un email",
                 buttonAction: () => this.auth.user.pipe(take(1), tap(user => user?.sendEmailVerification())).subscribe()

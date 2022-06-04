@@ -99,10 +99,13 @@ export class RegisterPageComponent implements OnInit {
           this.registerValidationModal
             .afterClosed()
             .pipe(
+              first(),
               tap(() => {
-                this.router.navigate(["/compte/infos"])
+                this.authService.logout();
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000);
               }),
-              first()
             )
             .subscribe();
         }, error: (error) => {
