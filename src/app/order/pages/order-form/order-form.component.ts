@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
-import { FormValidatedModalComponent } from '@app/order/components/form-validated-modal/form-validated-modal.component';
+import { TemplateModalComponent } from '@app/shared/components/info-modal/template-modal.component';
 import { DateUtils } from '@app/shared/utils/date.utils';
 import { FormUtils } from '@app/shared/utils/form-utils';
 import { UserService } from '@app/user/services/user.service';
@@ -11,7 +11,7 @@ import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
 import { Product, ProductCategory } from '@models/product';
 import { combineLatest, Subject } from 'rxjs';
-import { first, switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
 
@@ -26,6 +26,7 @@ export class OrderFormComponent implements OnDestroy {
     sliced: [],
     comments: [],
   };
+  public customMessage: string = "";
   public closingDays: ClosingDay[] = [];
   public PRODUCTCATEGORY = ProductCategory;
   public tomorrow = new Date();
@@ -34,7 +35,7 @@ export class OrderFormComponent implements OnDestroy {
   public orderDays = DateUtils.OrderDays;
   public IsItOpenToday = DateUtils.IsItOpenToday;
   public setMinimalDay = DateUtils.SetMinimalDay;
-  public validatedModal!: MatDialogRef<FormValidatedModalComponent>;
+  public validatedModal!: MatDialogRef<TemplateModalComponent>;
   public selectDeliveryTime = false;
   private unsubscribe$ = new Subject<void>();
   public productList: Product[] = [];
@@ -219,21 +220,35 @@ export class OrderFormComponent implements OnDestroy {
           }
           return this.orderService.addOrder(finalOrderWithUserInfos)
         })
-      ).subscribe(() => {
-        this.validatedModal = this.dialog.open(FormValidatedModalComponent, {
-          disableClose: true,
-          width: '400px',
-          maxWidth: '90%',
-        });
-        this.validatedModal
-          .afterClosed()
-          .pipe(
-            tap(() => {
-              window.location.reload();
-            }),
-            first()
-          )
-          .subscribe();
+      ).subscribe({
+        next: () => {
+          this.validatedModal = this.dialog.open(TemplateModalComponent, {
+            data: {
+              title: "Votre commande a été validée.",
+              bodyText: `
+              <p>La boulangerie M vous remercie de votre commande.</p>
+              <p>En espérant vous revoir très prochainement et que votre commande vous satifera pleinement.</p>
+              `,
+              buttonAction: () => window.location.reload()
+            },
+            disableClose: true,
+            width: '400px',
+            maxWidth: '90%',
+          });
+        },
+        error: (err) => {
+          this.validatedModal = this.dialog.open(TemplateModalComponent, {
+            data: {
+              title: "Oups",
+              bodyText: `
+            <p>Une erreur a eu lieu la confirmation de votre commande, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}</p>
+            `
+            },
+            disableClose: true,
+            width: '400px',
+            maxWidth: '90%',
+          });
+        }
       });
     }
   }

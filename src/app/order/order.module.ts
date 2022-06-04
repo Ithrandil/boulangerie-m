@@ -15,7 +15,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
-import { FormValidatedModalComponent } from './components/form-validated-modal/form-validated-modal.component';
 import { OrderRoutingModule } from './order-routing.module';
 import { OrderFormComponent } from './pages/order-form/order-form.component';
 import { MondayStartWeekDateAdapter } from './services/mondayStartWeekDateAdapter.service';
@@ -25,7 +24,6 @@ import { OrderService } from './services/order.service';
 @NgModule({
   declarations: [
     OrderFormComponent,
-    FormValidatedModalComponent,
     OrderSummaryPipe,
   ],
   imports: [
