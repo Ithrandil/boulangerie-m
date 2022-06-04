@@ -25,14 +25,4 @@ export class ProductsListComponent implements OnInit {
       event.checked
     );
   }
-
-  public updateProductShortDelivery(
-    productId: string,
-    event: MatSlideToggleChange
-  ): Observable<void> {
-    return this.productService.updateProductShortDelivery(
-      productId,
-      event.checked
-    );
-  }
 }
