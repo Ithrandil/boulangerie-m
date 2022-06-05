@@ -16,7 +16,8 @@ import { first, take, tap } from 'rxjs';
 })
 export class RegisterPageComponent implements OnInit {
   public errorMessage = "";
-  private regexPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/g);
+  private regexPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?=.*[!@#\$%\^&\*]).{8,}$/g);
+
   public registerForm = this.fb.group({
     email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')]],
     password: ['', [Validators.required, Validators.pattern(this.regexPassword)]],
@@ -88,7 +89,7 @@ export class RegisterPageComponent implements OnInit {
               title: "Félicitations!",
               bodyText: `
             <p>Votre compte a bien été créé.</p>
-            <p>Vous allez recevoir un email, veuillez suivre le liens pour valider votre compte.</p>
+            <p>Vous allez recevoir un email, veuillez suivre le lien pour valider votre compte.</p>
             <p>N'hésitez pas à nous contacter si vous rencontrez un problème.</p>
             `
             },

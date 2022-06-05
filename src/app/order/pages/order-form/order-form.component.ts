@@ -230,7 +230,7 @@ export class OrderFormComponent implements OnDestroy {
               title: "Votre commande a été validée.",
               bodyText: `
               <p>La boulangerie M vous remercie de votre commande.</p>
-              <p>En espérant vous revoir très prochainement et que votre commande vous satifera pleinement.</p>
+              <p>En espérant vous revoir très prochainement et que votre commande vous satisfera pleinement.</p>
               `,
               buttonAction: () => window.location.reload()
             },

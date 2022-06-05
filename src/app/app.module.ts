@@ -52,5 +52,3 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
   bootstrap: [AppComponent],
 })
 export class AppModule { }
-
-// FIXME: PROD!!! Angular is running in development mode. Call enableProdMode() to enable production mode.
