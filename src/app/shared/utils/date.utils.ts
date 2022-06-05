@@ -22,7 +22,9 @@ export class DateUtils {
     static FilterDaysAfterToday(
         array: ClosingDay[]
     ): ClosingDay[] {
-        return array.filter((el) => el.startingDate.seconds > Math.floor(Date.now() / 1000))
+        const todayMidnight = new Date();
+        todayMidnight.setHours(0, 0, 0, 0);
+        return array.filter((el) => el.startingDate.seconds >= Math.floor(todayMidnight.getTime() / 1000))
     }
 
     static formatDaysToHumanDate(
