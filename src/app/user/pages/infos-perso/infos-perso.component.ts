@@ -78,9 +78,9 @@ export class InfosPersoComponent {
           if (this.userInformations.deliveryAddress) {
             this.displayDeliveryForm = true;
             this.infosPersosForm.get('hasDifferentDeliveryAddress')?.setValue(true);
-            this.infosPersosForm.get('deliveryAddress')?.get('street')?.setValue(this.userInformations.address.street);
-            this.infosPersosForm.get('deliveryAddress')?.get('zipCode')?.setValue(this.userInformations.address.zipCode);
-            this.infosPersosForm.get('deliveryAddress')?.get('city')?.setValue(this.userInformations.address.city);
+            this.infosPersosForm.get('deliveryAddress')?.get('street')?.setValue(this.userInformations.deliveryAddress.street);
+            this.infosPersosForm.get('deliveryAddress')?.get('zipCode')?.setValue(this.userInformations.deliveryAddress.zipCode);
+            this.infosPersosForm.get('deliveryAddress')?.get('city')?.setValue(this.userInformations.deliveryAddress.city);
             
           }
           this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
