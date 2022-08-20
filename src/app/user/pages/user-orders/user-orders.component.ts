@@ -88,8 +88,8 @@ export class UserOrdersComponent implements OnInit {
       data: {
         title: "Annuler la commande",
         bodyText: `
-        <p>Êtes vous sûrs de vouloir annuler votre commande ?</p>
-        <p>Vous avez aurez toujours possibilité de recommander la même commande après l'annulation.</p>
+        <p>Êtes-vous sûr de vouloir annuler votre commande ?</p>
+        <p>Vous aurez toujours la possibilité de repasser la même commande après l'annulation.</p>
         <p>De plus, elle sera toujours visible dans votre liste des commandes.</p>
         `,
         extraCloseButton: true,

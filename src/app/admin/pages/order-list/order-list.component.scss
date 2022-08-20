@@ -7,6 +7,7 @@ ul {
 }
 
 :host ::ng-deep .mat-tab-header {
+    // FIXME: LE MENU MOBILE EST PETE SUR CETTE PAGE. CONFLIT DE POSITION sticky?
     top: 6rem;
     padding-top: 4rem;
     z-index: 2;

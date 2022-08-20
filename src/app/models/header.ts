@@ -9,6 +9,8 @@ export const AdminMenuElement: MenuElement[] = [
     { wording: "Production", path: "admin/recap-production", icon: "supervisor_account" },
     { wording: "Produits", path: "admin/produits", icon: "fastfood" },
     { wording: "Jours fermés", path: "admin/gestion-fermeture", icon: "event_busy" },
+    { wording: "Récap mensuel", path: "admin/recap-mensuel", icon: "checklist_rtl" },
+
 ];
 
 export const UserMenuElement: MenuElement[] = [
