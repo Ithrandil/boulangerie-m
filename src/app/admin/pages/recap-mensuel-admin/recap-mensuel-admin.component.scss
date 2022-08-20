@@ -1,0 +1,21 @@
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+mat-card {
+    margin: 0 2rem 2rem 2rem;
+
+    @include for-tablet-landscape-up {
+        margin-left: 20rem;
+        margin-right: 20rem;
+    }
+
+    @include for-desktop-up {
+        margin-left: 30rem;
+        margin-right: 30rem;
+    }
+}
+
+h2 {
+    text-decoration: underline;
+    text-align: center;
+}

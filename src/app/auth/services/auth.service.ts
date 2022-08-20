@@ -29,7 +29,7 @@ export class AuthService {
     ).pipe(
       switchMap((user) => {
         const newUser: User = {
-          firebaseUid: user?.uid,
+          firebaseUid: user!.uid,
           name: credentials.name,
           phone: credentials.phone,
           address: credentials.address,

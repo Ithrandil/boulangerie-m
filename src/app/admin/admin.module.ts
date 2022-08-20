@@ -18,9 +18,11 @@ import { OpeningDaysFormComponent } from './pages/opening-days-form/opening-days
 import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProductionTeamRecapComponent } from './pages/production-team-recap/production-team-recap.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
+import { RecapMensuelAdminComponent } from './pages/recap-mensuel-admin/recap-mensuel-admin.component';
 import { OpeningDaysService } from './services/opening-days.service';
 import { OrderAdminService } from './services/order-admin.service';
 import { ProductService } from './services/product.service';
+import { RecapMensuelService } from './services/recap-mensuel-service';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { ProductService } from './services/product.service';
     OrderListComponent,
     ProductionTeamRecapComponent,
     OpeningDaysFormComponent,
+    RecapMensuelAdminComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,6 @@ import { ProductService } from './services/product.service';
     MatListModule,
   ],
   exports: [AdminRoutingModule],
-  providers: [ProductService, OrderAdminService, OpeningDaysService],
+  providers: [ProductService, OrderAdminService, OpeningDaysService, RecapMensuelService],
 })
 export class AdminModule { }
