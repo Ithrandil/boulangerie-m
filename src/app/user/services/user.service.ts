@@ -3,8 +3,9 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/compat/firestore';
 import { Order } from '@models/order';
 import { User } from '@models/user';
+import { add, sub } from 'date-fns';
 import firebase from 'firebase/compat/app';
-import { from, Observable, switchMap, take } from 'rxjs';
+import { from, map, Observable, switchMap, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,25 @@ export class UserService {
           .where('firebaseUid', '==', firebaseUid)
       )
       .valueChanges({ idField: 'orderId' });
+  }
+
+  public getUserOrdersForSpecificMonth(firebaseUid: string, firstDayOfMonth: Date): Observable<Order[]> {
+
+    let lastDayOfMonth = firstDayOfMonth;
+    lastDayOfMonth = add(lastDayOfMonth, { months: 1 });
+    lastDayOfMonth = sub(lastDayOfMonth, { seconds: 1 });
+
+    return this.firestore
+      .collection<Order>('orders', (ref) =>
+        ref
+          .where('firebaseUid', '==', firebaseUid)
+          .where('deliveryDate', '>=', firstDayOfMonth)
+          .where('deliveryDate', '<=', lastDayOfMonth)
+      )
+      .valueChanges({ idField: 'orderId' })
+      .pipe(
+        map((orders: Order[]) => orders.filter(order => !order.isCanceled)
+        ));
   }
 
 

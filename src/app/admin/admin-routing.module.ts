@@ -6,6 +6,7 @@ import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProductionTeamRecapComponent } from './pages/production-team-recap/production-team-recap.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { RecapMensuelAdminComponent } from './pages/recap-mensuel-admin/recap-mensuel-admin.component';
+import { RecapUtilisateurMensuelComponent } from './pages/recap-utilisateur-mensuel/recap-utilisateur-mensuel.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'liste-commandes', pathMatch: 'full' },
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'recap-production', component: ProductionTeamRecapComponent },
   { path: 'gestion-fermeture', component: OpeningDaysFormComponent },
   { path: 'recap-global-mensuel', component: RecapMensuelAdminComponent },
-  { path: 'recap-utilisateur-mensuel/:userId', component: OpeningDaysFormComponent },
+  { path: 'recap-utilisateur-mensuel/:userId', component: RecapUtilisateurMensuelComponent },
 
 ];
 

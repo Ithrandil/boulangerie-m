@@ -17,4 +17,5 @@ export const UserMenuElement: MenuElement[] = [
     { wording: "Formulaire", path: "/", icon: "shopping_basket" },
     { wording: "Mes infos", path: "compte/infos", icon: "account_circle" },
     { wording: "Mes commandes", path: "compte/mes-commandes", icon: "list" },
+    // { wording: "Récap du mois dernier", path: "compte/recap", icon: "checklist_rtl" },
 ];

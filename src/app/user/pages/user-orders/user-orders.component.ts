@@ -3,9 +3,12 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { TemplateModalComponent } from '@app/shared/components/info-modal/template-modal.component';
+import { mapOrderListToOrderProductList } from '@app/shared/utils/orderListToOrderProductList';
 import { UserService } from '@app/user/services/user.service';
-import { Order } from '@models/order';
+import { MonthWording } from '@models/monthWording';
+import { Order, OrderProduct } from '@models/order';
 import { ProductUnit, ProductUnitWording } from '@models/product';
+import { getMonth, set, sub } from 'date-fns';
 import { switchMap, take } from 'rxjs';
 
 @Component({
@@ -22,14 +25,35 @@ export class UserOrdersComponent implements OnInit {
   public currentIndex: number = 0;
   public arrayCancelableOrders: boolean[] = [];
   public cancelOrderConfirmationModal!: MatDialogRef<TemplateModalComponent>;
+  public month: string = "";
+  public allUserOrdersProducts: OrderProduct[] = [];
 
 
   constructor(private userService: UserService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getUserOrdersByDate();
+    this.getRecapLastMonthOrders();
+
   }
 
+  getRecapLastMonthOrders() {
+    this.userService.getUserInfos().pipe(
+      take(1),
+      switchMap(user => {
+        let today = new Date(Date.now());
+        today = set(today, { hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+        let firstDayOfPreviousMonth = today;
+        firstDayOfPreviousMonth = sub(firstDayOfPreviousMonth, { months: 1 });
+        firstDayOfPreviousMonth = set(firstDayOfPreviousMonth, { date: 1 });
+        this.month = MonthWording[getMonth(firstDayOfPreviousMonth)];
+        return this.userService.getUserOrdersForSpecificMonth(user.firebaseUid, firstDayOfPreviousMonth);
+      })
+    )
+      .subscribe(v => {
+        this.allUserOrdersProducts = mapOrderListToOrderProductList(v);
+      });
+  }
 
   getUserOrdersByDate(): void {
     this.ordersLoading = true;

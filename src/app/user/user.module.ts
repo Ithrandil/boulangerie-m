@@ -22,7 +22,8 @@ import { UserRoutingModule } from './user-routing.module';
   declarations: [
     InfosPersoComponent,
     UserOrdersComponent,
-    PlaceSameOrderFormComponent
+    PlaceSameOrderFormComponent,
+    // RecapMensuelComponent
   ],
   imports: [
     UserRoutingModule,

@@ -3,12 +3,13 @@
 </div>
 <mat-card class="m-card">
   <mat-card-title class="m-card-title">
-    <h2>Récapitulatif mensuel de commande</h2>
+    <h2>Récapitulatif mensuel de commandes</h2>
   </mat-card-title>
   <mat-card-content>
     <mat-list *ngIf="allUsers.length > 0" role="list">
-      <mat-list-item role="listitem" *ngFor="let user of allUsers">
-        <p (click)="goToRecapMensuelUtilisateur(user.firebaseUid)">- {{user.name}}</p>
+      <mat-list-item class="mat-list-item-base" role="listitem" *ngFor="let user of allUsers"
+        (click)="goToRecapMensuelUtilisateur(user.firebaseUid)">
+        {{user.name}}
       </mat-list-item>
     </mat-list>
   </mat-card-content>

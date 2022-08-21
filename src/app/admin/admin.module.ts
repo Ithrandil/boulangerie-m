@@ -19,6 +19,7 @@ import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProductionTeamRecapComponent } from './pages/production-team-recap/production-team-recap.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { RecapMensuelAdminComponent } from './pages/recap-mensuel-admin/recap-mensuel-admin.component';
+import { RecapUtilisateurMensuelComponent } from './pages/recap-utilisateur-mensuel/recap-utilisateur-mensuel.component';
 import { OpeningDaysService } from './services/opening-days.service';
 import { OrderAdminService } from './services/order-admin.service';
 import { ProductService } from './services/product.service';
@@ -31,6 +32,7 @@ import { RecapMensuelService } from './services/recap-mensuel-service';
     ProductionTeamRecapComponent,
     OpeningDaysFormComponent,
     RecapMensuelAdminComponent,
+    RecapUtilisateurMensuelComponent,
   ],
   imports: [
     CommonModule,

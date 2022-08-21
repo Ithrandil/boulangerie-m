@@ -1,0 +1,16 @@
+@import "abstracts/variables";
+
+/* Style overide mat button */
+.mat-list-item.mat-list-item-base {
+    border: solid 3px $color-app-brown;
+    border-radius: 3px;
+    color: $color-app-brown;
+    margin-bottom: 1rem;
+
+    &:hover {
+        background-color: $color-app-light-brown;
+        color: $color-app-brown;
+        transition: background 0.8s;
+        cursor: pointer;
+    }
+}

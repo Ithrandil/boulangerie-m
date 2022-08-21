@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'infos', component: InfosPersoComponent },
   { path: 'mes-commandes', component: UserOrdersComponent },
   { path: 'repasser-commande', component: PlaceSameOrderFormComponent },
+  // { path: 'recap', component: RecapMensuelComponent },
 ];
 
 @NgModule({
