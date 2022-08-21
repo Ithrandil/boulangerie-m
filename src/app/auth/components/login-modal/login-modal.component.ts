@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -10,11 +10,11 @@ import { take } from 'rxjs/operators';
   templateUrl: './login-modal.component.html',
   styleUrls: ['./login-modal.component.scss'],
 })
-export class LoginModalComponent implements OnInit {
+export class LoginModalComponent {
   public loginErrorMessage = '';
   public resetPasswordErrorMessage = '';
   public forgottenPassword = false;
-  public title = this.forgottenPassword ? "Mot de passe oublié" : "Connexion";
+  public title = this.forgottenPassword ? 'Mot de passe oublié' : 'Connexion';
   public loginForm = this.fb.group({
     email: [null, [Validators.required]],
     password: [null, [Validators.required]],
@@ -27,9 +27,7 @@ export class LoginModalComponent implements OnInit {
     private authService: AuthService,
     public router: Router,
     private dialog: MatDialog
-  ) { }
-
-  ngOnInit(): void { }
+  ) {}
 
   public login(): void {
     if (this.loginForm.valid) {
@@ -42,12 +40,15 @@ export class LoginModalComponent implements OnInit {
             this.dialog.closeAll();
           },
           error: (err) => {
-            if (err.code === "auth/wrong-password") {
-              this.loginErrorMessage = "Mauvais e-mail ou mot de passe, veuillez réessayer."
+            if (err.code === 'auth/wrong-password') {
+              this.loginErrorMessage =
+                'Mauvais e-mail ou mot de passe, veuillez réessayer.';
             } else {
-              this.loginErrorMessage = "Une erreur est survenue, veuillez réessayer plus tard. " + err.message;
+              this.loginErrorMessage =
+                'Une erreur est survenue, veuillez réessayer plus tard. ' +
+                err.message;
             }
-          }
+          },
         });
     }
   }
@@ -62,14 +63,16 @@ export class LoginModalComponent implements OnInit {
             window.location.reload();
           },
           error: (err) => {
-            this.resetPasswordErrorMessage = "Une erreur est survenue, veuillez réessayer plus tard. " + err.message;
-          }
+            this.resetPasswordErrorMessage =
+              'Une erreur est survenue, veuillez réessayer plus tard. ' +
+              err.message;
+          },
         });
     }
   }
 
   public goToRegister() {
-    this.router.navigate(["/inscription"]);
+    this.router.navigate(['/inscription']);
     this.dialog.closeAll();
   }
 }

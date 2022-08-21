@@ -128,9 +128,21 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {}
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "boulangerie-m"
+  "defaultProject": "boulangerie-m",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

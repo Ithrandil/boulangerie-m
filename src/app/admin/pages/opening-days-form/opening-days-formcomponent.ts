@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { DateUtils } from '@app/shared/utils/date.utils';
@@ -11,7 +11,7 @@ import { take, takeUntil } from 'rxjs/operators';
   templateUrl: './opening-days-form.component.html',
   styleUrls: ['./opening-days-form.component.scss'],
 })
-export class OpeningDaysFormComponent implements OnInit, OnDestroy {
+export class OpeningDaysFormComponent implements OnDestroy {
   private unsubscribe$ = new Subject<void>();
   public allClosingDays: ClosingDay[] = [];
   public allClosingDaysToHuman: ClosingDayForHumans[] = [];
@@ -33,11 +33,11 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
       .subscribe((response) => {
         this.allClosingDays = this.filterDaysAfterToday(response);
         this.allClosingDays = this.orderDays(this.allClosingDays);
-        this.allClosingDaysToHuman = this.formatDaysToHumanDate(this.allClosingDays);
+        this.allClosingDaysToHuman = this.formatDaysToHumanDate(
+          this.allClosingDays
+        );
       });
   }
-
-  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();

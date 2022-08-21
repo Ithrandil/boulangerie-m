@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-mentions-legales',
   templateUrl: './mentions-legales.component.html',
   styleUrls: ['./mentions-legales.component.scss'],
 })
-export class MentionsLegalesComponent implements OnInit {
+export class MentionsLegalesComponent {
   constructor() {}
-
-  ngOnInit(): void {}
 }
