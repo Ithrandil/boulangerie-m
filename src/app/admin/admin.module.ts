@@ -12,6 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
+import { SharedModule } from '@app/shared/shared.module';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { OpeningDaysFormComponent } from './pages/opening-days-form/opening-days-formcomponent';
@@ -49,8 +50,14 @@ import { RecapMensuelService } from './services/recap-mensuel-service';
     MatFormFieldModule,
     MatDatepickerModule,
     MatListModule,
+    SharedModule,
   ],
   exports: [AdminRoutingModule],
-  providers: [ProductService, OrderAdminService, OpeningDaysService, RecapMensuelService],
+  providers: [
+    ProductService,
+    OrderAdminService,
+    OpeningDaysService,
+    RecapMensuelService,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

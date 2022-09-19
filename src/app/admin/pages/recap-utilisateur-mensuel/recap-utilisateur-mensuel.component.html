@@ -1,27 +1,29 @@
 <div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="loading">
   <mat-spinner></mat-spinner>
 </div>
-<div class="noOrder" fxLayout="row" fxLayoutAlign="center center"
-  *ngIf="!loading && allUserOrdersProducts.length === 0">
+<div
+  class="noOrder"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  *ngIf="!loading && allUserOrdersProducts.length === 0"
+>
   <h2>Il n'y a eu aucune commande ce mois-ci pour ce client.</h2>
 </div>
-<mat-card *ngIf="!loading && allUserOrdersProducts.length > 0" id="prodRecapCard" class="m-card">
-  <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
-    <h2>Produits commandés par {{userName}} en {{month}}</h2>
+<mat-card
+  *ngIf="!loading && allUserOrdersProducts.length > 0"
+  id="prodRecapCard"
+  class="m-card"
+>
+  <mat-card-title
+    fxLayout="row wrap"
+    fxLayoutAlign="center center"
+    class="m-card-title"
+  >
+    <h2>Produits commandés par {{ userName }} en {{ month }}</h2>
   </mat-card-title>
   <mat-card-content>
-    <!-- TODO: refactoriser dans un composant pour ici et recap team prod -->
-    <ul>
-      <li *ngFor="let elem of allUserOrdersProducts">
-        {{ elem?.product }} :
-        {{ elem?.quantity }}
-        {{ elem.unit === PRODUCTUNIT.KG ? PRODUCTUNITWORDING.KG :
-        PRODUCTUNITWORDING.UNIT
-        }}<span *ngIf="elem && elem.quantity && elem.quantity > 1">s</span>
-        <span *ngIf="elem && elem.isSliced">&nbsp;/&nbsp;Tranché</span>
-        <span *ngIf="elem && elem.comment">&nbsp;/&nbsp;Commentaire&nbsp;:&nbsp;{{ elem.comment
-          }}</span>
-      </li>
-    </ul>
+    <app-list-recap-products
+      [allUserOrdersProducts]="allUserOrdersProducts"
+    ></app-list-recap-products>
   </mat-card-content>
 </mat-card>

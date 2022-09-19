@@ -7,27 +7,27 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { TemplateModalComponent } from './components/info-modal/template-modal.component';
+import { ListRecapProductsComponent } from './components/list-recap-products/list-recap-products.component.';
 
 @NgModule({
-    declarations: [
-        TemplateModalComponent
-    ],
-    imports: [
-        CommonModule,
-        FlexLayoutModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        MatDividerModule
-    ],
-    exports: [
-        TemplateModalComponent,
-        CommonModule,
-        FlexLayoutModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        MatDividerModule
-    ]
+  declarations: [TemplateModalComponent, ListRecapProductsComponent],
+  imports: [
+    CommonModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatDividerModule,
+  ],
+  exports: [
+    TemplateModalComponent,
+    CommonModule,
+    FlexLayoutModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatDividerModule,
+    ListRecapProductsComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}
