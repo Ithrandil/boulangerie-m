@@ -1,10 +1,10 @@
 {
   "name": "boulangerie-m",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng --prod build --aot true",
+    "build": "ng build --configuration production --aot true",
     "test": "ng test",
     "lint": "ng lint --format=stylish --fix=true",
     "e2e": "ng e2e"
