@@ -1,5 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { TemplateModalComponent } from '@app/shared/components/info-modal/template-modal.component';
@@ -9,7 +14,13 @@ import { UserService } from '@app/user/services/user.service';
 import { ClosingDay } from '@models/closingDay';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order, OrderProduct, OrderSummary } from '@models/order';
-import { Product, ProductCategory, ProductCategoryWording, ProductUnit, ProductUnitWording } from '@models/product';
+import {
+  Product,
+  ProductCategory,
+  ProductCategoryWording,
+  ProductUnit,
+  ProductUnitWording,
+} from '@models/product';
 import { combineLatest, Subject } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
@@ -26,7 +37,7 @@ export class OrderFormComponent implements OnDestroy {
     sliced: [],
     comments: [],
   };
-  public customMessage: string = "";
+  public customMessage: string = '';
   public closingDays: ClosingDay[] = [];
   public PRODUCTCATEGORY = ProductCategory;
   public PRODUCTCATEGORYWORDING = Object.entries(ProductCategoryWording);
@@ -59,6 +70,9 @@ export class OrderFormComponent implements OnDestroy {
       matDatepickerMin: 'Date incorrecte',
     },
   };
+
+  // FIXME: REMOVE AFTER 28/11/2022
+  public temporaryModal!: MatDialogRef<TemplateModalComponent>;
 
   constructor(
     private orderService: OrderService,
@@ -131,6 +145,24 @@ export class OrderFormComponent implements OnDestroy {
         this.closingDays = this.filterDaysAfterToday(this.closingDays);
         this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
       });
+
+    // FIXME: REMOVE ME AFTER 28/11/2022
+    if (new Date().getTime() < 1669590000000) {
+      this.temporaryModal = this.dialog.open(TemplateModalComponent, {
+        data: {
+          title: 'La boulangerie fait peau neuve!',
+          bodyText: `
+            <p>Encore un peu de patience.</p>
+            <p>Réouverture prévue le 28 novembre.</p>
+            <p>A bientôt</p>
+            `,
+        },
+        disableClose: true,
+        width: '400px',
+        maxWidth: '90%',
+      });
+    }
+    /****************************** */
   }
 
   ngOnDestroy(): void {
@@ -204,55 +236,62 @@ export class OrderFormComponent implements OnDestroy {
         ...this.orderForm.value,
         order: orderList,
       };
-      this.userService.getUserInfos().pipe(
-        take(1),
-        switchMap(userInfos => {
-          let finalOrderWithUserInfos: Order = {
-            ...finalOrder,
-            name: userInfos.name,
-            phone: userInfos.phone,
-            address: userInfos.address,
-            firebaseUid: userInfos.firebaseUid
-          }
-          if (userInfos.hasDifferentDeliveryAddress && userInfos.deliveryAddress) {
-            finalOrderWithUserInfos = {
-              ...finalOrderWithUserInfos,
-              hasDifferentDeliveryAddress: userInfos.hasDifferentDeliveryAddress,
-              deliveryAddress: userInfos.deliveryAddress
+      this.userService
+        .getUserInfos()
+        .pipe(
+          take(1),
+          switchMap((userInfos) => {
+            let finalOrderWithUserInfos: Order = {
+              ...finalOrder,
+              name: userInfos.name,
+              phone: userInfos.phone,
+              address: userInfos.address,
+              firebaseUid: userInfos.firebaseUid,
             };
-          }
-          return this.orderService.addOrder(finalOrderWithUserInfos)
-        })
-      ).subscribe({
-        next: () => {
-          this.validatedModal = this.dialog.open(TemplateModalComponent, {
-            data: {
-              title: "Votre commande a été validée.",
-              bodyText: `
+            if (
+              userInfos.hasDifferentDeliveryAddress &&
+              userInfos.deliveryAddress
+            ) {
+              finalOrderWithUserInfos = {
+                ...finalOrderWithUserInfos,
+                hasDifferentDeliveryAddress:
+                  userInfos.hasDifferentDeliveryAddress,
+                deliveryAddress: userInfos.deliveryAddress,
+              };
+            }
+            return this.orderService.addOrder(finalOrderWithUserInfos);
+          })
+        )
+        .subscribe({
+          next: () => {
+            this.validatedModal = this.dialog.open(TemplateModalComponent, {
+              data: {
+                title: 'Votre commande a été validée.',
+                bodyText: `
               <p>La boulangerie M vous remercie de votre commande.</p>
               <p>En espérant vous revoir très prochainement et que votre commande vous satisfera pleinement.</p>
               `,
-              buttonAction: () => window.location.reload()
-            },
-            disableClose: true,
-            width: '400px',
-            maxWidth: '90%',
-          });
-        },
-        error: (err) => {
-          this.validatedModal = this.dialog.open(TemplateModalComponent, {
-            data: {
-              title: "Oups",
-              bodyText: `
+                buttonAction: () => window.location.reload(),
+              },
+              disableClose: true,
+              width: '400px',
+              maxWidth: '90%',
+            });
+          },
+          error: (err) => {
+            this.validatedModal = this.dialog.open(TemplateModalComponent, {
+              data: {
+                title: 'Oups',
+                bodyText: `
             <p>Une erreur a eu lieu la confirmation de votre commande, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}</p>
-            `
-            },
-            disableClose: true,
-            width: '400px',
-            maxWidth: '90%',
-          });
-        }
-      });
+            `,
+              },
+              disableClose: true,
+              width: '400px',
+              maxWidth: '90%',
+            });
+          },
+        });
     }
   }
 
@@ -261,7 +300,7 @@ export class OrderFormComponent implements OnDestroy {
   }
 
   public findProductCategoryWording(category: ProductCategory): string {
-    return (this.PRODUCTCATEGORYWORDING.find(el => el[0] === category))![1];
+    return this.PRODUCTCATEGORYWORDING.find((el) => el[0] === category)![1];
   }
 
   public isItOpenToday = (d: Date | null): boolean => {
