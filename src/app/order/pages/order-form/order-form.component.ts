@@ -147,21 +147,18 @@ export class OrderFormComponent implements OnDestroy {
       });
 
     // FIXME: REMOVE ME AFTER 28/11/2022
-    if (new Date().getTime() < 1669590000000) {
-      this.temporaryModal = this.dialog.open(TemplateModalComponent, {
-        data: {
-          title: 'La boulangerie fait peau neuve!',
-          bodyText: `
+    this.temporaryModal = this.dialog.open(TemplateModalComponent, {
+      data: {
+        title: 'La boulangerie fait peau neuve!',
+        bodyText: `
             <p>Encore un peu de patience.</p>
-            <p>Réouverture prévue le 28 novembre.</p>
             <p>A bientôt</p>
             `,
-        },
-        disableClose: true,
-        width: '400px',
-        maxWidth: '90%',
-      });
-    }
+      },
+      disableClose: true,
+      width: '400px',
+      maxWidth: '90%',
+    });
     /****************************** */
   }
 

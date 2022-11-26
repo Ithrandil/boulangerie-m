@@ -1,6 +1,6 @@
 {
   "name": "boulangerie-m",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -72,7 +72,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged && ng lint",
-      "pre-push": "ng build --aot true"
+      "pre-push": "ng build --configuration production --aot true"
     }
   },
   "lint-staged": {
