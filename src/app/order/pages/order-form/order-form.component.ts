@@ -71,9 +71,6 @@ export class OrderFormComponent implements OnDestroy {
     },
   };
 
-  // FIXME: REMOVE AFTER 28/11/2022
-  public temporaryModal!: MatDialogRef<TemplateModalComponent>;
-
   constructor(
     private orderService: OrderService,
     private openingDaysService: OpeningDaysService,
@@ -145,21 +142,6 @@ export class OrderFormComponent implements OnDestroy {
         this.closingDays = this.filterDaysAfterToday(this.closingDays);
         this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
       });
-
-    // FIXME: REMOVE ME AFTER 28/11/2022
-    this.temporaryModal = this.dialog.open(TemplateModalComponent, {
-      data: {
-        title: 'La boulangerie fait peau neuve!',
-        bodyText: `
-            <p>Encore un peu de patience.</p>
-            <p>A bientôt</p>
-            `,
-      },
-      disableClose: true,
-      width: '400px',
-      maxWidth: '90%',
-    });
-    /****************************** */
   }
 
   ngOnDestroy(): void {
