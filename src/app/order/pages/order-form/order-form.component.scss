@@ -2,116 +2,118 @@
 @import "abstracts/mixins";
 
 :host {
-    text-align: center;
+  text-align: center;
 }
 
 h1 {
-    margin-bottom: 2.5rem;
-    text-decoration: underline;
+  margin-bottom: 2.5rem;
+  text-decoration: underline;
 }
 
 form {
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
 
-    @include for-tablet-landscape-up {
-        margin: 2.5rem 7.5rem 0 7.5rem;
-
-    }
+  @include for-tablet-landscape-up {
+    margin: 2.5rem 7.5rem 0 7.5rem;
+  }
 }
 
 #customMessage {
-    color: crimson;
-    font-size: 2.5rem;
+  display: inline-block;
+  padding: 2rem;
+  border: 2px solid crimson;
+  color: crimson;
+  font-size: 2.5rem;
 }
 
 #delayMessage {
-    font-weight: $font-weight-500;
+  font-weight: $font-weight-500;
 
-    @include for-tablet-landscape-up {
-        font-size: 2rem;
-    }
+  @include for-tablet-landscape-up {
+    font-size: 2rem;
+  }
 
-    span {
-        text-decoration: underline;
-    }
+  span {
+    text-decoration: underline;
+  }
 }
 
 #checkboxRow {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 #deliveryMessage {
-    font-weight: $font-weight-500;
+  font-weight: $font-weight-500;
 }
 
 .dividerOrderForm {
-    margin: 2rem 0 2rem 0;
+  margin: 2rem 0 2rem 0;
 }
 
 .productCategory {
-    background-color: $color-app-light-grey;
-    margin-bottom: 1rem;
+  background-color: $color-app-light-grey;
+  margin-bottom: 1rem;
 
-    .mat-card:last-child {
-        margin-bottom: 0;
-    }
+  .mat-card:last-child {
+    margin-bottom: 0;
+  }
 }
 
 mat-expansion-panel-header.categoryExpansionHeader,
 mat-expansion-panel-header.categoryExpansionHeader:focus {
-    background-color: white;
-    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-        0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  background-color: white;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
+    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
 }
 
 #expansionPanelContent {
-    background-color: $color-app-light-grey;
+  background-color: $color-app-light-grey;
 }
 
 .productExpansion:not([class*="mat-elevation-z"]) {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 mat-expansion-panel-header.productExpansionHeader {
-    padding-left: 0.5rem;
-    font-size: 1.4rem;
+  padding-left: 0.5rem;
+  font-size: 1.4rem;
 }
 
 mat-card {
-    width: 100%;
-    padding: 0;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  width: 100%;
+  padding: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .cardPriceQuantity {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .quantityInput {
-    max-width: 9rem;
+  max-width: 9rem;
 }
 
 :host ::ng-deep .quantityInput div.mat-form-field-wrapper {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 :host ::ng-deep .quantityInput div.mat-form-field-infix {
-    padding: 0;
-    border: 0;
+  padding: 0;
+  border: 0;
 
-    input {
-        height: 3rem;
-    }
+  input {
+    height: 3rem;
+  }
 }
 
 .productExpansionBody {
-    text-align: left;
-    margin: 1rem;
+  text-align: left;
+  margin: 1rem;
 
-    mat-form-field {
-        width: 100%;
-    }
+  mat-form-field {
+    width: 100%;
+  }
 }

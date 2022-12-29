@@ -25,6 +25,7 @@ import { OpeningDaysService } from './services/opening-days.service';
 import { OrderAdminService } from './services/order-admin.service';
 import { ProductService } from './services/product.service';
 import { RecapMensuelService } from './services/recap-mensuel-service';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { RecapMensuelService } from './services/recap-mensuel-service';
     MatIconModule,
     MatTabsModule,
     MatFormFieldModule,
+    MatInputModule,
     MatDatepickerModule,
     MatListModule,
     SharedModule,

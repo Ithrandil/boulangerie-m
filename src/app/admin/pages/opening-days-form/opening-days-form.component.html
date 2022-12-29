@@ -1,4 +1,26 @@
 <div fxLayout="row" fxLayoutAlign="center center">
+  <h1>Message utilisateur</h1>
+</div>
+<mat-card class="m-card">
+  <mat-form-field
+    id="fieldMessageCustomer"
+    appearance="outline"
+    [formGroup]="customerMessageForm"
+  >
+    <mat-label>Message</mat-label>
+    <textarea
+      matInput
+      formControlName="message"
+      placeholder="Ex: Pensez à réserver pour les fêtes, Fermé jusqu'au 20 novembre..."
+    ></textarea>
+  </mat-form-field>
+  <div fxLayoutAlign="center center">
+    <button mat-raised-button (click)="onSubmitMessageCustomer()">
+      Valider
+    </button>
+  </div>
+</mat-card>
+<div fxLayout="row" fxLayoutAlign="center center">
   <h1>Quels jours fermer?</h1>
 </div>
 <mat-card class="m-card">
@@ -6,22 +28,40 @@
     <mat-form-field appearance="outline" fxFlex="100" fxFlex.gt-sm="50">
       <mat-label>Sélectionner une période</mat-label>
       <mat-date-range-input [formGroup]="closedDaysForm" [rangePicker]="picker">
-        <input required formControlName="startingDate" matStartDate placeholder="Date de début" />
-        <input required formControlName="endingDate" matEndDate placeholder="Date de fin" />
+        <input
+          required
+          formControlName="startingDate"
+          matStartDate
+          placeholder="Date de début"
+        />
+        <input
+          required
+          formControlName="endingDate"
+          matEndDate
+          placeholder="Date de fin"
+        />
       </mat-date-range-input>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
-      <mat-error *ngIf="
+      <mat-error
+        *ngIf="
           closedDaysForm.controls.startingDate.hasError('matStartDateInvalid')
-        ">Invalid start date
+        "
+        >Invalid start date
       </mat-error>
-      <mat-error *ngIf="
+      <mat-error
+        *ngIf="
           closedDaysForm.controls.startingDate.hasError('matEndDateInvalid')
-        ">Invalid end date
+        "
+        >Invalid end date
       </mat-error>
     </mat-form-field>
     <div fxFlex="100" fxLayoutAlign="center center">
-      <button mat-fab aria-label="Bouton de validation de choix de jours fermés" (click)="onSubmit()">
+      <button
+        mat-fab
+        aria-label="Bouton de validation de choix de jours fermés"
+        (click)="onSubmit()"
+      >
         <mat-icon>add_circle</mat-icon>
       </button>
     </div>
@@ -29,14 +69,32 @@
 </mat-card>
 
 <mat-card class="m-card">
-  <mat-card-title fxLayout="row wrap" fxLayoutAlign="center center" class="m-card-title">
+  <mat-card-title
+    fxLayout="row wrap"
+    fxLayoutAlign="center center"
+    class="m-card-title"
+  >
     <h2>Jours de fermeture à venir</h2>
   </mat-card-title>
   <mat-card-content>
-    <mat-list *ngIf="allClosingDaysToHuman.length > 0; else noClosingDates" role="list">
-      <mat-list-item role="listitem" *ngFor="let dates of allClosingDaysToHuman">
-        <div fxLayout="row wrap" fxFlex="100" fxLayoutAlign="space-between center">
-          <p class="closedDayListElem" fxFlex="80" *ngIf="dates.endingDate; else oneDayClosing">
+    <mat-list
+      *ngIf="allClosingDaysToHuman.length > 0; else noClosingDates"
+      role="list"
+    >
+      <mat-list-item
+        role="listitem"
+        *ngFor="let dates of allClosingDaysToHuman"
+      >
+        <div
+          fxLayout="row wrap"
+          fxFlex="100"
+          fxLayoutAlign="space-between center"
+        >
+          <p
+            class="closedDayListElem"
+            fxFlex="80"
+            *ngIf="dates.endingDate; else oneDayClosing"
+          >
             - Du {{ dates.startingDate | date: "fullDate" }} au
             {{ dates.endingDate | date: "fullDate" }}
           </p>
@@ -46,8 +104,12 @@
             </p>
           </ng-template>
           <div fxFlex="20" fxLayoutAlign="flex-end center">
-            <button mat-mini-fab color="warn" aria-label="Supprimer les jours de fermeture"
-              (click)="deleteClosingDays(dates.rangeId)">
+            <button
+              mat-mini-fab
+              color="warn"
+              aria-label="Supprimer les jours de fermeture"
+              (click)="deleteClosingDays(dates.rangeId)"
+            >
               <mat-icon>delete</mat-icon>
             </button>
           </div>

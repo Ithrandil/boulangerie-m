@@ -37,7 +37,8 @@ export class OrderFormComponent implements OnDestroy {
     sliced: [],
     comments: [],
   };
-  public customMessage: string = '';
+  public customMessage = '';
+  public displayCustomMessage = false;
   public closingDays: ClosingDay[] = [];
   public PRODUCTCATEGORY = ProductCategory;
   public PRODUCTCATEGORYWORDING = Object.entries(ProductCategoryWording);
