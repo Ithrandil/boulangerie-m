@@ -17,7 +17,6 @@
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
-        // TODO: ajouter plus de rigueur de linter
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
