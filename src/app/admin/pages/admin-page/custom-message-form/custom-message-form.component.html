@@ -10,7 +10,18 @@
       labelPosition="before"
       >Visible
     </mat-slide-toggle>
-    <mat-form-field appearance="outline" id="fieldMessageCustomer">
+    <mat-form-field appearance="outline" class="fieldMessageCustomer">
+      <mat-label>Titre</mat-label>
+      <input
+        formControlName="title"
+        matInput
+        placeholder="Ex: Rappel avant les fêtes"
+      />
+      <mat-error *ngIf="customerMessageForm.get('title')?.invalid"
+        >Titre obligatoire
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="fieldMessageCustomer">
       <mat-label>Message</mat-label>
       <textarea
         formControlName="message"
@@ -18,8 +29,8 @@
         placeholder="Ex: Pensez à réserver pour les fêtes, Fermé jusqu'au 20 novembre..."
       ></textarea>
       <mat-error *ngIf="customerMessageForm.get('message')?.invalid"
-        >Message obligatoire</mat-error
-      >
+        >Message obligatoire
+      </mat-error>
     </mat-form-field>
     <div fxLayoutAlign="center center">
       <button (click)="onSubmitMessageCustomer()" mat-raised-button>

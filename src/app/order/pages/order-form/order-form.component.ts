@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CustomMessageService } from '@app/admin/services/custom-message.service';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { TemplateModalComponent } from '@app/shared/components/info-modal/template-modal.component';
 import { DateUtils } from '@app/shared/utils/date.utils';
@@ -68,6 +69,7 @@ export class OrderFormComponent implements OnDestroy {
       matDatepickerMin: 'Date incorrecte',
     },
   };
+  public customMessageModal!: MatDialogRef<TemplateModalComponent>;
   private unsubscribe$ = new Subject<void>();
 
   constructor(
@@ -75,7 +77,8 @@ export class OrderFormComponent implements OnDestroy {
     private openingDaysService: OpeningDaysService,
     private fb: FormBuilder,
     private dialog: MatDialog,
-    private userService: UserService
+    private userService: UserService,
+    private customMessageService: CustomMessageService
   ) {
     this.tomorrow.setDate(new Date().getDate() + 1);
 
@@ -88,59 +91,10 @@ export class OrderFormComponent implements OnDestroy {
     this.commentFormGroup = this.fb.group({
       default: [''],
     });
-    this.orderService
-      .getAllAvailableItems()
-      .pipe(
-        take(1),
-        tap((resProdList) => {
-          this.productList = resProdList.sort((a, b) =>
-            a.name < b.name ? -1 : a.name > b.name ? 1 : 0
-          );
-          this.itemFormGroup.removeControl('default');
-          this.sliceFormGroup.removeControl('default');
-          this.commentFormGroup.removeControl('default');
-          resProdList.forEach((product) => {
-            this.itemFormGroup?.addControl(product.name, new FormControl(null));
-            this.sliceFormGroup?.addControl(
-              product.name,
-              new FormControl(null)
-            );
-            this.commentFormGroup?.addControl(
-              product.name,
-              new FormControl(null)
-            );
-          });
-        })
-      )
-      .subscribe();
-
-    combineLatest([
-      this.itemFormGroup.valueChanges,
-      this.sliceFormGroup.valueChanges,
-      this.commentFormGroup.valueChanges,
-    ])
-      .pipe(
-        takeUntil(this.unsubscribe$),
-        tap(([itemFormData, sliceFormData, commentFormData]) => {
-          this.orderSummary = {
-            products: Object.entries(itemFormData),
-            sliced: Object.entries(sliceFormData),
-            comments: Object.entries(commentFormData),
-          };
-          this.calcTotalPrice(itemFormData);
-        })
-      )
-      .subscribe();
-
-    this.openingDaysService
-      .getAllClosingDays()
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.closingDays = res;
-        this.closingDays = this.orderDays(this.closingDays);
-        this.closingDays = this.filterDaysAfterToday(this.closingDays);
-        this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
-      });
+    this.initializeOrderFormData();
+    this.manageOpeningDaysInCalendar();
+    this.manageOrderSummary();
+    this.displayCustomMessageModal();
   }
 
   ngOnDestroy(): void {
@@ -268,6 +222,85 @@ export class OrderFormComponent implements OnDestroy {
   public isItOpenToday = (d: Date | null): boolean => {
     return this.IsItOpenToday(d, this.closingDays);
   };
+
+  private manageOpeningDaysInCalendar() {
+    this.openingDaysService
+      .getAllClosingDays()
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.closingDays = res;
+        this.closingDays = this.orderDays(this.closingDays);
+        this.closingDays = this.filterDaysAfterToday(this.closingDays);
+        this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
+      });
+  }
+
+  private initializeOrderFormData() {
+    this.orderService
+      .getAllAvailableItems()
+      .pipe(
+        take(1),
+        tap((resProdList) => {
+          this.productList = resProdList.sort((a, b) =>
+            a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+          );
+          this.itemFormGroup.removeControl('default');
+          this.sliceFormGroup.removeControl('default');
+          this.commentFormGroup.removeControl('default');
+          resProdList.forEach((product) => {
+            this.itemFormGroup?.addControl(product.name, new FormControl(null));
+            this.sliceFormGroup?.addControl(
+              product.name,
+              new FormControl(null)
+            );
+            this.commentFormGroup?.addControl(
+              product.name,
+              new FormControl(null)
+            );
+          });
+        })
+      )
+      .subscribe();
+  }
+
+  private manageOrderSummary() {
+    combineLatest([
+      this.itemFormGroup.valueChanges,
+      this.sliceFormGroup.valueChanges,
+      this.commentFormGroup.valueChanges,
+    ])
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        tap(([itemFormData, sliceFormData, commentFormData]) => {
+          this.orderSummary = {
+            products: Object.entries(itemFormData),
+            sliced: Object.entries(sliceFormData),
+            comments: Object.entries(commentFormData),
+          };
+          this.calcTotalPrice(itemFormData);
+        })
+      )
+      .subscribe();
+  }
+
+  private displayCustomMessageModal() {
+    this.customMessageService
+      .getCurrentCustomMessage()
+      .pipe(take(1))
+      .subscribe((customMessageData) => {
+        if (customMessageData.showMessage) {
+          this.customMessageModal = this.dialog.open(TemplateModalComponent, {
+            data: {
+              title: `${customMessageData.title}`,
+              bodyText: `${customMessageData.message}`,
+            },
+            disableClose: true,
+            width: '400px',
+            maxWidth: '90%',
+          });
+        }
+      });
+  }
 
   private calcTotalPrice(itemFormData: { [key: string]: number }): void {
     let totalPrice = 0;

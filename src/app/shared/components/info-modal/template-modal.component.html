@@ -1,10 +1,18 @@
-<h2 mat-dialog-title>{{data.title}}</h2>
+<h2 mat-dialog-title>{{ data.title }}</h2>
 <mat-dialog-content fxLayout="column">
-  <div fxFlexLayout="row wrap" [innerHtml]="data.bodyText">
-  </div>
-  <p fxFlexLayout="row" fxLayoutAlign="flex-end center">L'équipe M</p>
+  <div [innerHtml]="data.bodyText.replace('\n', '<br/>')"></div>
+  <p fxLayoutAlign="flex-end center">L'équipe M</p>
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="space-around center">
-  <button fxFlex="100" mat-button *ngIf="extraCloseButton" [mat-dialog-close]="true">Fermer</button>
-  <button fxFlex="100" mat-button (click)="buttonAction()">{{buttonText}}</button>
+  <button
+    *ngIf="extraCloseButton"
+    [mat-dialog-close]="true"
+    fxFlex="100"
+    mat-button
+  >
+    Fermer
+  </button>
+  <button (click)="buttonAction()" fxFlex="100" mat-button>
+    {{ buttonText }}
+  </button>
 </mat-dialog-actions>

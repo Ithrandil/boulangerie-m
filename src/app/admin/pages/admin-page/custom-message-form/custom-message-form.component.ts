@@ -20,6 +20,7 @@ export class CustomMessageFormComponent implements OnInit {
   ngOnInit() {
     this.customerMessageForm = this.fb.group({
       message: [null, [Validators.required]],
+      title: [null, [Validators.required]],
       showMessage: [null],
     });
     this.getLastCustomMessage();
@@ -53,6 +54,7 @@ export class CustomMessageFormComponent implements OnInit {
           this.customerMessageForm
             .get('message')
             ?.setValue(messageData.message);
+          this.customerMessageForm.get('title')?.setValue(messageData.title);
           this.customerMessageForm
             .get('showMessage')
             ?.setValue(messageData.showMessage);
