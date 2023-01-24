@@ -12,20 +12,25 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { environment } from './../environments/environment';
+import { environment } from '@environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { FooterComponent } from './core/components/footer/footer.component';
 import { HeaderComponent } from './core/components/header/header.component';
-import { InfoModalComponent } from './core/components/info-modal/info-modal.component';
 import { MentionsLegalesComponent } from './core/pages/mentions-legales/mentions-legales.component';
 import { OrderModule } from './order/order.module';
 import { SharedModule } from './shared/shared.module';
 
 registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
+
 @NgModule({
-  declarations: [AppComponent, MentionsLegalesComponent, InfoModalComponent, FooterComponent, HeaderComponent],
+  declarations: [
+    AppComponent,
+    MentionsLegalesComponent,
+    FooterComponent,
+    HeaderComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -51,4 +56,4 @@ registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
   providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
