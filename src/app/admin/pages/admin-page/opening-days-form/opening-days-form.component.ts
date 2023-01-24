@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { OpeningDaysService } from '@app/admin/services/opening-days.service';
 import { DateUtils } from '@app/shared/utils/date.utils';
 import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
@@ -11,8 +11,7 @@ import { take, takeUntil } from 'rxjs/operators';
   templateUrl: './opening-days-form.component.html',
   styleUrls: ['./opening-days-form.component.scss'],
 })
-export class OpeningDaysFormComponent implements OnInit, OnDestroy {
-  private unsubscribe$ = new Subject<void>();
+export class OpeningDaysFormComponent implements OnDestroy {
   public allClosingDays: ClosingDay[] = [];
   public allClosingDaysToHuman: ClosingDayForHumans[] = [];
   public closedDaysForm = this.fb.group({
@@ -22,7 +21,7 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
   public filterDaysAfterToday = DateUtils.FilterDaysAfterToday;
   public orderDays = DateUtils.OrderDays;
   public formatDaysToHumanDate = DateUtils.formatDaysToHumanDate;
-  public customerMessageForm!: FormGroup;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -40,19 +39,11 @@ export class OpeningDaysFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {
-    this.customerMessageForm = this.fb.group({
-      message: [''],
-    });
-  }
-
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.unsubscribe();
   }
-  public onSubmitMessageCustomer() {
-    console.log(this.customerMessageForm.value);
-  }
+
   public onSubmit(): void {
     this.closedDaysForm.markAllAsTouched();
     const alreadyAClosedDay = this.allClosingDays.find(

@@ -15,7 +15,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { SharedModule } from '@app/shared/shared.module';
 
 import { AdminRoutingModule } from './admin-routing.module';
-import { OpeningDaysFormComponent } from './pages/opening-days-form/opening-days-formcomponent';
+import { OpeningDaysFormComponent } from './pages/admin-page/opening-days-form/opening-days-form.component';
 import { OrderListComponent } from './pages/order-list/order-list.component';
 import { ProductionTeamRecapComponent } from './pages/production-team-recap/production-team-recap.component';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
@@ -26,6 +26,8 @@ import { OrderAdminService } from './services/order-admin.service';
 import { ProductService } from './services/product.service';
 import { RecapMensuelService } from './services/recap-mensuel-service';
 import { MatInputModule } from '@angular/material/input';
+import { CustomMessageFormComponent } from '@app/admin/pages/admin-page/custom-message-form/custom-message-form.component';
+import { AdminPageFormComponent } from '@app/admin/pages/admin-page/admin-page-form.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { MatInputModule } from '@angular/material/input';
     OpeningDaysFormComponent,
     RecapMensuelAdminComponent,
     RecapUtilisateurMensuelComponent,
+    CustomMessageFormComponent,
+    AdminPageFormComponent,
   ],
   imports: [
     CommonModule,

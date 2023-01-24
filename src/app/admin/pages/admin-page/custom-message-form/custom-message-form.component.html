@@ -1,0 +1,30 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <h1>Message utilisateur</h1>
+</div>
+<mat-card [formGroup]="customerMessageForm" class="m-card">
+  <mat-card-content fxLayout="column wrap">
+    <mat-slide-toggle
+      (change)="updateShowCustomMessage($event.checked)"
+      [checked]="this.customerMessageForm.get('showCustomMessage')?.value"
+      formControlName="showMessage"
+      labelPosition="before"
+      >Visible
+    </mat-slide-toggle>
+    <mat-form-field appearance="outline" id="fieldMessageCustomer">
+      <mat-label>Message</mat-label>
+      <textarea
+        formControlName="message"
+        matInput
+        placeholder="Ex: Pensez à réserver pour les fêtes, Fermé jusqu'au 20 novembre..."
+      ></textarea>
+      <mat-error *ngIf="customerMessageForm.get('message')?.invalid"
+        >Message obligatoire</mat-error
+      >
+    </mat-form-field>
+    <div fxLayoutAlign="center center">
+      <button (click)="onSubmitMessageCustomer()" mat-raised-button>
+        Valider
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

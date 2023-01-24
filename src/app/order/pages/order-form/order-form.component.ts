@@ -37,8 +37,6 @@ export class OrderFormComponent implements OnDestroy {
     sliced: [],
     comments: [],
   };
-  public customMessage = '';
-  public displayCustomMessage = false;
   public closingDays: ClosingDay[] = [];
   public PRODUCTCATEGORY = ProductCategory;
   public PRODUCTCATEGORYWORDING = Object.entries(ProductCategoryWording);
@@ -52,7 +50,6 @@ export class OrderFormComponent implements OnDestroy {
   public setMinimalDay = DateUtils.SetMinimalDay;
   public validatedModal!: MatDialogRef<TemplateModalComponent>;
   public selectDeliveryTime = false;
-  private unsubscribe$ = new Subject<void>();
   public productList: Product[] = [];
   public itemFormGroup: FormGroup;
   public sliceFormGroup: FormGroup;
@@ -71,6 +68,7 @@ export class OrderFormComponent implements OnDestroy {
       matDatepickerMin: 'Date incorrecte',
     },
   };
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private orderService: OrderService,
@@ -148,22 +146,6 @@ export class OrderFormComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.unsubscribe();
-  }
-
-  private calcTotalPrice(itemFormData: { [key: string]: number }): void {
-    let totalPrice = 0;
-    for (const [itemName, quantity] of Object.entries(itemFormData) as [
-      string,
-      number
-    ][]) {
-      if (quantity) {
-        totalPrice +=
-          quantity *
-          (this.productList.find((el) => el.name === itemName) as Product)
-            .price;
-      }
-      this.orderForm.get('totalPrice')?.setValue(totalPrice);
-    }
   }
 
   public specificDeliveryTime(checked: boolean): void {
@@ -286,4 +268,20 @@ export class OrderFormComponent implements OnDestroy {
   public isItOpenToday = (d: Date | null): boolean => {
     return this.IsItOpenToday(d, this.closingDays);
   };
+
+  private calcTotalPrice(itemFormData: { [key: string]: number }): void {
+    let totalPrice = 0;
+    for (const [itemName, quantity] of Object.entries(itemFormData) as [
+      string,
+      number
+    ][]) {
+      if (quantity) {
+        totalPrice +=
+          quantity *
+          (this.productList.find((el) => el.name === itemName) as Product)
+            .price;
+      }
+      this.orderForm.get('totalPrice')?.setValue(totalPrice);
+    }
+  }
 }

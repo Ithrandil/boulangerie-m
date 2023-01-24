@@ -1,26 +1,4 @@
 <div fxLayout="row" fxLayoutAlign="center center">
-  <h1>Message utilisateur</h1>
-</div>
-<mat-card class="m-card">
-  <mat-form-field
-    id="fieldMessageCustomer"
-    appearance="outline"
-    [formGroup]="customerMessageForm"
-  >
-    <mat-label>Message</mat-label>
-    <textarea
-      matInput
-      formControlName="message"
-      placeholder="Ex: Pensez à réserver pour les fêtes, Fermé jusqu'au 20 novembre..."
-    ></textarea>
-  </mat-form-field>
-  <div fxLayoutAlign="center center">
-    <button mat-raised-button (click)="onSubmitMessageCustomer()">
-      Valider
-    </button>
-  </div>
-</mat-card>
-<div fxLayout="row" fxLayoutAlign="center center">
   <h1>Quels jours fermer?</h1>
 </div>
 <mat-card class="m-card">
@@ -29,19 +7,19 @@
       <mat-label>Sélectionner une période</mat-label>
       <mat-date-range-input [formGroup]="closedDaysForm" [rangePicker]="picker">
         <input
-          required
           formControlName="startingDate"
           matStartDate
           placeholder="Date de début"
+          required
         />
         <input
-          required
           formControlName="endingDate"
           matEndDate
           placeholder="Date de fin"
+          required
         />
       </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
       <mat-error
         *ngIf="
@@ -58,9 +36,9 @@
     </mat-form-field>
     <div fxFlex="100" fxLayoutAlign="center center">
       <button
-        mat-fab
-        aria-label="Bouton de validation de choix de jours fermés"
         (click)="onSubmit()"
+        aria-label="Bouton de validation de choix de jours fermés"
+        mat-fab
       >
         <mat-icon>add_circle</mat-icon>
       </button>
@@ -70,9 +48,9 @@
 
 <mat-card class="m-card">
   <mat-card-title
+    class="m-card-title"
     fxLayout="row wrap"
     fxLayoutAlign="center center"
-    class="m-card-title"
   >
     <h2>Jours de fermeture à venir</h2>
   </mat-card-title>
@@ -82,18 +60,18 @@
       role="list"
     >
       <mat-list-item
-        role="listitem"
         *ngFor="let dates of allClosingDaysToHuman"
+        role="listitem"
       >
         <div
-          fxLayout="row wrap"
           fxFlex="100"
+          fxLayout="row wrap"
           fxLayoutAlign="space-between center"
         >
           <p
+            *ngIf="dates.endingDate; else oneDayClosing"
             class="closedDayListElem"
             fxFlex="80"
-            *ngIf="dates.endingDate; else oneDayClosing"
           >
             - Du {{ dates.startingDate | date: "fullDate" }} au
             {{ dates.endingDate | date: "fullDate" }}
@@ -105,10 +83,10 @@
           </ng-template>
           <div fxFlex="20" fxLayoutAlign="flex-end center">
             <button
-              mat-mini-fab
-              color="warn"
-              aria-label="Supprimer les jours de fermeture"
               (click)="deleteClosingDays(dates.rangeId)"
+              aria-label="Supprimer les jours de fermeture"
+              color="warn"
+              mat-mini-fab
             >
               <mat-icon>delete</mat-icon>
             </button>

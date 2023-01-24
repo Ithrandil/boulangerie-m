@@ -1,5 +1,5 @@
-@import "abstracts/variables";
-@import "abstracts/mixins";
+@import "../../../../../style/abstracts/variables";
+@import "../../../../../style/abstracts/mixins";
 
 h1 {
   margin-bottom: 2rem;
@@ -28,9 +28,6 @@ mat-card {
   }
 }
 
-#fieldMessageCustomer {
-  width: 100%;
-}
 .closedDayListElem {
   align-self: flex-end;
 }
