@@ -4,9 +4,10 @@ import { ProductUnit } from './product';
 
 export interface Order {
   orderId?: string;
-  firebaseUid: string,
+  firebaseUid: string;
   name: string;
   phone: number;
+  email?: string;
   address: Address;
   hasDifferentDeliveryAddress: boolean;
   deliveryAddress: Address;

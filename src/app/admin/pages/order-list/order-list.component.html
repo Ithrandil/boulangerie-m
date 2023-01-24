@@ -29,7 +29,6 @@
               }}
             </h4>
           </div>
-
           <mat-card-subtitle
             fxLayout="row wrap"
             fxLayoutAlign="space-between center"
@@ -40,6 +39,9 @@
               {{ orderData.orderDate.toDate() | date: "EEEE d MMMM y" }} à
               {{ orderData.orderDate.toDate() | date: "h:mm" }}
             </div>
+          </mat-card-subtitle>
+          <mat-card-subtitle *ngIf="orderData.email">
+            <div>Email: {{ orderData.email }}</div>
           </mat-card-subtitle>
           <div *ngIf="!orderData.deliveryAddress; else mulitpleAddress">
             <h4>Adresse de livraison et facturation :</h4>

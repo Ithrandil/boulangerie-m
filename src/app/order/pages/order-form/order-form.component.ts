@@ -162,6 +162,7 @@ export class OrderFormComponent implements OnDestroy {
               name: userInfos.name,
               phone: userInfos.phone,
               address: userInfos.address,
+              email: userInfos.email,
               firebaseUid: userInfos.firebaseUid,
             };
             if (
@@ -184,7 +185,7 @@ export class OrderFormComponent implements OnDestroy {
               data: {
                 title: 'Votre commande a été validée.',
                 bodyText: `
-              <p>La boulangerie M vous remercie de votre commande.</p>
+              <p>La boulangerie M vous remercie pour votre commande.</p>
               <p>En espérant vous revoir très prochainement et que votre commande vous satisfera pleinement.</p>
               `,
                 buttonAction: () => window.location.reload(),
