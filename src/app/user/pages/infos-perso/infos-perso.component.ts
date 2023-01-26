@@ -7,6 +7,7 @@ import { UserService } from '@app/user/services/user.service';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { User } from '@models/user';
 import { take } from 'rxjs';
+import { createModalConfig } from '@app/shared/utils/modalConfig-utils';
 
 @Component({
   selector: 'app-infos-perso',
@@ -57,37 +58,53 @@ export class InfosPersoComponent {
     },
     city: {
       required: 'Ville obligatoire',
-    }
+    },
   };
 
-
   public updateValidationModal!: MatDialogRef<TemplateModalComponent>;
-  
-  constructor(private fb: FormBuilder, private userService: UserService, private dialog: MatDialog
+
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private dialog: MatDialog
   ) {
-    this.userService.getUserInfos()
-    .subscribe(
-        user => {
-          this.userInformations = user;
-          this.infosPersosForm.get('name')?.setValue(this.userInformations.name);
-          this.infosPersosForm.get('phone')?.setValue(this.userInformations.phone);
-          this.infosPersosForm.get('address')?.get('street')?.setValue(this.userInformations.address.street);
-          this.infosPersosForm.get('address')?.get('zipCode')?.setValue(this.userInformations.address.zipCode);
-          this.infosPersosForm.get('address')?.get('city')?.setValue(this.userInformations.address.city);
-          this.infosPersosForm.get('hasDifferentDeliveryAddress')?.setValue(false);
-          if (this.userInformations.deliveryAddress) {
-            this.displayDeliveryForm = true;
-            this.infosPersosForm.get('hasDifferentDeliveryAddress')?.setValue(true);
-            this.infosPersosForm.get('deliveryAddress')?.get('street')?.setValue(this.userInformations.deliveryAddress.street);
-            this.infosPersosForm.get('deliveryAddress')?.get('zipCode')?.setValue(this.userInformations.deliveryAddress.zipCode);
-            this.infosPersosForm.get('deliveryAddress')?.get('city')?.setValue(this.userInformations.deliveryAddress.city);
-            
-          }
-          this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
-        }
-      )
-    }
-    
+    this.userService.getUserInfos().subscribe((user) => {
+      this.userInformations = user;
+      this.infosPersosForm.get('name')?.setValue(this.userInformations.name);
+      this.infosPersosForm.get('phone')?.setValue(this.userInformations.phone);
+      this.infosPersosForm
+        .get('address')
+        ?.get('street')
+        ?.setValue(this.userInformations.address.street);
+      this.infosPersosForm
+        .get('address')
+        ?.get('zipCode')
+        ?.setValue(this.userInformations.address.zipCode);
+      this.infosPersosForm
+        .get('address')
+        ?.get('city')
+        ?.setValue(this.userInformations.address.city);
+      this.infosPersosForm.get('hasDifferentDeliveryAddress')?.setValue(false);
+      if (this.userInformations.deliveryAddress) {
+        this.displayDeliveryForm = true;
+        this.infosPersosForm.get('hasDifferentDeliveryAddress')?.setValue(true);
+        this.infosPersosForm
+          .get('deliveryAddress')
+          ?.get('street')
+          ?.setValue(this.userInformations.deliveryAddress.street);
+        this.infosPersosForm
+          .get('deliveryAddress')
+          ?.get('zipCode')
+          ?.setValue(this.userInformations.deliveryAddress.zipCode);
+        this.infosPersosForm
+          .get('deliveryAddress')
+          ?.get('city')
+          ?.setValue(this.userInformations.deliveryAddress.city);
+      }
+      this.hasDifferentDeliveryAddress(this.displayDeliveryForm);
+    });
+  }
+
   public hasDifferentDeliveryAddress(checked: boolean): void {
     this.displayDeliveryForm = checked;
     if (this.displayDeliveryForm) {
@@ -96,52 +113,59 @@ export class InfosPersoComponent {
       this.infosPersosForm.get('deliveryAddress')?.disable();
     }
   }
-  
+
   public submitUpdateInfos() {
     if (this.infosPersosForm.valid) {
-      if (!this.infosPersosForm.get('hasDifferentDeliveryAddress')?.value && !!this.userInformations.deliveryAddress) {
-        this.userService.deleteDeliveryAddress(this.userInformations.firebaseUid).pipe(take(1)).subscribe();
+      if (
+        !this.infosPersosForm.get('hasDifferentDeliveryAddress')?.value &&
+        !!this.userInformations.deliveryAddress
+      ) {
+        this.userService
+          .deleteDeliveryAddress(this.userInformations.firebaseUid)
+          .pipe(take(1))
+          .subscribe();
       }
-      this.userService.updateUserInformations(this.infosPersosForm.value, this.userInformations.firebaseUid).pipe(take(1)).subscribe(
-        {
+      this.userService
+        .updateUserInformations(
+          this.infosPersosForm.value,
+          this.userInformations.firebaseUid
+        )
+        .pipe(take(1))
+        .subscribe({
           next: () => {
             this.updatingInfos = false;
-            this.updateValidationModal = this.dialog.open(TemplateModalComponent, {
-              data: {
-                title: "Mise à jour effectuée!",
+            this.updateValidationModal = this.dialog.open(
+              TemplateModalComponent,
+              createModalConfig({
+                title: 'Mise à jour effectuée!',
                 bodyText: `
                 <p>Vos informations ont bien été mises à jour.</p>
                 <p>Elles seront prises en compte pour toutes vos futures commandes.</p>
-                `
-              },
-              disableClose: true,
-              width: '400px',
-              maxWidth: '90%',
-            });
+                `,
+              })
+            );
             this.infosPersosForm.reset();
           },
           error: (e) => {
-            this.updateValidationModal = this.dialog.open(TemplateModalComponent, {
-              data: {
-                title: "Oups, une erreur est survenue!",
+            this.updateValidationModal = this.dialog.open(
+              TemplateModalComponent,
+              createModalConfig({
+                title: 'Oups, une erreur est survenue!',
                 bodyText: `
                 <p>Ils semble qu'il y ai eu un problème lors de la mise à jour de vos informations.</p>
                 <p>Veuillez réessayer plus tard.</p>
                 <p>Erreur : ${e.message}.</p>
-                `
-              },
-              disableClose: true,
-              width: '400px',
-              maxWidth: '90%',
-            });          },
-        }
-        );
-      }
+                `,
+              })
+            );
+          },
+        });
     }
   }
+}
 
 // public updatingPassword = false;
-  
+
 // private regexPassword = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/g);
 // public updatePasswordForm = this.fb.group({
 //   currentPassword: ['', [Validators.required]],
@@ -153,31 +177,30 @@ export class InfosPersoComponent {
 //   });
 // public errorMessagesUpdatePassword: FormErrorMessages = {
 //   currentPassword: {
-  //     required: 'Mot de passe obligatoire',
-  //   },
-  //   password: {
-    //     required: 'Nouveau mot de passe obligatoire',
-    //     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*'
-    //   },
-    //   confirmPassword: {
-      //     required: 'Confirmation du nouveau mot de passe obligatoire',
-      //     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*',
-      //     matchPassword: 'Doit être identique au mot de passe'
-      //   },
-      
-      // };
+//     required: 'Mot de passe obligatoire',
+//   },
+//   password: {
+//     required: 'Nouveau mot de passe obligatoire',
+//     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*'
+//   },
+//   confirmPassword: {
+//     required: 'Confirmation du nouveau mot de passe obligatoire',
+//     pattern: 'Doit contenir 8 caractères, une lettre minuscule, une lettre majuscule, un chiffre et un de ces caractères spéciaux !@#$%^&*',
+//     matchPassword: 'Doit être identique au mot de passe'
+//   },
 
+// };
 
 // public submitUpdatePassword() {
-  //   if (this.updatePasswordForm.valid) {
-    //     this.authService.updateUserPassword(this.updatePasswordForm.get("currentPassword")?.value, this.updatePasswordForm.get("newPassword")?.value)?.then(
-      //       (res) => {
-        //         this.updatingPassword = false;
-        //         this.updatePasswordForm.reset();
-        //       })
-        //       .catch(err => {
-          //         if (err.code === "auth/wrong-password") {
-            //         }
+//   if (this.updatePasswordForm.valid) {
+//     this.authService.updateUserPassword(this.updatePasswordForm.get("currentPassword")?.value, this.updatePasswordForm.get("newPassword")?.value)?.then(
+//       (res) => {
+//         this.updatingPassword = false;
+//         this.updatePasswordForm.reset();
+//       })
+//       .catch(err => {
+//         if (err.code === "auth/wrong-password") {
+//         }
 //       });
 //   }
 // }

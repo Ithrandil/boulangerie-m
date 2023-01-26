@@ -8,6 +8,7 @@ import { FormUtils } from '@app/shared/utils/form-utils';
 import { ValidatePassword } from '@app/shared/utils/validate-password';
 import { FormErrorMessages } from '@models/formErrorMessages';
 import { first, take, tap } from 'rxjs';
+import { createModalConfig } from '@app/shared/utils/modalConfig-utils';
 
 @Component({
   selector: 'app-register-page',
@@ -104,19 +105,14 @@ export class RegisterPageComponent {
           next: () => {
             this.registerValidationModal = this.dialog.open(
               TemplateModalComponent,
-              {
-                data: {
-                  title: 'Félicitations!',
-                  bodyText: `
+              createModalConfig({
+                title: 'Félicitations!',
+                bodyText: `
             <p>Votre compte a bien été créé.</p>
             <p>Vous allez recevoir un email, veuillez suivre le lien pour valider votre compte.</p>
             <p>N'hésitez pas à nous contacter si vous rencontrez un problème.</p>
             `,
-                },
-                disableClose: true,
-                width: '400px',
-                maxWidth: '90%',
-              }
+              })
             );
             this.registerValidationModal
               .afterClosed()

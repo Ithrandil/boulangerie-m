@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ModalConfigData } from '@models/modalConfig';
 
 @Component({
   selector: 'app-modal',
@@ -10,13 +11,7 @@ export class TemplateModalComponent {
   constructor(
     private dialogRef: MatDialogRef<TemplateModalComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: {
-      title: string;
-      bodyText: string;
-      buttonText?: string;
-      buttonAction?: Function;
-      extraCloseButton?: boolean;
-    }
+    public data: ModalConfigData
   ) {}
 
   public buttonText: string = this.data.buttonText

@@ -26,6 +26,7 @@ import { combineLatest, Subject } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
 import { OrderService } from './../../services/order.service';
+import { createModalConfig } from '@app/shared/utils/modalConfig-utils';
 
 @Component({
   selector: 'app-order-form',
@@ -115,38 +116,10 @@ export class OrderFormComponent implements OnDestroy {
   public onSubmit(): void {
     this.orderForm.get('orderDate')?.setValue(new Date(Date.now()));
     const orderList: OrderProduct[] = [];
-    for (const [itemName, quantity] of Object.entries(
-      this.itemFormGroup.value
-    ) as [string, number][]) {
-      if (quantity) {
-        orderList.push({
-          product: itemName,
-          quantity,
-          unit: (this.productList.find((el) => el.name === itemName) as Product)
-            .unit,
-        });
-      }
-    }
-    for (const [itemName, isSliced] of Object.entries(
-      this.sliceFormGroup.value
-    ) as [string, boolean][]) {
-      if (isSliced) {
-        const indexItem = orderList.findIndex((el) => el?.product === itemName);
-        if (indexItem >= 0) {
-          orderList[indexItem].isSliced = true;
-        }
-      }
-    }
-    for (const [itemName, comment] of Object.entries(
-      this.commentFormGroup.value
-    ) as [string, string][]) {
-      if (comment && comment.length > 0) {
-        const indexItem = orderList.findIndex((el) => el?.product === itemName);
-        if (indexItem >= 0) {
-          orderList[indexItem].comment = comment;
-        }
-      }
-    }
+    this.addProductsToOrderList(orderList);
+    this.addSlicedOptionToOrderedProducts(orderList);
+    this.addCommentsToOrderedProducts(orderList);
+
     if (this.orderForm.valid && orderList.length > 0) {
       const finalOrder = {
         ...this.orderForm.value,
@@ -181,34 +154,71 @@ export class OrderFormComponent implements OnDestroy {
         )
         .subscribe({
           next: () => {
-            this.validatedModal = this.dialog.open(TemplateModalComponent, {
-              data: {
+            this.validatedModal = this.dialog.open(
+              TemplateModalComponent,
+              createModalConfig({
                 title: 'Votre commande a été validée.',
                 bodyText: `
               <p>La boulangerie M vous remercie pour votre commande.</p>
               <p>En espérant vous revoir très prochainement et que votre commande vous satisfera pleinement.</p>
               `,
                 buttonAction: () => window.location.reload(),
-              },
-              disableClose: true,
-              width: '400px',
-              maxWidth: '90%',
-            });
+              })
+            );
           },
           error: (err) => {
-            this.validatedModal = this.dialog.open(TemplateModalComponent, {
-              data: {
+            this.validatedModal = this.dialog.open(
+              TemplateModalComponent,
+              createModalConfig({
                 title: 'Oups',
                 bodyText: `
-            <p>Une erreur a eu lieu la confirmation de votre commande, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}</p>
-            `,
-              },
-              disableClose: true,
-              width: '400px',
-              maxWidth: '90%',
-            });
+              <p>Une erreur a eu lieu la confirmation de votre commande, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}</p>
+              `,
+              })
+            );
           },
         });
+    }
+  }
+
+  private addCommentsToOrderedProducts(orderList: OrderProduct[]) {
+    for (const [itemName, comment] of Object.entries(
+      this.commentFormGroup.value
+    ) as [string, string][]) {
+      if (comment && comment.length > 0) {
+        const indexItem = orderList.findIndex((el) => el?.product === itemName);
+        if (indexItem >= 0) {
+          orderList[indexItem].comment = comment;
+        }
+      }
+    }
+  }
+
+  private addSlicedOptionToOrderedProducts(orderList: OrderProduct[]) {
+    for (const [itemName, isSliced] of Object.entries(
+      this.sliceFormGroup.value
+    ) as [string, boolean][]) {
+      if (isSliced) {
+        const indexItem = orderList.findIndex((el) => el?.product === itemName);
+        if (indexItem >= 0) {
+          orderList[indexItem].isSliced = true;
+        }
+      }
+    }
+  }
+
+  private addProductsToOrderList(orderList: OrderProduct[]) {
+    for (const [itemName, quantity] of Object.entries(
+      this.itemFormGroup.value
+    ) as [string, number][]) {
+      if (quantity) {
+        orderList.push({
+          product: itemName,
+          quantity,
+          unit: (this.productList.find((el) => el.name === itemName) as Product)
+            .unit,
+        });
+      }
     }
   }
 
@@ -225,15 +235,10 @@ export class OrderFormComponent implements OnDestroy {
   };
 
   private manageOpeningDaysInCalendar() {
-    this.openingDaysService
-      .getAllClosingDays()
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.closingDays = res;
-        this.closingDays = this.orderDays(this.closingDays);
-        this.closingDays = this.filterDaysAfterToday(this.closingDays);
-        this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
-      });
+    this.openingDaysService.mapClosingDaysForCalendar().subscribe((res) => {
+      this.closingDays = res.orderedClosingDays;
+      this.minimalDay = res.minimalDay;
+    });
   }
 
   private initializeOrderFormData() {
@@ -290,15 +295,13 @@ export class OrderFormComponent implements OnDestroy {
       .pipe(take(1))
       .subscribe((customMessageData) => {
         if (customMessageData.showMessage) {
-          this.customMessageModal = this.dialog.open(TemplateModalComponent, {
-            data: {
+          this.customMessageModal = this.dialog.open(
+            TemplateModalComponent,
+            createModalConfig({
               title: `${customMessageData.title}`,
               bodyText: `${customMessageData.message}`,
-            },
-            disableClose: true,
-            width: '400px',
-            maxWidth: '90%',
-          });
+            })
+          );
         }
       });
   }

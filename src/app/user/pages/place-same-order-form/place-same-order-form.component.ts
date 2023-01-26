@@ -12,7 +12,7 @@ import { FormErrorMessages } from '@models/formErrorMessages';
 import { Order } from '@models/order';
 import { ProductUnit, ProductUnitWording } from '@models/product';
 import { take } from 'rxjs';
-
+import { createModalConfig } from '@app/shared/utils/modalConfig-utils';
 
 @Component({
   selector: 'app-place-same-order-form',
@@ -44,27 +44,27 @@ export class PlaceSameOrderFormComponent {
     },
   };
 
-  constructor(private router: Router, private fb: FormBuilder, private openingDaysService: OpeningDaysService, private dialog: MatDialog,
-    private userService: UserService) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private openingDaysService: OpeningDaysService,
+    private dialog: MatDialog,
+    private userService: UserService
+  ) {
     if (this.router.getCurrentNavigation()?.extras.state?.data === undefined) {
-      this.router.navigate(["/compte/mes-commandes"]);
+      this.router.navigate(['/compte/mes-commandes']);
     }
-    this.orderToPlace = this.router.getCurrentNavigation()!.extras.state!.data as Order;
+    this.orderToPlace = this.router.getCurrentNavigation()!.extras.state!
+      .data as Order;
     if (this.orderToPlace.isCanceled) {
-      delete this.orderToPlace.isCanceled
+      delete this.orderToPlace.isCanceled;
     }
     delete this.orderToPlace.orderId;
 
-    this.openingDaysService
-      .getAllClosingDays()
-      .pipe(take(1))
-      .subscribe((res) => {
-        this.closingDays = res;
-        this.closingDays = this.orderDays(this.closingDays);
-        this.closingDays = this.filterDaysAfterToday(this.closingDays);
-        this.minimalDay = this.setMinimalDay(this.minimalDay, this.closingDays);
-      });
-
+    this.openingDaysService.mapClosingDaysForCalendar().subscribe((res) => {
+      this.closingDays = res.orderedClosingDays;
+      this.minimalDay = res.minimalDay;
+    });
   }
 
   placeOrderAgain() {
@@ -74,37 +74,35 @@ export class PlaceSameOrderFormComponent {
         ...this.orderToPlace,
         ...this.orderForm.value,
       };
-      this.userService.placeSameOrder(finalOrder).pipe(
-        take(1))
+      this.userService
+        .placeSameOrder(finalOrder)
+        .pipe(take(1))
         .subscribe({
           next: () => {
-            this.validatedModal = this.dialog.open(TemplateModalComponent, {
-              data: {
-                title: "Votre commande a bien été repassée!",
+            this.validatedModal = this.dialog.open(
+              TemplateModalComponent,
+              createModalConfig({
+                title: 'Votre commande a bien été repassée!',
                 bodyText: `
-                <p>La boulangerie M vous remercie de votre commande.</p>
-                <p>En espérant vous revoir très prochainement et que votre commande vous satifera pleinement.</p>
+                <p>La boulangerie M vous remercie pour votre commande.</p>
+                <p>En espérant vous revoir très prochainement et que votre commande vous satisfera pleinement.</p>
                 `,
-                buttonAction: () => this.router.navigate(["/compte/mes-commandes"])
-              },
-              disableClose: true,
-              width: '400px',
-              maxWidth: '90%',
-            });
+                buttonAction: () =>
+                  this.router.navigate(['/compte/mes-commandes']),
+              })
+            );
           },
           error: (err) => {
-            this.validatedModal = this.dialog.open(TemplateModalComponent, {
-              data: {
-                title: "Oups",
+            this.validatedModal = this.dialog.open(
+              TemplateModalComponent,
+              createModalConfig({
+                title: 'Oups',
                 bodyText: `
               <p>Une erreur a eu lieu la confirmation de votre commande, veuillez réessayer plus tard ou contacter la boulangerie directement. ${err}</p>
-              `
-              },
-              disableClose: true,
-              width: '400px',
-              maxWidth: '90%',
-            });
-          }
+              `,
+              })
+            );
+          },
         });
     }
   }
@@ -122,5 +120,4 @@ export class PlaceSameOrderFormComponent {
       this.orderForm.get('deliveryTime')?.disable();
     }
   }
-
 }
