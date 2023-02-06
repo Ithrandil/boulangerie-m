@@ -14,13 +14,6 @@ export class TemplateModalComponent {
     public data: ModalConfigData
   ) {}
 
-  public buttonText: string = this.data.buttonText
-    ? this.data.buttonText
-    : 'Fermer';
-  public extraCloseButton: boolean = this.data.extraCloseButton
-    ? this.data.extraCloseButton
-    : false;
-
   public buttonAction() {
     if (this.data.buttonAction) {
       this.data.buttonAction();

@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ProductService } from '@app/admin/services/product.service';
-import { Product, ProductUnit, ProductUnitWording } from '@models/product';
-import { Observable } from 'rxjs';
+import {
+  Product,
+  ProductCategory,
+  ProductCategoryWording,
+  ProductUnit,
+  ProductUnitWording,
+} from '@models/product';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { UpdateProductModalComponent } from '@app/admin/pages/products-list/update-product-modal/update-product-modal.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products-list',
@@ -10,26 +17,39 @@ import { Observable } from 'rxjs';
   styleUrls: ['./products-list.component.scss'],
 })
 export class ProductsListComponent {
-  public productList$: Observable<Product[]>;
+  public productList: Product[] = [];
   public PRODUCTUNIT = ProductUnit;
   public PRODUCTUNITWORDING = ProductUnitWording;
-  constructor(private productService: ProductService) {
-    this.productList$ = this.productService.getAllItems();
-  }
+  public PRODUCTCATEGORY = ProductCategory;
+  public PRODUCTCATEGORYWORDING = Object.entries(ProductCategoryWording);
 
-  public updateProductAvailability(
-    productId: string,
-    event: MatSlideToggleChange
-  ): Observable<void> {
-    return this.productService.updateProductAvailability(
-      productId,
-      event.checked
-    );
+  public updateProductModal!: MatDialogRef<UpdateProductModalComponent>;
+
+  constructor(
+    private productService: ProductService,
+    private dialog: MatDialog
+  ) {
+    this.productService
+      .getAllItems()
+      .pipe(take(1))
+      .subscribe({
+        next: (allProducts: Product[]) => (this.productList = allProducts),
+      });
   }
-  public updateProductisBio(
-    productId: string,
-    event: MatSlideToggleChange
-  ): Observable<void> {
-    return this.productService.updateProductisBio(productId, event.checked);
+  // TODO: refacto car coppié collé du order form
+  public findProductCategoryWording(category: ProductCategory): string {
+    return this.PRODUCTCATEGORYWORDING.find((el) => el[0] === category)![1];
+  }
+  public filterProductByCategory(category: ProductCategory): Product[] {
+    return this.productList.filter((prod) => prod.category === category);
+  }
+  //
+  public openUpdateProductModal(product: Product) {
+    this.updateProductModal = this.dialog.open(UpdateProductModalComponent, {
+      data: { ...product },
+      disableClose: true,
+      width: '400px',
+      maxWidth: '90%',
+    });
   }
 }

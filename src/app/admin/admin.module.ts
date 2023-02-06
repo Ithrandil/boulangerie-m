@@ -28,6 +28,9 @@ import { RecapMensuelService } from './services/recap-mensuel-service';
 import { MatInputModule } from '@angular/material/input';
 import { CustomMessageFormComponent } from '@app/admin/pages/admin-page/custom-message-form/custom-message-form.component';
 import { AdminPageFormComponent } from '@app/admin/pages/admin-page/admin-page-form.component';
+import { UpdateProductModalComponent } from '@app/admin/pages/products-list/update-product-modal/update-product-modal.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { AdminPageFormComponent } from '@app/admin/pages/admin-page/admin-page-f
     RecapUtilisateurMensuelComponent,
     CustomMessageFormComponent,
     AdminPageFormComponent,
+    UpdateProductModalComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +61,8 @@ import { AdminPageFormComponent } from '@app/admin/pages/admin-page/admin-page-f
     MatDatepickerModule,
     MatListModule,
     SharedModule,
+    MatSelectModule,
+    MatChipsModule,
   ],
   exports: [AdminRoutingModule],
   providers: [

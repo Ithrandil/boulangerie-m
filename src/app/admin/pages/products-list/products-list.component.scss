@@ -2,35 +2,43 @@
 @import "abstracts/mixins";
 
 h1 {
-    text-decoration: underline;
-    margin-bottom: 2rem;
+  text-decoration: underline;
+  margin-bottom: 2rem;
 
-    @include for-tablet-landscape-up {
-        margin-top: 2rem;
-    }
+  @include for-tablet-landscape-up {
+    margin-top: 2rem;
+  }
+}
+
+.is-bio {
+  color: $color-app-bio;
 }
 
 mat-card {
-    margin: 0 2rem 2rem 2rem;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
+  margin-top: 2rem;
+  width: 90%;
+  padding-left: 0;
+  padding-right: 0;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 mat-card-content {
-    margin-left: 2rem;
-    margin-right: 2rem;
-
+  margin-left: 2rem;
+  margin-right: 2rem;
+  @include for-tablet-landscape-up {
+    min-height: 18.8rem;
+  }
 }
 
-mat-expansion-panel:not([class*="mat-elevation-z"]) {
-    box-shadow: none;
-
-    mat-panel-title {
-        color: $color-app-brown;
-    }
+.productCategory {
+  width: 90%;
 }
 
-.descriptionText {
-    margin-left: 2rem;
+.product-chip-list {
+  @include for-tablet-landscape-up {
+    position: absolute;
+    bottom: 2rem;
+  }
 }

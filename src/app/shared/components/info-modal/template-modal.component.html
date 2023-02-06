@@ -5,14 +5,19 @@
 </mat-dialog-content>
 <mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="space-around center">
   <button
-    *ngIf="extraCloseButton"
+    *ngIf="!!data.extraCloseButton"
     [mat-dialog-close]="true"
     fxFlex="100"
     mat-button
   >
-    Fermer
+    {{ data.extraCloseButtonText ? this.data.extraCloseButtonText : "Fermer" }}
   </button>
-  <button (click)="buttonAction()" fxFlex="100" mat-button>
-    {{ buttonText }}
+  <button
+    (click)="buttonAction()"
+    [ngClass]="data.buttonColor === 'warning' ? 'warning-button' : ''"
+    fxFlex="100"
+    mat-button
+  >
+    {{ data.buttonText ? this.data.buttonText : "Fermer" }}
   </button>
 </mat-dialog-actions>

@@ -10,5 +10,7 @@ export interface ModalConfigData {
   bodyText: string;
   buttonText?: string;
   buttonAction?: Function;
+  buttonColor?: string;
   extraCloseButton?: boolean;
+  extraCloseButtonText?: string;
 }

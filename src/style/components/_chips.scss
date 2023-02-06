@@ -1,0 +1,25 @@
+@import "abstracts/variables";
+
+/* Style overide mat chip */
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
+  background-color: $color-app-light-brown;
+  color: $color-app-brown;
+
+  &:hover {
+    background-color: $color-app-brown;
+    color: $color-app-light-brown;
+    transition: background 0.8s;
+  }
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary.is-bio {
+  background-color: $color-app-light-bio;
+  color: $color-app-bio;
+
+  &:hover {
+    background-color: $color-app-bio;
+    color: $color-app-light-bio;
+    transition: background 0.8s;
+  }
+}

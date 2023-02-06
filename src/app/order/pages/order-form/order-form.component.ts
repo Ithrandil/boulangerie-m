@@ -46,10 +46,7 @@ export class OrderFormComponent implements OnDestroy {
   public PRODUCTUNITWORDING = ProductUnitWording;
   public tomorrow = new Date();
   public minimalDay = new Date();
-  public filterDaysAfterToday = DateUtils.FilterDaysAfterToday;
-  public orderDays = DateUtils.OrderDays;
   public IsItOpenToday = DateUtils.IsItOpenToday;
-  public setMinimalDay = DateUtils.SetMinimalDay;
   public validatedModal!: MatDialogRef<TemplateModalComponent>;
   public selectDeliveryTime = false;
   public productList: Product[] = [];

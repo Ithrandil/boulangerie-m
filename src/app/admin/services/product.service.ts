@@ -7,7 +7,7 @@ import { from, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) {}
 
   public getAllItems(): Observable<Product[]> {
     return this.firestore
@@ -15,39 +15,15 @@ export class ProductService {
       .valueChanges({ idField: 'productId' });
   }
 
-  public updateProductAvailability(
+  public updateProduct(
     docId: string,
-    value: boolean
+    value: Partial<Product>
   ): Observable<void> {
     return from(
       this.firestore
         .collection<Product>('products')
         .doc(docId)
-        .update({ available: value } as Product)
-    );
-  }
-
-  public updateProductisBio(
-    docId: string,
-    value: boolean
-  ): Observable<void> {
-    return from(
-      this.firestore
-        .collection<Product>('products')
-        .doc(docId)
-        .update({ isBio: value } as Product)
-    );
-  }
-
-  public updateProductShortDelivery(
-    docId: string,
-    value: boolean
-  ): Observable<void> {
-    return from(
-      this.firestore
-        .collection<Product>('products')
-        .doc(docId)
-        .update({ shortDelivery: value } as Product)
+        .update({ ...value })
     );
   }
 }
