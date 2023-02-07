@@ -46,11 +46,13 @@ export class OpeningDaysService {
     return this.getAllClosingDays().pipe(
       take(1),
       map((allClosingDays) => {
+        // Nécessaire de d'abord filtrer les jours fermés à venir avant de passer au setMinimalDay
+        const orderedClosingDays = this.filterDaysAfterToday(
+          this.orderDays(allClosingDays)
+        );
         return {
-          orderedClosingDays: this.filterDaysAfterToday(
-            this.orderDays(allClosingDays)
-          ),
-          minimalDay: this.setMinimalDay(new Date(), allClosingDays),
+          orderedClosingDays,
+          minimalDay: this.setMinimalDay(new Date(), orderedClosingDays),
         };
       })
     );
