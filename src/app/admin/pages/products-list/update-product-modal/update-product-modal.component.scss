@@ -8,7 +8,15 @@ mat-dialog-actions.mat-dialog-actions button {
   margin-left: 0;
 }
 
-.warning-button {
+:host ::ng-deep .mat-select-min-line {
+  color: $color-app-brown;
+}
+
+#cancelUpdateProduct {
+  background: none;
+}
+
+#deleteProduct {
   background-color: crimson;
   color: $color-app-light-grey;
 }

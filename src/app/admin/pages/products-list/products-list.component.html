@@ -1,29 +1,60 @@
 <div fxLayout="row" fxLayoutAlign="center center">
   <h1>Produits</h1>
 </div>
+<div fxLayoutAlign="center center" id="createProductButtonRow">
+  <button (click)="openCreateProductModal()" mat-raised-button>
+    Ajouter un produit
+  </button>
+</div>
 <div fxLayout="row wrap" fxLayoutAlign="center center">
-  <mat-card fxFlex="100" fxFlex.gt-xs="40" fxFlex.gt-md="30" *ngFor="let product of productList$ | async">
-    <mat-expansion-panel [disabled]="!product.description">
-      <mat-expansion-panel-header>
-        <mat-panel-title [ngClass]="product.isBio ? 'is-bio' : ''">{{ product.name }}</mat-panel-title>
-      </mat-expansion-panel-header>
-      <p class="descriptionText">{{ product.description }}</p>
-    </mat-expansion-panel>
-    <mat-card-content class="m-card-content">
-
-      Prix: {{ product.price.toFixed(2) }} € / {{ product.unit === PRODUCTUNIT.KG ? PRODUCTUNITWORDING.KG :
-      PRODUCTUNITWORDING.UNIT
-      }}
-      <div fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-slide-toggle (change)="updateProductAvailability(product.productId, $event)" [checked]="product.available"
-          labelPosition="before">Visible
-        </mat-slide-toggle>
-        <mat-slide-toggle class="toggleBio" (change)="updateProductisBio(product.productId, $event)"
-          [checked]="product.isBio" labelPosition="before">Bio
-        </mat-slide-toggle>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <mat-expansion-panel
+    *ngFor="let category of PRODUCTCATEGORY | keyvalue"
+    class="productCategory"
+  >
+    <mat-expansion-panel-header class="categoryExpansionHeader">
+      <mat-panel-title>{{
+        findProductCategoryWording(category.value)
+      }}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div
+      fxLayout="column"
+      fxLayout.gt-sm="row wrap"
+      fxLayoutAlign="center center"
+      fxLayoutAlign.gt-sm="space-evenly center"
+    >
+      <mat-card
+        *ngFor="let product of filterProductByCategory(category.value)"
+        fxFlex="100"
+        fxFlex.gt-md="23"
+        fxFlex.gt-xs="45"
+      >
+        <mat-card-content
+          (click)="openUpdateProductModal(product)"
+          class="m-card-content"
+        >
+          <h4 [ngClass]="product.isBio ? 'is-bio' : ''">{{ product.name }}</h4>
+          <p *ngIf="product.description">{{ product.description }}</p>
+          <p>
+            Prix: {{ product.price.toFixed(2) }} € /
+            {{
+              product.unit === PRODUCTUNIT.KG
+                ? PRODUCTUNITWORDING.KG
+                : PRODUCTUNITWORDING.UNIT
+            }}
+          </p>
+          <mat-chip-list class="product-chip-list">
+            <mat-chip *ngIf="!product.available" selected color="warn"
+              >Indisponible</mat-chip
+            >
+            <mat-chip *ngIf="product.isBio" selected class="is-bio"
+              >Bio</mat-chip
+            >
+            <mat-chip *ngIf="product.isSliceable" selected>Tranchable</mat-chip>
+          </mat-chip-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-expansion-panel>
 </div>
 
-<!-- TODO: implémenter comme pour le formulaire les accordéons par catégorie (bonus recherche?) -->
+<!-- TODO: bonus recherche? -->

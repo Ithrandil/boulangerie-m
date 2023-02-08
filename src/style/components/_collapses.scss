@@ -2,22 +2,23 @@
 
 /* Style overide mat expansion panel */
 mat-expansion-panel.mat-expansion-panel {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 mat-expansion-panel-header.mat-expansion-panel-header,
 mat-expansion-panel-header.mat-expansion-panel-header.mat-expanded {
-    height: 4rem;
+  height: 4rem;
 }
 
 mat-panel-title.mat-expansion-panel-header-title {
-    color: $color-app-brown;
+  color: $color-app-brown;
 }
 
 mat-panel-title.mat-expansion-panel-header-title.is-bio {
-    color: $color-app-bio;
+  color: $color-app-bio;
 }
 
 div.mat-expansion-panel-body {
-    padding: 0;
+  padding: 0 0 1rem 0;
+  background-color: $color-app-light-grey;
 }

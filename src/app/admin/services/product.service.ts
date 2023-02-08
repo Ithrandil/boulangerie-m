@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  DocumentReference,
+} from '@angular/fire/compat/firestore';
 import { Product } from '@models/product';
 import { from, Observable } from 'rxjs';
 
@@ -7,7 +11,11 @@ import { from, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private firestore: AngularFirestore) { }
+  private productsCollection: AngularFirestoreCollection<Product>;
+
+  constructor(private firestore: AngularFirestore) {
+    this.productsCollection = firestore.collection<Product>('products');
+  }
 
   public getAllItems(): Observable<Product[]> {
     return this.firestore
@@ -15,39 +23,24 @@ export class ProductService {
       .valueChanges({ idField: 'productId' });
   }
 
-  public updateProductAvailability(
+  public updateProduct(
     docId: string,
-    value: boolean
+    value: Partial<Product>
   ): Observable<void> {
     return from(
       this.firestore
         .collection<Product>('products')
         .doc(docId)
-        .update({ available: value } as Product)
+        .update({ ...value })
     );
   }
-
-  public updateProductisBio(
-    docId: string,
-    value: boolean
-  ): Observable<void> {
-    return from(
-      this.firestore
-        .collection<Product>('products')
-        .doc(docId)
-        .update({ isBio: value } as Product)
-    );
+  public createProduct(value: Product): Observable<DocumentReference> {
+    return from(this.productsCollection.add(value));
   }
 
-  public updateProductShortDelivery(
-    docId: string,
-    value: boolean
-  ): Observable<void> {
+  public deleteProduct(docId: string): Observable<void> {
     return from(
-      this.firestore
-        .collection<Product>('products')
-        .doc(docId)
-        .update({ shortDelivery: value } as Product)
+      this.firestore.collection<Product>('products').doc(docId).delete()
     );
   }
 }

@@ -1,0 +1,93 @@
+<h2 mat-dialog-title>Modifier le produit</h2>
+<mat-dialog-content [formGroup]="updateProductForm" fxLayout="column">
+  <mat-form-field appearance="outline">
+    <mat-label>Nom</mat-label>
+    <input formControlName="name" matInput placeholder="Ex: Boule M" />
+    <mat-error *ngIf="updateProductForm.get('name')?.invalid"
+      >Nom obligatoire
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea
+      formControlName="description"
+      matInput
+      placeholder="Ex: Farine T110"
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Prix</mat-label>
+    <input
+      formControlName="price"
+      matInput
+      type="number"
+      placeholder="Ex: 1.90"
+    />
+    <mat-error *ngIf="updateProductForm.get('price')?.invalid"
+      >Prix obligatoire
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Unité</mat-label>
+    <mat-select formControlName="unit">
+      <mat-option
+        *ngFor="let product of PRODUCTUNITWORDING"
+        [value]="product[0]"
+      >
+        {{ product[1] }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="updateProductForm.get('unit')?.invalid"
+      >Unité obligatoire
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Catégorie</mat-label>
+    <mat-select formControlName="category">
+      <mat-option
+        *ngFor="let product of PRODUCTCATEGORYWORDING"
+        [value]="product[0]"
+      >
+        {{ product[1] }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="updateProductForm.get('category')?.invalid"
+      >Catégorie obligatoire
+    </mat-error>
+  </mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-slide-toggle
+      (change)="updateProductAvailability($event.checked)"
+      [checked]="product.available"
+      labelPosition="before"
+      >Visible
+    </mat-slide-toggle>
+    <mat-slide-toggle
+      (change)="updateProductisBio($event.checked)"
+      [checked]="product.isBio"
+      class="toggleBio"
+      labelPosition="before"
+      >Bio
+    </mat-slide-toggle>
+    <mat-slide-toggle
+      (change)="updateProductisSliceable($event.checked)"
+      [checked]="product.isSliceable"
+      labelPosition="before"
+      >Tranchable
+    </mat-slide-toggle>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <button
+    [mat-dialog-close]="true"
+    fxFlex="45"
+    id="cancelUpdateProduct"
+    mat-stroked-button
+  >
+    Annuler
+  </button>
+  <button (click)="submit()" fxFlex="45" mat-stroked-button>Enregistrer</button>
+  <button (click)="delete()" fxFlex="100" id="deleteProduct" mat-stroked-button>
+    Supprimer
+  </button>
+</mat-dialog-actions>

@@ -72,7 +72,7 @@
     </mat-form-field>
   </div>
   <p id="deliveryMessage">
-    Votre livraison vous sera livrée
+    Votre commande vous sera livrée
     <span *ngIf="orderForm.get('deliveryDate')?.value">
       le
       {{ orderForm.get("deliveryDate")?.value | date: "fullDate" }} </span
