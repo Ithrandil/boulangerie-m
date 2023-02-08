@@ -1,6 +1,11 @@
 <div fxLayout="row" fxLayoutAlign="center center">
   <h1>Produits</h1>
 </div>
+<div fxLayoutAlign="center center" id="createProductButtonRow">
+  <button (click)="openCreateProductModal()" mat-raised-button>
+    Ajouter un produit
+  </button>
+</div>
 <div fxLayout="row wrap" fxLayoutAlign="center center">
   <mat-expansion-panel
     *ngFor="let category of PRODUCTCATEGORY | keyvalue"

@@ -1,9 +1,9 @@
-<h2 mat-dialog-title>Modifier le produit</h2>
-<mat-dialog-content [formGroup]="updateProductForm" fxLayout="column">
+<h2 mat-dialog-title>Créer un produit</h2>
+<mat-dialog-content [formGroup]="createProductForm" fxLayout="column">
   <mat-form-field appearance="outline">
     <mat-label>Nom</mat-label>
     <input formControlName="name" matInput placeholder="Ex: Boule M" />
-    <mat-error *ngIf="updateProductForm.get('name')?.invalid"
+    <mat-error *ngIf="createProductForm.get('name')?.invalid"
       >Nom obligatoire
     </mat-error>
   </mat-form-field>
@@ -23,7 +23,7 @@
       type="number"
       placeholder="Ex: 1.90"
     />
-    <mat-error *ngIf="updateProductForm.get('price')?.invalid"
+    <mat-error *ngIf="createProductForm.get('price')?.invalid"
       >Prix obligatoire
     </mat-error>
   </mat-form-field>
@@ -37,7 +37,7 @@
         {{ product[1] }}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="updateProductForm.get('unit')?.invalid"
+    <mat-error *ngIf="createProductForm.get('unit')?.invalid"
       >Unité obligatoire
     </mat-error>
   </mat-form-field>
@@ -51,27 +51,24 @@
         {{ product[1] }}
       </mat-option>
     </mat-select>
-    <mat-error *ngIf="updateProductForm.get('category')?.invalid"
+    <mat-error *ngIf="createProductForm.get('category')?.invalid"
       >Catégorie obligatoire
     </mat-error>
   </mat-form-field>
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <mat-slide-toggle
       (change)="updateProductAvailability($event.checked)"
-      [checked]="product.available"
       labelPosition="before"
       >Visible
     </mat-slide-toggle>
     <mat-slide-toggle
       (change)="updateProductisBio($event.checked)"
-      [checked]="product.isBio"
       class="toggleBio"
       labelPosition="before"
       >Bio
     </mat-slide-toggle>
     <mat-slide-toggle
       (change)="updateProductisSliceable($event.checked)"
-      [checked]="product.isSliceable"
       labelPosition="before"
       >Tranchable
     </mat-slide-toggle>
@@ -86,8 +83,5 @@
   >
     Annuler
   </button>
-  <button (click)="submit()" fxFlex="45" mat-stroked-button>Enregistrer</button>
-  <button (click)="delete()" fxFlex="100" id="deleteProduct" mat-stroked-button>
-    Supprimer
-  </button>
+  <button (click)="submit()" fxFlex="45" mat-stroked-button>Créer</button>
 </mat-dialog-actions>

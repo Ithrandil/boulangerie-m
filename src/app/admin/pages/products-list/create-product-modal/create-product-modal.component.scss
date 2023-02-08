@@ -1,0 +1,22 @@
+@import "abstracts/variables";
+
+:host {
+  text-align: center;
+}
+
+mat-dialog-actions.mat-dialog-actions button {
+  margin-left: 0;
+}
+
+:host ::ng-deep .mat-select-min-line {
+  color: $color-app-brown;
+}
+
+#cancelUpdateProduct {
+  background: none;
+}
+
+#deleteProduct {
+  background-color: crimson;
+  color: $color-app-light-grey;
+}

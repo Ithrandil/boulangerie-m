@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ProductService } from '@app/admin/services/product.service';
 import {
   Product,
@@ -9,14 +9,16 @@ import {
 } from '@models/product';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UpdateProductModalComponent } from '@app/admin/pages/products-list/update-product-modal/update-product-modal.component';
-import { take } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+import { CreateProductModalComponent } from '@app/admin/pages/products-list/create-product-modal/create-product-modal.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.scss'],
 })
-export class ProductsListComponent {
+export class ProductsListComponent implements OnDestroy {
   public productList: Product[] = [];
   public PRODUCTUNIT = ProductUnit;
   public PRODUCTUNITWORDING = ProductUnitWording;
@@ -24,6 +26,8 @@ export class ProductsListComponent {
   public PRODUCTCATEGORYWORDING = Object.entries(ProductCategoryWording);
 
   public updateProductModal!: MatDialogRef<UpdateProductModalComponent>;
+  public createProductModal!: MatDialogRef<CreateProductModalComponent>;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private productService: ProductService,
@@ -31,11 +35,17 @@ export class ProductsListComponent {
   ) {
     this.productService
       .getAllItems()
-      .pipe(take(1))
+      .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (allProducts: Product[]) => (this.productList = allProducts),
       });
   }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.unsubscribe();
+  }
+
   // TODO: refacto car coppié collé du order form
   public findProductCategoryWording(category: ProductCategory): string {
     return this.PRODUCTCATEGORYWORDING.find((el) => el[0] === category)![1];
@@ -47,6 +57,13 @@ export class ProductsListComponent {
   public openUpdateProductModal(product: Product) {
     this.updateProductModal = this.dialog.open(UpdateProductModalComponent, {
       data: { ...product },
+      disableClose: true,
+      width: '400px',
+      maxWidth: '90%',
+    });
+  }
+  public openCreateProductModal() {
+    this.createProductModal = this.dialog.open(CreateProductModalComponent, {
       disableClose: true,
       width: '400px',
       maxWidth: '90%',

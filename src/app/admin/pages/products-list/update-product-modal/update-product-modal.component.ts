@@ -26,6 +26,7 @@ export class UpdateProductModalComponent implements OnInit {
   public PRODUCTUNITWORDING = Object.entries(ProductUnitWording);
 
   public confirmDeleteProductModal!: MatDialogRef<TemplateModalComponent>;
+  public confirmUpdateProductModal!: MatDialogRef<TemplateModalComponent>;
 
   constructor(
     private dialog: MatDialog,
@@ -56,9 +57,33 @@ export class UpdateProductModalComponent implements OnInit {
       .subscribe({
         next: () => {
           this.dialogRef.close();
+          this.confirmUpdateProductModal = this.dialog.open(
+            TemplateModalComponent,
+            createModalConfig({
+              title: 'Mise à jour réussie réussie !',
+              bodyText: `
+              <p>Le produit a bien été mis à jour.</p>
+              `,
+              buttonText: 'Ok',
+              buttonAction: () => {
+                this.dialog.closeAll();
+              },
+            })
+          );
         },
         error: () => {
           this.dialogRef.close();
+          this.confirmUpdateProductModal = this.dialog.open(
+            TemplateModalComponent,
+            createModalConfig({
+              title: 'Oups !',
+              bodyText: `
+              <p>Quelque chose s'est mal passé, le produit n'a pas été mis à jour. N'hésitez pas à en informer votre informaticien préféré!</p>
+              `,
+              buttonText: 'Ok',
+              buttonAction: () => this.dialog.closeAll(),
+            })
+          );
         },
       });
   }
@@ -74,8 +99,37 @@ export class UpdateProductModalComponent implements OnInit {
               `,
         buttonText: 'Oui, supprimer ce produit',
         buttonAction: () => {
-          // TODO: faire la supopression du produit
-          this.dialog.closeAll();
+          this.productService
+            .deleteProduct(this.product.productId)
+            .pipe(take(1))
+            .subscribe({
+              next: () => {
+                this.confirmDeleteProductModal = this.dialog.open(
+                  TemplateModalComponent,
+                  createModalConfig({
+                    title: 'Tchao',
+                    bodyText: `
+              <p>Le produit a bien été supprimé!</p>
+              `,
+                    buttonText: 'Ok',
+                    buttonAction: () => this.dialog.closeAll(),
+                  })
+                );
+              },
+              error: () => {
+                this.confirmDeleteProductModal = this.dialog.open(
+                  TemplateModalComponent,
+                  createModalConfig({
+                    title: 'Oups !',
+                    bodyText: `
+              <p>Quelque chose s'est mal passé, le produit n'a pas été supprimé. N'hésitez pas à en informer votre informaticien préféré!</p>
+              `,
+                    buttonText: 'Ok',
+                    buttonAction: () => this.dialog.closeAll(),
+                  })
+                );
+              },
+            });
         },
         buttonColor: 'warning',
         extraCloseButton: true,
