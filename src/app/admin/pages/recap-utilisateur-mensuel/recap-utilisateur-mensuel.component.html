@@ -1,25 +1,25 @@
-<div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="loading">
+<div *ngIf="loading" fxLayout="row wrap" fxLayoutAlign="center center">
   <mat-spinner></mat-spinner>
 </div>
 <div
+  *ngIf="!loading && allUserOrdersProducts.length === 0"
   class="noOrder"
   fxLayout="row"
   fxLayoutAlign="center center"
-  *ngIf="!loading && allUserOrdersProducts.length === 0"
 >
   <h2>Il n'y a eu aucune commande ce mois-ci pour ce client.</h2>
 </div>
 <mat-card
   *ngIf="!loading && allUserOrdersProducts.length > 0"
-  id="prodRecapCard"
   class="m-card"
+  id="prodRecapCard"
 >
   <mat-card-title
+    class="m-card-title"
     fxLayout="row wrap"
     fxLayoutAlign="center center"
-    class="m-card-title"
   >
-    <h2>Produits commandés par {{ userName }} en {{ month }}</h2>
+    <h2>Produits commandés par John Doe en {{ month }}</h2>
   </mat-card-title>
   <mat-card-content>
     <app-list-recap-products

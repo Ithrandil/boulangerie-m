@@ -1,4 +1,4 @@
-<div fxLayout="row wrap" fxLayoutAlign="center center" *ngIf="loading">
+<div *ngIf="loading" fxLayout="row wrap" fxLayoutAlign="center center">
   <mat-spinner></mat-spinner>
 </div>
 <mat-card class="m-card">
@@ -7,9 +7,13 @@
   </mat-card-title>
   <mat-card-content>
     <mat-list *ngIf="allUsers.length > 0" role="list">
-      <mat-list-item class="mat-list-item-base" role="listitem" *ngFor="let user of allUsers"
-        (click)="goToRecapMensuelUtilisateur(user.firebaseUid)">
-        {{user.name}}
+      <mat-list-item
+        (click)="goToRecapMensuelUtilisateur(user.firebaseUid)"
+        *ngFor="let user of allUsers; let index = index"
+        class="mat-list-item-base"
+        role="listitem"
+      >
+        John Doe {{ index }}
       </mat-list-item>
     </mat-list>
   </mat-card-content>
