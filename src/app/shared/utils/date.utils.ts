@@ -69,12 +69,7 @@ export class DateUtils {
     // Si on est samedi entre octobre et mai inclus, on tombe le lundi mais le dimanche n'est pas ouvré donc on rajoute un jour
     // FIXME: REMETTRE APRES 8 JANVIER
     // Si le jour minimum de livraison est un dimanche entre octobre et mai inclus, c'est fermé, on rajoute un jour
-    if (
-      minimalDay.getDay() === 0 &&
-      (minimalDay.getMonth() > 8 || minimalDay.getMonth() < 5)
-    ) {
-      minimalDay.setDate(minimalDay.getDate() + 1);
-    }
+    // FIXME: REMETTRE APRES 8 JANVIER
     // Si un des jours de fermeture est prévu avant le jour minimum de livraison on rajoute un jour
     closingDays.forEach((closedDay) => {
       if (closedDay.startingDate.seconds * 1000 <= minimalDay.getTime()) {
