@@ -1,5 +1,5 @@
 import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
-import { getHours, isEqual } from 'date-fns';
+import { getHours } from 'date-fns';
 
 // TODO: refacto toutes avec date fns tant qu'à faire vu que j'utilise la lib pour le formattage en français
 
@@ -43,20 +43,10 @@ export class DateUtils {
     closingDays: ClosingDay[]
   ): boolean => {
     d?.setHours(0, 0, 0, 0);
-    const day = (d || new Date()).getDay();
-    const month = (d || new Date()).getMonth();
+
     let res = true;
     // Sunday open only between june and september included
-    if (day === 0 && (month > 8 || month < 5)) {
-      // FIXME: TEMPORARY OPENING HOURS AS REQUESTED BY NICO TO REMOVE
-      const isXmas = isEqual(d as Date, new Date('2023-12-24T00:00:00'));
-      const isNewYearEve = isEqual(d as Date, new Date('2023-12-31T00:00:00'));
-      const is7January = isEqual(d as Date, new Date('2024-01-07T00:00:00'));
-      if (!isXmas && !isNewYearEve && !is7January) {
-        // DELETE UNTIL HERE
-        res = false;
-      }
-    }
+    // FIXME: REMETTRE APRES 8 JANVIER
     // get and inject specific closed day from closing days form
     if (
       d &&
@@ -68,7 +58,6 @@ export class DateUtils {
     ) {
       res = false;
     }
-    console.log('IS IT OPEN TODAY !>', res);
     return res;
   };
 
@@ -78,12 +67,7 @@ export class DateUtils {
     // Set à dans deux jours, délai minimum de livraison
     minimalDay.setDate(new Date().getDate() + 2);
     // Si on est samedi entre octobre et mai inclus, on tombe le lundi mais le dimanche n'est pas ouvré donc on rajoute un jour
-    if (
-      minimalDay.getDay() === 1 &&
-      (minimalDay.getMonth() > 8 || minimalDay.getMonth() < 5)
-    ) {
-      minimalDay.setDate(minimalDay.getDate() + 1);
-    }
+    // FIXME: REMETTRE APRES 8 JANVIER
     // Si le jour minimum de livraison est un dimanche entre octobre et mai inclus, c'est fermé, on rajoute un jour
     if (
       minimalDay.getDay() === 0 &&
