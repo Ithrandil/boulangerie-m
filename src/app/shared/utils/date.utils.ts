@@ -1,5 +1,5 @@
 import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
-import { getHours } from 'date-fns';
+import { getHours, isEqual } from 'date-fns';
 
 // TODO: refacto toutes avec date fns tant qu'à faire vu que j'utilise la lib pour le formattage en français
 
@@ -48,7 +48,14 @@ export class DateUtils {
     let res = true;
     // Sunday open only between june and september included
     if (day === 0 && (month > 8 || month < 5)) {
-      res = false;
+      // FIXME: TEMPORARY OPENING HOURS AS REQUESTED BY NICO TO REMOVE
+      const isXmas = isEqual(d as Date, new Date('2023-12-24T00:00:00'));
+      const isNewYearEve = isEqual(d as Date, new Date('2023-12-31T00:00:00'));
+      const is7January = isEqual(d as Date, new Date('2024-01-07T00:00:00'));
+      if (!isXmas && !isNewYearEve && !is7January) {
+        // DELETE UNTIL HERE
+        res = false;
+      }
     }
     // get and inject specific closed day from closing days form
     if (
@@ -61,6 +68,7 @@ export class DateUtils {
     ) {
       res = false;
     }
+    console.log('IS IT OPEN TODAY !>', res);
     return res;
   };
 
