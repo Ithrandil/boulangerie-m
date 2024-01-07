@@ -43,10 +43,13 @@ export class DateUtils {
     closingDays: ClosingDay[]
   ): boolean => {
     d?.setHours(0, 0, 0, 0);
-
+    const day = (d || new Date()).getDay();
+    const month = (d || new Date()).getMonth();
     let res = true;
     // Sunday open only between june and september included
-    // FIXME: REMETTRE APRES 8 JANVIER
+    if (day === 0 && (month > 8 || month < 5)) {
+      res = false;
+    }
     // get and inject specific closed day from closing days form
     if (
       d &&
@@ -67,9 +70,19 @@ export class DateUtils {
     // Set à dans deux jours, délai minimum de livraison
     minimalDay.setDate(new Date().getDate() + 2);
     // Si on est samedi entre octobre et mai inclus, on tombe le lundi mais le dimanche n'est pas ouvré donc on rajoute un jour
-    // FIXME: REMETTRE APRES 8 JANVIER
+    if (
+      minimalDay.getDay() === 1 &&
+      (minimalDay.getMonth() > 8 || minimalDay.getMonth() < 5)
+    ) {
+      minimalDay.setDate(minimalDay.getDate() + 1);
+    }
     // Si le jour minimum de livraison est un dimanche entre octobre et mai inclus, c'est fermé, on rajoute un jour
-    // FIXME: REMETTRE APRES 8 JANVIER
+    if (
+      minimalDay.getDay() === 0 &&
+      (minimalDay.getMonth() > 8 || minimalDay.getMonth() < 5)
+    ) {
+      minimalDay.setDate(minimalDay.getDate() + 1);
+    }
     // Si un des jours de fermeture est prévu avant le jour minimum de livraison on rajoute un jour
     closingDays.forEach((closedDay) => {
       if (closedDay.startingDate.seconds * 1000 <= minimalDay.getTime()) {
