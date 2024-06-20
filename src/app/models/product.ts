@@ -32,6 +32,7 @@ export enum ProductCategory {
   GATEAU = 'GATEAU',
   PATE = 'PATE',
   SALE = 'SALE',
+  FRANCO = 'FRANCO',
 }
 
 export enum ProductCategoryWording {
@@ -44,7 +45,8 @@ export enum ProductCategoryWording {
   MIE = 'Pains de mie / Buns',
   GATEAU = 'Gâteaux de voyage',
   PATE = 'Pâtes',
-  SALE = 'Salés'
+  SALE = 'Salés',
+  FRANCO = 'Francofolies 2024',
 }
 
 // FIXME: FAIRE DES BUILDER POUR LE WORDING CATEG ET UNIT COUCHES MVC car là duplication à mort
