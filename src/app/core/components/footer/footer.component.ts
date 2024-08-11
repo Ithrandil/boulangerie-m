@@ -22,5 +22,17 @@ export class FooterComponent {
         '../assets/logos/facebook-circular-logo.svg'
       )
     );
+    iconRegistry.addSvgIcon(
+      'instagram',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/logos/instagram.svg'
+      )
+    );
+    iconRegistry.addSvgIcon(
+      'linkedin',
+      sanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/logos/linkedin.svg'
+      )
+    );
   }
 }

@@ -3,6 +3,7 @@
 </div>
 
 <mat-tab-group
+[selectedIndex]="1"
   (selectedIndexChange)="getOrdersOfTheDay(daysList[$event])"
   *ngIf="!loading"
   mat-align-tabs="center"

@@ -20,7 +20,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
   public PRODUCTUNITWORDING = ProductUnitWording;
   public PRODUCTUNIT = ProductUnit;
   public loading: boolean = false;
-  private day = new Date();
+  private day = DateUtils.Yesterday();
   private unsubscribe$ = new Subject<void>();
   public ordersOfThDayList: Order[] = [];
   private closingDays: ClosingDay[] = [];
@@ -42,7 +42,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
         this.closingDays = this.orderDays(this.closingDays);
         this.closingDays = this.FilterDaysAfterToday(this.closingDays);
 
-        while (this.daysList.length < 4) {
+        while (this.daysList.length < 5) {
           if (this.isItOpenday(this.day)) {
             this.daysList.push(this.day);
             this.tabsLabels.push(format(this.day, 'eeee d MMMM', { locale: fr }));
@@ -53,7 +53,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
         this.daysList.push(this.day);
         this.tabsLabels.push("Plus tard");
 
-        this.getOrdersOfTheDay(this.daysList[0]);
+        this.getOrdersOfTheDay(this.daysList[1]);
 
         this.loading = false;
       });

@@ -1,5 +1,5 @@
 import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
-import { getHours } from 'date-fns';
+import { getHours, startOfYesterday } from 'date-fns';
 
 // TODO: refacto toutes avec date fns tant qu'à faire vu que j'utilise la lib pour le formattage en français
 
@@ -94,5 +94,9 @@ export class DateUtils {
       minimalDay.setDate(minimalDay.getDate() + 1);
     }
     return minimalDay;
+  }
+
+  static Yesterday() {
+    return startOfYesterday();
   }
 }

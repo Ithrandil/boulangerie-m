@@ -7,21 +7,33 @@
             127 Avenue du Lieutenant-Colonel Bernier <br />
             17000 La Rochelle
         </p>
-    </div>
-    <div>
         <p>
-            <mat-icon>phone</mat-icon>
-            <a class="textWithIcon footerLink" href="tel:0546010972"> 05 46 01 09 72 </a>
-        </p>
-        <p>
-            <mat-icon svgIcon="facebook"></mat-icon>&nbsp;
-            <a class="textWithIcon footerLink"
-                href="https://www.facebook.com/pages/category/Bakery/Boulangerie-M-437577199741453/"
-                target="blank">Notre page facebook</a>
+            <mat-icon>phone</mat-icon>&nbsp;
+            <a class="textWithIcon footerLink" href="tel:0546010972">05 46 01 09 72 </a>
         </p>
     </div>
+    <div >
+        <p>Suivez nous sur nos réseaux</p>
+        <div class="socialNetwork">
+            <a class="footerLink"
+            href="https://www.facebook.com/pages/category/Bakery/Boulangerie-M-437577199741453/"
+            target="blank">
+            <mat-icon svgIcon="facebook"></mat-icon>
+        </a>
+            <a class="footerLink"
+            href="https://bit.ly/Insta-Boulangerie-M"
+            target="blank">
+            <mat-icon svgIcon="instagram"></mat-icon>
+        </a>
+            <a class="footerLink"
+            href="https://bit.ly/Link-BoulangerieM"
+            target="blank">
+            <mat-icon svgIcon="linkedin"></mat-icon>
+        </a>
+        </div>
+    </div>
     <div>
-        <p (click)="router.navigate(['mentions-legales'])">Mentions Légales</p>
+        <p class="link" (click)="router.navigate(['mentions-legales'])">Mentions Légales</p>
         <p>
             Réalisé gracieusement par
             <a class="footerLink" href="https://www.linkedin.com/in/alexandre-guerin/" target="blank">Ithrandil</a> / v
