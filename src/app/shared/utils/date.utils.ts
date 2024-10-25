@@ -50,6 +50,10 @@ export class DateUtils {
     if (day === 0 && (month > 8 || month < 5)) {
       res = false;
     }
+    // No more deliveries on monday all year round
+    if (day === 1) {
+      res = false;
+    }
     // get and inject specific closed day from closing days form
     if (
       d &&
