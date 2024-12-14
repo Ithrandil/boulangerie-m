@@ -42,6 +42,13 @@ export class DateUtils {
     d: Date | null,
     closingDays: ClosingDay[]
   ): boolean => {
+    const temporaryOpenedDays = [
+      'Sun Dec 22 2024 00:00:00 GMT+0100 (Central European Standard Time)',
+      'Mon Dec 23 2024 00:00:00 GMT+0100 (Central European Standard Time)',
+      'Sun Dec 29 2024 00:00:00 GMT+0100 (Central European Standard Time)',
+      'Mon Dec 30 2024 00:00:00 GMT+0100 (Central European Standard Time)',
+      'Sun Jan 05 2025 00:00:00 GMT+0100 (Central European Standard Time)',
+    ];
     d?.setHours(0, 0, 0, 0);
     const day = (d || new Date()).getDay();
     const month = (d || new Date()).getMonth();
@@ -64,6 +71,9 @@ export class DateUtils {
       )
     ) {
       res = false;
+    }
+    if (temporaryOpenedDays.includes(d?.toString() as string)) {
+      res = true;
     }
     return res;
   };
