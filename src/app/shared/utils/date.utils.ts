@@ -1,5 +1,5 @@
 import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
-import { getHours, startOfYesterday, isEqual } from 'date-fns';
+import { getHours, startOfYesterday } from 'date-fns';
 
 // TODO: refacto toutes avec date fns tant qu'à faire vu que j'utilise la lib pour le formattage en français
 
@@ -49,21 +49,10 @@ export class DateUtils {
     // Sunday open only between june and september included
     if (day === 0 && (month > 8 || month < 5)) {
       res = false;
-      // FIXME remove dirty temporary code
-      const fifthOfJanuary = new Date(
-        'Sun Jan 05 2025 00:00:00 GMT+0100 (Central European Standard Time'
-      );
-      if (month === 11 || isEqual(d as Date, fifthOfJanuary)) {
-        res = true;
-      }
     }
-    // No more deliveries on monday all year round
-    if (day === 1) {
+    // Monday open only between june and september included
+    if (day === 1 && (month > 8 || month < 5)) {
       res = false;
-      // FIXME: remove dirty temporary code
-      if (month === 11) {
-        res = true;
-      }
     }
     // get and inject specific closed day from closing days form
     if (
