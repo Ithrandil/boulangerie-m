@@ -44,14 +44,9 @@ export class DateUtils {
   ): boolean => {
     d?.setHours(0, 0, 0, 0);
     const day = (d || new Date()).getDay();
-    const month = (d || new Date()).getMonth();
     let res = true;
-    // Sunday open only between june and september included
-    if (day === 0 && (month > 8 || month < 5)) {
-      res = false;
-    }
-    // Monday open only between june and september included
-    if (day === 1 && (month > 8 || month < 5)) {
+    // Monday open
+    if (day === 1) {
       res = false;
     }
     // get and inject specific closed day from closing days form
