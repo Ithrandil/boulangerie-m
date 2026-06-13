@@ -1,5 +1,5 @@
 import { ClosingDay, ClosingDayForHumans } from '@models/closingDay';
-import { getHours, isAfter, isBefore, startOfYesterday } from 'date-fns';
+import { getHours, startOfYesterday } from 'date-fns';
 
 // TODO: refacto toutes avec date fns tant qu'à faire vu que j'utilise la lib pour le formattage en français
 
@@ -43,16 +43,11 @@ export class DateUtils {
     closingDays: ClosingDay[]
   ): boolean => {
     d?.setHours(0, 0, 0, 0);
-    const day = (d || new Date()).getDay();
     let res = true;
     // Monday closed
-    if (day === 1) {
+    /*if (day === 1) {
       res = false;
-    }
-    // A SUPPRIMER
-    if (isBefore(d as Date, new Date(2026, 0, 6))) {
-      res = true;
-    }
+    }*/
     // get and inject specific closed day from closing days form
     if (
       d &&
@@ -72,7 +67,7 @@ export class DateUtils {
     minimalDay.setHours(0, 0, 0, 0);
     // Set à dans deux jours, délai minimum de livraison
     minimalDay.setDate(new Date().getDate() + 2);
-    // CONDITION A SUPPRIMER
+    /*// CONDITION A SUPPRIMER
     if (isAfter(minimalDay as Date, new Date(2026, 0, 6))) {
       // Si on est dimanche, on tombe le mardi, mais le lundi n'est pas ouvré donc on rajoute un jour
       if (minimalDay.getDay() === 2) {
@@ -82,7 +77,7 @@ export class DateUtils {
       if (minimalDay.getDay() === 1) {
         minimalDay.setDate(minimalDay.getDate() + 1);
       }
-    }
+    }*/
     // Si un des jours de fermeture est prévu avant le jour minimum de livraison, on rajoute un jour
     closingDays.forEach((closedDay) => {
       if (closedDay.startingDate.seconds * 1000 <= minimalDay.getTime()) {

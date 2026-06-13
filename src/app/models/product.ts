@@ -46,7 +46,7 @@ export enum ProductCategoryWording {
   GATEAU = 'Gâteaux de voyage',
   PATE = 'Pâtes',
   SALE = 'Salés',
-  FRANCO = 'Francofolies 2025',
+  FRANCO = 'Francofolies 2026',
 }
 
 // FIXME: FAIRE DES BUILDER POUR LE WORDING CATEG ET UNIT COUCHES MVC car là duplication à mort
